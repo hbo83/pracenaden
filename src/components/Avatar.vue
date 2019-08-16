@@ -35,6 +35,7 @@ export default {
   border: 1px solid blue;
   float: left;
   border-radius: 3px;
+  margin-right: 20px;
 }
 
 h1,

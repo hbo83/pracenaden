@@ -1,13 +1,11 @@
 <template>
 <div class="profil" @click="selectProfil">
   <Avatar></Avatar>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ profileDatas.name }}</b></span></p>
+  <p v-for="profileData in profileDatas">{{profileData}}</p>
+  <!-- <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ profileDatas[0].name }}</b></span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Obor:</b></span><span style="margin-left: 50px;"><b>Truhlářství</b></span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Město:</b></span><span style="margin-left: 50px;"><b>Cheb</b></span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Požadovaná odměna:</b></span><span style="margin-left: 50px;"><b>165.-Kč / hod.</b></span></p>
-  <div style="margin-left: 200px;">
-    <p style="text-align: left;">Zabývám se renovací starého nábytku, výrobou nového nábytku a likvidací dřevěného materiálu</p>
-  </div>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Požadovaná odměna:</b></span><span style="margin-left: 50px;"><b>165.-Kč / hod.</b></span></p> -->
 </div>
 </template>
 
@@ -18,7 +16,7 @@ export default {
   // zde rikam ze props ktere jsem obdrzel od parent komponenty se nazyvaji profilData, ocekavany typ je pole a jsou required
   props: {
     profileDatas: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
@@ -67,7 +65,15 @@ h1,
 h2 {
   font-weight: normal;
 }
-
+p {
+  text-align: left;
+}
+p:first-of-type {
+  display: none;
+}
+p:last-child {
+  display: none;
+}
 a {
   color: #42b983;
 }

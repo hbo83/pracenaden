@@ -1,7 +1,8 @@
 <template>
 <div class="summary">
   <!-- zde deklaruji props direktivou v-bind. props promenna je profileDatas dale definovana v Profil komponente.  -->
-  <Profil v-for="profil in profiles" v-bind:profileDatas="profiles"/>
+  <!-- index z cyklu v-for jsem bindnul na promenou index v datech a ten jsem zas bindnul do props jako index objektu v poli, ktere se predava do komponenty profil -->
+  <Profil v-for="(profil, index) in profiles" v-bind:index="index" v-bind:profileDatas="profiles[index]" />
 
 </div>
 </template>
@@ -14,7 +15,8 @@ export default {
   data() {
     return {
       msg: 'PraceNaDen',
-      profiles: []
+      profiles: [],
+      index: null
 
     }
   },

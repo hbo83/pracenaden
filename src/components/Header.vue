@@ -1,6 +1,7 @@
 <template>
 <div class="header">
   <h1>{{ msg }}</h1>
+  <v-icon @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: -30px" size="28px">edit</v-icon>
   <p style="text-align: right; color: white;"><b>{{ userLoged }}</b><span>
       <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: -30px" size="28px">{{logedYesNo()}}</v-icon>
     </span></p>
@@ -36,15 +37,21 @@ export default {
         if (confirm("Opravdu se chcete odhlásit?")) {
           txt = "Nyní jste odhlášeni!";
           localStorage.removeItem("userLoged");
-          window.location.href = "http://localhost:8080/login";
+          window.location.href = "http://localhost:8080/";
           this.loged === false;
           alert(txt);
         }
 
       } else {
         window.location.href = "http://localhost:8080/login";
+        this.loged === true;
 
       }
+    },
+    redirProfilDetail() {
+
+          window.location.href = "http://localhost:8080/profiledit";
+
     }
   },
   mounted() {

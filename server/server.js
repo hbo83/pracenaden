@@ -117,7 +117,6 @@ app.post('/profiles', function(req, res) {
   newProfil.name = req.body.name;
   newProfil.job = req.body.job;
   newProfil.money = req.body.money;
-  newProfil.phone = req.body.phone;
   newProfil.description = req.body.description;
 
   newProfil.save(function(err, profil) {
@@ -130,4 +129,28 @@ app.post('/profiles', function(req, res) {
   });
 });
 
+app.put('/profiles/:id', function(req, res) {
+  Profil.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: {
+        email: req.body.email,
+        name: req.body.profession,
+        phone: req.body.phone,
+        job: req.body.job,
+        money: req.body.money,
+        description: req.body.description
+      }
+    }, {
+      upsert: true
+    },
+    function(err, editProfil) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(editProfil);
+        res.send(editProfil);
+      }
+    });
+});
 app.listen(process.env.PORT || 8081)

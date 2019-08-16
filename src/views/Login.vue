@@ -22,7 +22,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary">Login</v-btn>
+                <v-btn color="primary" @click="logIn">Login</v-btn>
                 <v-btn color="succes" @click="signIn">Signin</v-btn>
               </v-card-actions>
             </v-card>
@@ -66,6 +66,30 @@ export default {
         }).then(this.$router.push({
           name: 'home'
         })).then(alert("Nyní se můžete přihlásit"))
+      },
+      logIn() {
+        let currentObj = this;
+
+
+        var request = {
+          params: {
+            login: [this.email, this.password]
+          }
+        }
+        axios.get('http://localhost:8081/users/', request).then((response) => {
+            console.log(response.data);
+            alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
+            localStorage.setItem("userLoged", response.data[0].email);
+            localStorage.setItem("userLoged_id", response.data[0]._id);
+          }).then(this.$router.push({
+            name: 'home',
+            params: { userLoged: this.email }
+          }))
+          .catch((error) => {
+            console.log(error);
+            alert("Heslo nebo email nesouhlasí")
+          })
+
       }
     },
     components: {
