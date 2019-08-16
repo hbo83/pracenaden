@@ -1,19 +1,27 @@
 <template>
-<div class="filter">
-  <v-flex xs6>
-  <v-select
-          v-model="e1"
-          :items="states"
-          menu-props="auto"
-          label="Select"
-          hide-details
-          prepend-icon="map"
-          single-line
+<v-container fluid>
+  <v-row>
+      <v-col cols="2">
+        <v-select
+          :items="items"
+          label="Obor, Profese"
+          outlined
+          prepend-icon="build"
         ></v-select>
-      </v-flex xs6>
-      <!-- <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px;" size="28px">{{logedYesNo()}}</v-icon> -->
-    </span></p>
-</div>
+      </v-col>
+
+      <v-col cols="2">
+        <v-select
+          :items="items"
+          label="Místo"
+          outlined
+          prepend-icon="map"
+        ></v-select>
+      </v-col>
+
+
+    </v-row>
+  </v-container>
 </template>
 
 <script>

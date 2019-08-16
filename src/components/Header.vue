@@ -2,7 +2,7 @@
 <div class="header">
   <h1>{{ msg }}</h1>
   <p style="text-align: right; color: white;"><b>{{ userLoged }}</b><span>
-      <!-- <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px;" size="28px">{{logedYesNo()}}</v-icon> -->
+      <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: -30px" size="28px">{{logedYesNo()}}</v-icon>
     </span></p>
 </div>
 </template>
@@ -12,7 +12,7 @@ export default {
   name: 'Header',
   data() {
     return {
-      msg: 'PraceNaDen',
+      msg: 'Pracenaden.cz',
       userLoged: '',
       loged: true
     }
@@ -56,13 +56,15 @@ export default {
 <style scoped>
 .header {
   width: 100%;
-  height: 37px;
-  background-color: silver;
+  height: 40px;
+  background-color: #90e4f1;
+  /* margin-top: 20px; */
 }
 
 h1 {
-  font-weight: normal;
+  /* dat asi jinej nazev nez praci naden */
   text-align: left;
+  color: white;
 }
 
 a {

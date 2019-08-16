@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-// import Login from '@/components/Login'
+import Login from '@/views/Login'
 import ProfilDetail from '@/views/ProfilDetail.vue'
+import ProfilEdit from '@/views/ProfilEdit.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,16 @@ export default new Router({
       path: '/profildetail',
       name: 'ProfilDetail',
       component: ProfilDetail
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/profilEdit',
+      name: 'ProfilEdit',
+      component: ProfilEdit
     },
     {
       path: '/about',

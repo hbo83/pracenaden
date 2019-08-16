@@ -1,0 +1,133 @@
+const express = require('express');
+const bodyParser = require('body-parser')
+const cors = require('cors');
+// const morgan = require('morgan');
+const path = require('path');
+const fs = require('fs');
+const mongoose = require("mongoose");
+const multer = require('multer');
+var http = require('http');
+// const scryptJs = require('scrypt-js');
+
+const app = express();
+
+const User = require('./User.model');
+const Profil = require('./Profil.model');
+
+mongoose.set('useFindAndModify', false);
+// ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
+mongoose.connect('mongodb://localhost:27017/naden', {
+  useNewUrlParser: true
+});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() { //test spojeni s DB
+  console.log('spojeno k DB');
+});
+
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+
+var upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  }
+})
+
+
+//parsuje tělo požadavku a pokud v něm najde nějaký JSON, tak s ním naplní hodnotu vlastnosti req.body.Bez tohoto middleware bychom v req.body nic nenašli.
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(cors())
+app.use('/uploads', express.static('uploads'));
+// app.use("/public", express.static(path.join(__dirname, 'public')));
+app.get('/posts', (req, res) => {
+  res.send(
+    [{
+      title: "Hello World!",
+      description: "Hi there! How are you?"
+    }]
+  )
+})
+
+//USERS
+app.get('/users', function(req, res) {
+  const email = req.query.login[0];
+  const password = req.query.login[1];
+  console.log(req.query.login[0]);
+  console.log(req.query.login[01]);
+
+  User.find({
+    $and: [{
+      email: email
+    }, {
+      password: password
+    }]
+  }).exec(function(err, user) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(user);
+    }
+  })
+})
+
+app.post('/users', function(req, res) {
+  var newUser = new User();
+
+  newUser.email = req.body.email;
+  newUser.password = req.body.password;
+
+  newUser.save(function(err, user) {
+    if (err) {
+      res.send('error saving user')
+    } else {
+      console.log(user);
+      res.send(user);
+    }
+  });
+});
+
+//PROFILES
+app.get('/profiles', function(req, res) {
+
+  Profil.find({}).exec(function(err, profil) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(profil);
+    }
+  })
+})
+
+app.post('/profiles', function(req, res) {
+  var newProfil = new Profil();
+  newProfil.email = req.body.email;
+  newProfil.phone = req.body.phone;
+  newProfil.name = req.body.name;
+  newProfil.job = req.body.job;
+  newProfil.money = req.body.money;
+  newProfil.phone = req.body.phone;
+  newProfil.description = req.body.description;
+
+  newProfil.save(function(err, profil) {
+    if (err) {
+      res.send('error saving profil')
+    } else {
+      console.log(profil);
+      res.send(profil);
+    }
+  });
+});
+
+app.listen(process.env.PORT || 8081)

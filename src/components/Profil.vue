@@ -1,7 +1,7 @@
 <template>
 <div class="profil" @click="selectProfil">
   <Avatar></Avatar>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ name }}</b></span></p>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ profileDatas.name }}</b></span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Obor:</b></span><span style="margin-left: 50px;"><b>Truhlářství</b></span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Město:</b></span><span style="margin-left: 50px;"><b>Cheb</b></span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Požadovaná odměna:</b></span><span style="margin-left: 50px;"><b>165.-Kč / hod.</b></span></p>
@@ -15,6 +15,13 @@
 import Avatar from './Avatar.vue'
 export default {
   name: 'Profil',
+  // zde rikam ze props ktere jsem obdrzel od parent komponenty se nazyvaji profilData, ocekavany typ je pole a jsou required
+  props: {
+    profileDatas: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       msg: 'PraceNaDen',
