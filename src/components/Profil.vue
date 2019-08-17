@@ -17,7 +17,7 @@ export default {
   props: {
     profileDatas: {
       type: Object,
-      required: true
+      required: false
     }
   },
   data() {
@@ -28,14 +28,15 @@ export default {
     }
   },
   methods: {
-    selectProfil() {
+    selectProfil(name) {
       console.log(event.target.parentNode.parentNode.childNodes)
       // console.log(id)
       //po kliknutí na řádek s kontaktem, redirekt na EditContact s předáním parametrů kliknutého kontaktu. V komponentě EditContact jsou předaná data namountována do formuláře.
       this.$router.push({
         name: 'ProfilDetail',
-        params: "po"
-      })}
+        params: name
+      })
+    }
   },
   mounted() {
     console.log('Profil mounted')
@@ -73,6 +74,9 @@ p:first-of-type {
 }
 p:last-child {
   display: none;
+}
+.v-application p {
+  margin: 0px;
 }
 a {
   color: #42b983;

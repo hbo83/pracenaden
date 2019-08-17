@@ -130,12 +130,13 @@ app.post('/profiles', function(req, res) {
 });
 
 app.put('/profiles/:id', function(req, res) {
+  console.log(req.params._id)
   Profil.findOneAndUpdate({
       _id: req.params.id
     }, {
       $set: {
         email: req.body.email,
-        name: req.body.profession,
+        name: req.body.name,
         phone: req.body.phone,
         job: req.body.job,
         money: req.body.money,
@@ -153,4 +154,18 @@ app.put('/profiles/:id', function(req, res) {
       }
     });
 });
+
+//PROFILEDIT
+app.get('/profilesedit/:_id', function(req, res) {
+  console.log(req.params._id)
+  Profil.find({
+    _id: req.params._id
+  }).exec(function(err, profil) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(profil);
+    }
+  })
+})
 app.listen(process.env.PORT || 8081)

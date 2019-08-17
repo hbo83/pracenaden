@@ -4,7 +4,7 @@
   <!-- <div class="ProfilEdit" style="width: 600px"> -->
   <v-container style="width: 30%">
     <v-form ref="form" lazy-validation>
-      <v-text-field v-model="name" :counter="10" label="Celé jméno" required></v-text-field>
+      <v-text-field v-model="name" :counter="100" label="Celé jméno" required></v-text-field>
 
       <v-text-field v-model="job" label="Obor" required></v-text-field>
 
@@ -55,14 +55,14 @@ export default {
   data: () => ({
     email: '',
     phone: '',
-    name: '',
+    name: 'as',
     job: '',
     money: '',
     description: '',
     city: null,
     id: localStorage.getItem("userLoged_id"),
     items: [
-      'Item 1',
+      'Mariánské Lázně',
       'Item 2',
       'Item 3',
       'Item 4',
@@ -88,24 +88,6 @@ export default {
   methods: {
     saveProfil(e) {
 
-      // let currentObj = this;
-      //
-      // var request = {
-      //   params: {
-      //     email: [this.email]
-      //   }
-      // }
-      // axios.get('http://localhost:8081/users/', request).then((response) => {
-      //     console.log(response.data);
-      //
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //
-      //   })
-
-
-
     axios.put('http://localhost:8081/profiles/' + this.id, {
       id: this.id,
       email: this.email,
@@ -119,6 +101,42 @@ export default {
       name: 'home'
     })).then(alert("Profil uložen"))
   }
+},
+mounted() {
+  console.log("ProfilEdit mounted");
+    // this.userGlobal = localStorage.getItem("userLoged");
+    console.log(this.id);
+
+    // var request = {
+    //   params: {
+    //     _id: [this.id]
+    //   },
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Cache-Control': 'no-cache'
+    //   }
+    // }
+
+if(this.id !== null) {
+
+  axios.get('http://localhost:8081/profilesedit/' + this.id)
+  .then((response) => {
+    console.log(response.data[0]);
+    console.log(response.data[0].name);
+    this.name = response.data[0].name;
+    this.job = response.data[0].job;
+    this.money = response.data[0].money;
+    this.phone = response.data[0].phone;
+    this.city = response.data[0].city;
+    this.description = response.data[0].description;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+} else {
+  console.log("nobody logged")
+}
+
 },
 components: {
   Header
