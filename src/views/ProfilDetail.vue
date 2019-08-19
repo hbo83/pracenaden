@@ -4,7 +4,8 @@
   <v-container>
     <v-row>
       <v-col class="col-4">
-        <Profil v-bind:profileDatas="profileDatas"/>
+        <Profil v-bind:profileDatas="profileDatas" />
+        <!-- <Profil /> -->
         <!-- <div class="profilDetail">
           <Avatar></Avatar>
           <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ name }}</b></span></p>
@@ -18,12 +19,14 @@
       </v-col>
       <v-col>
         <div class="profilDetailMoreHeader">
-          <p><span><b>Kategorie: </b></span><span><v-btn color="success">Renovace</v-btn></span></p>
+          <p><span><b>Kategorie: </b></span><span>
+              <v-btn color="success">Renovace</v-btn>
+            </span></p>
           <div class="more">
-          <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{web}}</a></p>
-          <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{facebook}}</a></p>
-          <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{instagram}}</a></p>
-        </div>
+            <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{web}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{facebook}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{instagram}}</a></p>
+          </div>
 
           <div class="socials">
             <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{skype}}</p>
@@ -43,25 +46,26 @@
       </v-col>
       <v-col>
         <div class="profilDetailMore">
-          <p><span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas libero. Aenean placerat. Donec iaculis gravida nulla. Mauris dictum facilisis augue. Nullam sit amet magna in magna gravida vehicula. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Integer tempor. Donec iaculis gravida nulla. Fusce wisi. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Nunc dapibus tortor vel mi dapibus sollicitudin. Mauris dictum facilisis augue. In enim a arcu imperdiet malesuada.</span></p>
+          <p><span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas libero. Aenean placerat. Donec iaculis gravida nulla. Mauris dictum facilisis augue. Nullam sit amet magna in magna gravida vehicula. Maecenas fermentum, sem in
+              pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Integer tempor. Donec iaculis gravida nulla. Fusce wisi. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed
+              libero. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Nunc dapibus tortor vel mi dapibus sollicitudin. Mauris dictum facilisis augue. In enim a arcu imperdiet malesuada.</span></p>
 
         </div>
       </v-col>
     </v-row>
 
     <v-row>
-        <v-col>
-          <v-img src="https://picsum.photos/id/11/500/300" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="400" max-height="200"></v-img>
-        </v-col>
-        <v-col>
-          <v-img src="https://picsum.photos/id/11/500/300" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="400" max-height="200"></v-img>
-        </v-col>
-        <v-col>
-          <v-img src="https://picsum.photos/id/11/500/300" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="400" max-height="200"></v-img>
-        </v-col>
-        <v-col>
-          <v-img src="https://picsum.photos/id/11/500/300" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="400" max-height="200"></v-img>
-        </v-col>
+      <v-col>
+        <v-carousel>
+    <v-carousel-item
+      v-for="(item,i) in pictures"
+      :key="i"
+      :src="item.src"
+      reverse-transition="fade-transition"
+      transition="fade-transition"
+    ></v-carousel-item>
+  </v-carousel>
+      </v-col>
     </v-row>
   </v-container>
 
@@ -81,50 +85,74 @@ export default {
   data() {
     return {
 
-      name: 'Martin',
-      job: '',
-      id: localStorage.getItem("userLoged_id"),
+      // name: '',
+      // job: '',
+      id: '',
       email: '',
       phone: '',
-      money: '',
-      city: null,
+      // money: '',
+      // city: null,
       description: '',
       web: '',
       facebook: '',
       instagram: '',
       skype: '',
       whatsapp: '',
-      profileDatas: null
+      profileDatas: null,
+      profileDatas2: null,
+      pictures: [
+          {
+            src: 'http://localhost:8081/uploads/1566218042323-start.PNG',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          },
+        ]
 
     }
   },
   methods: {
 
   },
+  beforeMount() {
+    //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
+        this.profileDatas = this.$route.params.profileDatas
+        //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
+  },
   mounted() {
     console.log('ProfilDetail mounted');
-    // this.name = this.$route.params.profileDatas
-    // console.log(this.$route.params);
+    this.id = this.$route.params.id
+    console.log(this.$route.params.id);
+    console.log(this.$route.params.profileDatas);
+    console.log(this.profileDatas2);
     axios.get('http://localhost:8081/profilesedit/' + this.id)
-    .then((response) => {
-      this.profileDatas = response.data[0];
-      console.log(response.data[0]);
-      console.log(response.data[0].name);
-      this.name = response.data[0].name;
-      this.job = response.data[0].job;
-      this.money = response.data[0].money;
-      this.phone = response.data[0].phone;
-      this.city = response.data[0].city;
-      this.description = response.data[0].description;
-      this.web = response.data[0].web;
-      this.facebook = response.data[0].facebook;
-      this.instagram = response.data[0].instagram;
-      this.skype = response.data[0].skype;
-      this.whatsapp = response.data[0].whatsapp;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        this.profileDatas = response.data[0];
+        console.log(response.data[0]);
+        console.log(response.data[0].name);
+        // this.name = response.data[0].name;
+        // this.job = response.data[0].job;
+        // this.money = response.data[0].money;
+        this.phone = response.data[0].phone;
+        // this.city = response.data[0].city;
+        this.description = response.data[0].description;
+        this.web = response.data[0].web;
+        this.facebook = response.data[0].facebook;
+        this.instagram = response.data[0].instagram;
+        this.skype = response.data[0].skype;
+        this.whatsapp = response.data[0].whatsapp;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
   },
   components: {
     Header,
@@ -173,6 +201,7 @@ export default {
   /* margin: 5px 0 0 5px; */
   border-radius: 5px;
 }
+
 .more {
   width: 49%;
   height: 150px;
@@ -181,26 +210,32 @@ export default {
   /* background-color: rgba(144,228,241,0.2); */
   font-size: 19px;
 }
+
 .more p {
   font-size: 19px;
 }
+
 img {
   position: relative;
   top: 17px;
   margin-right: 20px;
 }
+
 .socials {
   width: 49%;
   height: 150px;
   /* border: 1px solid black; */
   float: left;
 }
+
 .socials p {
   font-size: 19px;
 }
+
 .profilDetailMore p {
   font-size: 15px;
 }
+
 /* .profilDetailGalery {
   width: 100%;
   height: auto;
@@ -214,9 +249,11 @@ p {
   font-size: 28px;
   margin: 0px;
 }
+
 .v-application p {
   margin: 0px;
 }
+
 h1,
 h2 {
   font-weight: normal;

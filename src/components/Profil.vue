@@ -23,24 +23,27 @@ export default {
   },
   data() {
     return {
-      msg: 'PraceNaDen',
-      name: 'Martin'
+      id: this.profileDatas._id
 
     }
   },
   methods: {
-    selectProfil(name) {
+    selectProfil() {
       console.log(event.target.parentNode.parentNode.childNodes)
       // console.log(id)
-      //po kliknutí na řádek s kontaktem, redirekt na EditContact s předáním parametrů kliknutého kontaktu. V komponentě EditContact jsou předaná data namountována do formuláře.
       this.$router.push({
         name: 'ProfilDetail',
-        params: name
+        params: {
+          id: this.id,
+          profileDatas: this.profileDatas
+        }
       })
+      // window.location.href = "http://localhost:8080/profildetail";
     }
   },
   mounted() {
     console.log('Profil mounted')
+    console.log(this.id)
   },
   components: {
     Avatar

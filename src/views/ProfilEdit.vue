@@ -75,7 +75,7 @@ import UploadButton from 'vuetify-upload-button';
 export default {
   name: 'ProfilEdit',
   data: () => ({
-    email: '',
+    email: localStorage.getItem("userLoged"),
     phone: '',
     name: '',
     job: '',
@@ -127,9 +127,7 @@ export default {
         .then(res => {
           console.log(res);
           alert('Soubor byl nahrán')
-        }).then(this.$router.push({
-          name: 'home'
-        }))
+        })
     },
     onFileSelected(event) {
       console.log(event);
