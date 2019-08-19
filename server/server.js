@@ -117,7 +117,13 @@ app.post('/profiles', function(req, res) {
   newProfil.name = req.body.name;
   newProfil.job = req.body.job;
   newProfil.money = req.body.money;
+  newProfil.city = req.body.city;
   newProfil.description = req.body.description;
+  newProfil.web = req.body.web;
+  newProfil.facebook = req.body.facebook;
+  newProfil.instagram = req.body.instagram;
+  newProfil.skype = req.body.skype;
+  newProfil.whatsapp = req.body.whatsapp;
 
   newProfil.save(function(err, profil) {
     if (err) {
@@ -140,7 +146,14 @@ app.put('/profiles/:id', function(req, res) {
         phone: req.body.phone,
         job: req.body.job,
         money: req.body.money,
-        description: req.body.description
+        category: req.body.category,
+        description: req.body.description,
+        city: req.body.city,
+        web: req.body.web,
+        facebook: req.body.facebook,
+        instagram: req.body.instagram,
+        skype: req.body.skype,
+        whatsapp: req.body.whatsapp
       }
     }, {
       upsert: true

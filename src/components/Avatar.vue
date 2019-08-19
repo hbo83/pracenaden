@@ -2,10 +2,11 @@
 <div class="avatar">
 <!-- <v-icon large>arrow_back</v-icon> -->
 <v-img
-          :src="require('../assets/logo.png')"
+          :src="require('../assets/ja.jpg')"
           class="my-3"
           contain
-          height="200"
+          height="150"
+          style="border-radius: 100px"
         ></v-img>
 </div>
 </template>
@@ -32,10 +33,11 @@ export default {
 .avatar {
   width: 150px;
   height: 150px;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   float: left;
   border-radius: 3px;
   margin-right: 20px;
+  border-radius: 100px;
 }
 
 h1,

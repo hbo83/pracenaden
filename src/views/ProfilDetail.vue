@@ -20,23 +20,23 @@
         <div class="profilDetailMoreHeader">
           <p><span><b>Kategorie: </b></span><span><v-btn color="success">Renovace</v-btn></span></p>
           <div class="more">
-          <p><span><img src="https://img.icons8.com/color/48/000000/web.png"></span><span><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/habi83">www.jarmil.cz</a></span></p>
-          <p><span><img src="https://img.icons8.com/color/48/000000/facebook-new.png"></span><span><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/habi83">https://www.facebook.com/habi83</a></span></p>
-          <p><span><img src="https://img.icons8.com/color/48/000000/instagram-new.png"></span><span><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/habi83">https://www.instagram.com/habi83</a></span></p>
+          <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{web}}</a></p>
+          <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{facebook}}</a></p>
+          <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{instagram}}</a></p>
         </div>
 
           <div class="socials">
-            <p><span><img src="https://img.icons8.com/color/48/000000/skype--v2.png"></span><span>habi83</span></p>
-            <p><span><img src="https://img.icons8.com/color/48/000000/whatsapp.png"></span><span>habi83</span></p>
+            <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{skype}}</p>
+            <p><img src="https://img.icons8.com/color/48/000000/whatsapp.png">{{whatsapp}}</p>
           </div>
         </div>
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row style="margin-top: 50px;">
       <v-col class="col-1">
         <div class="profilDetailBack">
-          <v-btn height="190px" width="100%" small color="error" to="/">
+          <v-btn height="63px" width="52%" small color="error" to="/">
             <v-icon large>arrow_back</v-icon>
           </v-btn>
         </div>
@@ -80,15 +80,20 @@ export default {
   name: 'ProfilDetail',
   data() {
     return {
-      msg: 'PraceNaDen',
+
       name: 'Martin',
+      job: '',
       id: localStorage.getItem("userLoged_id"),
       email: '',
       phone: '',
-      job: '',
       money: '',
-      description: '',
       city: null,
+      description: '',
+      web: '',
+      facebook: '',
+      instagram: '',
+      skype: '',
+      whatsapp: '',
       profileDatas: null
 
     }
@@ -111,6 +116,11 @@ export default {
       this.phone = response.data[0].phone;
       this.city = response.data[0].city;
       this.description = response.data[0].description;
+      this.web = response.data[0].web;
+      this.facebook = response.data[0].facebook;
+      this.instagram = response.data[0].instagram;
+      this.skype = response.data[0].skype;
+      this.whatsapp = response.data[0].whatsapp;
     })
     .catch((error) => {
       console.log(error);
@@ -168,11 +178,16 @@ export default {
   height: 150px;
   /* border: 1px solid black; */
   float: left;
-  background-color: rgba(144,228,241,0.2);
+  /* background-color: rgba(144,228,241,0.2); */
   font-size: 19px;
 }
 .more p {
   font-size: 19px;
+}
+img {
+  position: relative;
+  top: 17px;
+  margin-right: 20px;
 }
 .socials {
   width: 49%;

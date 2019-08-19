@@ -46,6 +46,7 @@ export default {
   width: 100%;
   height: 600px;
   /* background-color: pink; */
+  padding: 0 10px 0 45px;
 }
 
 h1,

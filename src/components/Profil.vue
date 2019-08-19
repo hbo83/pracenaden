@@ -1,11 +1,12 @@
 <template>
 <div class="profil" @click="selectProfil">
   <Avatar></Avatar>
-  <p v-for="profileData in profileDatas">{{profileData}}</p>
-  <!-- <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ profileDatas[0].name }}</b></span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Obor:</b></span><span style="margin-left: 50px;"><b>Truhlářství</b></span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Město:</b></span><span style="margin-left: 50px;"><b>Cheb</b></span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Požadovaná odměna:</b></span><span style="margin-left: 50px;"><b>165.-Kč / hod.</b></span></p> -->
+  <!-- <p v-for="profileData in profileDatas">{{profileData}}</p> -->
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>build</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>location_city</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>money</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>category</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
 </div>
 </template>
 
@@ -50,17 +51,18 @@ export default {
 <style scoped>
 .profil {
   width: 600px;
-  height:192px;
-  border-bottom: 1px solid pink;
+  height:215px;
+  border-bottom: 1px solid grey;
   /* border-radius: 5px; */
   padding: 20px;
   margin: 5px 0 0 5px;
   float: left;
   cursor: pointer;
+  background-color: RGBA(144,228,241,0.5);
   /* zena ruzovy ramecek , muz modry treba */
 }
 .profil:hover {
-  background-color: #f2f2f2;
+  background-color: RGBA(144,228,241,1);
 }
 h1,
 h2 {

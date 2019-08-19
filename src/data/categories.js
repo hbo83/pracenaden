@@ -1,0 +1,35 @@
+const categories = [
+  'Administrativa',
+  'Medální produkce',
+  'Cestovní ruch a volný čas',
+  'Doprava',
+  'Ekonomie a účetnictví',
+  'Elektronika a telekomunikace',
+  'Finance, bankovnictví, pojišťovnictví',
+  'Historie a restaurování',
+  'Hotelnictví, restauratérství, catering',
+  'Informační technologie',
+  'Kadeřnické a kosmetické služby',
+  'Kožodělnictví a obuvnictví',
+  'Management a podnikání',
+  'Marketing a reklama',
+  'Obchod',
+  'Ochrana osob a majetku',
+  'Ošetřovatelství',
+  'Pedagogika, učitelství',
+  'Fotoslužby',
+  'Právo',
+  'Publicistika',
+  'Rehabilitace, terapie, medicína,',
+  'Služby',
+  'Stavebnictví',
+  'Strojírenství',
+  'Sport',
+  'Oděvnictví, textilní práce',
+  'Umění',
+  'Zpracování dřeva a kovů',
+  'Zahradnictví'
+]
+
+
+export default categories

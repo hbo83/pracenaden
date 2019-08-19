@@ -9,7 +9,9 @@
 </template>
 
 <script>
+
 export default {
+
   name: 'Header',
   data() {
     return {
@@ -40,6 +42,7 @@ export default {
         if (confirm("Opravdu se chcete odhlásit?")) {
           txt = "Nyní jste odhlášeni!";
           localStorage.removeItem("userLoged");
+          localStorage.removeItem("userLoged_id");
           window.location.href = "http://localhost:8080/";
           this.loged === false;
           alert(txt);
@@ -59,6 +62,7 @@ export default {
   },
   mounted() {
     console.log('Header mounted')
+    
   }
 }
 </script>
@@ -76,6 +80,8 @@ h1 {
   text-align: left;
   color: white;
   cursor: pointer;
+  display: block;
+  width: 100px
 }
 
 a {
