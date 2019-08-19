@@ -13,6 +13,7 @@ const app = express();
 
 const User = require('./User.model');
 const Profil = require('./Profil.model');
+const File = require('./File.model');
 
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
@@ -180,5 +181,28 @@ app.get('/profilesedit/:_id', function(req, res) {
       res.json(profil);
     }
   })
+})
+
+//FILE UPLOAD
+app.post('/img', upload.single('productImage'), (req, res, next) => {
+  // console.log(req.file);
+  const file = new File({
+    _id: new mongoose.Types.ObjectId(),
+    email: req.body.email,
+    name: req.body.name,
+    modified: new Date().toISOString(),
+    productImage: req.file.path
+  });
+  file.save()
+    .then(result => {
+      console.log(result);
+      res.status(201).json({
+        message: 'Create product successfully',
+        createdProduct: {
+          name: result.name,
+          modified: result.modified
+        }
+      });
+    });
 })
 app.listen(process.env.PORT || 8081)

@@ -47,8 +47,16 @@
 
       <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
 
+<v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
 
     </v-form>
+    <v-form ref="form" lazy-validation>
+        <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field>
+        <upload-btn round @file-update="update"><template slot="icon">
+            <v-icon>add</v-icon>
+          </template></upload-btn>
+
+      </v-form>
   </v-col>
     </v-row>
   </v-container>
@@ -62,6 +70,7 @@ import Header from '@/components/Header.vue'
 import axios from 'axios'
 import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
+import UploadButton from 'vuetify-upload-button';
 
 export default {
   name: 'ProfilEdit',
@@ -83,6 +92,7 @@ export default {
     itemsJob: categories,
     selectedJobItems: [],
     checkbox: null,
+    docName: '',
     dictionary: {
       attributes: {
         email: 'E-mail Address',
@@ -101,6 +111,31 @@ export default {
     },
   }),
   methods: {
+    update() {
+      this.selectedFile = event.target.files[0]
+      console.log(this.docName); //data
+      // var docName = this.docName;
+      const fd = new FormData();
+      fd.append('email', this.email);
+      fd.append('name', this.docName); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('productImage', this.selectedFile, this.selectedFile.name)
+      axios.post('http://localhost:8081/img', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
+          }
+        })
+        .then(res => {
+          console.log(res);
+          alert('Soubor byl nahrán')
+        }).then(this.$router.push({
+          name: 'home'
+        }))
+    },
+    onFileSelected(event) {
+      console.log(event);
+
+      this.selectedFile = event.target.files[0]
+    },
     saveProfil(e) {
 
       axios.put('http://localhost:8081/profiles/' + this.id, {
@@ -168,7 +203,8 @@ export default {
 
   },
   components: {
-    Header
+    Header,
+    'upload-btn': UploadButton
 
   }
 }
