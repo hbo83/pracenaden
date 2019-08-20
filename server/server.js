@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const multer = require('multer');
 var http = require('http');
 // const scryptJs = require('scrypt-js');
-
+let fse = require('fs-extra');
 const app = express();
 
 const User = require('./User.model');
@@ -27,22 +27,37 @@ db.once('open', function() { //test spojeni s DB
   console.log('spojeno k DB');
 });
 
-var storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function(req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname)
-  }
-})
+// var storage = multer.diskStorage({
+//   destination: function(req, file, cb) {
+//     cb(null, 'uploads/')
+//   },
+//   filename: function(req, file, cb) {
+//     cb(null, Date.now() + '-' + file.originalname)
+//   }
+// })
 
-var upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  }
-})
+// var upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 1024 * 1024 * 5
+//   }
+// })
 
+let upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, callback) => {
+      let folder = req.body.email;
+      console.log(req.body);
+      let path = `./uploads/${folder}`;
+      fse.mkdirsSync(path);
+      callback(null, path);
+    },
+    filename: (req, file, callback) => {
+      //originalname is the uploaded file's name with extn
+      callback(null, file.originalname);
+    }
+  })
+});
 
 //parsuje tělo požadavku a pokud v něm najde nějaký JSON, tak s ním naplní hodnotu vlastnosti req.body.Bez tohoto middleware bychom v req.body nic nenašli.
 app.use(bodyParser.json())
@@ -88,6 +103,10 @@ app.post('/users', function(req, res) {
 
   newUser.email = req.body.email;
   newUser.password = req.body.password;
+
+  if (!fs.existsSync("uploads/" + req.body.email)) {
+    fs.mkdirSync("uploads/" + req.body.email);
+  }
 
   newUser.save(function(err, user) {
     if (err) {
@@ -183,13 +202,26 @@ app.get('/profilesedit/:_id', function(req, res) {
   })
 })
 
-//FILE UPLOAD
+//FILES
+app.get('/img/:email', function(req, res) {
+  console.log(req.params.email)
+  File.find({
+    email: req.params.email
+  }).exec(function(err, img) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(img);
+    }
+  })
+})
+
 app.post('/img', upload.single('productImage'), (req, res, next) => {
-  // console.log(req.file);
+  console.log(req.body.id);
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
     email: req.body.email,
-    name: req.body.name,
+    // name: req.body.name,
     modified: new Date().toISOString(),
     productImage: req.file.path
   });

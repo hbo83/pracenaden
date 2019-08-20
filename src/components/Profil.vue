@@ -23,7 +23,8 @@ export default {
   },
   data() {
     return {
-      id: this.profileDatas._id
+      id: this.profileDatas._id,
+      email: this.profileDatas.email
 
     }
   },
@@ -35,6 +36,7 @@ export default {
         name: 'ProfilDetail',
         params: {
           id: this.id,
+          email: this.email,
           profileDatas: this.profileDatas
         }
       })

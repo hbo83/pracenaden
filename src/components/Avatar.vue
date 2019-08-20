@@ -32,7 +32,7 @@ export default {
 <style scoped>
 .avatar {
   width: 150px;
-  height: 150px;
+  height: 175px;
   /* border: 1px solid blue; */
   float: left;
   border-radius: 3px;

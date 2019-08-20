@@ -3,25 +3,20 @@
   <Header />
   <v-container>
     <v-row>
-      <v-col class="col-4">
-        <Profil v-bind:profileDatas="profileDatas" />
-        <!-- <Profil /> -->
-        <!-- <div class="profilDetail">
-          <Avatar></Avatar>
-          <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>{{ name }}</b></span></p>
-          <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Obor:</b></span><span style="margin-left: 50px;"><b>Truhlářství</b></span></p>
-          <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Město:</b></span><span style="margin-left: 50px;"><b>Cheb</b></span></p>
-          <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><b>Požadovaná odměna:</b></span><span style="margin-left: 50px;"><b>165.-Kč / hod.</b></span></p>
-          <div style="margin-left: 200px;">
-            <p style="text-align: left;">Zabývám se renovací starého nábytku, výrobou nového nábytku a likvidací dřevěného materiálu</p>
-          </div>
-        </div> -->
+      <v-col class="col-4" style="margin-left: 141px;">
+        <Avatar />
+        <p class="profil"><span style="margin-left: 50px"><v-icon>face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
+        <p class="profil"><span style="margin-left: 50px"><v-icon>build</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
+        <p class="profil"><span style="margin-left: 50px"><v-icon>location_city</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
+        <p class="profil"><span style="margin-left: 50px"><v-icon>money</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
+        <p class="profil"><span style="margin-left: 50px"><v-icon>category</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
+
       </v-col>
-      <v-col>
+      <v-col style="margin-left: 248px;">
         <div class="profilDetailMoreHeader">
-          <p><span><b>Kategorie: </b></span><span>
+          <!-- <p><span><b>Kategorie: </b></span><span>
               <v-btn color="success">Renovace</v-btn>
-            </span></p>
+            </span></p> -->
           <div class="more">
             <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{web}}</a></p>
             <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{facebook}}</a></p>
@@ -45,18 +40,27 @@
         </div>
       </v-col>
       <v-col>
-        <div class="profilDetailMore">
-          <p><span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas libero. Aenean placerat. Donec iaculis gravida nulla. Mauris dictum facilisis augue. Nullam sit amet magna in magna gravida vehicula. Maecenas fermentum, sem in
-              pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Integer tempor. Donec iaculis gravida nulla. Fusce wisi. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed
-              libero. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Nunc dapibus tortor vel mi dapibus sollicitudin. Mauris dictum facilisis augue. In enim a arcu imperdiet malesuada.</span></p>
-
-        </div>
+        <v-card height="200px">
+          <v-card>
+            <v-card-title>Něco o mně</v-card-title>
+          </v-card>
+          <v-card-text style="text-align: left; color: green;">I'm card text</v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card height="200px">
+          <v-card>
+            <v-card-title>Nabízím</v-card-title>
+          </v-card>
+          4
+          5
+        </v-card>
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col>
-        <v-carousel>
+    <v-row justify="center" max-width="1826px" style="margin-left: 198px">
+      <v-col  v-for="image in imgs" class="col-4">
+        <!-- <v-carousel>
     <v-carousel-item
       v-for="(item,i) in pictures"
       :key="i"
@@ -64,7 +68,15 @@
       reverse-transition="fade-transition"
       transition="fade-transition"
     ></v-carousel-item>
-  </v-carousel>
+  </v-carousel> -->
+  <v-img
+      src="https://picsum.photos/id/11/500/300"
+      lazy-src="https://picsum.photos/id/11/10/6"
+      aspect-ratio="1"
+      class="grey lighten-2"
+      max-width="500"
+      max-height="300"
+    ></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -85,13 +97,13 @@ export default {
   data() {
     return {
 
-      // name: '',
-      // job: '',
+      name: '',
+      job: '',
       id: '',
       email: '',
       phone: '',
-      // money: '',
-      // city: null,
+      money: '',
+      city: null,
       description: '',
       web: '',
       facebook: '',
@@ -99,7 +111,7 @@ export default {
       skype: '',
       whatsapp: '',
       profileDatas: null,
-      profileDatas2: null,
+      imgs: [],
       pictures: [
           {
             src: 'http://localhost:8081/uploads/1566218042323-start.PNG',
@@ -128,19 +140,21 @@ export default {
   mounted() {
     console.log('ProfilDetail mounted');
     this.id = this.$route.params.id
+    this.email = this.$route.params.email
     console.log(this.$route.params.id);
-    console.log(this.$route.params.profileDatas);
-    console.log(this.profileDatas2);
+    console.log(this.$route.params.email);
+    // console.log(this.$route.params.profileDatas);
+    // console.log(this.profileDatas2);
     axios.get('http://localhost:8081/profilesedit/' + this.id)
       .then((response) => {
         this.profileDatas = response.data[0];
         console.log(response.data[0]);
         console.log(response.data[0].name);
-        // this.name = response.data[0].name;
-        // this.job = response.data[0].job;
-        // this.money = response.data[0].money;
+        this.name = response.data[0].name;
+        this.job = response.data[0].job;
+        this.money = response.data[0].money;
         this.phone = response.data[0].phone;
-        // this.city = response.data[0].city;
+        this.city = response.data[0].city;
         this.description = response.data[0].description;
         this.web = response.data[0].web;
         this.facebook = response.data[0].facebook;
@@ -152,62 +166,48 @@ export default {
         console.log(error);
       });
 
+    axios.get('http://localhost:8081/img/' + this.email)
+      .then((response) => {
+        this.imgs = response.data[0];
+        console.log(response.data[0]);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
 
   },
   components: {
     Header,
-    Avatar,
-    Profil
+    Avatar
   }
 }
 </script>
 
 <style scoped>
-.profilDetail {
-  /* width: 600px; */
-  height: 192px;
-  background-color: pink;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 5px 0 0 5px;
-  /* float: left; */
-  cursor: pointer;
-  /* zena ruzovy ramecek , muz modry treba */
-}
+
 
 .profilDetailMoreHeader {
-  /* width: 67%; */
   height: 192px;
-  /* border: 1px solid black; */
-  /* float: left; */
   margin: 5px 0 0 5px;
   border-radius: 5px;
 }
 
 .profilDetailBack {
-  /* width: 5%; */
   height: 192px;
-  /* border: 1px solid black; */
-  /* float: left; */
-  /* margin: 5px 0 0 5px; */
   border-radius: 5px;
 }
 
 .profilDetailMore {
-  /* width: 91%; */
   height: 192px;
-  /* border: 1px solid black; */
-  /* float: left; */
-  /* margin: 5px 0 0 5px; */
   border-radius: 5px;
 }
 
 .more {
   width: 49%;
   height: 150px;
-  /* border: 1px solid black; */
   float: left;
-  /* background-color: rgba(144,228,241,0.2); */
   font-size: 19px;
 }
 
@@ -236,20 +236,18 @@ img {
   font-size: 15px;
 }
 
-/* .profilDetailGalery {
-  width: 100%;
-  height: auto;
-  border: 1px solid black;
-  float: left;
-  margin: 5px 0 0 5px;
-  border-radius: 5px;
-} */
 p {
   text-align: left;
   font-size: 28px;
   margin: 0px;
 }
-
+.profil {
+  display: block;
+  text-align: left;
+  margin-bottom: 10px;
+  /* float: right; */
+  font-size: 20px;
+}
 .v-application p {
   margin: 0px;
 }

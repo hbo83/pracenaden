@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 const FileSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   email: String,
-  name: {
-    type: String
-  },
+  // name: {
+  //   type: String
+  // },
   modified: {
     type: String
   },

@@ -51,7 +51,7 @@
 
     </v-form>
     <v-form ref="form" lazy-validation>
-        <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field>
+        <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
         <upload-btn round @file-update="update"><template slot="icon">
             <v-icon>add</v-icon>
           </template></upload-btn>
@@ -92,7 +92,7 @@ export default {
     itemsJob: categories,
     selectedJobItems: [],
     checkbox: null,
-    docName: '',
+    // docName: '',
     dictionary: {
       attributes: {
         email: 'E-mail Address',
@@ -113,11 +113,11 @@ export default {
   methods: {
     update() {
       this.selectedFile = event.target.files[0]
-      console.log(this.docName); //data
+      // console.log(this.docName); //data
       // var docName = this.docName;
       const fd = new FormData();
       fd.append('email', this.email);
-      fd.append('name', this.docName); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
       axios.post('http://localhost:8081/img', fd, {
           onUploadProgress: uploadEvent => {
@@ -176,6 +176,7 @@ export default {
 
       axios.get('http://localhost:8081/profilesedit/' + this.id)
         .then((response) => {
+          //osetrit vyjimku kdyz jeste nema profil vyplnenej
           console.log(response.data[0]);
           console.log(response.data[0].name);
           this.name = response.data[0].name;
