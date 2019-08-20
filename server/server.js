@@ -130,30 +130,33 @@ app.get('/profiles', function(req, res) {
   })
 })
 
-app.post('/profiles', function(req, res) {
-  var newProfil = new Profil();
-  newProfil.email = req.body.email;
-  newProfil.phone = req.body.phone;
-  newProfil.name = req.body.name;
-  newProfil.job = req.body.job;
-  newProfil.money = req.body.money;
-  newProfil.city = req.body.city;
-  newProfil.description = req.body.description;
-  newProfil.web = req.body.web;
-  newProfil.facebook = req.body.facebook;
-  newProfil.instagram = req.body.instagram;
-  newProfil.skype = req.body.skype;
-  newProfil.whatsapp = req.body.whatsapp;
-
-  newProfil.save(function(err, profil) {
-    if (err) {
-      res.send('error saving profil')
-    } else {
-      console.log(profil);
-      res.send(profil);
-    }
-  });
-});
+// app.post('/profiles', function(req, res) {
+//   var newProfil = new Profil();
+//   newProfil.email = req.body.email;
+//   newProfil.phone = req.body.phone;
+//   newProfil.name = req.body.name;
+//   newProfil.job = req.body.job;
+//   newProfil.money = req.body.money;
+//   newProfil.city = req.body.city;
+//   newProfil.description = req.body.description;
+//   newProfil.web = req.body.web;
+//   newProfil.facebook = req.body.facebook;
+//   newProfil.instagram = req.body.instagram;
+//   newProfil.skype = req.body.skype;
+//   newProfil.whatsapp = req.body.whatsapp;
+//   newProfil.aboutMe = req.body.aboutMe;
+//   newProfil.offerMe = req.body.offerMe;
+//   newProfil.checked = req.body.checked;
+//
+//   newProfil.save(function(err, profil) {
+//     if (err) {
+//       res.send('error saving profil')
+//     } else {
+//       console.log(profil);
+//       res.send(profil);
+//     }
+//   });
+// });
 
 app.put('/profiles/:id', function(req, res) {
   console.log(req.params._id)
@@ -173,7 +176,11 @@ app.put('/profiles/:id', function(req, res) {
         facebook: req.body.facebook,
         instagram: req.body.instagram,
         skype: req.body.skype,
-        whatsapp: req.body.whatsapp
+        whatsapp: req.body.whatsapp,
+        aboutMe: req.body.aboutMe,
+        offerMe: req.body.offerMe,
+        checked: req.body.checked,
+        checked2: req.body.checked2
       }
     }, {
       upsert: true
@@ -223,7 +230,8 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
     email: req.body.email,
     // name: req.body.name,
     modified: new Date().toISOString(),
-    productImage: req.file.path
+    productImage: req.body.email + "/" + req.file.originalname
+    // req.file.path
   });
   file.save()
     .then(result => {

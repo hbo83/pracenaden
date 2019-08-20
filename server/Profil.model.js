@@ -8,14 +8,17 @@ var ProfilSchema = new Schema({
   money: String,
   city: String,
   category: Array,
-  description: String,
+  aboutMe: String,
+  offerMe: String,
   phone: String,
   job: String,
   web: String,
   facebook: String,
   instagram: String,
   skype: String,
-  whatsapp: String
+  whatsapp: String,
+  checked: Boolean,
+  checked2: Boolean
 });
 
 module.exports = mongoose.model('Profil', ProfilSchema);

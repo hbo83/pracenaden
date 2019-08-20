@@ -21,11 +21,14 @@
         </v-col>
       </v-row>
 
-      <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
+      <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
 
       <v-row>
-        <v-col cols="12" md="12">
-          <v-textarea solo name="input-7-4" label="Stručný popis" v-model="description"></v-textarea>
+        <v-col cols="6" md="6">
+          <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe"></v-textarea>
+        </v-col>
+        <v-col cols="6" md="6">
+          <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe"></v-textarea>
         </v-col>
       </v-row>
 
@@ -47,7 +50,7 @@
 
       <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
 
-<v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
+<v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
 
     </v-form>
     <v-form ref="form" lazy-validation>
@@ -80,7 +83,8 @@ export default {
     name: '',
     job: '',
     money: '',
-    description: '',
+    aboutMe: '',
+    offerMe: '',
     city: null,
     id: localStorage.getItem("userLoged_id"),
     web: '',
@@ -91,8 +95,8 @@ export default {
     items: cities,
     itemsJob: categories,
     selectedJobItems: [],
-    checkbox: null,
-    // docName: '',
+    checked: false,
+    checked2: false,
     dictionary: {
       attributes: {
         email: 'E-mail Address',
@@ -143,14 +147,17 @@ export default {
         job: this.job,
         money: this.money + ".- / hod",
         category: this.selectedJobItems,
-        description: this.description,
+        aboutMe: this.aboutMe,
+        offerMe: this.offerMe,
         phone: this.phone,
         city: this.city,
         web: this.web,
         facebook: this.facebook,
         instagram: this.instagram,
         skype: this.skype,
-        whatsapp: this.whatsapp
+        whatsapp: this.whatsapp,
+        checked: this.checked,
+        checked2: this.checked2
 
       }).then(this.$router.push({
         name: 'home'
@@ -184,7 +191,8 @@ export default {
           this.money = response.data[0].money;
           this.phone = response.data[0].phone;
           this.city = response.data[0].city;
-          this.description = response.data[0].description;
+          this.aboutMe = response.data[0].aboutMe;
+          this.offerMe = response.data[0].offerMe;
           this.category = response.data[0].category;
           this.web = response.data[0].web;
           this.facebook = response.data[0].facebook;
@@ -192,6 +200,8 @@ export default {
           this.skype = response.data[0].skype;
           this.whatsapp = response.data[0].whatsapp;
           this.selectedJobItems = response.data[0].category;
+          this.checked = response.data[0].checked;
+          this.checked2 = response.data[0].checked2;
         })
         .catch((error) => {
           console.log(error);

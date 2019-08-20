@@ -5,7 +5,7 @@
     <v-row>
       <v-col class="col-4" style="margin-left: 141px;">
         <Avatar />
-        <p class="profil"><span style="margin-left: 50px"><v-icon>face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
+        <p class="profil"><span style="margin-left: 50px"><v-icon color="yellow">face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
         <p class="profil"><span style="margin-left: 50px"><v-icon>build</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
         <p class="profil"><span style="margin-left: 50px"><v-icon>location_city</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
         <p class="profil"><span style="margin-left: 50px"><v-icon>money</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
@@ -59,7 +59,7 @@
     </v-row>
 
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
-      <v-col  v-for="image in imgs" class="col-4">
+      <v-col v-for="image in 2" class="col-4">
         <!-- <v-carousel>
     <v-carousel-item
       v-for="(item,i) in pictures"
@@ -70,7 +70,7 @@
     ></v-carousel-item>
   </v-carousel> -->
   <v-img
-      src="https://picsum.photos/id/11/500/300"
+      src="https://picsum.photos/id/11/10/6"
       lazy-src="https://picsum.photos/id/11/10/6"
       aspect-ratio="1"
       class="grey lighten-2"
@@ -100,7 +100,7 @@ export default {
       name: '',
       job: '',
       id: '',
-      email: '',
+      email: 'abc',
       phone: '',
       money: '',
       city: null,
@@ -112,6 +112,7 @@ export default {
       whatsapp: '',
       profileDatas: null,
       imgs: [],
+      imgs2: [],
       pictures: [
           {
             src: 'http://localhost:8081/uploads/1566218042323-start.PNG',
@@ -129,22 +130,33 @@ export default {
 
     }
   },
+  computed: {
+    // ap: function() {
+    //   return "http://localhost:8081/uploads/" + this.imgs[0].productImage
+    // },
+    // ap2: function() {
+    //   for ( var i in this.imgs) {
+    //     this.imgs2.push("http://localhost:8081/uploads/" + imgs[i].productImage)
+    //     return this.imgs2
+    //   }
+    // }
+
+  },
   methods: {
 
   },
   beforeMount() {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
         this.profileDatas = this.$route.params.profileDatas
+
         //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
   },
   mounted() {
     console.log('ProfilDetail mounted');
     this.id = this.$route.params.id
     this.email = this.$route.params.email
-    console.log(this.$route.params.id);
-    console.log(this.$route.params.email);
-    // console.log(this.$route.params.profileDatas);
-    // console.log(this.profileDatas2);
+    console.log(this.email2);
+
     axios.get('http://localhost:8081/profilesedit/' + this.id)
       .then((response) => {
         this.profileDatas = response.data[0];
@@ -168,8 +180,8 @@ export default {
 
     axios.get('http://localhost:8081/img/' + this.email)
       .then((response) => {
-        this.imgs = response.data[0];
-        console.log(response.data[0]);
+        this.imgs = response.data;
+        console.log(response.data);
 
       })
       .catch((error) => {
