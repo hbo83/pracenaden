@@ -62,6 +62,13 @@
       </v-form>
   </v-col>
     </v-row>
+
+    <v-row justify="center" max-width="1826px" style="margin-left: 198px">
+      <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
+
+        <v-img style="cursor: pointer" @click="delImg(imgs[index])" :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="175"></v-img>
+      </v-col>
+    </v-row>
   </v-container>
 
 </v-app>
@@ -78,6 +85,8 @@ import UploadButton from 'vuetify-upload-button';
 export default {
   name: 'ProfilEdit',
   data: () => ({
+    imgs: [],
+    imgs2: [],
     email: localStorage.getItem("userLoged"),
     phone: '',
     name: '',
@@ -115,6 +124,24 @@ export default {
     },
   }),
   methods: {
+    delImg(id) {
+      if (confirm('Určitě chcete smazat soubor?')) {
+
+        console.log("mazu")
+        axios.delete('http://localhost:8081/img/' + id._id)
+          .then((response) => {
+            console.log(id);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          alert("Obrázek byl smazán")
+      }
+      //dodelat reaktivni vymazani smazaneho obrazku
+      // this.$router.push({
+      //   name: 'ProfilEdit'
+      // })
+    },
     update() {
       this.selectedFile = event.target.files[0]
       // console.log(this.docName); //data
@@ -169,6 +196,19 @@ export default {
     // this.userGlobal = localStorage.getItem("userLoged");
     console.log(this.id);
 
+    axios.get('http://localhost:8081/img/' + this.email)
+      .then((response) => {
+        this.imgs = response.data;
+        console.log(response.data);
+        for (var i in response.data) {
+          this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
+          // return this.imgs2
+        }
+        console.log(this.imgs2)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // var request = {
     //   params: {
     //     _id: [this.id]
@@ -225,4 +265,5 @@ export default {
   height: auto;
   /* border: 1px solid black; */
 }
+
 </style>

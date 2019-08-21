@@ -1,9 +1,11 @@
 <template>
+  <v-app>
   <div class="home">
 <Header></Header>
 <Filtering></Filtering>
 <Summary></Summary>
   </div>
+</v-app>
 </template>
 
 <script>

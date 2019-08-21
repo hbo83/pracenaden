@@ -1,13 +1,15 @@
 <template>
+  <v-col class="col-4">
 <div class="profil" @click="selectProfil">
   <Avatar></Avatar>
   <!-- <p v-for="profileData in profileDatas">{{profileData}}</p> -->
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span><span><v-icon style="float: right" color="yellow">star_border</v-icon></span><span style="font-size: 22px; float: right;">10</span></p>
+  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span><span><v-icon style="float: right" color="yellow">star</v-icon></span><span style="font-size: 22px; float: right;">10</span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>build</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>location_city</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>money</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
   <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>category</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
 </div>
+</v-col>
 </template>
 
 <script>

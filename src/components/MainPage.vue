@@ -1,8 +1,10 @@
 <template>
   <div class="mainPage">
+    <!-- <v-app> -->
     <Header></Header>
     <Filtering></Filtering>
     <Summary></Summary>
+  <!-- </v-app> -->
   </div>
 </template>
 

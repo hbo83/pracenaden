@@ -245,4 +245,23 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
       });
     });
 })
+
+app.delete('/img/:id', function(req, res) {
+  File.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, file) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(file);
+      res.send(file);
+    }
+  })
+  //dodelat smazani souboru pri vymazu img z DB
+  // fs.unlink('uploads/sample.txt', function (err) {
+  //   if (err) throw err;
+  //   // if no error, file has been deleted successfully
+  //   console.log('File deleted!');
+  // });
+})
 app.listen(process.env.PORT || 8081)

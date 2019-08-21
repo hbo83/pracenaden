@@ -2,7 +2,16 @@
 <div class="summary">
   <!-- zde deklaruji props direktivou v-bind. props promenna je profileDatas dale definovana v Profil komponente.  -->
   <!-- index z cyklu v-for jsem bindnul na promenou index v datech a ten jsem zas bindnul do props jako index objektu v poli, ktere se predava do komponenty profil -->
-  <Profil v-for="(profil, index) in profiles" v-bind:index="index" v-bind:profileDatas="profiles[index]" />
+  <v-app>
+
+    <v-container fluid>
+      <v-row align="center">
+        <Profil v-for="(profil, index) in profiles" v-bind:index="index" v-bind:profileDatas="profiles[index]" />
+
+      </v-row>
+    </v-container>
+</v-app>
+
 
 </div>
 </template>

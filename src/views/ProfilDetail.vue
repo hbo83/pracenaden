@@ -5,18 +5,26 @@
     <v-row>
       <v-col class="col-4" style="margin-left: 141px;">
         <Avatar />
-        <p class="profil"><span style="margin-left: 50px"><v-icon color="yellow">face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
-        <p class="profil"><span style="margin-left: 50px"><v-icon>build</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
-        <p class="profil"><span style="margin-left: 50px"><v-icon>location_city</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
-        <p class="profil"><span style="margin-left: 50px"><v-icon>money</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
-        <p class="profil"><span style="margin-left: 50px"><v-icon>category</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
+        <p class="profil"><span style="margin-left: 50px">
+            <v-icon color="yellow">face</v-icon>
+          </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
+        <p class="profil"><span style="margin-left: 50px">
+            <v-icon>build</v-icon>
+          </span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
+        <p class="profil"><span style="margin-left: 50px">
+            <v-icon>location_city</v-icon>
+          </span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
+        <p class="profil"><span style="margin-left: 50px">
+            <v-icon>money</v-icon>
+          </span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
+        <p class="profil"><span style="margin-left: 50px">
+            <v-icon>category</v-icon>
+          </span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
 
       </v-col>
       <v-col style="margin-left: 248px;">
         <div class="profilDetailMoreHeader">
-          <!-- <p><span><b>Kategorie: </b></span><span>
-              <v-btn color="success">Renovace</v-btn>
-            </span></p> -->
+
           <div class="more">
             <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{web}}</a></p>
             <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{facebook}}</a></p>
@@ -44,7 +52,8 @@
           <v-card>
             <v-card-title>Něco o mně</v-card-title>
           </v-card>
-          <v-card-text style="text-align: left; color: green;">I'm card text</v-card-text>
+          <v-card-text style="text-align: left; color: green;">{{ this.aboutMe }}</v-card-text>
+
         </v-card>
       </v-col>
       <v-col>
@@ -52,36 +61,18 @@
           <v-card>
             <v-card-title>Nabízím</v-card-title>
           </v-card>
-          4
-          5
+          <v-card-text style="text-align: left; color: green;">{{ this.offerMe }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
-      <v-col v-for="image in 2" class="col-4">
-        <!-- <v-carousel>
-    <v-carousel-item
-      v-for="(item,i) in pictures"
-      :key="i"
-      :src="item.src"
-      reverse-transition="fade-transition"
-      transition="fade-transition"
-    ></v-carousel-item>
-  </v-carousel> -->
-  <v-img
-      src="https://picsum.photos/id/11/10/6"
-      lazy-src="https://picsum.photos/id/11/10/6"
-      aspect-ratio="1"
-      class="grey lighten-2"
-      max-width="500"
-      max-height="300"
-    ></v-img>
+      <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
+
+        <v-img :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="500" max-height="300"></v-img>
       </v-col>
     </v-row>
   </v-container>
-
-
 
   </div>
 </v-app>
@@ -96,7 +87,9 @@ export default {
   name: 'ProfilDetail',
   data() {
     return {
-
+      aboutMe: '',
+      offerMe:'',
+      index: null,
       name: '',
       job: '',
       id: '',
@@ -113,21 +106,7 @@ export default {
       profileDatas: null,
       imgs: [],
       imgs2: [],
-      pictures: [
-          {
-            src: 'http://localhost:8081/uploads/1566218042323-start.PNG',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ]
-
+      
     }
   },
   computed: {
@@ -147,9 +126,9 @@ export default {
   },
   beforeMount() {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
-        this.profileDatas = this.$route.params.profileDatas
+    this.profileDatas = this.$route.params.profileDatas
 
-        //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
+    //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
   },
   mounted() {
     console.log('ProfilDetail mounted');
@@ -173,6 +152,8 @@ export default {
         this.instagram = response.data[0].instagram;
         this.skype = response.data[0].skype;
         this.whatsapp = response.data[0].whatsapp;
+        this.aboutMe = response.data[0].aboutMe;
+        this.offerMe = response.data[0].offerMe;
       })
       .catch((error) => {
         console.log(error);
@@ -182,7 +163,11 @@ export default {
       .then((response) => {
         this.imgs = response.data;
         console.log(response.data);
-
+        for (var i in response.data) {
+          this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
+          // return this.imgs2
+        }
+        console.log(this.imgs2)
       })
       .catch((error) => {
         console.log(error);
@@ -198,8 +183,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .profilDetailMoreHeader {
   height: 192px;
   margin: 5px 0 0 5px;
@@ -253,6 +236,7 @@ p {
   font-size: 28px;
   margin: 0px;
 }
+
 .profil {
   display: block;
   text-align: left;
@@ -260,6 +244,7 @@ p {
   /* float: right; */
   font-size: 20px;
 }
+
 .v-application p {
   margin: 0px;
 }
