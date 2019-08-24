@@ -4,63 +4,67 @@
   <v-container style="width: 90%">
     <v-row>
       <v-col>
-    <v-form ref="form" lazy-validation>
-      <v-text-field v-model="name" :counter="100" label="Celé jméno" required></v-text-field>
+        <v-form ref="form" lazy-validation>
+          <v-text-field v-model="name" :counter="100" label="Celé jméno" required></v-text-field>
 
-      <v-text-field v-model="job" label="Obor" required></v-text-field>
+          <v-text-field v-model="job" label="Obor" required></v-text-field>
+          <v-row>
+            <v-col>
+              <v-text-field v-model="money" label="Požadovaná odměna" required></v-text-field>
+            </v-col>
+            <v-col>
+              <v-select v-model="currency" :items="selectedCurrencyItems" :rules="[v => !!v || 'Item is required']" label="Za" required></v-select>
+            </v-col>
+          </v-row>
+          <v-text-field v-model="phone" label="Telefon" required></v-text-field>
+          <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
 
-      <v-text-field v-model="money" label="Požadovaná odměna" required></v-text-field>
+          <v-row align="center">
+            <v-col cols="12" sm="12">
+              <v-select v-model="selectedJobItems" :items="currency" :counter="3" attach chips label="Kategorie" multiple></v-select>
+            </v-col>
+          </v-row>
 
-      <v-text-field v-model="phone" label="Telefon" required></v-text-field>
+          <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
 
-      <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
+          <v-row>
+            <v-col cols="6" md="6">
+              <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe"></v-textarea>
+            </v-col>
+            <v-col cols="6" md="6">
+              <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe"></v-textarea>
+            </v-col>
+          </v-row>
 
-      <v-row align="center">
-        <v-col cols="12" sm="12">
-          <v-select v-model="selectedJobItems" :items="itemsJob" :counter="3" attach chips label="Kategorie" multiple></v-select>
-        </v-col>
-      </v-row>
+          <v-btn color="success" class="mr-4" @click="saveProfil">
+            Uložit
+          </v-btn>
 
-      <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
-
-      <v-row>
-        <v-col cols="6" md="6">
-          <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe"></v-textarea>
-        </v-col>
-        <v-col cols="6" md="6">
-          <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe"></v-textarea>
-        </v-col>
-      </v-row>
-
-      <v-btn color="success" class="mr-4" @click="saveProfil">
-        Uložit
-      </v-btn>
-
-    </v-form>
-  </v-col>
+        </v-form>
+      </v-col>
       <v-col>
-    <v-form ref="form" lazy-validation>
-      <v-text-field v-model="web" :counter="100" label="Webové stránky" required></v-text-field>
+        <v-form ref="form" lazy-validation>
+          <v-text-field v-model="web" :counter="100" label="Webové stránky" required></v-text-field>
 
-      <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
+          <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
 
-      <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
+          <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
 
-      <v-text-field v-model="skype" label="Skype" required></v-text-field>
+          <v-text-field v-model="skype" label="Skype" required></v-text-field>
 
-      <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
+          <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
 
-<v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
+          <v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
 
-    </v-form>
-    <v-form ref="form" lazy-validation>
-        <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
-        <upload-btn round @file-update="update"><template slot="icon">
-            <v-icon>add</v-icon>
-          </template></upload-btn>
+        </v-form>
+        <v-form ref="form" lazy-validation>
+          <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
+          <upload-btn round @file-update="update"><template slot="icon">
+              <v-icon>add</v-icon>
+            </template></upload-btn>
 
-      </v-form>
-  </v-col>
+        </v-form>
+      </v-col>
     </v-row>
 
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
@@ -92,6 +96,8 @@ export default {
     name: '',
     job: '',
     money: '',
+    currency: '',
+    selectedCurrencyItems: [".- / hod", ".- / den"],
     aboutMe: '',
     offerMe: '',
     city: null,
@@ -135,7 +141,7 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-          alert("Obrázek byl smazán")
+        alert("Obrázek byl smazán")
       }
       //dodelat reaktivni vymazani smazaneho obrazku
       // this.$router.push({
@@ -172,7 +178,7 @@ export default {
         email: this.email,
         name: this.name,
         job: this.job,
-        money: this.money + ".- / hod",
+        money: this.money,
         category: this.selectedJobItems,
         aboutMe: this.aboutMe,
         offerMe: this.offerMe,
@@ -184,7 +190,8 @@ export default {
         skype: this.skype,
         whatsapp: this.whatsapp,
         checked: this.checked,
-        checked2: this.checked2
+        checked2: this.checked2,
+        currency: this.currency
 
       }).then(this.$router.push({
         name: 'home'
@@ -265,5 +272,4 @@ export default {
   height: auto;
   /* border: 1px solid black; */
 }
-
 </style>

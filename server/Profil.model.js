@@ -18,7 +18,8 @@ var ProfilSchema = new Schema({
   skype: String,
   whatsapp: String,
   checked: Boolean,
-  checked2: Boolean
+  checked2: Boolean,
+  currency: String
 });
 
 module.exports = mongoose.model('Profil', ProfilSchema);

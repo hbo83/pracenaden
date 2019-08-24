@@ -1,13 +1,15 @@
 <template>
 <div class="avatar">
 <!-- <v-icon large>arrow_back</v-icon> -->
+<div style="margin-bottom: -12px;">
 <v-img
           :src="require('../assets/ja.jpg')"
           class="my-3"
           contain
-          height="150"
-          style="border-radius: 100px"
+          height="200"
+          style="border-radius: 16px; margin-bottom -12px; margin-top: -12px;"
         ></v-img>
+</div>
 </div>
 </template>
 

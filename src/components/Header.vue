@@ -10,10 +10,10 @@
       <v-col cols="4" sm="4">
         <div class="headerSearch">
           <v-text-field
-            label="Outlined"
-            prepend-icon="search"
+            label="Hledat"
+            append-icon="search"
             single-line
-            outlined
+            solo
           ></v-text-field>
         </div>
       </v-col>
@@ -95,6 +95,12 @@ export default {
   height: 56px;
   background-color: #90e4f1;
   /* margin-top: 20px; */
+}
+.headerSearch {
+  padding-top: 4px;
+}
+.headerIcons {
+  padding-top: 15px;
 }
 
 h1 {

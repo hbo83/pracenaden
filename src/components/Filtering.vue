@@ -1,7 +1,7 @@
 <template>
-  <div style="height: 96px; overflow-y: hidden;">
-  <v-app>
-<v-container fluid>
+  <!-- <div style="height: 96px; overflow-y: hidden;"> -->
+  <!-- <v-app> -->
+<v-container class="filter" fluid>
   <v-row align="center">
       <v-col class="d-flex" cols="12" sm="6">
         <v-select
@@ -24,8 +24,8 @@
 
     </v-row>
   </v-container>
-</v-app>
-</div>
+<!-- </v-app> -->
+<!-- </div> -->
 </template>
 
 <script>
@@ -52,7 +52,9 @@ export default {
 </script>
 
 <style scoped>
-
+.filter {
+  padding: 0 10px 0 45px;
+}
 
 h1,
 h2 {
