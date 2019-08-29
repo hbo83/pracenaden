@@ -65,9 +65,18 @@
               <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
             </v-col>
             <v-col cols="6" sm="6">
-              <v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
+              <v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="Zivnostnik ano ne?" required></v-checkbox>
             </v-col>
           </v-row>
+
+              <v-row>
+                <v-col cols="6" sm="6">
+                  <v-checkbox v-model="checked3" :rules="[v => !!v || 'You must agree to continue!']" label="Skrýt profil?" required></v-checkbox>
+                </v-col>
+                <v-col cols="6" sm="6">
+                  <v-checkbox v-model="checked4" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
+                </v-col>
+              </v-row>
         </v-form>
         <v-row>
           <v-col>
@@ -139,6 +148,8 @@ export default {
     selectedJobItems: [],
     checked: false,
     checked2: false,
+    checked3: false,
+    checked4: false,
     dictionary: {
       attributes: {
         email: 'E-mail Address',
@@ -247,7 +258,7 @@ export default {
     }
   },
   mounted() {
-    console.log("ProfilEdit mounted");
+    // console.log("ProfilEdit mounted");
     // this.userGlobal = localStorage.getItem("userLoged");
     console.log(this.id);
 

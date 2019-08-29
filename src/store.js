@@ -24,7 +24,8 @@ export const store = new Vuex.Store({
     //   aboutMe: '',
     //   offerMe: ''
     // }
-    selectedProfilData: {}
+    selectedProfilData: {},
+    userImages: {}
   },
   mutations: { //commit+track State changes
     change(state, flavor) {
@@ -41,6 +42,9 @@ export const store = new Vuex.Store({
     },
     setUserData(state, user) {
       state.selectedProfilData = user
+    },
+    setUserImgs(state, img) {
+      state.userImages = img
     }
   },
   getters: { //to samy jako computed

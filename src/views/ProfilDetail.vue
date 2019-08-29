@@ -4,11 +4,11 @@
   <v-container>
     <v-row>
       <v-col class="col-4" style="margin-left: 141px;">
-        <Avatar v-bind:profilPhoto="profilPhoto"/>
+        <Avatar v-bind:profilPhoto="profilPhoto" />
         <p class="profil"><span style="margin-left: 50px">
             <v-icon color="yellow">face</v-icon>
-          <!-- </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p> -->
-        </span><span style="margin-left: 50px;">{{ getProfil }}</span></p>
+            <!-- </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p> -->
+          </span><span style="margin-left: 50px;">{{ getProfil }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>build</v-icon>
           </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.job }}</span></p>
@@ -18,9 +18,14 @@
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>money</v-icon>
           </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.money }}</span></p>
-        <p class="profil"><span style="margin-left: 50px">
+        <p class="profil">
             <v-icon>category</v-icon>
-          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.category[0] + " | " + this.$store.state.selectedProfilData.category[1] + " |  " + this.$store.state.selectedProfilData.category[2] }}</span></p>
+          <div style="width: 50%; float: right;">
+            <ul>
+              <li style="text-align:left; list-style-type: none;" v-for="(category, index) in this.$store.state.selectedProfilData.category">{{ category[index] }}</li>
+            </ul>
+          </div>
+        </p>
 
       </v-col>
       <v-col style="margin-left: 248px;">
@@ -28,7 +33,7 @@
 
           <div class="more">
             <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{this.$store.state.selectedProfilData.web}}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{this.$store.state.selectedProfilData.facebook}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{getFacebook}}</a></p>
             <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{this.$store.state.selectedProfilData.instagram}}</a></p>
           </div>
 
@@ -68,9 +73,9 @@
     </v-row>
 
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
-      <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
+      <v-col v-for="(image, index) in getUserImages" v-bind:index="index" class="col-4">
 
-        <v-img :src="imgs2[index]" lazy-src="imgs2[index]" aspect-ratio="1" class="grey lighten-2" max-width="500" max-height="300"></v-img>
+        <v-img :src="getImgSrc(index)" :lazy-src="getImgSrc(index)" aspect-ratio="1" class="grey lighten-2" max-width="500" max-height="300"></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -90,38 +95,42 @@ export default {
     return {
       index: null,
       id: '',
-      email: 'abc',
+      email: '',
       web: '',
       facebook: '',
       instagram: '',
       profileDatas: null,
-      imgs: [],
-      imgs2: [],
-      profilPhoto: ''
-
+      // imgs: [],
+      // imgs2: [],
+      profilPhoto: '',
+      // test: "http://localhost:8081/uploads/" + this.$store.state.userImages[0].productImage
     }
   },
   computed: {
-    // ap: function() {
-    //   return "http://localhost:8081/uploads/" + this.imgs[0].productImage
-    // },
-    // ap2: function() {
-    //   for ( var i in this.imgs) {
-    //     this.imgs2.push("http://localhost:8081/uploads/" + imgs[i].productImage)
-    //     return this.imgs2
-    //   }
-    // }
-getProfil() {
-  return this.$store.state.selectedProfil
-},
-getIdProfil() {
-  return this.$store.state.selectedIdProfil
-}
+    getUserImages: function() {
+      return this.$store.state.userImages
+    },
+    getFacebook() {
+      return this.$store.state.selectedProfilData.facebook
+    },
+    getProfil() {
+      return this.$store.state.selectedProfil
+    },
+    getIdProfil() {
+      return this.$store.state.selectedIdProfil
+    }
   },
   methods: {
     setUserData: function(userObj) {
       this.$store.commit('setUserData', userObj)
       console.log(userObj)
+    },
+    setUserImgs: function(userObj) {
+      this.$store.commit('setUserImgs', userObj)
+      console.log(userObj)
+    },
+    getImgSrc: function(i) {
+      return "http://localhost:8081/uploads/" + this.$store.state.userImages[i].productImage
     }
   },
   beforeMount() {
@@ -129,11 +138,20 @@ getIdProfil() {
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
   },
   mounted() {
-    console.log('ProfilDetail mounted');
+    // console.log('ProfilDetail mounted');
 
     axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
       .then((response) => {
         this.setUserData(response.data[0])
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // axios.get('http://localhost:8081/img/' + this.$store.state.userLoged)
+    axios.get('http://localhost:8081/img/' + "hbo83@seznam.cz")
+      .then((response) => {
+        this.setUserImgs(response.data)
       })
       .catch((error) => {
         console.log(error);
