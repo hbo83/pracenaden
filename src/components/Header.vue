@@ -5,6 +5,7 @@
       <v-col cols="4" sm="4">
         <div class="header">
           <h1 @click="homePage">{{ msg }}</h1>
+
         </div>
       </v-col>
       <v-col cols="4" sm="4">
@@ -20,13 +21,14 @@
       <v-col cols="4" sm="4">
         <div class="headerIcons">
         <v-icon @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
-        <p style="text-align: right; color: white;"><b>{{ userLoged }}</b><span>
+        <p style="text-align: right; color: white;"><b>{{ updateUser }}</b><span>
           <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{logedYesNo()}}</v-icon>
         </span></p>
         </div>
       </v-col>
     </v-row>
   </v-container>
+
 <!-- </v-app> -->
 </template>
 
@@ -42,7 +44,19 @@ export default {
       loged: true
     }
   },
+  computed: {
+    update() {//vuex state je dobry updatovat v computed
+      return this.$store.state.flavor
+    },
+    updateUser() {
+      return this.$store.state.userLoged
+    }
+  },
   methods: {
+    storeCommit: function(event) {
+      // alert(event.target.value)
+      this.$store.commit('change', event.target.value)
+    },
     homePage() {
       window.location.href = "http://localhost:8080/";
     },

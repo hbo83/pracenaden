@@ -1,13 +1,20 @@
 <template>
   <v-col class="col-4">
 <div class="profil" @click="selectProfil">
-  <Avatar></Avatar>
+  <Avatar v-bind:profilPhoto="profileDatas.profilPhoto"></Avatar>
   <!-- <p v-for="profileData in profileDatas">{{profileData}}</p> -->
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>face</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.name }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>build</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>location_city</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>money</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.money }} {{ profileDatas.currency }}</span></p>
-  <p style="display: block; text-align: left; margin-bottom: 10px"><span style="margin-left: 50px"><v-icon>category</v-icon></span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
+  <p><span><v-icon>face</v-icon></span><span>{{ profileDatas.name }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
+  <p><span><v-icon>build</v-icon></span><span>{{ profileDatas.job }}</span></p>
+  <p><span><v-icon>location_city</v-icon></span><span>{{ profileDatas.city }}</span></p>
+  <p><span><v-icon>money</v-icon></span><span>{{ profileDatas.money }} {{ profileDatas.currency }}</span></p>
+  <!-- <p style="line-height: 5px" v-for="(category, index) in profileDatas.category"><span><v-icon>category</v-icon></span><span>{{ profileDatas.category[index] }}</span></p> -->
+  <div style="width: 50%; float: right;">
+    <ul>
+      <li style="text-align:left; list-style-type: none;" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</li>
+    </ul>
+  </div>
+   <!-- <p><span><v-icon>category</v-icon></span>
+  <p style="line-height: 8px; margin-left: 20px; text-align: right" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</p> -->
 </div>
 </v-col>
 </template>
@@ -28,27 +35,29 @@ export default {
       id: this.profileDatas._id,
       email: this.profileDatas.email,
       premium: true
-
     }
   },
   methods: {
     selectProfil() {
-      console.log(event.target.parentNode.parentNode.childNodes)
-      // console.log(id)
+
       this.$router.push({
         name: 'ProfilDetail',
-        params: {
-          id: this.id,
-          email: this.email,
-          profileDatas: this.profileDatas
-        }
+        params: {}
       })
-      // window.location.href = "http://localhost:8080/profildetail";
+
+      this.storeProfilCommit(this.email)
+      this.storeProfilIdCommit(this.id)
+
+    },
+    storeProfilCommit: function(email) {
+      this.$store.commit('setSelectedProfil', email)
+    },
+    storeProfilIdCommit: function(id) {
+      this.$store.commit('setSelectedIdProfil', id)
     }
   },
   mounted() {
     console.log('Profil mounted')
-    console.log(this.id)
   },
   components: {
     Avatar
@@ -59,35 +68,26 @@ export default {
 <style scoped>
 .profil {
   width: 600px;
-  height:215px;
-  border-bottom: 1px solid grey;
-  border-radius: 5px;
+  height:255px;
+  border-left: 5px solid RGBA(144,228,241,1);
+  border-radius: 0 5px 5px 0;
   box-shadow: 5px 5px 5px grey;
   padding: 20px;
   margin: 5px 0 0 5px;
   float: left;
   cursor: pointer;
-  background-color: RGBA(144,228,241,0.5);
-  /* zena ruzovy ramecek , muz modry treba */
+  /* background-color: RGBA(144,228,241,0.5); */
 }
 .profil:hover {
   background-color: RGBA(144,228,241,1);
 }
-h1,
-h2 {
-  font-weight: normal;
-}
-p {
+.profil p {
+  display: block;
   text-align: left;
+  margin-bottom: 10px;
 }
-p:first-of-type {
-  display: none;
-}
-p:last-child {
-  display: none;
-}
-.v-application p {
-  margin: 0px;
+.profil p > span {
+  margin-left: 50px;
 }
 a {
   color: #42b983;

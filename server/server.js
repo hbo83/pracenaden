@@ -225,11 +225,12 @@ app.get('/img/:email', function(req, res) {
 })
 
 app.post('/img', upload.single('productImage'), (req, res, next) => {
-  console.log(req.body.id);
+  console.log(req.body.profilPhoto.length);
+  // if (req.body.profilPhoto.length === 0) {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
     email: req.body.email,
-    // name: req.body.name,
+    profilPhoto: req.body.profilPhoto,
     modified: new Date().toISOString(),
     productImage: req.body.email + "/" + req.file.originalname
     // req.file.path
@@ -245,6 +246,27 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
         }
       });
     });
+  // } else {
+  //   const file = new File({
+  //     _id: new mongoose.Types.ObjectId(),
+  //     email: req.body.email,
+  //     profilPhoto: req.body.profilPhoto,
+  //     modified: new Date().toISOString(),
+  //     productImage: req.body.email + "/" + "profilPhoto/" + req.file.originalname
+  //   });
+  //   file.save()
+  //     .then(result => {
+  //       console.log(result);
+  //       res.status(201).json({
+  //         message: 'Create product successfully',
+  //         createdProduct: {
+  //           name: result.name,
+  //           modified: result.modified
+  //         }
+  //       });
+  //     });
+  // }
+
 })
 
 app.delete('/img/:id', function(req, res) {

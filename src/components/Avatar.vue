@@ -1,13 +1,13 @@
 <template>
 <div class="avatar">
 <!-- <v-icon large>arrow_back</v-icon> -->
-<div style="margin-bottom: -12px;">
+<div style="margin-bottom: 12px;">
 <v-img
-          :src="require('../assets/ja.jpg')"
+          :src="msg"
           class="my-3"
           contain
-          height="200"
-          style="border-radius: 16px; margin-bottom -12px; margin-top: -12px;"
+          height="160"
+          style="border-radius: 16px;"
         ></v-img>
 </div>
 </div>
@@ -18,15 +18,29 @@ export default {
   name: 'Avatar',
   data() {
     return {
-      msg: 'PraceNaDen'
+      msg: 'https://img.icons8.com/color/48/000000/web.png'
+      // msg: this.profilPhoto
 
     }
   },
+    props: {
+      profilPhoto: {
+        type: String,
+        required: false
+      }
+    },
   methods: {
 
   },
+  computed: {
+    // a computed getter
+    reversedMessage: function (igm) {
+      // `this` points to the vm instance
+      return this.msg
+    }
+  },
   mounted() {
-    console.log('Avatar mounted')
+    console.log('Avatar mountedv' + this.msg)
   }
 }
 </script>

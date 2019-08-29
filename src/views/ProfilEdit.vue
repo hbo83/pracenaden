@@ -21,11 +21,18 @@
 
           <v-row align="center">
             <v-col cols="12" sm="12">
-              <v-select v-model="selectedJobItems" :items="currency" :counter="3" attach chips label="Kategorie" multiple></v-select>
+              <v-select v-model="selectedJobItems" :items="itemsJob" :counter="3" attach chips label="Kategorie" multiple></v-select>
+            </v-col>
+
+          </v-row>
+          <v-row>
+            <v-col cols="6" md="6">
+              <h4>O mě</h4>
+            </v-col>
+            <v-col cols="6" md="6">
+              <h4>Nabízím</h4>
             </v-col>
           </v-row>
-
-          <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
 
           <v-row>
             <v-col cols="6" md="6">
@@ -53,17 +60,37 @@
           <v-text-field v-model="skype" label="Skype" required></v-text-field>
 
           <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
-
-          <v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
-
+          <v-row>
+            <v-col cols="6" sm="6">
+              <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
+            </v-col>
+            <v-col cols="6" sm="6">
+              <v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
+            </v-col>
+          </v-row>
         </v-form>
+        <v-row>
+          <v-col>
         <v-form ref="form" lazy-validation>
           <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
-          <upload-btn round @file-update="update"><template slot="icon">
+          <upload-btn title="Profil photo" @file-update="uploadProfilPhoto"><template slot="icon">
               <v-icon>add</v-icon>
             </template></upload-btn>
 
         </v-form>
+        </v-col>
+        <v-col>
+        <v-form ref="form" lazy-validation>
+          <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
+          <upload-btn title="Galery" @file-update="update">
+            <template slot="icon">
+              <v-icon>add</v-icon>
+            </template>
+          </upload-btn>
+
+        </v-form>
+      </v-col>
+      </v-row>
       </v-col>
     </v-row>
 
@@ -148,11 +175,32 @@ export default {
       //   name: 'ProfilEdit'
       // })
     },
+    uploadProfilPhoto() {
+      this.selectedFile = event.target.files[0]
+      const fd = new FormData();
+      fd.append('profilPhoto', true);
+      fd.append('email', this.email);
+      fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('productImage', this.selectedFile, this.selectedFile.name)
+      axios.post('http://localhost:8081/img', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
+          }
+        })
+        .then(res => {
+          console.log(res);
+          alert('Soubor byl nahrán')
+        })
+    },
+    onFileSelected(event) {
+      console.log(event);
+
+      this.selectedFile = event.target.files[0]
+    },
     update() {
       this.selectedFile = event.target.files[0]
-      // console.log(this.docName); //data
-      // var docName = this.docName;
       const fd = new FormData();
+      fd.append('profilPhoto', false);
       fd.append('email', this.email);
       fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
@@ -249,6 +297,7 @@ export default {
           this.selectedJobItems = response.data[0].category;
           this.checked = response.data[0].checked;
           this.checked2 = response.data[0].checked2;
+          this.currency = response.data[0].currency;
         })
         .catch((error) => {
           console.log(error);
@@ -271,5 +320,9 @@ export default {
   width: 100%;
   height: auto;
   /* border: 1px solid black; */
+}
+
+h4 {
+  text-align: left;
 }
 </style>

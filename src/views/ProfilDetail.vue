@@ -4,36 +4,37 @@
   <v-container>
     <v-row>
       <v-col class="col-4" style="margin-left: 141px;">
-        <Avatar />
+        <Avatar v-bind:profilPhoto="profilPhoto"/>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon color="yellow">face</v-icon>
-          </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p>
+          <!-- </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p> -->
+        </span><span style="margin-left: 50px;">{{ getProfil }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>build</v-icon>
-          </span><span style="margin-left: 50px;">{{ profileDatas.job }}</span></p>
+          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.job }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>location_city</v-icon>
-          </span><span style="margin-left: 50px;">{{ profileDatas.city }}</span></p>
+          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.city }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>money</v-icon>
-          </span><span style="margin-left: 50px;">{{ profileDatas.money }}</span></p>
+          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.money }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>category</v-icon>
-          </span><span style="margin-left: 50px;">{{ profileDatas.category[0] + " | " + profileDatas.category[1] + " |  " + profileDatas.category[2] }}</span></p>
+          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.category[0] + " | " + this.$store.state.selectedProfilData.category[1] + " |  " + this.$store.state.selectedProfilData.category[2] }}</span></p>
 
       </v-col>
       <v-col style="margin-left: 248px;">
         <div class="profilDetailMoreHeader">
 
           <div class="more">
-            <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{web}}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{facebook}}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{instagram}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{this.$store.state.selectedProfilData.web}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{this.$store.state.selectedProfilData.facebook}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{this.$store.state.selectedProfilData.instagram}}</a></p>
           </div>
 
           <div class="socials">
-            <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{skype}}</p>
-            <p><img src="https://img.icons8.com/color/48/000000/whatsapp.png">{{whatsapp}}</p>
+            <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{this.$store.state.selectedProfilData.skype}}</p>
+            <p><img src="https://img.icons8.com/color/48/000000/whatsapp.png">{{this.$store.state.selectedProfilData.whatsapp}}</p>
           </div>
         </div>
       </v-col>
@@ -50,18 +51,18 @@
       <v-col>
         <v-card height="200px">
           <v-card>
-            <v-card-title>Něco o mně</v-card-title>
+            <v-card-title max-width="50%">Něco o mně:</v-card-title>
           </v-card>
-          <v-card-text style="text-align: left; color: green;">{{ this.aboutMe }}</v-card-text>
+          <v-card-text style="text-align: left; color: green;">{{ this.$store.state.selectedProfilData.aboutMe }}</v-card-text>
 
         </v-card>
       </v-col>
       <v-col>
         <v-card height="200px">
           <v-card>
-            <v-card-title>Nabízím</v-card-title>
+            <v-card-title>Nabízím:</v-card-title>
           </v-card>
-          <v-card-text style="text-align: left; color: green;">{{ this.offerMe }}</v-card-text>
+          <v-card-text style="text-align: left; color: green;">{{ this.$store.state.selectedProfilData.offerMe }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -69,7 +70,7 @@
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
       <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
 
-        <v-img :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="500" max-height="300"></v-img>
+        <v-img :src="imgs2[index]" lazy-src="imgs2[index]" aspect-ratio="1" class="grey lighten-2" max-width="500" max-height="300"></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -87,26 +88,17 @@ export default {
   name: 'ProfilDetail',
   data() {
     return {
-      aboutMe: '',
-      offerMe:'',
       index: null,
-      name: '',
-      job: '',
       id: '',
       email: 'abc',
-      phone: '',
-      money: '',
-      city: null,
-      description: '',
       web: '',
       facebook: '',
       instagram: '',
-      skype: '',
-      whatsapp: '',
       profileDatas: null,
       imgs: [],
       imgs2: [],
-      
+      profilPhoto: ''
+
     }
   },
   computed: {
@@ -119,60 +111,33 @@ export default {
     //     return this.imgs2
     //   }
     // }
-
+getProfil() {
+  return this.$store.state.selectedProfil
+},
+getIdProfil() {
+  return this.$store.state.selectedIdProfil
+}
   },
   methods: {
-
+    setUserData: function(userObj) {
+      this.$store.commit('setUserData', userObj)
+      console.log(userObj)
+    }
   },
   beforeMount() {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
-    this.profileDatas = this.$route.params.profileDatas
-
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
   },
   mounted() {
     console.log('ProfilDetail mounted');
-    this.id = this.$route.params.id
-    this.email = this.$route.params.email
-    console.log(this.email2);
 
-    axios.get('http://localhost:8081/profilesedit/' + this.id)
+    axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
       .then((response) => {
-        this.profileDatas = response.data[0];
-        console.log(response.data[0]);
-        console.log(response.data[0].name);
-        this.name = response.data[0].name;
-        this.job = response.data[0].job;
-        this.money = response.data[0].money;
-        this.phone = response.data[0].phone;
-        this.city = response.data[0].city;
-        this.description = response.data[0].description;
-        this.web = response.data[0].web;
-        this.facebook = response.data[0].facebook;
-        this.instagram = response.data[0].instagram;
-        this.skype = response.data[0].skype;
-        this.whatsapp = response.data[0].whatsapp;
-        this.aboutMe = response.data[0].aboutMe;
-        this.offerMe = response.data[0].offerMe;
+        this.setUserData(response.data[0])
       })
       .catch((error) => {
         console.log(error);
       });
-
-    axios.get('http://localhost:8081/img/' + this.email)
-      .then((response) => {
-        this.imgs = response.data;
-        console.log(response.data);
-        for (var i in response.data) {
-          this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
-          // return this.imgs2
-        }
-        console.log(this.imgs2)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
 
   },
   components: {

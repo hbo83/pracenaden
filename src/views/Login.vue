@@ -70,7 +70,6 @@ export default {
       logIn() {
         let currentObj = this;
 
-
         var request = {
           params: {
             login: [this.email, this.password]
@@ -81,6 +80,9 @@ export default {
             alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
             localStorage.setItem("userLoged", response.data[0].email);
             localStorage.setItem("userLoged_id", response.data[0]._id);
+
+            this.storeCommit(response.data[0].email)
+
           }).then(this.$router.push({
             name: 'home',
             params: { userLoged: this.email }
@@ -90,8 +92,12 @@ export default {
             alert("Heslo nebo email nesouhlasí")
           })
 
+      },
+      storeCommit: function(user) {
+        this.$store.commit('setUserLoged', user)
       }
     },
+
     components: {
       Header
     }
