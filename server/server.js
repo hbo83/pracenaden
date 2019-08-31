@@ -181,7 +181,8 @@ app.put('/profiles/:id', function(req, res) {
         offerMe: req.body.offerMe,
         checked: req.body.checked,
         checked2: req.body.checked2,
-        currency: req.body.currency
+        currency: req.body.currency,
+        hideProfil: req.body.hideProfil
       }
     }, {
       upsert: true

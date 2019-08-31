@@ -42,11 +42,6 @@
               <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe"></v-textarea>
             </v-col>
           </v-row>
-
-          <v-btn color="success" class="mr-4" @click="saveProfil">
-            Uložit
-          </v-btn>
-
         </v-form>
       </v-col>
       <v-col>
@@ -71,7 +66,7 @@
 
               <v-row>
                 <v-col cols="6" sm="6">
-                  <v-checkbox v-model="checked3" :rules="[v => !!v || 'You must agree to continue!']" label="Skrýt profil?" required></v-checkbox>
+                  <v-checkbox v-model="hideProfil" :rules="[v => !!v || 'You must agree to continue!']" label="Skrýt profil?"></v-checkbox>
                 </v-col>
                 <v-col cols="6" sm="6">
                   <v-checkbox v-model="checked4" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
@@ -102,7 +97,20 @@
       </v-row>
       </v-col>
     </v-row>
-
+    <v-row>
+      <v-col>
+        <v-btn color="success" class="mr-4" @click="saveProfil">
+          Uložit
+        </v-btn>
+      </v-col>
+    </v-row>
+    <hr />
+<v-row>
+  <v-col>
+    <h1>Vaše Galerie</h1>
+  </v-col>
+</v-row>
+<hr />
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
       <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
 
@@ -148,7 +156,7 @@ export default {
     selectedJobItems: [],
     checked: false,
     checked2: false,
-    checked3: false,
+    hideProfil: false,
     checked4: false,
     dictionary: {
       attributes: {
@@ -167,6 +175,9 @@ export default {
       },
     },
   }),
+  computed(){
+
+  },
   methods: {
     delImg(id) {
       if (confirm('Určitě chcete smazat soubor?')) {
@@ -251,7 +262,8 @@ export default {
         whatsapp: this.whatsapp,
         checked: this.checked,
         checked2: this.checked2,
-        currency: this.currency
+        currency: this.currency,
+        hideProfil: this.hideProfil
 
       }).then(this.$router.push({
         name: 'home'
@@ -310,6 +322,7 @@ export default {
           this.checked = response.data[0].checked;
           this.checked2 = response.data[0].checked2;
           this.currency = response.data[0].currency;
+          this.hideProfil = response.data[0].hideProfil;
         })
         .catch((error) => {
           console.log(error);

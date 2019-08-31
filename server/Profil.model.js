@@ -19,7 +19,8 @@ var ProfilSchema = new Schema({
   whatsapp: String,
   checked: Boolean,
   checked2: Boolean,
-  currency: String
+  currency: String,
+  hideProfil: Boolean
 });
 
 module.exports = mongoose.model('Profil', ProfilSchema);

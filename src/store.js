@@ -6,35 +6,21 @@ Vue.use(Vuex);
 //state nelze primo menit, ale jen skrze mutations. Asi jako v jave potrebujes settry
 export const store = new Vuex.Store({
   state: { //to samy co data
-    flavor: '',
+    // flavor: '',
     userLoged: localStorage.getItem("userLoged"),
     userLogedId: localStorage.getItem("userLoged_id"),
     selectedProfil: '',
-    // selectedProfilData: {
-    //   name: '',
-    //   job: '',
-    //   money: '',
-    //   phone: '',
-    //   city: '',
-    //   description: '',
-    //   web: '',
-    //   facebook: '',
-    //   instagram: '',
-    //   skype: '',
-    //   whatsapp: '',
-    //   aboutMe: '',
-    //   offerMe: ''
-    // }
+    loged: false,
     selectedProfilData: {},
     userImages: {}
   },
   mutations: { //commit+track State changes
-    change(state, flavor) {
-      state.flavor = flavor
-    },
-    // setUserLoged(state, user) {
-    //   state.userLoged = user
+    // change(state, flavor) {
+    //   state.flavor = flavor
     // },
+    setLoged(state, loged) {
+      state.loged = loged
+    },
     setSelectedProfil(state, selectedProfil) {
       state.selectedProfil = selectedProfil
     },

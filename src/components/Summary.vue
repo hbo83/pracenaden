@@ -6,7 +6,7 @@
 
     <v-container fluid>
       <v-row align="center">
-        <Profil v-for="(profil, index) in profiles" v-bind:index="index" v-bind:profileDatas="profiles[index]" />
+        <Profil v-show="!profil.hideProfil" v-for="(profil, index) in profiles" v-bind:index="index" v-bind:profileDatas="profiles[index]" />
 
       </v-row>
     </v-container>
@@ -26,6 +26,7 @@ export default {
       msg: 'PraceNaDen',
       profiles: [],
       index: null
+      // hideProfil: false
 
     }
   },

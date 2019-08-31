@@ -1,10 +1,8 @@
 <template>
   <div class="mainPage">
-    <!-- <v-app> -->
     <Header></Header>
     <Filtering></Filtering>
     <Summary></Summary>
-  <!-- </v-app> -->
   </div>
 </template>
 
@@ -30,11 +28,9 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .mainPage {
   width: 100%;
   height: auto;
-  /* border: 1px solid black; */
 }
 </style>

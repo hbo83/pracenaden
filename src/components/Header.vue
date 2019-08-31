@@ -1,39 +1,33 @@
 <template>
-  <!-- <v-app> -->
-  <v-container>
-    <v-row no-gutters>
-      <v-col cols="4" sm="4">
-        <div class="header">
-          <h1 @click="homePage">{{ msg }}</h1>
+<!-- <v-app> -->
+<v-container>
+  <v-row no-gutters>
+    <v-col cols="4" sm="4">
+      <div class="header">
+        <h1 @click="homePage">{{ msg }}</h1>
 
-        </div>
-      </v-col>
-      <v-col cols="4" sm="4">
-        <div class="headerSearch">
-          <v-text-field
-            label="Hledat"
-            append-icon="search"
-            single-line
-            solo
-          ></v-text-field>
-        </div>
-      </v-col>
-      <v-col cols="4" sm="4">
-        <div class="headerIcons">
-        <v-icon @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
+      </div>
+    </v-col>
+    <v-col cols="4" sm="4">
+      <div class="headerSearch">
+        <v-text-field label="Hledat" append-icon="search" single-line solo></v-text-field>
+      </div>
+    </v-col>
+    <v-col cols="4" sm="4">
+      <div class="headerIcons">
+        <v-icon v-show="updateLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
         <p style="text-align: right; color: white;"><b>{{ updateUser }}</b><span>
-          <v-icon @click="redirLogin" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{logedYesNo()}}</v-icon>
-        </span></p>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+            <v-icon @click="logOut" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{logedYesNo()}}</v-icon>
+          </span></p>
+      </div>
+    </v-col>
+  </v-row>
+</v-container>
 
 <!-- </v-app> -->
 </template>
 
 <script>
-
 export default {
 
   name: 'Header',
@@ -41,28 +35,27 @@ export default {
     return {
       msg: 'Pracenaden.cz',
       userLoged: localStorage.getItem("userLoged"),
-      loged: true
+      loged: false
     }
   },
   computed: {
-    update() {//vuex state je dobry updatovat v computed
+    update() { //vuex state je dobry updatovat v computed
       return this.$store.state.flavor
     },
-    updateUser() {
+    updateUser() { //zobraui email zalogovaneho usera
       return this.$store.state.userLoged
+    },
+    updateLoged() { //pokud je nekdo zalogovanej, zobrazi se ikonka pro edit
+      return this.$store.state.loged
     }
   },
   methods: {
-    storeCommit: function(event) {
-      // alert(event.target.value)
-      this.$store.commit('change', event.target.value)
-    },
-    homePage() {
+    homePage() { //pri kliknuti na logo redirect na homepage
       window.location.href = "http://localhost:8080/";
     },
-    logedYesNo() {
+    logedYesNo() { //kdyz je nekdo zalogovany, tak se ukaze ikonka odhlasit, kdyz ne tak ikonka prihlasit
 
-      let x = localStorage.getItem("userLoged");
+      let x = localStorage.getItem("userLoged"); //toto by se melo prat ze store
       if (x) {
         return "exit_to_app"
         console.log(x)
@@ -71,7 +64,7 @@ export default {
         console.log(x)
       }
     },
-    redirLogin() {
+    logOut() { //logout
       let x = localStorage.getItem("userLoged");
       if (x) {
         var txt;
@@ -90,35 +83,35 @@ export default {
 
       }
     },
-    redirProfilDetail() {
-
-          window.location.href = "http://localhost:8080/profiledit";
-
+    redirProfilDetail() {//redirect na editaci profilu
+      window.location.href = "http://localhost:8080/profiledit";
     }
   },
   mounted() {
     // console.log('Header mounted')
-
   }
 }
 </script>
 
 <style scoped>
-.header, .headerSearch, .headerIcons {
+.header,
+.headerSearch,
+.headerIcons {
   width: 100%;
   height: 56px;
   background-color: #90e4f1;
   /* margin-top: 20px; */
 }
+
 .headerSearch {
   padding-top: 4px;
 }
+
 .headerIcons {
   padding-top: 15px;
 }
 
 h1 {
-  /* dat asi jinej nazev nez praci naden */
   text-align: left;
   color: white;
   cursor: pointer;

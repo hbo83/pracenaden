@@ -75,6 +75,10 @@ export default {
             login: [this.email, this.password]
           }
         }
+
+        this.$store.commit('setLoged', true)
+        console.log(this.$store.state.loged)
+
         axios.get('http://localhost:8081/users/', request).then((response) => {
             console.log(response.data);
             alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
@@ -85,7 +89,7 @@ export default {
 
           }).then(this.$router.push({
             name: 'home',
-            params: { userLoged: this.email }
+            params: {}
           }))
           .catch((error) => {
             console.log(error);
