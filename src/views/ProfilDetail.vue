@@ -18,11 +18,11 @@
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>money</v-icon>
           </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.money }}</span></p>
-        <p class="profil">
+        <p class="profil" style="margin-left: 220px">
             <v-icon>category</v-icon>
           <div style="width: 50%; float: right;">
             <ul>
-              <li style="text-align:left; list-style-type: none;" v-for="(category, index) in this.$store.state.selectedProfilData.category">{{ category[index] }}</li>
+              <li style="text-align:left; list-style-type: none;" v-for="(category, index) in getCategory">{{ category }}</li>
             </ul>
           </div>
         </p>
@@ -118,7 +118,12 @@ export default {
     },
     getIdProfil() {
       return this.$store.state.selectedIdProfil
-    }
+    },
+    getCategory() {
+      console.log(this.$store.state.selectedProfilData.category)
+      return this.$store.state.selectedProfilData.category
+    },
+
   },
   methods: {
     setUserData: function(userObj) {
@@ -139,7 +144,7 @@ export default {
   },
   mounted() {
     // console.log('ProfilDetail mounted');
-
+console.log(this.$store.state.userLogedId)
     axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
       .then((response) => {
         this.setUserData(response.data[0])
@@ -148,8 +153,8 @@ export default {
         console.log(error);
       });
 
-    // axios.get('http://localhost:8081/img/' + this.$store.state.userLoged)
-    axios.get('http://localhost:8081/img/' + "hbo83@seznam.cz")
+    axios.get('http://localhost:8081/img/' + this.$store.state.selectedProfil)
+    // axios.get('http://localhost:8081/img/' + "hbo83@seznam.cz")
       .then((response) => {
         this.setUserImgs(response.data)
       })

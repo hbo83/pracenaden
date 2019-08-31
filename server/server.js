@@ -246,28 +246,31 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
         }
       });
     });
-  // } else {
-  //   const file = new File({
-  //     _id: new mongoose.Types.ObjectId(),
-  //     email: req.body.email,
-  //     profilPhoto: req.body.profilPhoto,
-  //     modified: new Date().toISOString(),
-  //     productImage: req.body.email + "/" + "profilPhoto/" + req.file.originalname
-  //   });
-  //   file.save()
-  //     .then(result => {
-  //       console.log(result);
-  //       res.status(201).json({
-  //         message: 'Create product successfully',
-  //         createdProduct: {
-  //           name: result.name,
-  //           modified: result.modified
-  //         }
-  //       });
-  //     });
-  // }
-
 })
+
+// app.post('/imgProfil', upload.single('productImageProfil'), (req, res, next) => {
+//   console.log(req.body.profilPhoto.length);
+//   // if (req.body.profilPhoto.length === 0) {
+//   const file = new File({
+//     _id: new mongoose.Types.ObjectId(),
+//     email: req.body.email,
+//     profilPhoto: req.body.profilPhoto,
+//     modified: new Date().toISOString(),
+//     productImage: req.body.email + "/profil.jpg"
+//     // req.file.path
+//   });
+//   file.save()
+//     .then(result => {
+//       console.log(result);
+//       res.status(201).json({
+//         message: 'Create product successfully',
+//         createdProduct: {
+//           name: result.name,
+//           modified: result.modified
+//         }
+//       });
+//     });
+// })
 
 app.delete('/img/:id', function(req, res) {
   File.findOneAndRemove({

@@ -8,6 +8,8 @@
           contain
           height="160"
           style="border-radius: 16px;"
+          alt="no picture"
+          @error="onError"
         ></v-img>
 </div>
 </div>
@@ -18,29 +20,28 @@ export default {
   name: 'Avatar',
   data() {
     return {
-      msg: 'https://img.icons8.com/color/48/000000/web.png'
+      msg: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
       // msg: this.profilPhoto
 
     }
   },
     props: {
-      profilPhoto: {
+      email: {
         type: String,
         required: false
       }
     },
   methods: {
-
+    onError () {
+      this.msg = 'http://localhost:8081/uploads/no-photo.png'
+    }
   },
   computed: {
     // a computed getter
-    reversedMessage: function (igm) {
-      // `this` points to the vm instance
-      return this.msg
-    }
+    
   },
   mounted() {
-    console.log('Avatar mountedv' + this.msg)
+    // console.log('Avatar mountedv' + this.msg)
   }
 }
 </script>

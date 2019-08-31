@@ -192,7 +192,8 @@ export default {
       fd.append('profilPhoto', true);
       fd.append('email', this.email);
       fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-      fd.append('productImage', this.selectedFile, this.selectedFile.name)
+      // fd.append('productImage', this.selectedFile, this.selectedFile.name)
+      fd.append('productImage', this.selectedFile, "profilPhoto.jpg")
       axios.post('http://localhost:8081/img', fd, {
           onUploadProgress: uploadEvent => {
             console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');

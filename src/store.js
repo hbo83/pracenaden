@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: { //to samy co data
     flavor: '',
-    userLoged: '',
+    userLoged: localStorage.getItem("userLoged"),
+    userLogedId: localStorage.getItem("userLoged_id"),
     selectedProfil: '',
     // selectedProfilData: {
     //   name: '',
@@ -31,9 +32,9 @@ export const store = new Vuex.Store({
     change(state, flavor) {
       state.flavor = flavor
     },
-    setUserLoged(state, user) {
-      state.userLoged = user
-    },
+    // setUserLoged(state, user) {
+    //   state.userLoged = user
+    // },
     setSelectedProfil(state, selectedProfil) {
       state.selectedProfil = selectedProfil
     },

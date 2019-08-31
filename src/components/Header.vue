@@ -97,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    console.log('Header mounted')
+    // console.log('Header mounted')
 
   }
 }

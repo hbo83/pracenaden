@@ -93,9 +93,9 @@ export default {
           })
 
       },
-      storeCommit: function(user) {
-        this.$store.commit('setUserLoged', user)
-      }
+      // storeCommit: function(user) {
+      //   this.$store.commit('setUserLoged', user)
+      // }
     },
 
     components: {

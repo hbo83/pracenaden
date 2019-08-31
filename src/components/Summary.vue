@@ -33,7 +33,7 @@ export default {
 
   },
   mounted() {
-    console.log('Summary mounted')
+    // console.log('Summary mounted')
 
     axios.get('http://localhost:8081/profiles')
       .then((response) => {

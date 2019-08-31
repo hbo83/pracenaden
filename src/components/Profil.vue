@@ -1,20 +1,16 @@
 <template>
   <v-col class="col-4">
 <div class="profil" @click="selectProfil">
-  <Avatar v-bind:profilPhoto="profileDatas.profilPhoto"></Avatar>
-  <!-- <p v-for="profileData in profileDatas">{{profileData}}</p> -->
+  <Avatar v-bind:email="profileDatas.email"></Avatar>
   <p><span><v-icon>face</v-icon></span><span>{{ profileDatas.name }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
   <p><span><v-icon>build</v-icon></span><span>{{ profileDatas.job }}</span></p>
   <p><span><v-icon>location_city</v-icon></span><span>{{ profileDatas.city }}</span></p>
   <p><span><v-icon>money</v-icon></span><span>{{ profileDatas.money }} {{ profileDatas.currency }}</span></p>
-  <!-- <p style="line-height: 5px" v-for="(category, index) in profileDatas.category"><span><v-icon>category</v-icon></span><span>{{ profileDatas.category[index] }}</span></p> -->
   <div style="width: 50%; float: right;">
     <ul>
       <li style="text-align:left; list-style-type: none;" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</li>
     </ul>
   </div>
-   <!-- <p><span><v-icon>category</v-icon></span>
-  <p style="line-height: 8px; margin-left: 20px; text-align: right" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</p> -->
 </div>
 </v-col>
 </template>
@@ -38,11 +34,12 @@ export default {
     }
   },
   methods: {
+    //vybere profil, ulozi email a id vybraneho profilu do storu
     selectProfil() {
 
-      this.$router.push({
+      this.$router.push({//presmeruje na profilDetail
         name: 'ProfilDetail',
-        params: {}
+        params: {}//nepouzity objekt
       })
 
       this.storeProfilCommit(this.email)
@@ -57,7 +54,7 @@ export default {
     }
   },
   mounted() {
-    console.log('Profil mounted')
+    // console.log('Profil mounted')
   },
   components: {
     Avatar

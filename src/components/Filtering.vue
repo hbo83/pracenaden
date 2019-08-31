@@ -46,7 +46,7 @@ export default {
 
   },
   mounted() {
-    console.log('Filtering mounted')
+    // console.log('Filtering mounted')
   }
 }
 </script>

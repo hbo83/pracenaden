@@ -25,7 +25,7 @@ export default {
     Summary
   },
   mounted() {
-    console.log('MainPage mounted')
+    // console.log('MainPage mounted')
   }
 }
 </script>
