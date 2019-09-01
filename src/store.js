@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from 'axios'
 Vue.use(Vuex);
 
 //state nelze primo menit, ale jen skrze mutations. Asi jako v jave potrebujes settry
 export const store = new Vuex.Store({
+  summaryData: {},
+  strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
-    // flavor: '',
+    profilPhotoPath: '',
     userLoged: localStorage.getItem("userLoged"),
     userLogedId: localStorage.getItem("userLoged_id"),
     selectedProfil: '',
@@ -14,10 +16,10 @@ export const store = new Vuex.Store({
     selectedProfilData: {},
     userImages: {}
   },
-  mutations: { //commit+track State changes
-    // change(state, flavor) {
-    //   state.flavor = flavor
-    // },
+  mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')"
+    setSummaryData(state, data) {
+      state.summaryData = data
+    },
     setLoged(state, loged) {
       state.loged = loged
     },
@@ -32,12 +34,32 @@ export const store = new Vuex.Store({
     },
     setUserImgs(state, img) {
       state.userImages = img
+    },
+    setSummaryData(state, data) {
+      state.summaryData = data
     }
   },
-  getters: { //to samy jako computed
-    flavor: state => state.flavor
+  getters: { //to samy jako computed. Kdyz budu chtit vratit neco slozitejsiho nez jen this.$store.state.loged tak pouziju getter a v komponente volam jen getter v computed this.$store.getters.NejakejGetter
+    getFacebook: state => state.selectedProfilData.facebook,
+    getLoged: state => state.loged,
+
   },
   actions: { //to samy jako metody, actions vola metodu z mutation ktera meni state
-
+    reducePrice: context => { //v komponentte volame this.$store.dispatch.reducePrice
+      setTimeout(function() {
+        context.commit('setLoged') //rikame ze tuhle akci volame s kontextem tohodle mutation
+      }, 2000)
+    },
+    getInitData: function() {
+      context.commit('setSummaryData')
+      axios.get('http://localhost:8081/profiles')
+        .then((response) => {
+          console.log(response.data);
+          this.profiles = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 })

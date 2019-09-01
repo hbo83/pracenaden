@@ -11,13 +11,13 @@
           </span><span style="margin-left: 50px;">{{ getProfil }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>build</v-icon>
-          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.job }}</span></p>
+          </span><span style="margin-left: 50px;">{{ getJob }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>location_city</v-icon>
-          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.city }}</span></p>
+          </span><span style="margin-left: 50px;">{{ getCity }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
             <v-icon>money</v-icon>
-          </span><span style="margin-left: 50px;">{{ this.$store.state.selectedProfilData.money }}</span></p>
+          </span><span style="margin-left: 50px;">{{ getMoney }}</span></p>
         <p class="profil" style="margin-left: 220px">
             <v-icon>category</v-icon>
           <div style="width: 50%; float: right;">
@@ -32,14 +32,14 @@
         <div class="profilDetailMoreHeader">
 
           <div class="more">
-            <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{this.$store.state.selectedProfilData.web}}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{getFacebook}}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{this.$store.state.selectedProfilData.instagram}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a></p>
+            <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a></p>
           </div>
 
           <div class="socials">
-            <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{this.$store.state.selectedProfilData.skype}}</p>
-            <p><img src="https://img.icons8.com/color/48/000000/whatsapp.png">{{this.$store.state.selectedProfilData.whatsapp}}</p>
+            <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{ getSkype }}</p>
+            <p><img src="https://img.icons8.com/color/48/000000/whatsapp.png">{{ getWhatsapp }}</p>
           </div>
         </div>
       </v-col>
@@ -58,7 +58,7 @@
           <v-card>
             <v-card-title max-width="50%">Něco o mně:</v-card-title>
           </v-card>
-          <v-card-text style="text-align: left; color: green;">{{ this.$store.state.selectedProfilData.aboutMe }}</v-card-text>
+          <v-card-text style="text-align: left; color: green;">{{ getAboutMe }}</v-card-text>
 
         </v-card>
       </v-col>
@@ -67,7 +67,7 @@
           <v-card>
             <v-card-title>Nabízím:</v-card-title>
           </v-card>
-          <v-card-text style="text-align: left; color: green;">{{ this.$store.state.selectedProfilData.offerMe }}</v-card-text>
+          <v-card-text style="text-align: left; color: green;">{{ getOfferMe }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -96,32 +96,53 @@ export default {
       index: null,
       id: '',
       email: '',
-      web: '',
-      facebook: '',
-      instagram: '',
       profileDatas: null,
-      // imgs: [],
-      // imgs2: [],
       profilPhoto: '',
       // test: "http://localhost:8081/uploads/" + this.$store.state.userImages[0].productImage
     }
   },
   computed: {
-    getUserImages: function() {
-      return this.$store.state.userImages
+    getIdProfil() {
+      return this.$store.state.selectedIdProfil
     },
-    getFacebook() {
-      return this.$store.state.selectedProfilData.facebook
+    getJob() {
+      return this.$store.state.selectedProfilData.job
     },
     getProfil() {
       return this.$store.state.selectedProfil
     },
-    getIdProfil() {
-      return this.$store.state.selectedIdProfil
+    getCity() {
+      return this.$store.state.selectedProfilData.city
+    },
+    getMoney() {
+      return this.$store.state.selectedProfilData.money
     },
     getCategory() {
-      console.log(this.$store.state.selectedProfilData.category)
       return this.$store.state.selectedProfilData.category
+    },
+    getWeb() {
+      return this.$store.state.selectedProfilData.web
+    },
+    getFacebook() {
+      return this.$store.state.selectedProfilData.facebook
+    },
+    getInstagram() {
+      return this.$store.state.selectedProfilData.instagram
+    },
+    getSkype() {
+      return this.$store.state.selectedProfilData.skype
+    },
+    getWhatsapp() {
+      return this.$store.state.selectedProfilData.whatsapp
+    },
+    getAboutMe() {
+      return this.$store.state.selectedProfilData.aboutMe
+    },
+    getOfferMe() {
+      return this.$store.state.selectedProfilData.offerMe
+    },
+    getUserImages: function() {
+      return this.$store.state.userImages
     },
 
   },

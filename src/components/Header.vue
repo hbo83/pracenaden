@@ -15,7 +15,7 @@
     </v-col>
     <v-col cols="4" sm="4">
       <div class="headerIcons">
-        <v-icon v-show="updateLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
+        <v-icon v-show="getLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
         <p style="text-align: right; color: white;"><b>{{ updateUser }}</b><span>
             <v-icon @click="logOut" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{logedYesNo()}}</v-icon>
           </span></p>
@@ -34,8 +34,7 @@ export default {
   data() {
     return {
       msg: 'Pracenaden.cz',
-      userLoged: localStorage.getItem("userLoged"),
-      loged: false
+      userLoged: localStorage.getItem("userLoged")
     }
   },
   computed: {
@@ -45,7 +44,7 @@ export default {
     updateUser() { //zobraui email zalogovaneho usera
       return this.$store.state.userLoged
     },
-    updateLoged() { //pokud je nekdo zalogovanej, zobrazi se ikonka pro edit
+    getLoged() {//pokud je nekdo zalogovanej, zobrazi se ikonka pro edit
       return this.$store.state.loged
     }
   },
@@ -57,11 +56,13 @@ export default {
 
       let x = localStorage.getItem("userLoged"); //toto by se melo prat ze store
       if (x) {
+        console.log(x)
+        // this.$store.commit('setLoged', true)
         return "exit_to_app"
-        console.log(x)
       } else if (x === null) {
-        return "account_box"
         console.log(x)
+        // this.$store.commit('setLoged', false)
+        return "account_box"
       }
     },
     logOut() { //logout
@@ -88,7 +89,19 @@ export default {
     }
   },
   mounted() {
-    // console.log('Header mounted')
+    console.log('Header mounted')
+    let x = localStorage.getItem("userLoged"); //toto by se melo prat ze store
+    if (x) {
+      console.log(x)
+      this.$store.commit('setLoged', true)
+      console.log(this.$store.state.loged)
+      return "exit_to_app"
+    } else if (x === null) {
+      console.log(x)
+      this.$store.commit('setLoged', false)
+      console.log(this.$store.state.loged)
+      return "account_box"
+    }
   }
 }
 </script>

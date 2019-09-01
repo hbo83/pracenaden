@@ -20,7 +20,8 @@ var ProfilSchema = new Schema({
   checked: Boolean,
   checked2: Boolean,
   currency: String,
-  hideProfil: Boolean
+  hideProfil: Boolean,
+  profilPhotoPath: String
 });
 
 module.exports = mongoose.model('Profil', ProfilSchema);

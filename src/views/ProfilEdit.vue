@@ -263,7 +263,8 @@ export default {
         checked: this.checked,
         checked2: this.checked2,
         currency: this.currency,
-        hideProfil: this.hideProfil
+        hideProfil: this.hideProfil,
+        profilPhotoPath: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
 
       }).then(this.$router.push({
         name: 'home'
