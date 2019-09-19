@@ -6,11 +6,12 @@
 
     <v-container fluid>
       <v-row align="center">
-        <Profil v-show="!profil.hideProfil" v-for="(profil, index) in profiles" v-bind:index="index" v-bind:profileDatas="profiles[index]" />
-
+        <Profil v-show="!profil.hideProfil" v-for="(profil, index) in summaryData" v-bind:index="index" v-bind:profileDatas="summaryData[index]" />
+<!-- <p>{{getSummaryData}}</p> -->
+<!-- <v-btn @click="storeSummaryCommit(summaryData)">click</v-btn> -->
       </v-row>
     </v-container>
-</v-app>
+  </v-app>
 
 
 </div>
@@ -21,29 +22,52 @@ import Profil from '@/components/Profil.vue'
 import axios from 'axios';
 export default {
   name: 'Summary',
+  // async getInitialData({ store, route }) {
+  //   await store.dispatch('getSummaryData', route.params.home)
+  // },
   data() {
     return {
       msg: 'PraceNaDen',
       profiles: [],
-      index: null
-      // hideProfil: false
+      index: null,
+      summaryData: []
 
     }
   },
   methods: {
-
+    storeSummaryCommit: function(data) {
+      this.$store.commit('setSummaryData', data)
+    }
   },
-  mounted() {
-    // console.log('Summary mounted')
-
+  computed: {
+    getSummaryData() {
+      return this.$store.state.summaryData
+    }
+  },
+  beforeMount() {
+    //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
+    // console.log(this.getSummaryData)
     axios.get('http://localhost:8081/profiles')
       .then((response) => {
         console.log(response.data);
-        this.profiles = response.data;
+        this.summaryData = response.data;
       })
       .catch((error) => {
         console.log(error);
       });
+  },
+  mounted() {
+    // console.log('Summary mounted')
+    //nestaci abych jen commitnul store v beforeMount, pokud tam chci ty data dostat, tak to musim provest v mounted a funkce pro zobrazeni tech dat v computed
+    axios.get('http://localhost:8081/profiles')
+      .then((response) => {
+        this.$store.commit('setSummaryData', this.summaryData)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // console.log(this.$store.state.summaryData)
+
   },
   components: {
     Profil

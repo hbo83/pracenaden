@@ -28,7 +28,8 @@ const categories = [
   'Oděvnictví, textilní práce',
   'Umění',
   'Zpracování dřeva a kovů',
-  'Zahradnictví'
+  'Zahradnictví',
+  'Jiné'
 ]
 
 

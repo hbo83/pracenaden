@@ -55,6 +55,7 @@ export default {
   },
   mounted() {
     // console.log('Profil mounted')
+    console.log(this.profileDatas._id)
   },
   components: {
     Avatar

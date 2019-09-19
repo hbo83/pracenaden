@@ -89,15 +89,19 @@ export default {
     }
   },
   mounted() {
-    console.log('Header mounted')
+
+    // this.$store.commit('setSummaryData')
+    console.log(this.$store.state.summaryData)
+
+    // console.log('Header mounted')
     let x = localStorage.getItem("userLoged"); //toto by se melo prat ze store
     if (x) {
-      console.log(x)
+      // console.log(x)
       this.$store.commit('setLoged', true)
       console.log(this.$store.state.loged)
       return "exit_to_app"
     } else if (x === null) {
-      console.log(x)
+      // console.log(x)
       this.$store.commit('setLoged', false)
       console.log(this.$store.state.loged)
       return "account_box"

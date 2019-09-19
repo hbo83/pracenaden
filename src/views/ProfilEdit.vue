@@ -1,116 +1,117 @@
 <template>
 <v-app>
   <Header></Header>
-  <v-container style="width: 90%">
-    <v-row>
-      <v-col>
-        <v-form ref="form" lazy-validation>
-          <v-text-field v-model="name" :counter="100" label="Celé jméno" required></v-text-field>
+  <v-container style="width: 30%">
+    <p>Zde prosím vyplňte informace</p>
+    <v-col>
+      <v-form ref="form" :lazy-validation="lazy" v-model="valid">
+        <v-text-field v-model="name" label="Celé jméno" :rules="nameRules" required></v-text-field>
 
-          <v-text-field v-model="job" label="Obor" required></v-text-field>
-          <v-row>
-            <v-col>
-              <v-text-field v-model="money" label="Požadovaná odměna" required></v-text-field>
-            </v-col>
-            <v-col>
-              <v-select v-model="currency" :items="selectedCurrencyItems" :rules="[v => !!v || 'Item is required']" label="Za" required></v-select>
-            </v-col>
-          </v-row>
-          <v-text-field v-model="phone" label="Telefon" required></v-text-field>
-          <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
-
-          <v-row align="center">
-            <v-col cols="12" sm="12">
-              <v-select v-model="selectedJobItems" :items="itemsJob" :counter="3" attach chips label="Kategorie" multiple></v-select>
-            </v-col>
-
-          </v-row>
-          <v-row>
-            <v-col cols="6" md="6">
-              <h4>O mě</h4>
-            </v-col>
-            <v-col cols="6" md="6">
-              <h4>Nabízím</h4>
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="6" md="6">
-              <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe"></v-textarea>
-            </v-col>
-            <v-col cols="6" md="6">
-              <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe"></v-textarea>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-col>
-      <v-col>
-        <v-form ref="form" lazy-validation>
-          <v-text-field v-model="web" :counter="100" label="Webové stránky" required></v-text-field>
-
-          <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
-
-          <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
-
-          <v-text-field v-model="skype" label="Skype" required></v-text-field>
-
-          <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
-          <v-row>
-            <v-col cols="6" sm="6">
-              <v-checkbox v-model="checked" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
-            </v-col>
-            <v-col cols="6" sm="6">
-              <v-checkbox v-model="checked2" :rules="[v => !!v || 'You must agree to continue!']" label="Zivnostnik ano ne?" required></v-checkbox>
-            </v-col>
-          </v-row>
-
-              <v-row>
-                <v-col cols="6" sm="6">
-                  <v-checkbox v-model="hideProfil" :rules="[v => !!v || 'You must agree to continue!']" label="Skrýt profil?"></v-checkbox>
-                </v-col>
-                <v-col cols="6" sm="6">
-                  <v-checkbox v-model="checked4" :rules="[v => !!v || 'You must agree to continue!']" label="zivnostnik ano ne?" required></v-checkbox>
-                </v-col>
-              </v-row>
-        </v-form>
+        <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field>
         <v-row>
           <v-col>
-        <v-form ref="form" lazy-validation>
-          <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
+            <v-text-field v-model="money" label="Požadovaná odměna" :rules="moneyRules" required></v-text-field>
+          </v-col>
+          <v-col>
+            <v-select v-model="currency" :items="selectedCurrencyItems" :rules="currencyRules" label="Jednotka" required></v-select>
+          </v-col>
+        </v-row>
+        <v-text-field v-model="phone" label="Telefon" :rules="phoneRules" required></v-text-field>
+        <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
+
+        <v-row align="center">
+          <v-col cols="12" sm="12">
+            <v-select v-model="selectedJobItems" :items="itemsJob" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+          </v-col>
+
+        </v-row>
+        <v-row>
+          <v-col cols="6" md="6">
+            <h4>O mě</h4>
+          </v-col>
+          <v-col cols="6" md="6">
+            <h4>Nabízím</h4>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="6" md="6">
+            <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules"></v-textarea>
+          </v-col>
+          <v-col cols="6" md="6">
+            <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe" :rules="offerMeRules"></v-textarea>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-col>
+    <v-col>
+
+      <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
+
+      <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
+
+      <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
+
+      <v-text-field v-model="skype" label="Skype" required></v-text-field>
+
+      <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
+      <v-row>
+        <v-col cols="6" sm="6">
+          <v-checkbox v-model="checkboxAgree" :rules="checkedRules" label="Souhlasím" required></v-checkbox>
+        </v-col>
+        <v-col cols="6" sm="6">
+
+          <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvc.toString()}`"></v-switch>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="6" sm="6">
+          <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox>
+        </v-col>
+        <v-col cols="6" sm="6">
+
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+
           <upload-btn title="Profil photo" @file-update="uploadProfilPhoto"><template slot="icon">
               <v-icon>add</v-icon>
             </template></upload-btn>
 
-        </v-form>
+
         </v-col>
         <v-col>
-        <v-form ref="form" lazy-validation>
-          <!-- <v-text-field v-model="docName" :counter="30" label="Název dokumentu" required></v-text-field> -->
+
           <upload-btn title="Galery" @file-update="update">
             <template slot="icon">
               <v-icon>add</v-icon>
             </template>
           </upload-btn>
 
-        </v-form>
-      </v-col>
+        </v-col>
       </v-row>
-      </v-col>
-    </v-row>
+    </v-col>
+
     <v-row>
       <v-col>
-        <v-btn color="success" class="mr-4" @click="saveProfil">
+        <v-btn color="success" class="mr-4" :disabled="!valid" @click="saveProfil">
+          <!-- <v-btn color="success" class="mr-4" :disabled="!valid" @click="validate"> -->
           Uložit
         </v-btn>
+        <!-- <v-btn color="success" class="mr-4" :disabled="!valid" @click="reset">reset</v-btn> -->
+      </v-col>
+      </v-form>
+    </v-row>
+    <hr />
+    <v-row>
+      <v-col>
+        <h1>Vaše Galerie</h1>
       </v-col>
     </v-row>
     <hr />
-<v-row>
-  <v-col>
-    <h1>Vaše Galerie</h1>
-  </v-col>
-</v-row>
-<hr />
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
       <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
 
@@ -136,28 +137,65 @@ export default {
     imgs: [],
     imgs2: [],
     email: localStorage.getItem("userLoged"),
+    valid: true,
+    lazy: false,
+    osvc: false,
     phone: '',
+    phoneRules: [
+      v => !!v || 'Telefon je povinný',
+      v => (v && v.length <= 9) || 'Číslo musí být kratší než 10 znaků',
+    ],
     name: '',
+    nameRules: [
+      v => !!v || 'Jméno je povinné',
+      v => (v && v.length <= 20) || 'Jméno musí být kratší než 20 znaků',
+    ],
     job: '',
+    jobRules: [
+      v => !!v || 'Obor je povinný',
+      v => (v && v.length <= 20) || 'Obor musí být kratší než 20 znaků',
+    ],
     money: '',
-    currency: '',
-    selectedCurrencyItems: [".- / hod", ".- / den"],
+    moneyRules: [
+      v => !!v || 'Požadovaná odměna je povinná',
+      v => (v && v.length <= 10) || 'Odměna musí být více než 9',
+    ],
+    currency: ".- / hod",
+    selectedCurrencyItems: [".- / hod", ".- / den", ".- / práci"],
+    currencyRules: [
+      v => !!v || 'Jednotka je povinná',
+      // v => (v && v.length <= 10) || 'Odměna musí být více než 9',
+    ],
+    selectedJobItems: null,
+    itemsJob: categories,
+    categoriesRules: [
+      v => !!v || 'Kategorie je povinná',
+      // v => (v && v.length <= 10) || 'Odměna musí být více než 9',
+    ],
     aboutMe: '',
+    aboutMeRules: [
+      v => !!v || 'O mě je povinná',
+      v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
+    ],
     offerMe: '',
+    offerMeRules: [
+      v => !!v || 'Nabízím je povinná',
+      v => (v && v.length >= 10) || 'Nabízím musí mít víc jak 10 znaků',
+    ],
     city: null,
+    items: cities,
     id: localStorage.getItem("userLoged_id"),
     web: '',
     facebook: '',
     instagram: '',
     skype: '',
     whatsapp: '',
-    items: cities,
-    itemsJob: categories,
-    selectedJobItems: [],
-    checked: false,
-    checked2: false,
+    checkboxAgree: false,
+    checkedRules: [
+      v => !!v || 'Pro dokončení registrace je nutné souhlasit!',
+      // v => (v && v.length >= 10) || 'Nabízím musí mít víc jak 10 znaků',
+    ],
     hideProfil: false,
-    checked4: false,
     dictionary: {
       attributes: {
         email: 'E-mail Address',
@@ -175,10 +213,22 @@ export default {
       },
     },
   }),
-  computed(){
+  computed() {
 
   },
   methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+      }
+    },
+    reset() {
+      this.$refs.form.reset()
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation()
+    },
+
     delImg(id) {
       if (confirm('Určitě chcete smazat soubor?')) {
 

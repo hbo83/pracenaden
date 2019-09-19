@@ -1,6 +1,6 @@
 <template>
 <v-app>
-  <div class="login">
+  <div class="signin">
     <Header></Header>
     <v-content>
       <v-container class="fill-height" fluid>
@@ -8,7 +8,7 @@
           <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12">
               <v-toolbar color="#90e4f1" dark flat>
-                <v-toolbar-title>Přihlásit se</v-toolbar-title>
+                <v-toolbar-title>Zaregistrovat se</v-toolbar-title>
                 <v-spacer></v-spacer>
 
 
@@ -22,10 +22,8 @@
               </v-card-text>
               <v-card-actions>
                 <!-- <v-spacer></v-spacer> -->
-                <a href="http://localhost:8080/signin">Registrovat</a>
-
-                <v-btn style="margin-left: 68%" color="primary" @click="logIn">Přihlásit</v-btn>
-                <!-- <v-btn color="succes" @click="signIn">Signin</v-btn> -->
+                <a href="http://localhost:8080/login">Přihlásit</a>
+                <v-btn style="margin-left: 68%" color="success" @click="signIn">Registrovat</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -43,7 +41,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios'
 
 export default {
-  name: 'Login',
+  name: 'Signin',
   data() {
     return {
       email: '',
@@ -60,50 +58,51 @@ export default {
     }
   },
   methods: {
-    // signIn() {
-    //   let currentObj = this;
-    //   axios.post('http://localhost:8081/users', {
-    //
-    //     email: this.email,
-    //     password: this.password
-    //   }).then(this.$router.push({
-    //     name: 'home'
-    //   })).then(alert("Nyní se můžete přihlásit"))
-    // },
-    logIn() {
+    signIn() {
       let currentObj = this;
+      axios.post('http://localhost:8081/users', {
 
-      var request = {
-        params: {
-          login: [this.email, this.password]
-        }
-      }
+        email: this.email,
+        password: this.password
+      }).then(this.$router.push({
+        name: 'ProfilEdit'
+      })).then(alert("Nyní jste zaregistrován"))
 
       this.$store.commit('setLoged', true)
-      console.log(this.$store.state.loged)
+        console.log(this.$store.state.loged)
 
-      axios.get('http://localhost:8081/users/', request).then((response) => {
-          console.log(response.data);
-          alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
-          localStorage.setItem("userLoged", response.data[0].email);
-          localStorage.setItem("userLoged_id", response.data[0]._id);
-
-          // this.storeCommit(response.data[0].email)
-
-        }).then(this.$router.push({
-          name: 'home',
-          params: {}
-        }))
-        .catch((error) => {
-          console.log(error);
-          alert("Heslo nebo email nesouhlasí")
-          this.$router.push({
-            name: 'Login',
-            params: {}
-          })
-        })
-
-    },
+      
+    }
+    // logIn() {
+    //   let currentObj = this;
+    //
+    //   var request = {
+    //     params: {
+    //       login: [this.email, this.password]
+    //     }
+    //   }
+    //
+    //   this.$store.commit('setLoged', true)
+    //   console.log(this.$store.state.loged)
+    //
+    //   axios.get('http://localhost:8081/users/', request).then((response) => {
+    //       console.log(response.data);
+    //       alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
+    //       localStorage.setItem("userLoged", response.data[0].email);
+    //       localStorage.setItem("userLoged_id", response.data[0]._id);
+    //
+    //       this.storeCommit(response.data[0].email)
+    //
+    //     }).then(this.$router.push({
+    //       name: 'Signin',
+    //       params: {}
+    //     }))
+    //     .catch((error) => {
+    //       console.log(error);
+    //       alert("Heslo nebo email nesouhlasí")
+    //     })
+    //
+    // },
     // storeCommit: function(user) {
     //   this.$store.commit('setUserLoged', user)
     // }
