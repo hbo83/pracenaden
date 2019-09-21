@@ -15,9 +15,9 @@
     </v-col>
     <v-col cols="4" sm="4">
       <div class="headerIcons">
-        <v-icon v-show="getLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
-        <p style="text-align: right; color: white;"><b>{{ updateUser }}</b><span>
-            <v-icon @click="logOut" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{logedYesNo()}}</v-icon>
+        <v-icon v-show="loged || updateLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
+        <p style="text-align: right; color: white;"><b>{{ userLoged || updateUserLoged}}</b><span>
+            <v-icon @click="logOut" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{icon}}</v-icon>
           </span></p>
       </div>
     </v-col>
@@ -34,19 +34,22 @@ export default {
   data() {
     return {
       msg: 'Pracenaden.cz',
-      userLoged: localStorage.getItem("userLoged")
+      userLoged: null,
+      loged: false,
+      icon: "account_box"
     }
   },
   computed: {
     update() { //vuex state je dobry updatovat v computed
       return this.$store.state.flavor
     },
-    updateUser() { //zobraui email zalogovaneho usera
-      return this.$store.state.userLoged
-    },
-    getLoged() {//pokud je nekdo zalogovanej, zobrazi se ikonka pro edit
+    updateLoged() {
       return this.$store.state.loged
+    },
+    updateUserLoged() {
+      return this.$store.state.userLoged
     }
+
   },
   methods: {
     homePage() { //pri kliknuti na logo redirect na homepage
@@ -87,6 +90,18 @@ export default {
     redirProfilDetail() {//redirect na editaci profilu
       window.location.href = "http://localhost:8080/profiledit";
     }
+  },
+  beforeMount() {
+    this.loged = this.$store.state.loged
+    this.userLoged = this.$store.state.userLoged
+    console.log(this.loged)
+    if (this.loged) {
+      this.icon = "exit_to_app"
+    }
+    console.log(this.userLoged)
+    // if (this.userLoged) {
+    //   this.userLoged =
+    // }
   },
   mounted() {
 

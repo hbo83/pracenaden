@@ -17,8 +17,8 @@ var ProfilSchema = new Schema({
   instagram: String,
   skype: String,
   whatsapp: String,
-  checked: Boolean,
-  checked2: Boolean,
+  osvc: Boolean,
+  checkboxAgree: Boolean,
   currency: String,
   hideProfil: Boolean,
   profilPhotoPath: String

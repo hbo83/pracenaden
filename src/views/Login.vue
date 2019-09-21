@@ -88,7 +88,7 @@ export default {
           localStorage.setItem("userLoged", response.data[0].email);
           localStorage.setItem("userLoged_id", response.data[0]._id);
 
-          // this.storeCommit(response.data[0].email)
+          this.$store.commit('setUserLoged', response.data[0].email)
 
         }).then(this.$router.push({
           name: 'home',

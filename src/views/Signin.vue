@@ -14,16 +14,18 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
-                  <v-text-field v-model="email" label="" name="login" prepend-icon="person" type="text"></v-text-field>
+                <v-form ref="form" :lazy-validation="false" v-model="valid">
+                  <v-text-field v-model="email" label="" :rules="emailRules" name="login" prepend-icon="person" type="text"></v-text-field>
 
-                  <v-text-field v-model="password" id="password" label="" name="password" prepend-icon="lock" type="password"></v-text-field>
+                  <v-text-field v-model="password" id="password" label="" :rules="passwordRules" name="password" prepend-icon="lock" type="password"></v-text-field>
+
+                  <v-checkbox v-model="checkboxAgree" :rules="checkedRules" label="Souhlasím s podmínkami registrace" required></v-checkbox>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <!-- <v-spacer></v-spacer> -->
                 <a href="http://localhost:8080/login">Přihlásit</a>
-                <v-btn style="margin-left: 68%" color="success" @click="signIn">Registrovat</v-btn>
+                <v-btn style="margin-left: 68%" color="success" :disabled="!valid" @click="signIn">Registrovat</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -44,17 +46,23 @@ export default {
   name: 'Signin',
   data() {
     return {
+      valid: false,
       email: '',
       password: '',
-      nameRules: [
-        v => !!v || 'Jméno je vyžadováno',
-        v => v.length <= 30 || 'Jméno musí mít méně než 30 znaků'
+      passwordRules: [
+        v => !!v || 'Heslo je vyžadováno',
+        v => v.length >= 6 || 'Heslo musí mít nejméně 6 znaků'
       ],
       email: '',
       emailRules: [
-        // v => !!v || 'E-mail is required',
+        v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail je zadán nesprávně'
-      ]
+      ],
+      checkboxAgree: false,
+      checkedRules: [
+        v => !!v || 'Pro dokončení registrace je nutné souhlasit!',
+        // v => (v && v.length >= 10) || 'Nabízím musí mít víc jak 10 znaků',
+      ],
     }
   },
   methods: {
@@ -71,7 +79,7 @@ export default {
       this.$store.commit('setLoged', true)
         console.log(this.$store.state.loged)
 
-      
+
     }
     // logIn() {
     //   let currentObj = this;

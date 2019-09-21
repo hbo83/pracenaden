@@ -179,8 +179,8 @@ app.put('/profiles/:id', function(req, res) {
         whatsapp: req.body.whatsapp,
         aboutMe: req.body.aboutMe,
         offerMe: req.body.offerMe,
-        checked: req.body.checked,
-        checked2: req.body.checked2,
+        checkboxAgree: req.body.checkboxAgree,
+        osvc: req.body.osvc,
         currency: req.body.currency,
         hideProfil: req.body.hideProfil
       }

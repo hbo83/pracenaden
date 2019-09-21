@@ -2,11 +2,10 @@
 <v-app>
   <Header></Header>
   <v-container style="width: 30%">
-    <p>Zde prosím vyplňte informace</p>
+    <v-form ref="form" :lazy-validation="false" v-model="valid">
+    <h3 style="color: #90e4f1">Zde prosím vyplňte informace</h3>
     <v-col>
-      <v-form ref="form" :lazy-validation="lazy" v-model="valid">
         <v-text-field v-model="name" label="Celé jméno" :rules="nameRules" required></v-text-field>
-
         <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field>
         <v-row>
           <v-col>
@@ -18,12 +17,10 @@
         </v-row>
         <v-text-field v-model="phone" label="Telefon" :rules="phoneRules" required></v-text-field>
         <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
-
         <v-row align="center">
           <v-col cols="12" sm="12">
             <v-select v-model="selectedJobItems" :items="itemsJob" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
           </v-col>
-
         </v-row>
         <v-row>
           <v-col cols="6" md="6">
@@ -33,7 +30,6 @@
             <h4>Nabízím</h4>
           </v-col>
         </v-row>
-
         <v-row>
           <v-col cols="6" md="6">
             <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules"></v-textarea>
@@ -42,68 +38,40 @@
             <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe" :rules="offerMeRules"></v-textarea>
           </v-col>
         </v-row>
-      </v-form>
     </v-col>
     <v-col>
-
       <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
-
       <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
-
       <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
-
       <v-text-field v-model="skype" label="Skype" required></v-text-field>
-
       <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
       <v-row>
         <v-col cols="6" sm="6">
-          <v-checkbox v-model="checkboxAgree" :rules="checkedRules" label="Souhlasím" required></v-checkbox>
+        <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
         </v-col>
-        <v-col cols="6" sm="6">
-
-          <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvc.toString()}`"></v-switch>
-        </v-col>
-      </v-row>
-
-      <v-row>
         <v-col cols="6" sm="6">
           <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox>
         </v-col>
-        <v-col cols="6" sm="6">
-
-        </v-col>
       </v-row>
-
       <v-row>
         <v-col>
-
           <upload-btn title="Profil photo" @file-update="uploadProfilPhoto"><template slot="icon">
               <v-icon>add</v-icon>
             </template></upload-btn>
-
-
         </v-col>
         <v-col>
-
           <upload-btn title="Galery" @file-update="update">
             <template slot="icon">
               <v-icon>add</v-icon>
             </template>
           </upload-btn>
-
         </v-col>
       </v-row>
     </v-col>
-
     <v-row>
       <v-col>
-        <v-btn color="success" class="mr-4" :disabled="!valid" @click="saveProfil">
-          <!-- <v-btn color="success" class="mr-4" :disabled="!valid" @click="validate"> -->
-          Uložit
-        </v-btn>
-        <!-- <v-btn color="success" class="mr-4" :disabled="!valid" @click="reset">reset</v-btn> -->
+        <v-btn color="success" class="mr-4" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
       </v-col>
-      </v-form>
     </v-row>
     <hr />
     <v-row>
@@ -118,6 +86,7 @@
         <v-img style="cursor: pointer" @click="delImg(imgs[index])" :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="175"></v-img>
       </v-col>
     </v-row>
+  </v-form>
   </v-container>
 
 </v-app>
@@ -137,8 +106,7 @@ export default {
     imgs: [],
     imgs2: [],
     email: localStorage.getItem("userLoged"),
-    valid: true,
-    lazy: false,
+    valid: false,
     osvc: false,
     phone: '',
     phoneRules: [
@@ -190,11 +158,6 @@ export default {
     instagram: '',
     skype: '',
     whatsapp: '',
-    checkboxAgree: false,
-    checkedRules: [
-      v => !!v || 'Pro dokončení registrace je nutné souhlasit!',
-      // v => (v && v.length >= 10) || 'Nabízím musí mít víc jak 10 znaků',
-    ],
     hideProfil: false,
     dictionary: {
       attributes: {
@@ -213,20 +176,20 @@ export default {
       },
     },
   }),
-  computed() {
-
+  computed: {
+    osvcStatus: function() {
+      if (this.osvc === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    }
   },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true
       }
-    },
-    reset() {
-      this.$refs.form.reset()
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation()
     },
 
     delImg(id) {
@@ -310,10 +273,10 @@ export default {
         instagram: this.instagram,
         skype: this.skype,
         whatsapp: this.whatsapp,
-        checked: this.checked,
-        checked2: this.checked2,
+        osvc: this.osvc,
         currency: this.currency,
         hideProfil: this.hideProfil,
+        checkboxAgree: this.checkboxAgree,
         profilPhotoPath: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
 
       }).then(this.$router.push({
@@ -370,8 +333,8 @@ export default {
           this.skype = response.data[0].skype;
           this.whatsapp = response.data[0].whatsapp;
           this.selectedJobItems = response.data[0].category;
-          this.checked = response.data[0].checked;
-          this.checked2 = response.data[0].checked2;
+          this.osvc = response.data[0].osvc;
+          this.checkboxAgree = response.data[0].checkboxAgree,
           this.currency = response.data[0].currency;
           this.hideProfil = response.data[0].hideProfil;
         })

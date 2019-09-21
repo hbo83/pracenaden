@@ -23,6 +23,9 @@ export const store = new Vuex.Store({
     setLoged(state, loged) {
       state.loged = loged
     },
+    setUserLoged(state, userLoged) {
+      state.userLoged = userLoged
+    },
     setSelectedProfil(state, selectedProfil) {
       state.selectedProfil = selectedProfil
     },
