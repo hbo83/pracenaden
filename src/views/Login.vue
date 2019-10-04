@@ -95,7 +95,7 @@ export default {
           params: {}
         }))
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
           alert("Heslo nebo email nesouhlasí")
           this.$router.push({
             name: 'Login',
