@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
     selectedProfil: '',
     loged: false,
     selectedProfilData: {},
-    userImages: {}
+    userImages: {},
+    webVisible: true
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')"
     setSummaryData(state, data) {

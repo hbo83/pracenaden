@@ -6,20 +6,20 @@
       <v-col class="col-4" style="margin-left: 141px;">
         <Avatar v-bind:profilPhoto="profilPhoto" />
         <p class="profil"><span style="margin-left: 50px">
-            <v-icon color="yellow">face</v-icon>
+            <v-icon color="#90e4f1">face</v-icon>
             <!-- </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p> -->
           </span><span style="margin-left: 50px;">{{ getProfil }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
-            <v-icon>build</v-icon>
+            <v-icon color="#90e4f1">build</v-icon>
           </span><span style="margin-left: 50px;">{{ getJob }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
-            <v-icon>location_city</v-icon>
+            <v-icon color="#90e4f1">location_city</v-icon>
           </span><span style="margin-left: 50px;">{{ getCity }}</span></p>
         <p class="profil"><span style="margin-left: 50px">
-            <v-icon>money</v-icon>
+            <v-icon color="#90e4f1">money</v-icon>
           </span><span style="margin-left: 50px;">{{ getMoney }}</span></p>
         <p class="profil" style="margin-left: 220px">
-            <v-icon>category</v-icon>
+            <v-icon color="#90e4f1">category</v-icon>
           <div style="width: 50%; float: right;">
             <ul>
               <li style="text-align:left; list-style-type: none;" v-for="(category, index) in getCategory">{{ category }}</li>
@@ -32,14 +32,14 @@
         <div class="profilDetailMoreHeader">
 
           <div class="more">
-            <p><img src="https://img.icons8.com/color/48/000000/web.png"><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/facebook-new.png"><a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a></p>
-            <p><img src="https://img.icons8.com/color/48/000000/instagram-new.png"><a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a></p>
+            <p v-if="getWebVisible"><v-icon color="#90e4f1">web</v-icon><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a></p>
+            <p v-if="getFacebookVisible"><v-icon color="#90e4f1">thumb_up</v-icon><a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a></p>
+            <p v-if="getInstagramVisible"><v-icon color="#90e4f1">portrait</v-icon><a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a></p>
           </div>
 
           <div class="socials">
-            <p><img src="https://img.icons8.com/color/48/000000/skype--v2.png">{{ getSkype }}</p>
-            <p><img src="https://img.icons8.com/color/48/000000/whatsapp.png">{{ getWhatsapp }}</p>
+            <p v-if="getSkypeVisible"><v-icon color="#90e4f1">call</v-icon>{{ getSkype }}</p>
+            <p v-if="getWhatsappVisible"><v-icon color="#90e4f1">add_alert</v-icon>{{ getWhatsapp }}</p>
           </div>
         </div>
       </v-col>
@@ -89,6 +89,7 @@ import Header from '@/components/Header.vue'
 import Avatar from '@/components/Avatar.vue'
 import Profil from '@/components/Profil.vue'
 import axios from 'axios'
+// import { mdiWebBox } from '@mdi/font';
 export default {
   name: 'ProfilDetail',
   data() {
@@ -98,6 +99,14 @@ export default {
       email: '',
       profileDatas: null,
       profilPhoto: '',
+      //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
+      web: '',
+      facebook: '',
+      instagram: '',
+      skype: '',
+      whatsapp: ''
+      //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
+
       // test: "http://localhost:8081/uploads/" + this.$store.state.userImages[0].productImage
     }
   },
@@ -123,17 +132,32 @@ export default {
     getWeb() {
       return this.$store.state.selectedProfilData.web
     },
+    getWebVisible() {
+      return this.$store.state.selectedProfilData.webVisible
+    },
     getFacebook() {
       return this.$store.state.selectedProfilData.facebook
+    },
+    getFacebookVisible() {
+      return this.$store.state.selectedProfilData.facebookVisible
     },
     getInstagram() {
       return this.$store.state.selectedProfilData.instagram
     },
+    getInstagramVisible() {
+      return this.$store.state.selectedProfilData.instagramVisible
+    },
     getSkype() {
       return this.$store.state.selectedProfilData.skype
     },
+    getSkypeVisible() {
+      return this.$store.state.selectedProfilData.skypeVisible
+    },
     getWhatsapp() {
       return this.$store.state.selectedProfilData.whatsapp
+    },
+    getWhatsappVisible() {
+      return this.$store.state.selectedProfilData.whatsappVisible
     },
     getAboutMe() {
       return this.$store.state.selectedProfilData.aboutMe

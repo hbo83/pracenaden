@@ -3,7 +3,7 @@
   <Header></Header>
   <v-container style="width: 30%">
     <v-form ref="form" :lazy-validation="false" v-model="valid">
-    <h3 style="color: #90e4f1">Zde prosím vyplňte informace</h3>
+    <h3 style="color: #90e4f1">Zde prosím vyplňte informace o Vás</h3>
     <v-col>
         <v-text-field v-model="name" label="Celé jméno" :rules="nameRules" required></v-text-field>
         <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field>
@@ -40,11 +40,46 @@
         </v-row>
     </v-col>
     <v-col>
+      <v-row>
+        <v-col cols="6" sm="6">
       <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
+    </v-col>
+      <v-col cols="6" sm="6">
+        <v-switch v-model="webVisible" class="ma-4" :label="`Zobrazit: ${webStatus}`"></v-switch>
+      </v-col>
+    </v-row>
+<v-row>
+      <v-col cols="6" sm="6">
       <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
+    </v-col>
+      <v-col cols="6" sm="6">
+        <v-switch v-model="facebookVisible" class="ma-4" :label="`Zobrazit: ${facebookStatus}`"></v-switch>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="6" sm="6">
       <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
+    </v-col>
+    <v-col cols="6" sm="6">
+      <v-switch v-model="instagramVisible" class="ma-4" :label="`Zobrazit: ${instagramStatus}`"></v-switch>
+    </v-col>
+  </v-row>
+  <v-row>
+        <v-col cols="6" sm="6">
       <v-text-field v-model="skype" label="Skype" required></v-text-field>
+    </v-col>
+    <v-col>
+      <v-switch v-model="skypeVisible" class="ma-4" :label="`Zobrazit: ${skypeStatus}`"></v-switch>
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col cols="6" sm="6">
       <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
+    </v-col>
+    <v-col>
+      <v-switch v-model="whatsappVisible" class="ma-4" :label="`Zobrazit: ${whatsappStatus}`"></v-switch>
+    </v-col>
+  </v-row>
       <v-row>
         <v-col cols="6" sm="6">
         <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
@@ -154,10 +189,15 @@ export default {
     items: cities,
     id: localStorage.getItem("userLoged_id"),
     web: '',
+    webVisible: true,
     facebook: '',
+    facebookVisible: true,
     instagram: '',
+    instagramVisible: true,
     skype: '',
+    skypeVisible: true,
     whatsapp: '',
+    whatsappVisible: true,
     hideProfil: false,
     dictionary: {
       attributes: {
@@ -179,6 +219,41 @@ export default {
   computed: {
     osvcStatus: function() {
       if (this.osvc === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
+    webStatus: function() {
+      if (this.webVisible === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
+    facebookStatus: function() {
+      if (this.facebookVisible === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
+    instagramStatus: function() {
+      if (this.instagramVisible === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
+    skypeStatus: function() {
+      if (this.skypeVisible === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
+    whatsappStatus: function() {
+      if (this.whatsappVisible === true) {
         return "Ano"
       } else {
         return "Ne"
@@ -269,10 +344,15 @@ export default {
         phone: this.phone,
         city: this.city,
         web: this.web,
+        webVisible: this.webVisible,
         facebook: this.facebook,
+        facebookVisible: this.facebookVisible,
         instagram: this.instagram,
+        instagramVisible: this.instagramVisible,
         skype: this.skype,
+        skypeVisible: this.skypeVisible,
         whatsapp: this.whatsapp,
+        whatsappVisible: this.whatsappVisible,
         osvc: this.osvc,
         currency: this.currency,
         hideProfil: this.hideProfil,
@@ -328,10 +408,15 @@ export default {
           this.offerMe = response.data[0].offerMe;
           this.category = response.data[0].category;
           this.web = response.data[0].web;
+          this.webVisible = response.data[0].webVisible;
           this.facebook = response.data[0].facebook;
+          this.facebookVisible = response.data[0].facebookVisible;
           this.instagram = response.data[0].instagram;
+          this.instagramVisible = response.data[0].instagramVisible;
           this.skype = response.data[0].skype;
+          this.skypeVisible = response.data[0].skypeVisible;
           this.whatsapp = response.data[0].whatsapp;
+          this.whatsappVisible = response.data[0].whatsappVisible;
           this.selectedJobItems = response.data[0].category;
           this.osvc = response.data[0].osvc;
           this.checkboxAgree = response.data[0].checkboxAgree,
