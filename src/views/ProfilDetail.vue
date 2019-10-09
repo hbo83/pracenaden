@@ -3,52 +3,59 @@
   <Header />
   <v-container>
     <v-row>
-      <v-col class="col-4" style="margin-left: 141px;">
+      <v-col class="col-2" style="margin-left: 1px;">
         <Avatar v-bind:profilPhoto="profilPhoto" />
-        <p class="profil"><span style="margin-left: 50px">
-            <v-icon color="#90e4f1">face</v-icon>
-            <!-- </span><span style="margin-left: 50px;">{{ profileDatas.name }}</span></p> -->
-          </span><span style="margin-left: 50px;">{{ getProfil }}</span></p>
-        <p class="profil"><span style="margin-left: 50px">
-            <v-icon color="#90e4f1">build</v-icon>
-          </span><span style="margin-left: 50px;">{{ getJob }}</span></p>
-        <p class="profil"><span style="margin-left: 50px">
-            <v-icon color="#90e4f1">location_city</v-icon>
-          </span><span style="margin-left: 50px;">{{ getCity }}</span></p>
-        <p class="profil"><span style="margin-left: 50px">
-            <v-icon color="#90e4f1">money</v-icon>
-          </span><span style="margin-left: 50px;">{{ getMoney }}</span></p>
-        <p class="profil" style="margin-left: 220px">
-            <v-icon color="#90e4f1">category</v-icon>
-          <div style="width: 50%; float: right;">
-            <ul>
-              <li style="text-align:left; list-style-type: none;" v-for="(category, index) in getCategory">{{ category }}</li>
-            </ul>
-          </div>
+      </v-col>
+      <v-col class="profil">
+        <p>
+          <v-icon large color="#90e4f1">face</v-icon>
+          <span>{{ getProfil }}</span>
+        </p>
+        <p>
+          <v-icon large color="#90e4f1">build</v-icon>
+          <span>{{ getJob }}</span>
+        </p>
+        <p>
+          <v-icon large color="#90e4f1">location_city</v-icon>
+          <span>{{ getCity }}</span>
+        </p>
+        <p>
+          <v-icon large color="#90e4f1">money</v-icon>
+          <span>{{ getMoney }}</span>
+        </p>
+        <p>
+          <v-icon large color="#90e4f1">category</v-icon>
+          <span>{{ getCategory }}</span>
+        </p>
         </p>
 
       </v-col>
-      <v-col style="margin-left: 248px;">
-        <div class="profilDetailMoreHeader">
-
-          <div class="more">
-            <p v-if="getWebVisible"><v-icon color="#90e4f1">web</v-icon><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a></p>
-            <p v-if="getFacebookVisible"><v-icon color="#90e4f1">thumb_up</v-icon><a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a></p>
-            <p v-if="getInstagramVisible"><v-icon color="#90e4f1">portrait</v-icon><a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a></p>
-          </div>
-
-          <div class="socials">
-            <p v-if="getSkypeVisible"><v-icon color="#90e4f1">call</v-icon>{{ getSkype }}</p>
-            <p v-if="getWhatsappVisible"><v-icon color="#90e4f1">add_alert</v-icon>{{ getWhatsapp }}</p>
-          </div>
-        </div>
+      <v-col class="profil">
+        <p v-if="getWebVisible">
+          <v-icon large color="#90e4f1">web</v-icon>
+          <span>
+            <a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a>
+          </span>
+        </p>
+        <p v-if="getFacebookVisible">
+          <v-icon large color="#90e4f1">thumb_up</v-icon><a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
+        </p>
+        <p v-if="getInstagramVisible">
+          <v-icon large color="#90e4f1">portrait</v-icon><a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
+        </p>
+        <p v-if="getSkypeVisible">
+          <v-icon large color="#90e4f1">call</v-icon>{{ getSkype }}
+        </p>
+        <p v-if="getWhatsappVisible">
+          <v-icon large color="#90e4f1">add_alert</v-icon>{{ getWhatsapp }}
+        </p>
       </v-col>
     </v-row>
 
     <v-row style="margin-top: 50px;">
       <v-col class="col-1">
         <div class="profilDetailBack">
-          <v-btn height="63px" width="52%" small color="error" to="/">
+          <v-btn height="200px" width="52%" small color="error" to="/">
             <v-icon large>arrow_back</v-icon>
           </v-btn>
         </div>
@@ -127,7 +134,9 @@ export default {
       return this.$store.state.selectedProfilData.money
     },
     getCategory() {
-      return this.$store.state.selectedProfilData.category
+      let category = this.$store.state.selectedProfilData.category
+      category = category.join(",")
+      return category
     },
     getWeb() {
       return this.$store.state.selectedProfilData.web
@@ -189,7 +198,7 @@ export default {
   },
   mounted() {
     // console.log('ProfilDetail mounted');
-console.log(this.$store.state.userLogedId)
+    console.log(this.$store.state.userLogedId)
     axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
       .then((response) => {
         this.setUserData(response.data[0])
@@ -199,7 +208,7 @@ console.log(this.$store.state.userLogedId)
       });
 
     axios.get('http://localhost:8081/img/' + this.$store.state.selectedProfil)
-    // axios.get('http://localhost:8081/img/' + "hbo83@seznam.cz")
+      // axios.get('http://localhost:8081/img/' + "hbo83@seznam.cz")
       .then((response) => {
         this.setUserImgs(response.data)
       })
@@ -216,52 +225,15 @@ console.log(this.$store.state.userLogedId)
 </script>
 
 <style scoped>
-.profilDetailMoreHeader {
-  height: 192px;
-  margin: 5px 0 0 5px;
-  border-radius: 5px;
-}
-
 .profilDetailBack {
   height: 192px;
   border-radius: 5px;
-}
-
-.profilDetailMore {
-  height: 192px;
-  border-radius: 5px;
-}
-
-.more {
-  width: 49%;
-  height: 150px;
-  float: left;
-  font-size: 19px;
-}
-
-.more p {
-  font-size: 19px;
 }
 
 img {
   position: relative;
   top: 17px;
   margin-right: 20px;
-}
-
-.socials {
-  width: 49%;
-  height: 150px;
-  /* border: 1px solid black; */
-  float: left;
-}
-
-.socials p {
-  font-size: 19px;
-}
-
-.profilDetailMore p {
-  font-size: 15px;
 }
 
 p {
@@ -271,11 +243,16 @@ p {
 }
 
 .profil {
-  display: block;
+  /* display: block;
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: 10px; */
   /* float: right; */
-  font-size: 20px;
+  /* font-size: 20px; */
+}
+
+.profil p span {
+  font-size: large;
+  margin-left: 3%;
 }
 
 .v-application p {
