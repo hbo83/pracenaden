@@ -3,52 +3,96 @@
   <Header />
   <v-container>
     <v-row>
-      <v-col class="col-2" style="margin-left: 1px;">
+      <v-col class="col-1 ml-lg-12">
         <Avatar v-bind:profilPhoto="profilPhoto" />
       </v-col>
-      <v-col class="profil">
-        <p>
-          <v-icon large color="#90e4f1">face</v-icon>
-          <span>{{ getProfil }}</span>
-        </p>
-        <p>
-          <v-icon large color="#90e4f1">build</v-icon>
-          <span>{{ getJob }}</span>
-        </p>
-        <p>
-          <v-icon large color="#90e4f1">location_city</v-icon>
-          <span>{{ getCity }}</span>
-        </p>
-        <p>
-          <v-icon large color="#90e4f1">money</v-icon>
-          <span>{{ getMoney }}</span>
-        </p>
-        <p>
-          <v-icon large color="#90e4f1">category</v-icon>
-          <span>{{ getCategory }}</span>
-        </p>
-        </p>
+      <v-col class="profil"><v-card class="pa-4">
+        <v-row>
+          <v-col style="text-align: left">
 
+          <v-icon large color="#90e4f1">face</v-icon>
+          <span style="color: #90e4f1">E-mail:</span>
+        </v-col>
+        <v-col style="text-align: left">
+          <span> {{ getProfil }}</span>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col style="text-align: left">
+
+          <v-icon large color="#90e4f1">build</v-icon>
+          <span style="color: #90e4f1">Profese:</span>
+        </v-col>
+        <v-col style="text-align: left">
+            <span><a target="_blank" rel="noopener noreferrer" v-bind:href="job">{{ getJob }}</a></span>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col style="text-align: left">
+
+          <v-icon large color="#90e4f1">location_city</v-icon>
+          <span style="color: #90e4f1">Místo:</span>
+        </v-col>
+        <v-col style="text-align: left">
+          <span><a target="_blank" rel="noopener noreferrer" v-bind:href="city">{{ getCity }}</a></span>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col style="text-align: left">
+
+          <v-icon large color="#90e4f1">money</v-icon>
+          <span style="color: #90e4f1">Odměna:</span>
+        </v-col>
+        <v-col style="text-align: left">
+          <span>{{ getMoney }}</span>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col style="text-align: left">
+
+          <v-icon large color="#90e4f1">category</v-icon>
+          <span style="color: #90e4f1">Kategorie:</span>
+        </v-col>
+        <v-col style="text-align: left">
+          <span>{{ getCategory }}</span>
+        </v-col>
+      </v-row>
+        <!-- </p> -->
+</v-card>
       </v-col>
-      <v-col class="profil">
+      <v-col class="profil"><v-card>
         <p v-if="getWebVisible">
           <v-icon large color="#90e4f1">web</v-icon>
-          <span>
+          <span style="color: #90e4f1">Web:</span><span>
             <a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a>
           </span>
         </p>
         <p v-if="getFacebookVisible">
-          <v-icon large color="#90e4f1">thumb_up</v-icon><a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
+          <v-icon large color="#90e4f1">thumb_up</v-icon>
+          <span style="color: #90e4f1">Facebook:</span><span>
+            <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
+          </span>
         </p>
         <p v-if="getInstagramVisible">
-          <v-icon large color="#90e4f1">portrait</v-icon><a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
+          <v-icon large color="#90e4f1">portrait</v-icon>
+          <span style="color: #90e4f1">Instagram:</span><span>
+          <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
+        </span>
         </p>
         <p v-if="getSkypeVisible">
-          <v-icon large color="#90e4f1">call</v-icon>{{ getSkype }}
+          <v-icon large color="#90e4f1">call</v-icon>
+          <span style="color: #90e4f1">Skype:</span><span>
+            {{ getSkype }}
+          </span>
         </p>
         <p v-if="getWhatsappVisible">
-          <v-icon large color="#90e4f1">add_alert</v-icon>{{ getWhatsapp }}
-        </p>
+          <v-icon large color="#90e4f1">add_alert</v-icon>
+          <span style="color: #90e4f1">Whatsapp:</span><span>
+            {{ getWhatsapp }}
+          </span>
+        </p></v-card>
       </v-col>
     </v-row>
 
@@ -135,7 +179,7 @@ export default {
     },
     getCategory() {
       let category = this.$store.state.selectedProfilData.category
-      category = category.join(",")
+      category = category.join(", ")
       return category
     },
     getWeb() {
