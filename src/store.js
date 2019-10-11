@@ -52,9 +52,20 @@ export const store = new Vuex.Store({
     // }
   },
   getters: { //to samy jako computed. Kdyz budu chtit vratit neco slozitejsiho nez jen this.$store.state.loged tak pouziju getter a v komponente volam jen getter v computed this.$store.getters.NejakejGetter
+    // https://www.youtube.com/watch?v=OtLRQdjmFvs
     getFacebook: state => state.selectedProfilData.facebook,
     getLoged: state => state.loged,
-    getSummaryData: state => state.summaryData
+    getSummaryData: state => state.summaryData,
+
+    getPricePlusCurrency: state => {//tento getter se vola v computed v ProfilDetail
+      return state.selectedProfilData.money + state.selectedProfilData.currency
+    },
+
+    getCategoryString: state => {//tento getter se vola v computed v ProfilDetail
+      let category = state.selectedProfilData.category
+      let category2 = category.join(", ")
+      return category2
+    }
 
   },
   actions: { //to samy jako metody, actions vola metodu z mutation ktera meni state

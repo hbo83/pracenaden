@@ -1,25 +1,25 @@
 <template>
-<!-- <v-app> -->
 <v-container>
-  <v-row no-gutters>
+  <v-row style="background-color:#90e4f1" no-gutters>
     <v-col cols="4" sm="4">
-      <div class="header">
+      <!-- <h1>i am from the helper</h1> -->
+      <!-- <div class="header"> -->
         <h1 @click="homePage">{{ msg }}</h1>
 
-      </div>
+      <!-- </div> -->
     </v-col>
     <v-col cols="4" sm="4">
-      <div class="headerSearch">
-        <v-text-field label="Hledat" append-icon="search" single-line solo></v-text-field>
-      </div>
+      <!-- <div class="headerSearch"> -->
+        <v-text-field label="Hledat" append-icon="search" single-line solo hide-details></v-text-field>
+      <!-- </div> -->
     </v-col>
     <v-col cols="4" sm="4">
-      <div class="headerIcons">
+      <!-- <div class="headerIcons"> -->
         <v-icon v-show="loged || updateLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
         <p style="text-align: right; color: white;"><b>{{ userLoged || updateUserLoged}}</b><span>
             <v-icon @click="logOut" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{icon}}</v-icon>
           </span></p>
-      </div>
+      <!-- </div> -->
     </v-col>
   </v-row>
 </v-container>
@@ -127,7 +127,7 @@ export default {
 
 <style scoped>
 .header,
-.headerSearch,
+/* .headerSearch, */
 .headerIcons {
   width: 100%;
   height: 56px;
@@ -135,9 +135,9 @@ export default {
   /* margin-top: 20px; */
 }
 
-.headerSearch {
+/* .headerSearch {
   padding-top: 4px;
-}
+} */
 
 .headerIcons {
   padding-top: 15px;

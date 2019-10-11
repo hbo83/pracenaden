@@ -8,20 +8,20 @@
       </v-col>
       <v-col class="profil"><v-card class="pa-4">
         <v-row>
-          <v-col style="text-align: left">
+          <v-col class="pa-0" style="text-align: left">
 
-          <v-icon large color="#90e4f1">face</v-icon>
+          <v-icon class="my-0 mr-4 py-0" large color="#90e4f1">face</v-icon>
           <span style="color: #90e4f1">E-mail:</span>
         </v-col>
-        <v-col style="text-align: left">
+        <v-col class="pa-0" style="text-align: left">
           <span> {{ getProfil }}</span>
         </v-col>
       </v-row>
 
       <v-row>
-        <v-col style="text-align: left">
+        <v-col class="pa-0" style="text-align: left">
 
-          <v-icon large color="#90e4f1">build</v-icon>
+          <v-icon class="my-0 mr-4" large color="#90e4f1">build</v-icon>
           <span style="color: #90e4f1">Profese:</span>
         </v-col>
         <v-col style="text-align: left">
@@ -30,33 +30,35 @@
       </v-row>
 
       <v-row>
-        <v-col style="text-align: left">
+        <v-col class="pa-0" style="text-align: left">
 
-          <v-icon large color="#90e4f1">location_city</v-icon>
+          <v-icon class="my-0 mr-4" large color="#90e4f1">location_city</v-icon>
           <span style="color: #90e4f1">Místo:</span>
         </v-col>
-        <v-col style="text-align: left">
+        <v-col class="pa-0" style="text-align: left">
           <span><a target="_blank" rel="noopener noreferrer" v-bind:href="city">{{ getCity }}</a></span>
         </v-col>
       </v-row>
       <v-row>
-        <v-col style="text-align: left">
+        <v-col class="pa-0" style="text-align: left">
 
-          <v-icon large color="#90e4f1">money</v-icon>
+          <v-icon class="my-0 mr-4" large color="#90e4f1">money</v-icon>
           <span style="color: #90e4f1">Odměna:</span>
         </v-col>
         <v-col style="text-align: left">
-          <span>{{ getMoney }}</span>
+
+          <span>{{ getMoneyPlusCurrency }}</span>
         </v-col>
       </v-row>
       <v-row>
-        <v-col style="text-align: left">
+        <v-col class="pa-0" style="text-align: left">
 
-          <v-icon large color="#90e4f1">category</v-icon>
+          <v-icon class="my-0 mr-4" large color="#90e4f1">category</v-icon>
           <span style="color: #90e4f1">Kategorie:</span>
         </v-col>
         <v-col style="text-align: left">
-          <span>{{ getCategory }}</span>
+
+          <span> {{ getCategory }} </span>
         </v-col>
       </v-row>
         <!-- </p> -->
@@ -155,7 +157,10 @@ export default {
       facebook: '',
       instagram: '',
       skype: '',
-      whatsapp: ''
+      whatsapp: '',
+      job: '',
+      city: '',
+      category2: ''
       //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
 
       // test: "http://localhost:8081/uploads/" + this.$store.state.userImages[0].productImage
@@ -174,13 +179,12 @@ export default {
     getCity() {
       return this.$store.state.selectedProfilData.city
     },
-    getMoney() {
-      return this.$store.state.selectedProfilData.money
+    getMoneyPlusCurrency() {//vrací getter ze store
+      return this.$store.getters.getPricePlusCurrency
     },
-    getCategory() {
-      let category = this.$store.state.selectedProfilData.category
-      category = category.join(", ")
-      return category
+    getCategory() {//vrací getter ze store
+      console.log(this.$store.getters.getCategoryString)
+      return this.$store.getters.getCategoryString
     },
     getWeb() {
       return this.$store.state.selectedProfilData.web

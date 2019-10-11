@@ -5,7 +5,7 @@
   <p><span><v-icon>face</v-icon></span><span>{{ profileDatas.name }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
   <p><span><v-icon>build</v-icon></span><span>{{ profileDatas.job }}</span></p>
   <p><span><v-icon>location_city</v-icon></span><span>{{ profileDatas.city }}</span></p>
-  <p><span><v-icon>money</v-icon></span><span>{{ profileDatas.money }} {{ profileDatas.currency }}</span></p>
+  <p><span><v-icon>money</v-icon></span><span>{{ getMoneyPlusCurrency }}</span></p>
   <div style="width: 50%; float: right;">
     <ul>
       <li style="text-align:left; list-style-type: none;" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</li>
@@ -56,6 +56,11 @@ export default {
   mounted() {
     // console.log('Profil mounted')
     console.log(this.profileDatas._id)
+  },
+  computed :{
+    getMoneyPlusCurrency() {
+      return this.$store.getters.getPricePlusCurrency
+    }
   },
   components: {
     Avatar

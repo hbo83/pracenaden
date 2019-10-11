@@ -2,6 +2,10 @@
 <div class="summary">
   <!-- zde deklaruji props direktivou v-bind. props promenna je profileDatas dale definovana v Profil komponente.  -->
   <!-- index z cyklu v-for jsem bindnul na promenou index v datech a ten jsem zas bindnul do props jako index objektu v poli, ktere se predava do komponenty profil -->
+  <SlotHelp>
+    <h2 slot="nadpis">{{ msg }}</h2>
+    <p>paragraf</p>
+  </SlotHelp>
   <v-app>
 
     <v-container fluid>
@@ -20,6 +24,7 @@
 <script>
 import Profil from '@/components/Profil.vue'
 import axios from 'axios';
+import SlotHelp from '@/components/SlotHelp.vue'
 export default {
   name: 'Summary',
   // async getInitialData({ store, route }) {
@@ -70,7 +75,8 @@ export default {
 
   },
   components: {
-    Profil
+    Profil,
+    SlotHelp
   }
 }
 </script>
