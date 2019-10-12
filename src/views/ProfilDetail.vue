@@ -3,98 +3,123 @@
   <Header />
   <v-container>
     <v-row>
-      <v-col class="col-1 ml-lg-12">
+      <v-col class="col-4 mx-lg-auto" style="padding-left: 15%">
         <Avatar v-bind:profilPhoto="profilPhoto" />
       </v-col>
-      <v-col class="profil"><v-card class="pa-4">
-        <v-row>
-          <v-col class="pa-0" style="text-align: left">
 
-          <v-icon class="my-0 mr-4 py-0" large color="#90e4f1">face</v-icon>
-          <span style="color: #90e4f1">E-mail:</span>
-        </v-col>
-        <v-col class="pa-0" style="text-align: left">
-          <span> {{ getProfil }}</span>
-        </v-col>
-      </v-row>
+                                                                        <!-- PROFIL -->
+      <v-col class="col-4 profil">
+        <v-card class="pa-4">
+          <v-row>
+            <v-col cols="3" class="pa-0" style="text-align: left">
+              <v-icon class="mr-4" large color="#90e4f1">face</v-icon>
+              <span style="color: #90e4f1">E-mail:</span>
+            </v-col>
+            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+              <span> {{ getProfil }}</span>
+            </v-col>
+          </v-row>
 
-      <v-row>
-        <v-col class="pa-0" style="text-align: left">
+          <v-row>
+            <v-col cols="3" class="pa-0" style="text-align: left">
+              <v-icon class="mr-4" large color="#90e4f1">build</v-icon>
+              <span style="color: #90e4f1">Profese:</span>
+            </v-col>
+            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+              <span><a target="_blank" rel="noopener noreferrer" v-bind:href="job">{{ getJob }}</a></span>
+            </v-col>
+          </v-row>
 
-          <v-icon class="my-0 mr-4" large color="#90e4f1">build</v-icon>
-          <span style="color: #90e4f1">Profese:</span>
-        </v-col>
-        <v-col style="text-align: left">
-            <span><a target="_blank" rel="noopener noreferrer" v-bind:href="job">{{ getJob }}</a></span>
-        </v-col>
-      </v-row>
+          <v-row>
+            <v-col cols="3" class="pa-0" style="text-align: left">
+              <v-icon class="mr-4" large color="#90e4f1">location_city</v-icon>
+              <span style="color: #90e4f1">Místo:</span>
+            </v-col>
+            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+              <span><a target="_blank" rel="noopener noreferrer" v-bind:href="city">{{ getCity }}</a></span>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="3" class="pa-0" style="text-align: left">
+              <v-icon class=" mr-4" large color="#90e4f1">money</v-icon>
+              <span style="color: #90e4f1">Odměna:</span>
+            </v-col>
+            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+              <span>{{ getMoneyPlusCurrency }}</span>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="3" class="pa-0" style="text-align: left">
+              <v-icon class="mr-4" large color="#90e4f1">category</v-icon>
+              <span style="color: #90e4f1">Kategorie:</span>
+            </v-col>
+            <v-col class="myColor pa-0 pt-1" style="text-align: left">
 
-      <v-row>
-        <v-col class="pa-0" style="text-align: left">
-
-          <v-icon class="my-0 mr-4" large color="#90e4f1">location_city</v-icon>
-          <span style="color: #90e4f1">Místo:</span>
-        </v-col>
-        <v-col class="pa-0" style="text-align: left">
-          <span><a target="_blank" rel="noopener noreferrer" v-bind:href="city">{{ getCity }}</a></span>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="pa-0" style="text-align: left">
-
-          <v-icon class="my-0 mr-4" large color="#90e4f1">money</v-icon>
-          <span style="color: #90e4f1">Odměna:</span>
-        </v-col>
-        <v-col style="text-align: left">
-
-          <span>{{ getMoneyPlusCurrency }}</span>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="pa-0" style="text-align: left">
-
-          <v-icon class="my-0 mr-4" large color="#90e4f1">category</v-icon>
-          <span style="color: #90e4f1">Kategorie:</span>
-        </v-col>
-        <v-col style="text-align: left">
-
-          <span> {{ getCategory }} </span>
-        </v-col>
-      </v-row>
-        <!-- </p> -->
-</v-card>
+              <span> {{ getCategory }} </span>
+            </v-col>
+          </v-row>
+          <!-- </p> -->
+        </v-card>
       </v-col>
-      <v-col class="profil"><v-card>
-        <p v-if="getWebVisible">
-          <v-icon large color="#90e4f1">web</v-icon>
-          <span style="color: #90e4f1">Web:</span><span>
-            <a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a>
-          </span>
-        </p>
-        <p v-if="getFacebookVisible">
-          <v-icon large color="#90e4f1">thumb_up</v-icon>
-          <span style="color: #90e4f1">Facebook:</span><span>
-            <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
-          </span>
-        </p>
-        <p v-if="getInstagramVisible">
-          <v-icon large color="#90e4f1">portrait</v-icon>
-          <span style="color: #90e4f1">Instagram:</span><span>
-          <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
-        </span>
-        </p>
-        <p v-if="getSkypeVisible">
-          <v-icon large color="#90e4f1">call</v-icon>
-          <span style="color: #90e4f1">Skype:</span><span>
-            {{ getSkype }}
-          </span>
-        </p>
-        <p v-if="getWhatsappVisible">
-          <v-icon large color="#90e4f1">add_alert</v-icon>
-          <span style="color: #90e4f1">Whatsapp:</span><span>
-            {{ getWhatsapp }}
-          </span>
-        </p></v-card>
+
+                                                                         <!-- KONTAKTY -->
+      <v-col class="col-4 profil">
+        <v-card class="pa-4">
+          <v-row v-if="getWebVisible">
+            <v-col cols="3" class="pa-0" style="text-align: left">
+            <v-icon large color="#90e4f1">web</v-icon>
+            <span style="color: #90e4f1">Web:</span>
+            </v-col>
+            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+              <span><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a>
+            </span>
+          </v-col>
+        </v-row>
+        <v-row v-if="getFacebookVisible">
+          <v-col cols="3" class="pa-0" style="text-align: left">
+            <v-icon large color="#90e4f1">thumb_up</v-icon>
+            <span style="color: #90e4f1">Facebook:</span>
+          </v-col>
+          <v-col class="myColor pa-0 pt-1" style="text-align: left">
+            <span>
+              <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
+            </span>
+          </v-col>
+        </v-row>
+        <v-row v-if="getInstagramVisible">
+          <v-col cols="3" class="pa-0" style="text-align: left">
+            <v-icon large color="#90e4f1">portrait</v-icon>
+            <span style="color: #90e4f1">Instagram:</span>
+          </v-col>
+          <v-col class="myColor pa-0 pt-1" style="text-align: left">
+            <span>
+              <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
+            </span>
+          </v-col>
+        </v-row>
+        <v-row v-if="getSkypeVisible">
+          <v-col cols="3" class="pa-0" style="text-align: left">
+            <v-icon large color="#90e4f1">call</v-icon>
+            <span style="color: #90e4f1">Skype:</span>
+          </v-col>
+          <v-col class="myColor pa-0 pt-1" style="text-align: left">
+            <span>
+              {{ getSkype }}
+            </span>
+          </v-col>
+        </v-row>
+        <v-row v-if="getWhatsappVisible">
+          <v-col cols="3" class="pa-0" style="text-align: left">
+            <v-icon large color="#90e4f1">add_alert</v-icon>
+            <span style="color: #90e4f1">Whatsapp:</span>
+          </v-col>
+          <v-col class="myColor pa-0 pt-1" style="text-align: left">
+            <span>
+              {{ getWhatsapp }}
+            </span>
+          </v-col>
+        </v-row>
+        </v-card>
       </v-col>
     </v-row>
 
@@ -108,7 +133,7 @@
       </v-col>
       <v-col>
         <v-card height="200px">
-          <v-card>
+          <v-card class="pl-4">
             <v-card-title max-width="50%">Něco o mně:</v-card-title>
           </v-card>
           <v-card-text style="text-align: left; color: green;">{{ getAboutMe }}</v-card-text>
@@ -125,10 +150,10 @@
       </v-col>
     </v-row>
 
-    <v-row justify="center" max-width="1826px" style="margin-left: 198px">
-      <v-col v-for="(image, index) in getUserImages" v-bind:index="index" class="col-4">
+    <v-row style="padding-left: 10%" justify="start" max-width="1826px">
+      <v-col v-for="(image, index) in getUserImages" v-bind:index="index" class="col-2">
 
-        <v-img :src="getImgSrc(index)" :lazy-src="getImgSrc(index)" aspect-ratio="1" class="grey lighten-2" max-width="500" max-height="300"></v-img>
+        <v-img :src="getImgSrc(index)" :lazy-src="getImgSrc(index)" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="200"></v-img>
       </v-col>
     </v-row>
   </v-container>
@@ -179,10 +204,10 @@ export default {
     getCity() {
       return this.$store.state.selectedProfilData.city
     },
-    getMoneyPlusCurrency() {//vrací getter ze store
+    getMoneyPlusCurrency() { //vrací getter ze store
       return this.$store.getters.getPricePlusCurrency
     },
-    getCategory() {//vrací getter ze store
+    getCategory() { //vrací getter ze store
       console.log(this.$store.getters.getCategoryString)
       return this.$store.getters.getCategoryString
     },
@@ -284,23 +309,8 @@ img {
   margin-right: 20px;
 }
 
-p {
-  text-align: left;
-  font-size: 28px;
-  margin: 0px;
-}
-
-.profil {
-  /* display: block;
-  text-align: left;
-  margin-bottom: 10px; */
-  /* float: right; */
-  /* font-size: 20px; */
-}
-
-.profil p span {
-  font-size: large;
-  margin-left: 3%;
+.myColor {
+  color: #90e4f1;
 }
 
 .v-application p {

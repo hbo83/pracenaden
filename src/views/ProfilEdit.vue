@@ -90,12 +90,17 @@
       </v-row>
       <v-row>
         <v-col>
+          <v-btn color="success" class="mr-4" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <!-- <v-col>
           <upload-btn title="Profil photo" @file-update="uploadProfilPhoto"><template slot="icon">
               <v-icon>add</v-icon>
             </template></upload-btn>
-        </v-col>
+        </v-col> -->
         <v-col>
-          <upload-btn title="Galery" @file-update="update">
+          <upload-btn title="Galery" @file-update="uploadGaleryPhoto">
             <template slot="icon">
               <v-icon>add</v-icon>
             </template>
@@ -103,11 +108,6 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-row>
-      <v-col>
-        <v-btn color="success" class="mr-4" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
-      </v-col>
-    </v-row>
     <hr />
     <v-row>
       <v-col>
@@ -285,30 +285,30 @@ export default {
       //   name: 'ProfilEdit'
       // })
     },
-    uploadProfilPhoto() {
-      this.selectedFile = event.target.files[0]
-      const fd = new FormData();
-      fd.append('profilPhoto', true);
-      fd.append('email', this.email);
-      fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-      // fd.append('productImage', this.selectedFile, this.selectedFile.name)
-      fd.append('productImage', this.selectedFile, "profilPhoto.jpg")
-      axios.post('http://localhost:8081/img', fd, {
-          onUploadProgress: uploadEvent => {
-            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-          }
-        })
-        .then(res => {
-          console.log(res);
-          alert('Soubor byl nahrán')
-        })
-    },
-    onFileSelected(event) {
-      console.log(event);
-
-      this.selectedFile = event.target.files[0]
-    },
-    update() {
+    // uploadProfilPhoto() {
+    //   this.selectedFile = event.target.files[0]
+    //   const fd = new FormData();
+    //   fd.append('profilPhoto', true);
+    //   fd.append('email', this.email);
+    //   fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+    //   // fd.append('productImage', this.selectedFile, this.selectedFile.name)
+    //   fd.append('productImage', this.selectedFile, "profilPhoto.jpg")
+    //   axios.post('http://localhost:8081/img', fd, {
+    //       onUploadProgress: uploadEvent => {
+    //         console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
+    //       }
+    //     })
+    //     .then(res => {
+    //       console.log(res);
+    //       alert('Soubor byl nahrán')
+    //     })
+    // },
+    // onFileSelected(event) {
+    //   console.log(event);
+    //
+    //   this.selectedFile = event.target.files[0]
+    // },
+    uploadGaleryPhoto() {
       this.selectedFile = event.target.files[0]
       const fd = new FormData();
       fd.append('profilPhoto', false);
