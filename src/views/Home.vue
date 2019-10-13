@@ -1,10 +1,10 @@
 <template>
-  <v-app>
+<v-app>
   <div class="home">
-<Header></Header>
-<Filtering></Filtering>
-<Summary></Summary>
-<Prefetch2 />
+    <Header></Header>
+    <Filtering></Filtering>
+    <Summary></Summary>
+    <Prefetch2 />
   </div>
 </v-app>
 </template>
@@ -22,19 +22,19 @@ import Filtering from '@/components/Filtering.vue'
 import Summary from '@/components/Summary.vue'
 import Prefetch2 from '@/components/Prefetch2.vue'
 export default {
-  fetch ({ store, params }) {
-    return axios.get('http://localhost:8081/profiles')
-    .then((res) => {
-      store.commit('setSummaryData', res.data)
-    })
-  },
   name: 'home',
   components: {
     Header,
     Filtering,
     Summary,
     Prefetch2
-  }
+  },
+  created() {
+    this.$store.dispatch("fetchUser").then(() => {
+    console.log("This would be printed after dispatch!!")
+   })
+
+  },
 }
 </script>
 

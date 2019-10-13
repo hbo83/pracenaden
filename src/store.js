@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import VueResource from 'vue-resource'//pro pouziti Vue.http.get
+
 Vue.use(Vuex);
+Vue.use(VueResource);
 
 //state nelze primo menit, ale jen skrze mutations. Asi jako v jave potrebujes settry
 export const store = new Vuex.Store({
@@ -15,9 +18,14 @@ export const store = new Vuex.Store({
     loged: false,
     selectedProfilData: {},
     userImages: {},
-    webVisible: true
+    webVisible: true,
+    serverData: []
   },
-  mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')"
+  mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
+
+    FETCH_USERS(state, users) {//commit, ktery naplni serverData, pouzito v action fetchUser()
+        state.serverData = users
+    },
     setSummaryData(state, data) {
       state.summaryData = data
     },
@@ -39,17 +47,7 @@ export const store = new Vuex.Store({
     setUserImgs(state, img) {
       state.userImages = img
     }
-    // setSummaryData(state, data) {
-    //   axios.get('http://localhost:8081/profiles')
-    //     .then((response) => {
-    //       console.log(response.data);
-    //       state.summaryData = response.data
-    //       console.log(state.summaryData);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
+
   },
   getters: { //to samy jako computed. Kdyz budu chtit vratit neco slozitejsiho nez jen this.$store.state.loged tak pouziju getter a v komponente volam jen getter v computed this.$store.getters.NejakejGetter
     // https://www.youtube.com/watch?v=OtLRQdjmFvs
@@ -68,23 +66,25 @@ export const store = new Vuex.Store({
     }
 
   },
-  actions: { //to samy jako metody, actions vola metodu z mutation ktera meni state
+  actions: { //to samy jako metody, actions vola metodu z mutation ktera meni state, volame metodou.dispatch(), mutation jsou synchroni, ale actions ne
+  fetchUser({ commit }) {
+        return new Promise((resolve, reject) => {
+            Vue.http.get('http://localhost:8081/profiles')
+            .then((response) => {
+                commit("FETCH_USERS", response.body);//spusti mutation, ktery naplni serverData
+                resolve();
+            })
+            .catch((error) => {
+                console.log(error.statusText);
+            });
+        });
+
+    },
     reducePrice: context => { //v komponentte volame this.$store.dispatch.reducePrice
       setTimeout(function() {
         context.commit('setLoged') //rikame ze tuhle akci volame s kontextem tohodle mutation
       }, 2000)
     }
 
-    // getInitData: function(context) {
-    //   context.commit('setSummaryData')
-    //   axios.get('http://localhost:8081/profiles')
-    //     .then((response) => {
-    //       console.log(response.data);
-    //
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
   }
 })

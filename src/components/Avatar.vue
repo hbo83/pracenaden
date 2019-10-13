@@ -2,7 +2,7 @@
 <div class="avatar">
 <div style="margin-bottom: 12px;">
 <v-img
-          :src="msg"
+          :src="profilPhoto"
           class="my-3"
           contain
           height="160"
@@ -19,7 +19,7 @@ export default {
   name: 'Avatar',
   data() {
     return {
-      msg: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
+      profilPhoto: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
 
     }
   },

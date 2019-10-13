@@ -14,5 +14,10 @@ new Vue({
   router,
   vuetify,
   store,
+  mounted() {
+     // axios
+     //  .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+     //  .then(response => (this.info = response))
+  },
   render: h => h(App)
 }).$mount('#app')

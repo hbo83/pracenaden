@@ -71,7 +71,9 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-    // console.log(this.$store.state.summaryData)
+      // this.$store.state.serverData.then(alert(456))
+      console.log(this.$store.state.serverData)
+      
 
   },
   components: {

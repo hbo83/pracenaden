@@ -94,11 +94,11 @@ export default {
   beforeMount() {
     this.loged = this.$store.state.loged
     this.userLoged = this.$store.state.userLoged
-    console.log(this.loged)
+    // console.log(this.loged)
     if (this.loged) {
       this.icon = "exit_to_app"
     }
-    console.log(this.userLoged)
+    // console.log(this.userLoged)
     // if (this.userLoged) {
     //   this.userLoged =
     // }
@@ -113,12 +113,12 @@ export default {
     if (x) {
       // console.log(x)
       this.$store.commit('setLoged', true)
-      console.log(this.$store.state.loged)
+      // console.log(this.$store.state.loged)
       return "exit_to_app"
     } else if (x === null) {
       // console.log(x)
       this.$store.commit('setLoged', false)
-      console.log(this.$store.state.loged)
+      // console.log(this.$store.state.loged)
       return "account_box"
     }
   }

@@ -141,19 +141,22 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card height="200px">
-          <v-card>
+        <v-card height="200px"><v-hover v-slot:default="{ hover }">
+          <v-card :elevation="hover ? 12 : 2">
             <v-card-title>Nabízím:</v-card-title>
-          </v-card>
-          <v-card-text style="text-align: left; color: green;">{{ getOfferMe }}</v-card-text>
+          </v-card></v-hover>
+          <v-card-text style="text-align: left; color: green;">{{ getOfferMe }} {{ getServerData }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
-    <v-row style="padding-left: 10%" justify="start" max-width="1826px">
-      <v-col v-for="(image, index) in getUserImages" v-bind:index="index" class="col-2">
+    <v-row style="padding-left: 10%; padding-right: 1%" justify="start" max-width="1826px">
+      <v-col v-for="(image, index) in getUserImages" v-bind:index="index" class="galleryImg col-2">
 
-        <v-img :src="getImgSrc(index)" :lazy-src="getImgSrc(index)" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="200"></v-img>
+        <v-img :src="getImgSrc(index)" :lazy-src="getImgSrc(index)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer"></v-img>
+      <!-- <v-hover v-slot:default="{ hover }"> -->
+        <v-card>sasa</v-card>
+      <!-- </v-hover> -->
       </v-col>
     </v-row>
   </v-container>
@@ -192,6 +195,9 @@ export default {
     }
   },
   computed: {
+    getServerData() {
+      return this.$store.state.serverData
+    },
     getIdProfil() {
       return this.$store.state.selectedIdProfil
     },
@@ -255,7 +261,7 @@ export default {
   methods: {
     setUserData: function(userObj) {
       this.$store.commit('setUserData', userObj)
-      console.log(userObj)
+      // console.log(userObj)
     },
     setUserImgs: function(userObj) {
       this.$store.commit('setUserImgs', userObj)
@@ -269,9 +275,12 @@ export default {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
   },
+  
   mounted() {
     // console.log('ProfilDetail mounted');
-    console.log(this.$store.state.userLogedId)
+    // this.$store.state.serverData.then(json => console.log(json.title))
+    // console.log(this.$store.state.serverData)
+    // console.log(this.$store.state.userLogedId)
     axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
       .then((response) => {
         this.setUserData(response.data[0])
