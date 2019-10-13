@@ -215,7 +215,8 @@ export default {
     },
     getCategory() { //vrací getter ze store
       console.log(this.$store.getters.getCategoryString)
-      return this.$store.getters.getCategoryString
+      let category = this.$store.getters.getCategoryString.toString('utf8')//bez toho parametru mi to hlasilo chybu
+      return category
     },
     getWeb() {
       return this.$store.state.selectedProfilData.web
@@ -275,7 +276,7 @@ export default {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
   },
-  
+
   mounted() {
     // console.log('ProfilDetail mounted');
     // this.$store.state.serverData.then(json => console.log(json.title))

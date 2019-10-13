@@ -10,9 +10,8 @@
 
     <v-container fluid>
       <v-row align="center">
-        <Profil v-show="!profil.hideProfil" v-for="(profil, index) in summaryData" v-bind:index="index" v-bind:profileDatas="summaryData[index]" />
-<!-- <p>{{getSummaryData}}</p> -->
-<!-- <v-btn @click="storeSummaryCommit(summaryData)">click</v-btn> -->
+        <!-- <Profil v-show="!profil.hideProfil" v-for="(profil, index) in summaryData" v-bind:index="index" v-bind:profileDatas="summaryData[index]" /> -->
+        <Profil v-show="!profil.hideProfil" v-for="(profil, index) in getAllProfiles" v-bind:index="index" v-bind:profileDatas="getAllProfiles[index]" />
       </v-row>
     </v-container>
   </v-app>
@@ -27,15 +26,10 @@ import axios from 'axios';
 import SlotHelp from '@/components/SlotHelp.vue'
 export default {
   name: 'Summary',
-  // async getInitialData({ store, route }) {
-  //   await store.dispatch('getSummaryData', route.params.home)
-  // },
   data() {
     return {
       msg: 'PraceNaDen',
-      profiles: [],
-      index: null,
-      summaryData: []
+      index: null
 
     }
   },
@@ -45,8 +39,8 @@ export default {
     }
   },
   computed: {
-    getSummaryData() {
-      return this.$store.state.summaryData
+    getAllProfiles() {//vraci pole profilu
+      return this.$store.state.allProfiles
     }
   },
   beforeMount() {
@@ -73,7 +67,7 @@ export default {
       });
       // this.$store.state.serverData.then(alert(456))
       console.log(this.$store.state.serverData)
-      
+
 
   },
   components: {

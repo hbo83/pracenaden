@@ -10,7 +10,7 @@ Vue.use(VueResource);
 export const store = new Vuex.Store({
   strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
-    summaryData: [],
+    allProfiles: [],//vsechny profily v DB
     profilPhotoPath: '',
     userLoged: localStorage.getItem("userLoged"),
     userLogedId: localStorage.getItem("userLoged_id"),
@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
 
     FETCH_USERS(state, users) {//commit, ktery naplni serverData, pouzito v action fetchUser()
-        state.serverData = users
+        state.allProfiles = users
     },
     setSummaryData(state, data) {
       state.summaryData = data
@@ -61,8 +61,8 @@ export const store = new Vuex.Store({
 
     getCategoryString: state => {//tento getter se vola v computed v ProfilDetail
       let category = state.selectedProfilData.category
-      let category2 = category.join(", ")
-      return category2
+      // let category2 = category.join(", ")
+      return category
     }
 
   },
