@@ -1,11 +1,11 @@
 <template>
   <v-col class="col-4">
 <div class="profil" @click="selectProfil">
-  <Avatar v-bind:email="profileDatas.email"></Avatar>
-  <p><span><v-icon>face</v-icon></span><span>{{ profileDatas.name }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
-  <p><span><v-icon>build</v-icon></span><span>{{ profileDatas.job }}</span></p>
-  <p><span><v-icon>location_city</v-icon></span><span>{{ profileDatas.city }}</span></p>
-  <p><span><v-icon>money</v-icon></span><span>{{ getMoneyPlusCurrency }}</span></p>
+  <Avatar v-bind:index="this.index" v-bind:email="profileDatas.email"></Avatar>
+  <p><span><v-icon>face</v-icon></span><span>{{ getName }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
+  <p><span><v-icon>build</v-icon></span><span>{{ getJob }}</span></p>
+  <p><span><v-icon>location_city</v-icon></span><span>{{ getCity }}</span></p>
+  <p><span><v-icon>money</v-icon></span><span>{{ getPricePlusCurrency }}</span></p>
   <div style="width: 50%; float: right;">
     <ul>
       <li style="text-align:left; list-style-type: none;" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</li>
@@ -24,6 +24,10 @@ export default {
     profileDatas: {
       type: Object,
       required: false
+    },
+    index: {//index predany z parent komponenty summary
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -58,8 +62,17 @@ export default {
     console.log(this.profileDatas._id)
   },
   computed :{
-    getMoneyPlusCurrency() {
-      return this.$store.getters.getPricePlusCurrency
+    getPricePlusCurrency() {//vraci money + currency z objektu
+      return this.$store.state.allProfiles[this.index].money + this.$store.state.allProfiles[this.index].currency
+    },
+    getName() {//vraci name z objektu
+      return this.$store.state.allProfiles[this.index].name
+    },
+    getJob() {//vraci job z objektu
+      return this.$store.state.allProfiles[this.index].job
+    },
+    getCity() {//vraci city z objektu
+      return this.$store.state.allProfiles[this.index].city
     }
   },
   components: {

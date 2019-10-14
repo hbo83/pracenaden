@@ -29,14 +29,14 @@ export default {
   data() {
     return {
       msg: 'PraceNaDen',
-      index: null
+      index: null//index predavam do child komponenty Profil, kde se pouzije jako index objektu v poli allProfiles
 
     }
   },
   methods: {
-    storeSummaryCommit: function(data) {
-      this.$store.commit('setSummaryData', data)
-    }
+    // storeSummaryCommit: function(data) {
+    //   this.$store.commit('setSummaryData', data)
+    // }
   },
   computed: {
     getAllProfiles() {//vraci pole profilu
@@ -46,27 +46,27 @@ export default {
   beforeMount() {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     // console.log(this.getSummaryData)
-    axios.get('http://localhost:8081/profiles')
-      .then((response) => {
-        console.log(response.data);
-        this.summaryData = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios.get('http://localhost:8081/profiles')
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     this.summaryData = response.data;
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   },
   mounted() {
     // console.log('Summary mounted')
     //nestaci abych jen commitnul store v beforeMount, pokud tam chci ty data dostat, tak to musim provest v mounted a funkce pro zobrazeni tech dat v computed
-    axios.get('http://localhost:8081/profiles')
-      .then((response) => {
-        this.$store.commit('setSummaryData', this.summaryData)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      // this.$store.state.serverData.then(alert(456))
-      console.log(this.$store.state.serverData)
+    // axios.get('http://localhost:8081/profiles')
+    //   .then((response) => {
+    //     this.$store.commit('setSummaryData', this.summaryData)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    //   // this.$store.state.serverData.then(alert(456))
+    //   console.log(this.$store.state.serverData)
 
 
   },

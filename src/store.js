@@ -63,6 +63,10 @@ export const store = new Vuex.Store({
       let category = state.selectedProfilData.category
       // let category2 = category.join(", ")
       return category
+    },
+
+    getProfilePhotoPath: state => {
+
     }
 
   },

@@ -2,7 +2,7 @@
 <div class="avatar">
 <div style="margin-bottom: 12px;">
 <v-img
-          :src="profilPhoto"
+          :src="getProfilePath"
           class="my-3"
           contain
           height="160"
@@ -27,6 +27,10 @@ export default {
       email: {
         type: String,
         required: false
+      },
+      index: {
+        type: Number,
+        required: true
       }
     },
   methods: {
@@ -36,10 +40,12 @@ export default {
     }
   },
   computed: {
-
+    getProfilePath() {
+      return 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.index].email + '/profilPhoto.jpg'
+    }
   },
   mounted() {
-    // console.log('Avatar mountedv' + this.msg)
+    console.log('http://localhost:8081/uploads/' + this.$store.state.allProfiles[0].email + '/profilPhoto.jpg')
   }
 }
 </script>
