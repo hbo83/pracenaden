@@ -4,7 +4,7 @@
   <v-container>
     <v-row>
       <v-col class="col-4 mx-lg-auto" style="padding-left: 15%">
-        <Avatar v-bind:profilPhoto="profilPhoto" />
+        <Avatar v-bind:index="this.index"></Avatar>
       </v-col>
 
                                                                         <!-- PROFIL -->
@@ -16,7 +16,7 @@
               <span style="color: #90e4f1">E-mail:</span>
             </v-col>
             <v-col class="myColor pa-0 pt-1" style="text-align: left">
-              <span> {{ getProfil }}</span>
+              <span> {{ getEmail }}</span>
             </v-col>
           </v-row>
 
@@ -45,7 +45,7 @@
               <span style="color: #90e4f1">Odměna:</span>
             </v-col>
             <v-col class="myColor pa-0 pt-1" style="text-align: left">
-              <span>{{ getMoneyPlusCurrency }}</span>
+              <span>{{ getPricePlusCurrency }}</span>
             </v-col>
           </v-row>
           <v-row>
@@ -145,15 +145,15 @@
           <v-card :elevation="hover ? 12 : 2">
             <v-card-title>Nabízím:</v-card-title>
           </v-card></v-hover>
-          <v-card-text style="text-align: left; color: green;">{{ getOfferMe }} {{ getServerData }}</v-card-text>
+          <v-card-text style="text-align: left; color: green;">{{ getOfferMe }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
     <v-row style="padding-left: 10%; padding-right: 1%" justify="start" max-width="1826px">
-      <v-col v-for="(image, index) in getUserImages" v-bind:index="index" class="galleryImg col-2">
+      <v-col v-for="(image, imgIndex) in getUserImages" v-bind:index="imgIndex" class="galleryImg col-2">
 
-        <v-img :src="getImgSrc(index)" :lazy-src="getImgSrc(index)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer"></v-img>
+        <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer"></v-img>
       <!-- <v-hover v-slot:default="{ hover }"> -->
         <v-card>sasa</v-card>
       <!-- </v-hover> -->
@@ -176,10 +176,10 @@ export default {
   data() {
     return {
       index: null,
+      imgIndex: null,
       id: '',
       email: '',
       profileDatas: null,
-      profilPhoto: '',
       //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
       web: '',
       facebook: '',
@@ -195,67 +195,72 @@ export default {
     }
   },
   computed: {
-    getServerData() {
-      return this.$store.state.serverData
+
+// PROFIL
+    getEmail() {//vraci email z objektu
+      return this.$store.state.allProfiles[this.index].email
     },
-    getIdProfil() {
-      return this.$store.state.selectedIdProfil
+    getJob() {//vraci job z objektu
+      return this.$store.state.allProfiles[this.index].job
     },
-    getJob() {
-      return this.$store.state.selectedProfilData.job
+    getCity() {//vraci city z objektu
+      return this.$store.state.allProfiles[this.index].city
     },
-    getProfil() {
-      return this.$store.state.selectedProfil
+    getPricePlusCurrency() {//vraci money + currency z objektu
+      return this.$store.state.allProfiles[this.index].money + this.$store.state.allProfiles[this.index].currency
     },
-    getCity() {
-      return this.$store.state.selectedProfilData.city
+    getCategory() { //vrací category
+      return this.$store.state.allProfiles[this.index].category.toString('utf-8')
     },
-    getMoneyPlusCurrency() { //vrací getter ze store
-      return this.$store.getters.getPricePlusCurrency
-    },
-    getCategory() { //vrací getter ze store
-      console.log(this.$store.getters.getCategoryString)
-      let category = this.$store.getters.getCategoryString.toString('utf8')//bez toho parametru mi to hlasilo chybu
-      return category
-    },
+// KONTAKTY
     getWeb() {
-      return this.$store.state.selectedProfilData.web
-    },
-    getWebVisible() {
-      return this.$store.state.selectedProfilData.webVisible
+      return this.$store.state.allProfiles[this.index].web
     },
     getFacebook() {
-      return this.$store.state.selectedProfilData.facebook
-    },
-    getFacebookVisible() {
-      return this.$store.state.selectedProfilData.facebookVisible
+      return this.$store.state.allProfiles[this.index].facebook
     },
     getInstagram() {
-      return this.$store.state.selectedProfilData.instagram
-    },
-    getInstagramVisible() {
-      return this.$store.state.selectedProfilData.instagramVisible
+      return this.$store.state.allProfiles[this.index].instagram
     },
     getSkype() {
-      return this.$store.state.selectedProfilData.skype
-    },
-    getSkypeVisible() {
-      return this.$store.state.selectedProfilData.skypeVisible
+      return this.$store.state.allProfiles[this.index].skype
     },
     getWhatsapp() {
-      return this.$store.state.selectedProfilData.whatsapp
+      return this.$store.state.allProfiles[this.index].whatsapp
+    },
+    // getCategory() { //vrací getter ze store
+    //   console.log(this.$store.getters.getCategoryString)
+    //   let category = this.$store.getters.getCategoryString.toString('utf8')//bez toho parametru mi to hlasilo chybu
+    //   return category
+    // },
+
+// VISIBILITA
+    getWebVisible() {
+      return this.$store.state.allProfiles[this.index].webVisible
+    },
+    getFacebookVisible() {
+      return this.$store.state.allProfiles[this.index].facebookVisible
+    },
+    getInstagramVisible() {
+      return this.$store.state.allProfiles[this.index].instagramVisible
+    },
+    getSkypeVisible() {
+      return this.$store.state.allProfiles[this.index].skypeVisible
     },
     getWhatsappVisible() {
-      return this.$store.state.selectedProfilData.whatsappVisible
+      return this.$store.state.allProfiles[this.index].whatsappVisible
     },
+
+// POPIS
     getAboutMe() {
-      return this.$store.state.selectedProfilData.aboutMe
+      return this.$store.state.allProfiles[this.index].aboutMe
     },
     getOfferMe() {
-      return this.$store.state.selectedProfilData.offerMe
+      return this.$store.state.allProfiles[this.index].offerMe
     },
+// GALERIE
     getUserImages: function() {
-      return this.$store.state.userImages
+      return this.$store.state.allProfiles[this.index].userImages
     },
 
   },
@@ -275,6 +280,7 @@ export default {
   beforeMount() {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
+    this.index = this.$route.params.index//priradi predany index z router.push() do data
   },
 
   mounted() {
@@ -282,14 +288,15 @@ export default {
     // this.$store.state.serverData.then(json => console.log(json.title))
     // console.log(this.$store.state.serverData)
     // console.log(this.$store.state.userLogedId)
-    axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
-      .then((response) => {
-        this.setUserData(response.data[0])
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    // console.log(this.$route.params.index)
+    // axios.get('http://localhost:8081/profilesedit/' + this.$store.state.selectedIdProfil)
+    //   .then((response) => {
+    //     this.setUserData(response.data[0])
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    //
     axios.get('http://localhost:8081/img/' + this.$store.state.selectedProfil)
       // axios.get('http://localhost:8081/img/' + "hbo83@seznam.cz")
       .then((response) => {

@@ -11,7 +11,7 @@ export const store = new Vuex.Store({
   strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
     allProfiles: [],//vsechny profily v DB
-    profilPhotoPath: '',
+    currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
     userLoged: localStorage.getItem("userLoged"),
     userLogedId: localStorage.getItem("userLoged_id"),
     selectedProfil: '',
@@ -19,12 +19,15 @@ export const store = new Vuex.Store({
     selectedProfilData: {},
     userImages: {},
     webVisible: true,
-    serverData: []
+    // serverData: []
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
 
     FETCH_USERS(state, users) {//commit, ktery naplni serverData, pouzito v action fetchUser()
         state.allProfiles = users
+    },
+    set_currentProfilIndex(state, index) {//commit, který naplní currentProfilIndex
+      state.currentProfilIndex = index
     },
     setSummaryData(state, data) {
       state.summaryData = data
@@ -44,7 +47,7 @@ export const store = new Vuex.Store({
     setUserData(state, user) {
       state.selectedProfilData = user
     },
-    setUserImgs(state, img) {
+    setUserImgs(state, img) {//vrati imgs aktualniho profilu
       state.userImages = img
     }
 

@@ -19,15 +19,10 @@ export default {
   name: 'Avatar',
   data() {
     return {
-      profilPhoto: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
 
     }
   },
     props: {
-      email: {
-        type: String,
-        required: false
-      },
       index: {
         type: Number,
         required: true

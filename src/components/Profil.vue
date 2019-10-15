@@ -1,7 +1,7 @@
 <template>
   <v-col class="col-4">
 <div class="profil" @click="selectProfil">
-  <Avatar v-bind:index="this.index" v-bind:email="profileDatas.email"></Avatar>
+  <Avatar v-bind:index="this.index"></Avatar>
   <p><span><v-icon>face</v-icon></span><span>{{ getName }}</span><span v-if="premium"><v-icon style="float: right" color="yellow">star</v-icon></span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
   <p><span><v-icon>build</v-icon></span><span>{{ getJob }}</span></p>
   <p><span><v-icon>location_city</v-icon></span><span>{{ getCity }}</span></p>
@@ -43,9 +43,12 @@ export default {
 
       this.$router.push({//presmeruje na profilDetail
         name: 'ProfilDetail',
-        params: {}//nepouzity objekt
+        params: {
+          index: this.index
+        }
       })
 
+      // this.storeProfilIndex(this.index)
       this.storeProfilCommit(this.email)
       this.storeProfilIdCommit(this.id)
 
@@ -55,6 +58,9 @@ export default {
     },
     storeProfilIdCommit: function(id) {
       this.$store.commit('setSelectedIdProfil', id)
+    },
+    storeProfilIndex() {
+      this.$store.commit('set_currentProfilIndex', index)
     }
   },
   mounted() {
