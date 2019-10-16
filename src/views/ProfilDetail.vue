@@ -3,7 +3,7 @@
   <Header />
   <NavBar />
   <v-container>
-    <v-row>
+    <v-row class="px-12">
       <v-col class="col-4 mx-lg-auto">
         <v-card class="pa-4">
 
@@ -127,7 +127,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="my-2">
+    <v-row class="px-12">
       <v-col>
         <v-card height="200px">
           <v-card class="pl-4">

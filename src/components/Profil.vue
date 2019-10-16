@@ -1,31 +1,47 @@
 <template>
 <v-card>
-  <v-row class="profilParent">
-        <v-col class="col-6 profil" no-gutters @click="selectProfil">
-        <ProfilImg v-bind:index="this.index"></ProfilImg>
-      </v-col>
-      <v-col class="col-6 px-0 profil" no-gutters @click="selectProfil">
-        <p><span>
-            <v-icon>face</v-icon>
-          </span><span>{{ getName }}</span><span v-if="premium">
-            <v-icon style="float: right" color="yellow">star</v-icon>
-          </span><span v-if="premium" style="font-size: 22px; float: right;">10</span></p>
-        <p><span>
-            <v-icon>build</v-icon>
-          </span><span>{{ getJob }}</span></p>
-        <p><span>
-            <v-icon>location_city</v-icon>
-          </span><span>{{ getCity }}</span></p>
-        <p><span>
-            <v-icon>money</v-icon>
-          </span><span>{{ getPricePlusCurrency }}</span></p>
-        <!-- <div style="width: 50%; float: right;">
-          <ul>
-            <li style="text-align:left; list-style-type: none;" v-for="(category, index) in profileDatas.category">{{ profileDatas.category[index] }}</li>
-          </ul>
-        </div> -->
-      </v-col>
-    </v-row>
+  <v-row class="profilParent" @click="selectProfil">
+    <v-col class="col-4 pl-8 profil" no-gutters>
+      <ProfilImg v-bind:index="this.index"></ProfilImg>
+    </v-col>
+    <v-col class="col-8 pr-4 profil" no-gutters>
+      <p>
+        <span>
+          <v-icon>face</v-icon>
+        </span>
+        <span>{{ getName }}</span>
+        <span v-if="premium">
+          <v-icon style="float: right" color="yellow">star</v-icon>
+        </span>
+        <span v-if="premium" style="font-size: 22px; float: right;">10</span>
+      </p>
+
+      <p>
+        <span>
+          <v-icon>build</v-icon>
+        </span>
+        <span>{{ getJob }}</span>
+      </p>
+      <p>
+        <span>
+          <v-icon>location_city</v-icon>
+        </span>
+        <span>{{ getCity }}</span>
+      </p>
+      <p>
+        <span>
+          <v-icon>money</v-icon>
+        </span>
+        <span>{{ getPricePlusCurrency }}</span>
+      </p>
+      <p>
+        <span>
+          <v-icon>category</v-icon>
+        </span>
+        <span>{{ getCategory }}</span>
+      </p>
+    </v-col>
+  </v-row>
 
 </v-card>
 </template>
@@ -62,18 +78,19 @@ export default {
           index: this.index
         }
       })
-      console.log(this.$props.index)
+
       this.storeProfilIndex(this.$props.index)
-      this.storeProfilCommit(this.email)
+
+      // this.storeProfilCommit(this.email)
       this.storeProfilIdCommit(this.id)
 
     },
-    storeProfilCommit: function(email) {
-      this.$store.commit('setSelectedProfil', email)
-    },
-    storeProfilIdCommit: function(id) {
-      this.$store.commit('setSelectedIdProfil', id)
-    },
+    // storeProfilCommit: function(email) {
+    //   this.$store.commit('setSelectedProfil', email)
+    // },
+    // storeProfilIdCommit: function(id) {
+    //   this.$store.commit('setSelectedIdProfil', id)
+    // },
     storeProfilIndex: function(index) {
       this.$store.commit('set_currentProfilIndex', index)
     }
@@ -94,7 +111,10 @@ export default {
     },
     getCity() { //vraci city z objektu
       return this.$store.state.allProfiles[this.index].city
-    }
+    },
+    getCategory() { //vrací category
+      return this.$store.state.allProfiles[this.index].category.toString('utf-8')
+    },
   },
   components: {
     ProfilImg
@@ -106,14 +126,16 @@ export default {
 .profil {
   cursor: pointer;
 }
+
 .profil:nth-child(odd) {
   /* border-left: 5px solid RGBA(144, 228, 241, 1); */
 }
+
 .profil:nth-child(even) {
   /* border-right: 1px solid black; */
 }
+
 .profilParent:hover {
   background-color: RGBA(144, 228, 241, 1);
 }
-
 </style>

@@ -14,11 +14,11 @@ export const store = new Vuex.Store({
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
     userLoged: localStorage.getItem("userLoged"),
     userLogedId: localStorage.getItem("userLoged_id"),
-    selectedProfil: '',
+    // selectedProfil: '',
     loged: false,
-    selectedProfilData: {},
+    // selectedProfilData: {},
     userImages: [],
-    webVisible: true,
+    // webVisible: true,
     // serverData: []
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
@@ -29,24 +29,24 @@ export const store = new Vuex.Store({
     set_currentProfilIndex(state, index) {//commit, který naplní currentProfilIndex
       state.currentProfilIndex = index
     },
-    setSummaryData(state, data) {
-      state.summaryData = data
-    },
+    // setSummaryData(state, data) {
+    //   state.summaryData = data
+    // },
     setLoged(state, loged) {
       state.loged = loged
     },
     setUserLoged(state, userLoged) {
       state.userLoged = userLoged
     },
-    setSelectedProfil(state, selectedProfil) {
-      state.selectedProfil = selectedProfil
-    },
-    setSelectedIdProfil(state, selectedIdProfil) {
-      state.selectedIdProfil = selectedIdProfil
-    },
-    setUserData(state, user) {
-      state.selectedProfilData = user
-    },
+    // setSelectedProfil(state, selectedProfil) {
+    //   state.selectedProfil = selectedProfil
+    // },
+    // setSelectedIdProfil(state, selectedIdProfil) {
+    //   state.selectedIdProfil = selectedIdProfil
+    // },
+    // setUserData(state, user) {
+    //   state.selectedProfilData = user
+    // },
     setUserImgs(state, img) {//vrati imgs aktualniho profilu
       state.userImages = img
     }

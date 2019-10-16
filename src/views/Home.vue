@@ -4,7 +4,7 @@
     <Header></Header>
     <Filtering></Filtering>
     <Summary></Summary>
-    <Prefetch2 />
+
   </div>
 </v-app>
 </template>
@@ -20,14 +20,14 @@ componentWillUnmount() - tato metoda je vyvolana tesne pretim nez bude komponent
 import Header from '@/components/Header.vue'
 import Filtering from '@/components/Filtering.vue'
 import Summary from '@/components/Summary.vue'
-import Prefetch2 from '@/components/Prefetch2.vue'
+
 export default {
   name: 'home',
   components: {
     Header,
     Filtering,
-    Summary,
-    Prefetch2
+    Summary
+
   },
   created() {
     this.$store.dispatch("fetchUser").then(() => {
