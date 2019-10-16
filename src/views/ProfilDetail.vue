@@ -1,10 +1,14 @@
 <template>
 <v-app>
   <Header />
+  <NavBar />
   <v-container>
     <v-row>
-      <v-col class="col-4 mx-lg-auto" style="padding-left: 15%">
-        <Avatar v-bind:index="this.index"></Avatar>
+      <v-col class="col-4 mx-lg-auto">
+        <v-card class="pa-4">
+
+          <ProfilImg v-bind:index="this.index"></ProfilImg>
+        </v-card>
       </v-col>
 
                                                                         <!-- PROFIL -->
@@ -123,14 +127,7 @@
       </v-col>
     </v-row>
 
-    <v-row style="margin-top: 50px;">
-      <v-col class="col-1">
-        <div class="profilDetailBack">
-          <v-btn height="200px" width="52%" small color="error" to="/">
-            <v-icon large>arrow_back</v-icon>
-          </v-btn>
-        </div>
-      </v-col>
+    <v-row class="my-2">
       <v-col>
         <v-card height="200px">
           <v-card class="pl-4">
@@ -141,10 +138,12 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card height="200px"><v-hover v-slot:default="{ hover }">
+        <v-card height="200px">
+          <v-hover v-slot:default="{ hover }">
           <v-card :elevation="hover ? 12 : 2">
             <v-card-title>Nabízím:</v-card-title>
-          </v-card></v-hover>
+          </v-card>
+        </v-hover>
           <v-card-text style="text-align: left; color: green;">{{ getOfferMe }}</v-card-text>
         </v-card>
       </v-col>
@@ -167,7 +166,8 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Avatar from '@/components/Avatar.vue'
+import NavBar from '@/components/NavBar.vue'
+import ProfilImg from '@/components/ProfilImg.vue'
 import Profil from '@/components/Profil.vue'
 import axios from 'axios'
 // import { mdiWebBox } from '@mdi/font';
@@ -177,6 +177,7 @@ export default {
     return {
       index: null,
       imgIndex: null,
+      profilIndex: null,
       id: '',
       email: '',
       profileDatas: null,
@@ -198,35 +199,35 @@ export default {
 
 // PROFIL
     getEmail() {//vraci email z objektu
-      return this.$store.state.allProfiles[this.index].email
+      return this.$store.state.allProfiles[this.profilIndex].email
     },
     getJob() {//vraci job z objektu
-      return this.$store.state.allProfiles[this.index].job
+      return this.$store.state.allProfiles[this.profilIndex].job
     },
     getCity() {//vraci city z objektu
-      return this.$store.state.allProfiles[this.index].city
+      return this.$store.state.allProfiles[this.profilIndex].city
     },
     getPricePlusCurrency() {//vraci money + currency z objektu
-      return this.$store.state.allProfiles[this.index].money + this.$store.state.allProfiles[this.index].currency
+      return this.$store.state.allProfiles[this.profilIndex].money + this.$store.state.allProfiles[this.profilIndex].currency
     },
     getCategory() { //vrací category
-      return this.$store.state.allProfiles[this.index].category.toString('utf-8')
+      return this.$store.state.allProfiles[this.profilIndex].category.toString('utf-8')
     },
 // KONTAKTY
     getWeb() {
-      return this.$store.state.allProfiles[this.index].web
+      return this.$store.state.allProfiles[this.profilIndex].web
     },
     getFacebook() {
-      return this.$store.state.allProfiles[this.index].facebook
+      return this.$store.state.allProfiles[this.profilIndex].facebook
     },
     getInstagram() {
-      return this.$store.state.allProfiles[this.index].instagram
+      return this.$store.state.allProfiles[this.profilIndex].instagram
     },
     getSkype() {
-      return this.$store.state.allProfiles[this.index].skype
+      return this.$store.state.allProfiles[this.profilIndex].skype
     },
     getWhatsapp() {
-      return this.$store.state.allProfiles[this.index].whatsapp
+      return this.$store.state.allProfiles[this.profilIndex].whatsapp
     },
     // getCategory() { //vrací getter ze store
     //   console.log(this.$store.getters.getCategoryString)
@@ -236,31 +237,31 @@ export default {
 
 // VISIBILITA
     getWebVisible() {
-      return this.$store.state.allProfiles[this.index].webVisible
+      return this.$store.state.allProfiles[this.profilIndex].webVisible
     },
     getFacebookVisible() {
-      return this.$store.state.allProfiles[this.index].facebookVisible
+      return this.$store.state.allProfiles[this.profilIndex].facebookVisible
     },
     getInstagramVisible() {
-      return this.$store.state.allProfiles[this.index].instagramVisible
+      return this.$store.state.allProfiles[this.profilIndex].instagramVisible
     },
     getSkypeVisible() {
-      return this.$store.state.allProfiles[this.index].skypeVisible
+      return this.$store.state.allProfiles[this.profilIndex].skypeVisible
     },
     getWhatsappVisible() {
-      return this.$store.state.allProfiles[this.index].whatsappVisible
+      return this.$store.state.allProfiles[this.profilIndex].whatsappVisible
     },
 
 // POPIS
     getAboutMe() {
-      return this.$store.state.allProfiles[this.index].aboutMe
+      return this.$store.state.allProfiles[this.profilIndex].aboutMe
     },
     getOfferMe() {
-      return this.$store.state.allProfiles[this.index].offerMe
+      return this.$store.state.allProfiles[this.profilIndex].offerMe
     },
 // GALERIE
     getUserImages: function() {
-      return this.$store.state.allProfiles[this.index].userImages
+      return this.$store.state.userImages
     },
 
   },
@@ -281,6 +282,7 @@ export default {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
     this.index = this.$route.params.index//priradi predany index z router.push() do data
+    this.profilIndex = this.$store.state.currentProfilIndex//vezme ze store index aktuálního profilu
   },
 
   mounted() {
@@ -309,16 +311,13 @@ export default {
   },
   components: {
     Header,
-    Avatar
+    NavBar,
+    ProfilImg
   }
 }
 </script>
 
 <style scoped>
-.profilDetailBack {
-  height: 192px;
-  border-radius: 5px;
-}
 
 img {
   position: relative;

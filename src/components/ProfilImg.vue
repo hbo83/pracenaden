@@ -1,12 +1,12 @@
 <template>
-<div class="avatar">
-<div style="margin-bottom: 12px;">
+<div class="avatar"><!--tu komponentu prejmenovat na profilIMG-->
+<div style="margin-bottom: 12px; border-radius: 100px; overflow: hidden">
 <v-img
           :src="getProfilePath"
-          class="my-3"
+          class="my-0"
           contain
-          height="160"
-          style="border-radius: 16px;"
+          height="113"
+          :aspect-ratio="1/1"
           alt="no picture"
           @error="onError"
         ></v-img>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'Avatar',
+  name: 'ProfilImg',
   data() {
     return {
 
@@ -49,7 +49,7 @@ export default {
 .avatar {
   width: 150px;
   height: 175px;
-  float: left;
+  /* float: left; */
   border-radius: 3px;
   margin-right: 20px;
   border-radius: 100px;

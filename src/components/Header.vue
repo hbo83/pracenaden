@@ -39,10 +39,8 @@ export default {
       icon: "account_box"
     }
   },
-  computed: {
-    update() { //vuex state je dobry updatovat v computed
-      return this.$store.state.flavor
-    },
+  computed: { //vuex state je dobry updatovat v computed
+
     updateLoged() {
       return this.$store.state.loged
     },
@@ -98,17 +96,10 @@ export default {
     if (this.loged) {
       this.icon = "exit_to_app"
     }
-    // console.log(this.userLoged)
-    // if (this.userLoged) {
-    //   this.userLoged =
-    // }
+
   },
   mounted() {
 
-    // this.$store.commit('setSummaryData')
-    console.log(this.$store.state.summaryData)
-
-    // console.log('Header mounted')
     let x = localStorage.getItem("userLoged"); //toto by se melo prat ze store
     if (x) {
       // console.log(x)

@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
     selectedProfil: '',
     loged: false,
     selectedProfilData: {},
-    userImages: {},
+    userImages: [],
     webVisible: true,
     // serverData: []
   },

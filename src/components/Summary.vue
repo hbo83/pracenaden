@@ -2,19 +2,20 @@
 <div class="summary">
   <!-- zde deklaruji props direktivou v-bind. props promenna je profileDatas dale definovana v Profil komponente.  -->
   <!-- index z cyklu v-for jsem bindnul na promenou index v datech a ten jsem zas bindnul do props jako index objektu v poli, ktere se predava do komponenty profil -->
-  <SlotHelp>
+  <!-- <SlotHelp>
     <h2 slot="nadpis">{{ msg }}</h2>
     <p>paragraf</p>
-  </SlotHelp>
-  <v-app>
+  </SlotHelp> -->
+  <!-- <v-app> -->
 
     <v-container fluid>
-      <v-row align="center">
-        <!-- <Profil v-show="!profil.hideProfil" v-for="(profil, index) in summaryData" v-bind:index="index" v-bind:profileDatas="summaryData[index]" /> -->
-        <Profil v-show="!profil.hideProfil" v-for="(profil, index) in getAllProfiles" v-bind:index="index" v-bind:profileDatas="getAllProfiles[index]" />
+      <v-row>
+        <v-col class="col-4" v-for="(profil, index) in getAllProfiles">
+        <Profil v-show="!profil.hideProfil" :index="index" :profileDatas="getAllProfiles[index]" />
+      </v-col>
       </v-row>
     </v-container>
-  </v-app>
+  <!-- </v-app> -->
 
 
 </div>
@@ -80,7 +81,7 @@ export default {
 <style scoped>
 .summary {
   width: 100%;
-  height: 600px;
+  height: auto;
   /* background-color: pink; */
   padding: 0 10px 0 45px;
 }
