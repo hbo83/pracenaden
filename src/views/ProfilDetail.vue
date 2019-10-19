@@ -3,132 +3,163 @@
   <Header />
   <NavBar />
   <v-container>
-    <v-row class="px-12">
-      <v-col class="col-4 mx-lg-auto">
-        <v-card class="pa-4">
+    <v-row class="px-12 col-12">
+      <v-col class="col-8">
+        <v-row justify="center">
+          <v-col class="col-4">
+            <v-card class="pa-4">
+              <ProfilImg v-bind:index="this.index"></ProfilImg>
+            </v-card>
+          </v-col>
+          <v-col class="col-4">
+            <v-row>
+            <v-col class="col-12">
+            <v-card class="pa-4">
+                <p><span><v-icon style="float: left" color="yellow">star</v-icon></span><span>10</span></p>
+                <p><span><v-icon style="float: left" color="pink">star</v-icon></span><span>10</span></p>
+            </v-card>
+          </v-col>
 
-          <ProfilImg v-bind:index="this.index"></ProfilImg>
-        </v-card>
+        </v-row>
+        <v-row>
+          <v-col class="col-12">
+            <v-card class="pa-4">
+                <v-row class="my-4" justify="center">
+                  <v-col cols="4" class="pa-0">
+                    <v-icon class="mr-4" large color="#90e4f1">category</v-icon>
+                    <span>Kategorie:</span>
+                  </v-col>
+                  <v-col cols="4" class="myColor pa-0 pt-1">
+
+                    <span> {{ getCategory }} </span>
+                  </v-col>
+                </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="col-5">
+            <v-card height="200px">
+              <v-card class="pl-4">
+                <v-card-title max-width="50%">Něco o mně:</v-card-title>
+              </v-card>
+              <v-card-text style="text-align: left; color: green;">{{ getAboutMe }}</v-card-text>
+
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
 
-                                                                        <!-- PROFIL -->
-      <v-col class="col-4 profil">
+      <!-- PROFIL -->
+      <v-col class="col-3 profil">
         <v-card class="pa-4">
-          <v-row>
-            <v-col cols="3" class="pa-0" style="text-align: left">
+          <v-row class="my-4" justify="center">
+            <v-col cols="4" class="pa-0 myColor">
               <v-icon class="mr-4" large color="#90e4f1">face</v-icon>
-              <span style="color: #90e4f1">E-mail:</span>
+              <span>E-mail:</span>
             </v-col>
-            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+            <v-col cols="4" class="myColor pa-0 pt-1">
               <span> {{ getEmail }}</span>
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-col cols="3" class="pa-0" style="text-align: left">
+          <v-row class="my-4" justify="center">
+            <v-col cols="4" class="pa-0 myColor" style="text-align: left">
               <v-icon class="mr-4" large color="#90e4f1">build</v-icon>
-              <span style="color: #90e4f1">Profese:</span>
+              <span>Profese:</span>
             </v-col>
-            <v-col class="myColor pa-0 pt-1" style="text-align: left">
-              <span><a target="_blank" rel="noopener noreferrer" v-bind:href="job">{{ getJob }}</a></span>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span><a target="_blank" rel="noopener noreferrer" :href="job">{{ getJob }}</a></span>
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-col cols="3" class="pa-0" style="text-align: left">
+          <v-row class="my-4" justify="center">
+            <v-col cols="4" class="pa-0 myColor">
               <v-icon class="mr-4" large color="#90e4f1">location_city</v-icon>
-              <span style="color: #90e4f1">Místo:</span>
+              <span>Místo:</span>
             </v-col>
-            <v-col class="myColor pa-0 pt-1" style="text-align: left">
-              <span><a target="_blank" rel="noopener noreferrer" v-bind:href="city">{{ getCity }}</a></span>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span><a target="_blank" rel="noopener noreferrer" :href="city">{{ getCity }}</a></span>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="3" class="pa-0" style="text-align: left">
+          <v-row class="my-4" justify="center">
+            <v-col cols="4" class="pa-0 myColor">
               <v-icon class=" mr-4" large color="#90e4f1">money</v-icon>
-              <span style="color: #90e4f1">Odměna:</span>
+              <span>Odměna:</span>
             </v-col>
-            <v-col class="myColor pa-0 pt-1" style="text-align: left">
+            <v-col cols="4" class="myColor pa-0 pt-1">
               <span>{{ getPricePlusCurrency }}</span>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col cols="3" class="pa-0" style="text-align: left">
-              <v-icon class="mr-4" large color="#90e4f1">category</v-icon>
-              <span style="color: #90e4f1">Kategorie:</span>
-            </v-col>
-            <v-col class="myColor pa-0 pt-1" style="text-align: left">
 
-              <span> {{ getCategory }} </span>
+          <v-row  justify="center" class="my-4" v-if="getWebVisible">
+            <v-col cols="4" class="pa-0 myColor">
+              <v-icon large color="#90e4f1">web</v-icon>
+              <span>Web:</span>
+            </v-col>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span><a target="_blank" rel="noopener noreferrer" :href="web">{{ getWeb}}</a>
+              </span>
+            </v-col>
+          </v-row>
+          <v-row justify="center" class="my-4" v-if="getFacebookVisible">
+            <v-col cols="4" class="pa-0 myColor">
+              <v-icon large color="#90e4f1">thumb_up</v-icon>
+              <span>Facebook:</span>
+            </v-col>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span>
+                <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
+              </span>
+            </v-col>
+          </v-row>
+          <v-row justify="center"  class="my-4" v-if="getInstagramVisible">
+            <v-col cols="4" class="pa-0 myColor">
+              <v-icon large color="#90e4f1">portrait</v-icon>
+              <span>Instagram:</span>
+            </v-col>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span>
+                <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
+              </span>
+            </v-col>
+          </v-row>
+          <v-row justify="center" class="my-4" v-if="getSkypeVisible">
+            <v-col cols="4" class="pa-0 myColor">
+              <v-icon large color="#90e4f1">call</v-icon>
+              <span>Skype:</span>
+            </v-col>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span>
+                {{ getSkype }}
+              </span>
+            </v-col>
+          </v-row>
+          <v-row justify="center" class="my-4" v-if="getWhatsappVisible">
+            <v-col cols="4" class="pa-0 myColor">
+              <v-icon large color="#90e4f1">add_alert</v-icon>
+              <span>Whatsapp:</span>
+            </v-col>
+            <v-col cols="4" class="myColor pa-0 pt-1">
+              <span>
+                {{ getWhatsapp }}
+              </span>
             </v-col>
           </v-row>
           <!-- </p> -->
         </v-card>
       </v-col>
 
-                                                                         <!-- KONTAKTY -->
-      <v-col class="col-4 profil">
-        <v-card class="pa-4">
-          <v-row v-if="getWebVisible">
-            <v-col cols="3" class="pa-0" style="text-align: left">
-            <v-icon large color="#90e4f1">web</v-icon>
-            <span style="color: #90e4f1">Web:</span>
-            </v-col>
-            <v-col class="myColor pa-0 pt-1" style="text-align: left">
-              <span><a target="_blank" rel="noopener noreferrer" v-bind:href="web">{{ getWeb}}</a>
-            </span>
-          </v-col>
-        </v-row>
-        <v-row v-if="getFacebookVisible">
-          <v-col cols="3" class="pa-0" style="text-align: left">
-            <v-icon large color="#90e4f1">thumb_up</v-icon>
-            <span style="color: #90e4f1">Facebook:</span>
-          </v-col>
-          <v-col class="myColor pa-0 pt-1" style="text-align: left">
-            <span>
-              <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
-            </span>
-          </v-col>
-        </v-row>
-        <v-row v-if="getInstagramVisible">
-          <v-col cols="3" class="pa-0" style="text-align: left">
-            <v-icon large color="#90e4f1">portrait</v-icon>
-            <span style="color: #90e4f1">Instagram:</span>
-          </v-col>
-          <v-col class="myColor pa-0 pt-1" style="text-align: left">
-            <span>
-              <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
-            </span>
-          </v-col>
-        </v-row>
-        <v-row v-if="getSkypeVisible">
-          <v-col cols="3" class="pa-0" style="text-align: left">
-            <v-icon large color="#90e4f1">call</v-icon>
-            <span style="color: #90e4f1">Skype:</span>
-          </v-col>
-          <v-col class="myColor pa-0 pt-1" style="text-align: left">
-            <span>
-              {{ getSkype }}
-            </span>
-          </v-col>
-        </v-row>
-        <v-row v-if="getWhatsappVisible">
-          <v-col cols="3" class="pa-0" style="text-align: left">
-            <v-icon large color="#90e4f1">add_alert</v-icon>
-            <span style="color: #90e4f1">Whatsapp:</span>
-          </v-col>
-          <v-col class="myColor pa-0 pt-1" style="text-align: left">
-            <span>
-              {{ getWhatsapp }}
-            </span>
-          </v-col>
-        </v-row>
-        </v-card>
-      </v-col>
+      <!-- KONTAKTY -->
+      <!-- <v-col class="col-4 profil">
+
+      </v-col> -->
     </v-row>
 
-    <v-row class="px-12">
-      <v-col>
+    <!-- <v-row class="px-12"> -->
+    <!-- <v-col>
         <v-card height="200px">
           <v-card class="pl-4">
             <v-card-title max-width="50%">Něco o mně:</v-card-title>
@@ -136,8 +167,8 @@
           <v-card-text style="text-align: left; color: green;">{{ getAboutMe }}</v-card-text>
 
         </v-card>
-      </v-col>
-      <v-col>
+      </v-col> -->
+    <!-- <v-col>
         <v-card height="200px">
           <v-hover v-slot:default="{ hover }">
           <v-card :elevation="hover ? 12 : 2">
@@ -146,16 +177,17 @@
         </v-hover>
           <v-card-text style="text-align: left; color: green;">{{ getOfferMe }}</v-card-text>
         </v-card>
-      </v-col>
-    </v-row>
+      </v-col> -->
+    <!-- </v-row> -->
 
     <v-row style="padding-left: 10%; padding-right: 1%" justify="start" max-width="1826px">
       <v-col v-for="(image, imgIndex) in getUserImages" v-bind:index="imgIndex" class="galleryImg col-2">
 
-        <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer"></v-img>
-      <!-- <v-hover v-slot:default="{ hover }"> -->
+        <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer">
+        </v-img>
+        <!-- <v-hover v-slot:default="{ hover }"> -->
         <v-card>sasa</v-card>
-      <!-- </v-hover> -->
+        <!-- </v-hover> -->
       </v-col>
     </v-row>
   </v-container>
@@ -197,23 +229,23 @@ export default {
   },
   computed: {
 
-// PROFIL
-    getEmail() {//vraci email z objektu
+    // PROFIL
+    getEmail() { //vraci email z objektu
       return this.$store.state.allProfiles[this.profilIndex].email
     },
-    getJob() {//vraci job z objektu
+    getJob() { //vraci job z objektu
       return this.$store.state.allProfiles[this.profilIndex].job
     },
-    getCity() {//vraci city z objektu
+    getCity() { //vraci city z objektu
       return this.$store.state.allProfiles[this.profilIndex].city
     },
-    getPricePlusCurrency() {//vraci money + currency z objektu
+    getPricePlusCurrency() { //vraci money + currency z objektu
       return this.$store.state.allProfiles[this.profilIndex].money + this.$store.state.allProfiles[this.profilIndex].currency
     },
     getCategory() { //vrací category
       return this.$store.state.allProfiles[this.profilIndex].category.toString('utf-8')
     },
-// KONTAKTY
+    // KONTAKTY
     getWeb() {
       return this.$store.state.allProfiles[this.profilIndex].web
     },
@@ -235,7 +267,7 @@ export default {
     //   return category
     // },
 
-// VISIBILITA
+    // VISIBILITA
     getWebVisible() {
       return this.$store.state.allProfiles[this.profilIndex].webVisible
     },
@@ -252,14 +284,14 @@ export default {
       return this.$store.state.allProfiles[this.profilIndex].whatsappVisible
     },
 
-// POPIS
+    // POPIS
     getAboutMe() {
       return this.$store.state.allProfiles[this.profilIndex].aboutMe
     },
     getOfferMe() {
       return this.$store.state.allProfiles[this.profilIndex].offerMe
     },
-// GALERIE
+    // GALERIE
     getUserImages: function() {
       return this.$store.state.userImages
     },
@@ -281,8 +313,8 @@ export default {
   beforeMount() {
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
-    this.index = this.$route.params.index//priradi predany index z router.push() do data
-    this.profilIndex = this.$store.state.currentProfilIndex//vezme ze store index aktuálního profilu
+    this.index = this.$route.params.index //priradi predany index z router.push() do data
+    this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
   },
 
   mounted() {
@@ -318,7 +350,6 @@ export default {
 </script>
 
 <style scoped>
-
 img {
   position: relative;
   top: 17px;
