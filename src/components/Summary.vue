@@ -16,7 +16,7 @@
       </v-row>
     </v-container>
   <!-- </v-app> -->
-
+<Help />
 
 </div>
 </template>
@@ -25,6 +25,7 @@
 import Profil from '@/components/Profil.vue'
 import axios from 'axios';
 import SlotHelp from '@/components/SlotHelp.vue'
+import Help from '@/components/Help.vue'
 export default {
   name: 'Summary',
   data() {
@@ -73,7 +74,8 @@ export default {
   },
   components: {
     Profil,
-    SlotHelp
+    SlotHelp,
+    Help
   }
 }
 </script>

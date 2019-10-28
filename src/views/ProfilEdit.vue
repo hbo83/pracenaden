@@ -266,9 +266,7 @@ export default {
         this.snackbar = true
       }
     },
-    setWebVisible() {
-      this.$store.commit('setThisProfileWebVisible', true)
-    },
+
     delImg(id) {
       if (confirm('Určitě chcete smazat soubor?')) {
 

@@ -13,12 +13,12 @@ export const store = new Vuex.Store({
   strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
     allProfiles: [],//vsechny profily v DB
-    thisProfile: {},//aktualni profil( profilDEtail a profilEdit ) - ted nefunkcni
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
     userLoged: localStorage.getItem("userLoged"),
     userLogedId: localStorage.getItem("userLoged_id"),
     loged: false,
     userImages: [],
+    helpData: "pred zmenou"
 
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
@@ -28,9 +28,6 @@ export const store = new Vuex.Store({
     },
     set_currentProfilIndex(state, index) {//commit, který naplní currentProfilIndex
       state.currentProfilIndex = index
-    },
-    setThisProfile(state, index){//commit, který naplní thisProfile
-      state.thisProfile = index
     },
     setLoged(state, loged) {//zalogován?
       state.loged = loged
@@ -46,6 +43,10 @@ export const store = new Vuex.Store({
       state.allProfiles[1].webVisible = boolean
     },
 
+    setHelpData( state, data) {
+      state.helpData = data
+    }
+
   },
   getters: { //to samy jako computed. Kdyz budu chtit vratit neco slozitejsiho nez jen this.$store.state.loged tak pouziju getter a v komponente volam jen getter v computed this.$store.getters.NejakejGetter
     // https://www.youtube.com/watch?v=OtLRQdjmFvs
@@ -57,15 +58,6 @@ export const store = new Vuex.Store({
     getThisProfil: ( state ) => {//vrátí aktuální profil, voláno v profilDetail
       return state.allProfiles[state.currentProfilIndex]
     },
-    // getPricePlusCurrency: state => {//tento getter se vola v computed v ProfilDetail
-    //   return state.selectedProfilData.money + state.selectedProfilData.currency
-    // },
-
-    // getCategoryString: state => {//tento getter se vola v computed v ProfilDetail
-    //   let category = state.selectedProfilData.category
-    //   // let category2 = category.join(", ")
-    //   return category
-    // },
 
     getProfilePhotoPath: state => {
 
@@ -73,7 +65,7 @@ export const store = new Vuex.Store({
 
   },
   actions: { //to samy jako metody, actions vola metodu z mutation ktera meni state, volame metodou.dispatch(), mutation jsou synchroni, ale actions ne
-
+  //podud chceme neco comitovat bez API tak muzem bez actions, ale jak budem ocekavat naky data tak pres actions
   fetchUser({ commit }) {
         return new Promise((resolve, reject) => {
             Vue.http.get('http://localhost:8081/profiles')

@@ -8,45 +8,48 @@
         <v-row>
           <v-col class="col-4">
             <!-- <v-card> -->
-              <!-- <ProfilImg v-bind:index="this.index"></ProfilImg> -->
-              <div class="profilImg">
+            <!-- <ProfilImg v-bind:index="this.index"></ProfilImg> -->
+            <div class="profilImg">
               <img :src="profilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 100px;">
             </div>
             <!-- </v-card> -->
           </v-col>
           <v-col class="col-8">
             <v-row justify="center">
-            <v-col class="col-12">
-            <v-card class="">
-              <v-row class="" justify="center">
-                <v-col cols="4" class="">
-                <p><span><v-icon color="yellow">star</v-icon></span><span>10</span></p>
+              <v-col class="col-12">
+                <v-card class="">
+                  <v-row class="stars" justify="center">
+                    <v-col cols="4" class="">
+                      <p><span>
+                          <v-icon color="yellow">star</v-icon>
+                        </span><span>10</span></p>
 
+                    </v-col>
+                    <v-col cols="4">
+                      <span>
+                        <v-icon color="pink">star</v-icon>
+                      </span><span>10</span>
+                    </v-col>
+                  </v-row>
+                </v-card>
               </v-col>
-              <v-col cols="4">
-                <span><v-icon color="pink">star</v-icon></span><span>10</span>
+
+            </v-row>
+            <v-row>
+              <v-col class="col-12">
+                <v-card class="">
+                  <v-row class="" justify="center">
+                    <v-col cols="4" class="category">
+                      <v-icon class="" large color="#90e4f1">category</v-icon>
+                      <span>Kategorie:</span>
+                    </v-col>
+                    <v-col cols="4" class="myColor pa-0 pt-4">
+                      <span class="item" v-for="item in getCategory"> {{ item }} </span><!--takhle z pole udelat string + dole css.. s toString to hlasi naky kraviny-->
+                    </v-col>
+                  </v-row>
+                </v-card>
               </v-col>
             </v-row>
-            </v-card>
-          </v-col>
-
-        </v-row>
-        <v-row>
-          <v-col class="col-12">
-            <v-card class="">
-                <v-row class="" justify="center">
-                  <v-col cols="4" class="">
-                    <v-icon class="" large color="#90e4f1">category</v-icon>
-                    <span>Kategorie:</span>
-                  </v-col>
-                  <v-col cols="4" class="myColor pa-0 pt-4">
-
-                    <span> {{ getCategory }} </span>
-                  </v-col>
-                </v-row>
-            </v-card>
-          </v-col>
-        </v-row>
           </v-col>
         </v-row>
         <v-row>
@@ -104,7 +107,7 @@
             </v-col>
           </v-row>
 
-          <v-row  justify="center" class="" v-if="getWebVisible">
+          <v-row justify="center" class="" v-if="getWebVisible">
             <v-col cols="4" class="myColor">
               <v-icon large>web</v-icon>
               <span>Web:</span>
@@ -125,7 +128,7 @@
               </span>
             </v-col>
           </v-row>
-          <v-row justify="center"  class="" v-if="getInstagramVisible">
+          <v-row justify="center" class="" v-if="getInstagramVisible">
             <v-col cols="4" class="pmyColor">
               <v-icon large>portrait</v-icon>
               <span>Instagram:</span>
@@ -176,7 +179,10 @@
         <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer">
         </v-img>
         <!-- <v-hover v-slot:default="{ hover }"> -->
-        <v-card>sasa</v-card>
+        <v-card>
+          <v-btn>:-)</v-btn>
+          <v-btn>del</v-btn>
+        </v-card>
         <!-- </v-hover> -->
       </v-col>
     </v-row>
@@ -199,7 +205,8 @@ export default {
     return {
       index: null,
       imgIndex: null,
-      profilIndex: null,//index aktuálního profilu
+      profilIndex: null, //index aktuálního profilu
+      thisProfil: {},//naplní objekt aktuálním profilem z metody get v mounted
       id: '',
       email: '',
       profileDatas: null,
@@ -229,7 +236,7 @@ export default {
   },
   computed: {
     getAboutMe() {
-      return this.aboutMe = this.$store.state.allProfiles[this.profilIndex].aboutMe
+      return this.thisProfil.aboutMe
     },
     getThisProfile() {
       return this.$store.state.thisProfile
@@ -238,75 +245,60 @@ export default {
     getProfilePath() {
       return 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.profilIndex].email + '/profilPhoto.jpg'
     },
-    getOwnUserImages() {//vrací pole imgs. které se načtou v axios monted dole
+    getOwnUserImages() { //vrací pole imgs. které se načtou v axios monted dole
       return this.ownUserImages
     },
     // PROFIL
     getEmail() { //vraci email z objektu
-      return this.$store.state.allProfiles[this.profilIndex].email
+      return this.thisProfil.email
     },
     getJob() { //vraci job z objektu
-      return this.$store.state.allProfiles[this.profilIndex].job
+      return this.thisProfil.job
     },
     getCity() { //vraci city z objektu
-      return this.$store.state.allProfiles[this.profilIndex].city
+      return this.thisProfil.city
     },
     getPricePlusCurrency() { //vraci money + currency z objektu
-      return this.$store.state.allProfiles[this.profilIndex].money + this.$store.state.allProfiles[this.profilIndex].currency
+      return this.thisProfil.money + this.thisProfil.currency
     },
     getCategory() { //vrací category
-      return this.$store.state.allProfiles[this.profilIndex].category.toString('utf-8')
-      // return this.$store.state.allProfiles[this.profilIndex].category.toString('utf-8')
+      return this.thisProfil.category
     },
     // KONTAKTY
     getWeb() {
-      return this.$store.state.allProfiles[this.profilIndex].web
+      return this.thisProfil.web
     },
     getFacebook() {
-      return this.$store.state.allProfiles[this.profilIndex].facebook
+      return this.thisProfil.facebook
     },
     getInstagram() {
-      return this.$store.state.allProfiles[this.profilIndex].instagram
+      return this.thisProfil.instagram
     },
     getSkype() {
-      return this.$store.state.allProfiles[this.profilIndex].skype
+      return this.thisProfil.skype
     },
     getWhatsapp() {
-      return this.$store.state.allProfiles[this.profilIndex].whatsapp
+      return this.thisProfil.whatsapp
     },
-    // getCategory() { //vrací getter ze store
-    //   console.log(this.$store.getters.getCategoryString)
-    //   let category = this.$store.getters.getCategoryString.toString('utf8')//bez toho parametru mi to hlasilo chybu
-    //   return category
-    // },
+
 
     // VISIBILITA
     getWebVisible() {
-      console.log(this.$store.state.allProfiles[this.profilIndex].webVisible)
-      // return this.$store.state.allProfiles[this.profilIndex].webVisible
-      return this.$store.getters.getWebVisible
+      return this.thisProfil.webVisible
     },
     getFacebookVisible() {
-      return this.$store.state.allProfiles[this.profilIndex].facebookVisible
+      return this.thisProfil.facebookVisible
     },
     getInstagramVisible() {
-      return this.$store.state.allProfiles[this.profilIndex].instagramVisible
+      return this.thisProfil.instagramVisible
     },
     getSkypeVisible() {
-      return this.$store.state.allProfiles[this.profilIndex].skypeVisible
+      return this.thisProfil.skypeVisible
     },
     getWhatsappVisible() {
-      return this.$store.state.allProfiles[this.profilIndex].whatsappVisible
+      return this.thisProfil.whatsappVisible
     },
 
-    // POPIS
-    // getAboutMe() {
-    //   this.aboutMe = this.$store.state.allProfiles[this.profilIndex].aboutMe
-    //   // return this.$store.state.allProfiles[this.profilIndex].aboutMe
-    // },
-    // getOfferMe() {
-    //   return this.$store.state.allProfiles[this.profilIndex].offerMe
-    // },
     // GALERIE
     getUserImages: function() {
       console.log(this.$store.state.userImages)
@@ -319,19 +311,13 @@ export default {
 
   },
   methods: {
-    setUserData: function(userObj) {
-      this.$store.commit('setUserData', userObj)
-      // console.log(userObj)
-    },
-    setUserImgs: function(userObj) {
-      this.$store.commit('setUserImgs', userObj)
-      console.log(userObj)
-    },
+
     getImgSrc: function(i) {
       return "http://localhost:8081/uploads/" + this.$store.state.userImages[i].productImage
     }
   },
-  beforeMount() {console.log('nyní beforemount')
+  beforeMount() {
+    console.log('nyní beforemount')
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
     // this.getWebVisible()
@@ -339,22 +325,29 @@ export default {
     this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
 
     this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.$store.state.currentProfilIndex].email + '/profilPhoto.jpg'
-    // this.setUserImgs()
-  },
-
-  mounted() {
-console.log('nyní mounted')
-    console.log(this.$store.getters.getThisProfil)
-    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
+    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email) //najde vsechny obrázky, s timto emailem
 
       .then((response) => {
-        this.setUserImgs(response.data)
         this.ownUserImages = response.data
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
       });
-  // this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.profilIndex].email + '/profilPhoto.jpg'
+  },
+
+  mounted() {
+    console.log('nyní mounted')
+    //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
+    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
+      .then((response) => {
+        console.log(response.data)
+        this.thisProfil = response.data[0]
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   },
   beforeCreate() {
     console.log('nyni beforeCreate')
@@ -403,9 +396,12 @@ img {
   margin-top: -15px;
 }
 
-.profil span {
+.profil span,
+.stars span,
+.category span {
   margin-left: 10px;
 }
+
 h1,
 h2 {
   font-weight: normal;
@@ -413,5 +409,9 @@ h2 {
 
 a {
   color: #42b983;
+}
+
+.item + .item:before {
+  content: ", ";
 }
 </style>

@@ -130,6 +130,18 @@ app.get('/profiles', function(req, res) {
   })
 })
 
+app.get('/profiles/:email', function(req, res) {//vrací profil na základě emailu
+  console.log(req.params.email)
+  Profil.find({
+    email: req.params.email
+  }).exec(function(err, profil) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(profil);
+    }
+  })
+})
 // app.post('/profiles', function(req, res) {
 //   var newProfil = new Profil();
 //   newProfil.email = req.body.email;
