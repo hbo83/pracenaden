@@ -1,7 +1,7 @@
 <template>
-<div class="avatar"><!--tu komponentu prejmenovat na profilIMG-->
-<div style="margin-bottom: 12px; border-radius: 100px; overflow: hidden">
-<v-img
+<div class="profilImg"><!--tu komponentu prejmenovat na profilIMG-->
+<!-- <div style="margin-bottom: 12px;"> -->
+<!-- <v-img
           :src="getProfilePath"
           class="my-0"
           contain
@@ -9,8 +9,9 @@
           :aspect-ratio="1/1"
           alt="no picture"
           @error="onError"
-        ></v-img>
-</div>
+        ></v-img> -->
+        <img :src="getProfilePath" alt="profilPhoto" style="height: 150px;width: 150px; border-radius: 100px; margin: auto">
+<!-- </div> -->
 </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
   name: 'ProfilImg',
   data() {
     return {
-
+      profilIndex: null
     }
   },
     props: {
@@ -39,6 +40,9 @@ export default {
       return 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.index].email + '/profilPhoto.jpg'
     }
   },
+  beforeMount() {
+      this.profilIndex = this.$store.state.currentProfilIndex
+  },
   mounted() {
     console.log('http://localhost:8081/uploads/' + this.$store.state.allProfiles[0].email + '/profilPhoto.jpg')
   }
@@ -46,13 +50,11 @@ export default {
 </script>
 
 <style scoped>
-.avatar {
-  width: 150px;
-  height: 175px;
-  /* float: left; */
-  border-radius: 3px;
-  margin-right: 20px;
-  border-radius: 100px;
+.profilImg {
+  max-width: 200px;
+  max-height: 166px;
+  overflow: hidden;
+  /* margin-left: 25%; */
 }
 h1,
 h2 {

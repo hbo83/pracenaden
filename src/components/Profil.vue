@@ -3,6 +3,7 @@
   <v-row class="profilParent" @click="selectProfil">
     <v-col class="col-4 pl-8 profil" no-gutters>
       <ProfilImg v-bind:index="this.index"></ProfilImg>
+      <!-- <img :src="getProfilePath" alt="profilPhoto" style="max-height: 100%; margin: auto"> -->
     </v-col>
     <v-col class="col-8 pr-4 profil" no-gutters>
       <p>
@@ -80,9 +81,9 @@ export default {
       })
 
       this.storeProfilIndex(this.$props.index)
-
+      
       // this.storeProfilCommit(this.email)
-      this.storeProfilIdCommit(this.id)
+      // this.storeProfilIdCommit(this.id)
 
     },
     // storeProfilCommit: function(email) {
@@ -93,6 +94,9 @@ export default {
     // },
     storeProfilIndex: function(index) {
       this.$store.commit('set_currentProfilIndex', index)
+    },
+    storeThisProfil: function(index) {
+      this.$store.commit('setThisProfileWebVisible', index)
     }
   },
   mounted() {
@@ -137,5 +141,9 @@ export default {
 
 .profilParent:hover {
   background-color: RGBA(144, 228, 241, 1);
+}
+
+p > span {
+  margin-right: 10px
 }
 </style>

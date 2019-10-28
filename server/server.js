@@ -262,7 +262,7 @@ app.delete('/img/:id', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(file);
+      console.log('/img' + file);
       res.send(file);
     }
   })

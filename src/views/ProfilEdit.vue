@@ -266,7 +266,9 @@ export default {
         this.snackbar = true
       }
     },
-
+    setWebVisible() {
+      this.$store.commit('setThisProfileWebVisible', true)
+    },
     delImg(id) {
       if (confirm('Určitě chcete smazat soubor?')) {
 
@@ -285,29 +287,7 @@ export default {
       //   name: 'ProfilEdit'
       // })
     },
-    // uploadProfilPhoto() {
-    //   this.selectedFile = event.target.files[0]
-    //   const fd = new FormData();
-    //   fd.append('profilPhoto', true);
-    //   fd.append('email', this.email);
-    //   fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-    //   // fd.append('productImage', this.selectedFile, this.selectedFile.name)
-    //   fd.append('productImage', this.selectedFile, "profilPhoto.jpg")
-    //   axios.post('http://localhost:8081/img', fd, {
-    //       onUploadProgress: uploadEvent => {
-    //         console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-    //       }
-    //     })
-    //     .then(res => {
-    //       console.log(res);
-    //       alert('Soubor byl nahrán')
-    //     })
-    // },
-    // onFileSelected(event) {
-    //   console.log(event);
-    //
-    //   this.selectedFile = event.target.files[0]
-    // },
+
     uploadGaleryPhoto() {
       this.selectedFile = event.target.files[0]
       const fd = new FormData();
@@ -331,7 +311,8 @@ export default {
       this.selectedFile = event.target.files[0]
     },
     saveProfil(e) {
-
+      this.$store.commit('setThisProfileWebVisible', this.webVisible)
+      console.log(this.$store.state.allProfiles[1].webVisible)
       axios.put('http://localhost:8081/profiles/' + this.id, {
         id: this.id,
         email: this.email,

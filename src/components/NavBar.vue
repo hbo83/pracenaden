@@ -1,6 +1,6 @@
 <template>
   <v-row align="center">
-      <v-col class="d-flex mx-4 my-0 py-0" cols="2">
+      <v-col class="mx-4 my-0 py-0" cols="2">
         <v-btn height="40px" width="40px" small color="error" to="/">
           <v-icon large>arrow_back</v-icon>
         </v-btn>
