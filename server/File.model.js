@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 const FileSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   email: String,
-  profilPhoto: String,
+  profilPhoto: Boolean,
   // name: {
   //   type: String
   // },

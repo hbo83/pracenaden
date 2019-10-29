@@ -166,22 +166,18 @@
       </v-col>
 
       <!-- KONTAKTY -->
-      <!-- <v-col class="col-4 profil">
 
-      </v-col> -->
     </v-row>
 
-
-
     <v-row style="padding-left: 10%; padding-right: 1%" justify="start" max-width="1826px">
-      <v-col v-for="(image, imgIndex) in getOwnUserImages" v-bind:index="imgIndex" class="galleryImg col-2">
+      <v-col v-for="(image, imgIndex) in ownUserImages" v-bind:index="imgIndex" class="galleryImg col-2">
 
-        <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" onclick="console.log(this)" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer">
+        <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1"  class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer">
         </v-img>
         <!-- <v-hover v-slot:default="{ hover }"> -->
         <v-card>
-          <v-btn>:-)</v-btn>
-          <v-btn>del</v-btn>
+          <!-- <v-btn @click="setAsProfilPhoto(imgIndex)">:-)</v-btn>
+          <v-btn @click="deleteImg(imgIndex)">del</v-btn> -->
         </v-card>
         <!-- </v-hover> -->
       </v-col>
@@ -203,7 +199,7 @@ export default {
   name: 'ProfilDetail',
   data() {
     return {
-      index: null,
+
       imgIndex: null,
       profilIndex: null, //index aktuálního profilu
       thisProfil: {},//naplní objekt aktuálním profilem z metody get v mounted
@@ -300,31 +296,27 @@ export default {
     },
 
     // GALERIE
-    getUserImages: function() {
-      console.log(this.$store.state.userImages)
-      // this.ownUserImages = this.$store.state.userImages
-      return this.$store.state.userImages
-    },
-    updateImages: function() {
-      return this.ownUserImages
-    }
 
   },
   methods: {
 
-    getImgSrc: function(i) {
-      return "http://localhost:8081/uploads/" + this.$store.state.userImages[i].productImage
-    }
+    // setAsProfilPhoto(imgIndex) {//nastavi jako profilovou
+    //   console.log(this.ownUserImages[imgIndex].productImage)
+    // },
+    getImgSrc: function(i) {//vrati cestu k obrazku
+      return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
+    },
+
   },
   beforeMount() {
     console.log('nyní beforemount')
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
-    // this.getWebVisible()
-    this.index = this.$route.params.index //priradi predany index z router.push() do data
+
     this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
 
     this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.$store.state.currentProfilIndex].email + '/profilPhoto.jpg'
+
     axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email) //najde vsechny obrázky, s timto emailem
 
       .then((response) => {
@@ -411,7 +403,7 @@ a {
   color: #42b983;
 }
 
-.item + .item:before {
+.item + .item:before {/*oddeli category z pole od sebe jako string*/
   content: ", ";
 }
 </style>

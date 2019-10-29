@@ -118,7 +118,11 @@
     <v-row justify="center" max-width="1826px" style="margin-left: 198px">
       <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
 
-        <v-img style="cursor: pointer" @click="delImg(imgs[index])" :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="175"></v-img>
+        <v-img style="cursor: pointer" :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="175"></v-img>
+        <v-card>
+          <v-btn @click="setAsProfilPhoto(imgs[index])">:-)</v-btn>
+          <v-btn @click="delImg(imgs[index])">del</v-btn>
+        </v-card>
       </v-col>
     </v-row>
   </v-form>
@@ -260,7 +264,22 @@ export default {
       }
     }
   },
-  methods: {
+  methods: {//hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci
+    setAsProfilPhoto(id) {//nastavi jako profilovou
+      // console.log(this.ownUserImages[imgIndex].productImage)
+      axios.put('http://localhost:8081/img/' + id._id, {
+        profilPhoto: true
+      })
+        .then((response) => {
+          console.log(profilPhoto);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getImgSrc: function(i) {//vrati cestu k obrazku
+      return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
+    },
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true

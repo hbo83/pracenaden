@@ -229,7 +229,7 @@ app.get('/profilesedit/:_id', function(req, res) {
 })
 
 //FILES
-app.get('/img/:email', function(req, res) {
+app.get('/img/:email', function(req, res) {//vrati fotky vazane k danemu emailu
   console.log(req.params.email)
   File.find({
     email: req.params.email
@@ -242,7 +242,7 @@ app.get('/img/:email', function(req, res) {
   })
 })
 
-app.post('/img', upload.single('productImage'), (req, res, next) => {
+app.post('/img', upload.single('productImage'), (req, res, next) => {//upload fotky
   console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
@@ -266,8 +266,26 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {
     });
 })
 
+app.put('/img/:id', function(req, res) {
+  // console.log(req.params._id)
+  File.findOneAndUpdate({
+      _id: req.params.id,
+    }, {
+      $set: {
+        profilPhoto: req.body.profilPhoto,
+      }
+    },
+    function(err, profilPhoto) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(profilPhoto);
+        res.send(profilPhoto);
+      }
+    });
+});
 
-app.delete('/img/:id', function(req, res) {
+app.delete('/img/:id', function(req, res) {//smaze fotku
   File.findOneAndRemove({
     _id: req.params.id
   }, function(err, file) {

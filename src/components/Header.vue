@@ -1,30 +1,24 @@
 <template>
 <v-container style="padding: 0">
   <v-row style="background-color:#90e4f1" no-gutters>
-    <v-col cols="4" sm="4">
-      <!-- <h1>i am from the helper</h1> -->
-      <!-- <div class="header"> -->
+    <v-col cols="4" sm="4" class="px-6">
         <h1 @click="homePage">{{ msg }}</h1>
-
-      <!-- </div> -->
     </v-col>
     <v-col cols="4" sm="4">
-      <!-- <div class="headerSearch"> -->
         <v-text-field label="Hledat" append-icon="search" single-line solo hide-details></v-text-field>
-      <!-- </div> -->
     </v-col>
     <v-col cols="4" sm="4" class="pt-3">
-      <!-- <div class="headerIcons"> -->
+
         <v-icon v-show="loged || updateLoged" @click="redirProfilDetail" style="color: white; float: right; margin-right: 68px;cursor: pointer; margin-top: 0px" size="28px">edit</v-icon>
         <p style="text-align: right; color: white;"><b>{{ userLoged || updateUserLoged}}</b><span>
             <v-icon @click="logOut" to="/login" style="color: white; float: right; margin-right: 20px;cursor: pointer; margin-left: 10px; margin-top: 0px" size="28px">{{icon}}</v-icon>
           </span></p>
-      <!-- </div> -->
+
     </v-col>
   </v-row>
 </v-container>
 
-<!-- </v-app> -->
+
 </template>
 
 <script>
@@ -139,7 +133,7 @@ h1 {
   color: white;
   cursor: pointer;
   display: block;
-  width: 100px
+
 }
 
 a {
