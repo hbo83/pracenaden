@@ -26,16 +26,10 @@
           <v-col cols="6" md="6">
             <h4>O mě</h4>
           </v-col>
-          <v-col cols="6" md="6">
-            <h4>Nabízím</h4>
-          </v-col>
         </v-row>
         <v-row>
-          <v-col cols="6" md="6">
+          <v-col cols="12" md="12">
             <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules"></v-textarea>
-          </v-col>
-          <v-col cols="6" md="6">
-            <v-textarea solo name="input-7-4" label="Nabízím" v-model="offerMe" :rules="offerMeRules"></v-textarea>
           </v-col>
         </v-row>
     </v-col>
@@ -94,11 +88,6 @@
         </v-col>
       </v-row>
       <v-row>
-        <!-- <v-col>
-          <upload-btn title="Profil photo" @file-update="uploadProfilPhoto"><template slot="icon">
-              <v-icon>add</v-icon>
-            </template></upload-btn>
-        </v-col> -->
         <v-col>
           <upload-btn title="Galery" @file-update="uploadGaleryPhoto">
             <template slot="icon">
@@ -108,6 +97,7 @@
         </v-col>
       </v-row>
     </v-col>
+  </v-form>
     <hr />
     <v-row>
       <v-col>
@@ -115,17 +105,16 @@
       </v-col>
     </v-row>
     <hr />
-    <v-row justify="center" max-width="1826px" style="margin-left: 198px">
+    <v-row>
       <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
 
-        <v-img style="cursor: pointer" :src="imgs2[index]" lazy-src="https://picsum.photos/id/11/10/6" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="175"></v-img>
+        <v-img style="cursor: pointer" :src="imgs2[index]" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
-          <v-btn @click="setAsProfilPhoto(imgs[index])">:-)</v-btn>
-          <v-btn @click="delImg(imgs[index])">del</v-btn>
+          <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">:-)</v-btn>
+          <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
         </v-card>
       </v-col>
     </v-row>
-  </v-form>
   </v-container>
 
 </v-app>
@@ -142,8 +131,8 @@ import UploadButton from 'vuetify-upload-button';
 export default {
   name: 'ProfilEdit',
   data: () => ({
-    imgs: [],
-    imgs2: [],
+    imgs: [],//pole objektů
+    imgs2: [],//pole paths obrazků
     email: localStorage.getItem("userLoged"),
     valid: false,
     osvc: false,
@@ -184,11 +173,7 @@ export default {
       v => !!v || 'O mě je povinná',
       v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
     ],
-    offerMe: '',
-    offerMeRules: [
-      v => !!v || 'Nabízím je povinná',
-      v => (v && v.length >= 10) || 'Nabízím musí mít víc jak 10 znaků',
-    ],
+
     city: null,
     items: cities,
     id: localStorage.getItem("userLoged_id"),
@@ -264,14 +249,28 @@ export default {
       }
     }
   },
-  methods: {//hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci
+  methods: {//hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
+    setGoldBorder(img) {//vrati true, pokud bude obrazek profolovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
+      if (img.profilPhoto === true) {
+        return true
+      }
+    },
     setAsProfilPhoto(id) {//nastavi jako profilovou
-      // console.log(this.ownUserImages[imgIndex].productImage)
+      axios.put('http://localhost:8081/imgFalse/', {
+
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+//tadyto jeste poupravit do callbacku
       axios.put('http://localhost:8081/img/' + id._id, {
         profilPhoto: true
       })
         .then((response) => {
-          console.log(profilPhoto);
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -338,7 +337,7 @@ export default {
         money: this.money,
         category: this.selectedJobItems,
         aboutMe: this.aboutMe,
-        offerMe: this.offerMe,
+        // offerMe: this.offerMe,
         phone: this.phone,
         city: this.city,
         web: this.web,
@@ -373,7 +372,7 @@ export default {
         console.log(response.data);
         for (var i in response.data) {
           this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
-          // return this.imgs2
+
         }
         console.log(this.imgs2)
       })
@@ -403,7 +402,7 @@ export default {
           this.phone = response.data[0].phone;
           this.city = response.data[0].city;
           this.aboutMe = response.data[0].aboutMe;
-          this.offerMe = response.data[0].offerMe;
+          // this.offerMe = response.data[0].offerMe;
           this.category = response.data[0].category;
           this.web = response.data[0].web;
           this.webVisible = response.data[0].webVisible;
@@ -443,7 +442,9 @@ export default {
   height: auto;
   /* border: 1px solid black; */
 }
-
+.goldBorder {
+  border: 5px solid gold
+}
 h4 {
   text-align: left;
 }

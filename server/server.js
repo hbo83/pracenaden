@@ -130,7 +130,7 @@ app.get('/profiles', function(req, res) {
   })
 })
 
-app.get('/profiles/:email', function(req, res) {//vrací profil na základě emailu
+app.get('/profiles/:email', function(req, res) { //vrací profil na základě emailu
   console.log(req.params.email)
   Profil.find({
     email: req.params.email
@@ -142,33 +142,7 @@ app.get('/profiles/:email', function(req, res) {//vrací profil na základě ema
     }
   })
 })
-// app.post('/profiles', function(req, res) {
-//   var newProfil = new Profil();
-//   newProfil.email = req.body.email;
-//   newProfil.phone = req.body.phone;
-//   newProfil.name = req.body.name;
-//   newProfil.job = req.body.job;
-//   newProfil.money = req.body.money;
-//   newProfil.city = req.body.city;
-//   newProfil.description = req.body.description;
-//   newProfil.web = req.body.web;
-//   newProfil.facebook = req.body.facebook;
-//   newProfil.instagram = req.body.instagram;
-//   newProfil.skype = req.body.skype;
-//   newProfil.whatsapp = req.body.whatsapp;
-//   newProfil.aboutMe = req.body.aboutMe;
-//   newProfil.offerMe = req.body.offerMe;
-//   newProfil.checked = req.body.checked;
-//
-//   newProfil.save(function(err, profil) {
-//     if (err) {
-//       res.send('error saving profil')
-//     } else {
-//       console.log(profil);
-//       res.send(profil);
-//     }
-//   });
-// });
+
 
 app.put('/profiles/:id', function(req, res) {
   console.log(req.params._id)
@@ -195,7 +169,7 @@ app.put('/profiles/:id', function(req, res) {
         whatsapp: req.body.whatsapp,
         whatsappVisible: req.body.whatsappVisible,
         aboutMe: req.body.aboutMe,
-        offerMe: req.body.offerMe,
+        // offerMe: req.body.offerMe,
         checkboxAgree: req.body.checkboxAgree,
         osvc: req.body.osvc,
         currency: req.body.currency,
@@ -229,7 +203,7 @@ app.get('/profilesedit/:_id', function(req, res) {
 })
 
 //FILES
-app.get('/img/:email', function(req, res) {//vrati fotky vazane k danemu emailu
+app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
   console.log(req.params.email)
   File.find({
     email: req.params.email
@@ -242,7 +216,7 @@ app.get('/img/:email', function(req, res) {//vrati fotky vazane k danemu emailu
   })
 })
 
-app.post('/img', upload.single('productImage'), (req, res, next) => {//upload fotky
+app.post('/img', upload.single('productImage'), (req, res, next) => { //upload fotky
   console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
@@ -266,7 +240,26 @@ app.post('/img', upload.single('productImage'), (req, res, next) => {//upload fo
     });
 })
 
-app.put('/img/:id', function(req, res) {
+app.put('/imgFalse', function(req, res) { //oznaci vsechny fotky na profil false
+  // console.log(req.params.email)
+  File.updateMany({
+      // _id: req.params.id,
+    }, {
+      $set: {
+        profilPhoto: false,
+      }
+    },
+    function(err, profilPhoto) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(profilPhoto);
+        res.send(profilPhoto);
+      }
+    });
+});
+
+app.put('/img/:id', function(req, res) { //oznaci fotku jako profilovou
   // console.log(req.params._id)
   File.findOneAndUpdate({
       _id: req.params.id,
@@ -285,7 +278,7 @@ app.put('/img/:id', function(req, res) {
     });
 });
 
-app.delete('/img/:id', function(req, res) {//smaze fotku
+app.delete('/img/:id', function(req, res) { //smaze fotku
   File.findOneAndRemove({
     _id: req.params.id
   }, function(err, file) {

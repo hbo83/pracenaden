@@ -9,7 +9,7 @@ var ProfilSchema = new Schema({
   city: String,
   category: Array,
   aboutMe: String,
-  offerMe: String,
+  // offerMe: String,
   phone: String,
   job: String,
   web: String,
