@@ -7,12 +7,11 @@
       <v-col class="col-8">
         <v-row>
           <v-col class="col-4">
-            <!-- <v-card> -->
-            <!-- <ProfilImg v-bind:index="this.index"></ProfilImg> -->
+
             <div class="profilImg">
               <img :src="profilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 100px;">
             </div>
-            <!-- </v-card> -->
+
           </v-col>
           <v-col class="col-8">
             <v-row justify="center">
@@ -53,135 +52,14 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="col-12">
-            <v-card height="367px">
-              <v-card class="">
-                <v-card-title max-width="50%">Něco o mně:</v-card-title>
-              </v-card>
-              <v-card-text style="text-align: left; color: green;">{{ getAboutMe }}</v-card-text>
-
-            </v-card>
-          </v-col>
+          <ProfilAboutMe />
         </v-row>
       </v-col>
-
-      <!-- PROFIL -->
-      <v-col class="col-3 profil">
-        <v-card style="min-height: 560px;">
-          <v-row class="" justify="center">
-            <v-col cols="4" class="myColor">
-              <v-icon class="" large>face</v-icon>
-              <span>E-mail:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span> {{ getEmail }}</span>
-            </v-col>
-          </v-row>
-
-          <v-row class="" justify="center">
-            <v-col cols="4" class="myColor" style="text-align: left">
-              <v-icon class="" large>build</v-icon>
-              <span>Profese:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span><a target="_blank" rel="noopener noreferrer" :href="job">{{ getJob }}</a></span>
-            </v-col>
-          </v-row>
-
-          <v-row class="" justify="center">
-            <v-col cols="4" class="myColor">
-              <v-icon class="" large>location_city</v-icon>
-              <span>Místo:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span><a target="_blank" rel="noopener noreferrer" :href="city">{{ getCity }}</a></span>
-            </v-col>
-          </v-row>
-          <v-row class="" justify="center">
-            <v-col cols="4" class="myColor">
-              <v-icon class="" large>money</v-icon>
-              <span>Odměna:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span>{{ getPricePlusCurrency }}</span>
-            </v-col>
-          </v-row>
-
-          <v-row justify="center" class="" v-if="getWebVisible">
-            <v-col cols="4" class="myColor">
-              <v-icon large>web</v-icon>
-              <span>Web:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span><a target="_blank" rel="noopener noreferrer" :href="web">{{ getWeb}}</a>
-              </span>
-            </v-col>
-          </v-row>
-          <v-row justify="center" class="" v-if="getFacebookVisible">
-            <v-col cols="4" class="myColor">
-              <v-icon large>thumb_up</v-icon>
-              <span>Facebook:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span>
-                <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
-              </span>
-            </v-col>
-          </v-row>
-          <v-row justify="center" class="" v-if="getInstagramVisible">
-            <v-col cols="4" class="pmyColor">
-              <v-icon large>portrait</v-icon>
-              <span>Instagram:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span>
-                <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
-              </span>
-            </v-col>
-          </v-row>
-          <v-row justify="center" class="" v-if="getSkypeVisible">
-            <v-col cols="4" class="myColor">
-              <v-icon large>call</v-icon>
-              <span>Skype:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span>
-                {{ getSkype }}
-              </span>
-            </v-col>
-          </v-row>
-          <v-row justify="center" class="" v-if="getWhatsappVisible">
-            <v-col cols="4" class="myColor">
-              <v-icon large>add_alert</v-icon>
-              <span>Whatsapp:</span>
-            </v-col>
-            <v-col cols="4" class="myColor">
-              <span>
-                {{ getWhatsapp }}
-              </span>
-            </v-col>
-          </v-row>
-          <!-- </p> -->
-        </v-card>
-      </v-col>
-
-      <!-- KONTAKTY -->
+<ProfilColumn />
 
     </v-row>
-
-    <v-row style="padding-left: 10%; padding-right: 1%" justify="start" max-width="1826px">
-      <v-col v-for="(image, imgIndex) in ownUserImages" v-bind:index="imgIndex" class="galleryImg col-2">
-
-        <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1"  class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer">
-        </v-img>
-        <!-- <v-hover v-slot:default="{ hover }"> -->
-        <v-card>
-          <!-- <v-btn @click="setAsProfilPhoto(imgIndex)">:-)</v-btn>
-          <v-btn @click="deleteImg(imgIndex)">del</v-btn> -->
-        </v-card>
-        <!-- </v-hover> -->
-      </v-col>
-    </v-row>
+<ProfilGalery />
+    
   </v-container>
 
   </div>
@@ -194,6 +72,9 @@ import NavBar from '@/components/NavBar.vue'
 import ProfilImg from '@/components/ProfilImg.vue'
 import Profil from '@/components/Profil.vue'
 import axios from 'axios'
+import ProfilColumn from '@/components/ProfilColumn.vue'
+import ProfilAboutMe from '@/components/ProfilAboutMe.vue'
+import ProfilGalery from '@/components/ProfilGalery.vue'
 // import { mdiWebBox } from '@mdi/font';
 export default {
   name: 'ProfilDetail',
@@ -206,34 +87,16 @@ export default {
       id: '',
       email: '',
       profileDatas: null,
-      //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
-      web: '',
-      webVisible: true,
-      facebook: '',
-      facebookVisible: true,
-      instagram: '',
-      instagramVisible: true,
-      skype: '',
-      skypeVisible: true,
-      whatsapp: '',
-      whatsappVisible: true,
-      job: '',
-      city: '',
       category2: '',
       category: '',
-      aboutMe: '',
       pricePlusCurrency: '',
       profilePath: '',
       ownUserImages: []
-      //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
 
-      // test: "http://localhost:8081/uploads/" + this.$store.state.userImages[0].productImage
+
     }
   },
   computed: {
-    getAboutMe() {
-      return this.thisProfil.aboutMe
-    },
     getThisProfile() {
       return this.$store.state.thisProfile
     },
@@ -260,42 +123,6 @@ export default {
     getCategory() { //vrací category
       return this.thisProfil.category
     },
-    // KONTAKTY
-    getWeb() {
-      return this.thisProfil.web
-    },
-    getFacebook() {
-      return this.thisProfil.facebook
-    },
-    getInstagram() {
-      return this.thisProfil.instagram
-    },
-    getSkype() {
-      return this.thisProfil.skype
-    },
-    getWhatsapp() {
-      return this.thisProfil.whatsapp
-    },
-
-
-    // VISIBILITA
-    getWebVisible() {
-      return this.thisProfil.webVisible
-    },
-    getFacebookVisible() {
-      return this.thisProfil.facebookVisible
-    },
-    getInstagramVisible() {
-      return this.thisProfil.instagramVisible
-    },
-    getSkypeVisible() {
-      return this.thisProfil.skypeVisible
-    },
-    getWhatsappVisible() {
-      return this.thisProfil.whatsappVisible
-    },
-
-    // GALERIE
 
   },
   methods: {
@@ -303,9 +130,7 @@ export default {
     // setAsProfilPhoto(imgIndex) {//nastavi jako profilovou
     //   console.log(this.ownUserImages[imgIndex].productImage)
     // },
-    getImgSrc: function(i) {//vrati cestu k obrazku
-      return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
-    },
+
 
   },
   beforeMount() {
@@ -317,29 +142,12 @@ export default {
 
     this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.$store.state.currentProfilIndex].email + '/profilPhoto.jpg'
 
-    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email) //najde vsechny obrázky, s timto emailem
 
-      .then((response) => {
-        this.ownUserImages = response.data
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   },
 
   mounted() {
     console.log('nyní mounted')
     //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
-    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
-      .then((response) => {
-        console.log(response.data)
-        this.thisProfil = response.data[0]
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
   },
   beforeCreate() {
     console.log('nyni beforeCreate')
@@ -360,7 +168,10 @@ export default {
   components: {
     Header,
     NavBar,
-    ProfilImg
+    ProfilImg,
+    ProfilColumn,
+    ProfilAboutMe,
+    ProfilGalery
   }
 }
 </script>

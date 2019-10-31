@@ -81,7 +81,7 @@ export default {
       })
 
       this.storeProfilIndex(this.$props.index)
-      
+
       // this.storeProfilCommit(this.email)
       // this.storeProfilIdCommit(this.id)
 
@@ -103,7 +103,7 @@ export default {
     // console.log('Profil mounted')
     console.log(this.profileDatas._id)
   },
-  computed: {
+  computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu
       return this.$store.state.allProfiles[this.index].money + this.$store.state.allProfiles[this.index].currency
     },

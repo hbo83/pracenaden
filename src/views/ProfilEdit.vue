@@ -2,8 +2,8 @@
 <v-app>
   <Header></Header>
   <v-container style="width: 30%">
+    <h3>Zde prosím vyplňte informace o Vás</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
-    <h3 style="color: #90e4f1">Zde prosím vyplňte informace o Vás</h3>
     <v-col>
         <v-text-field v-model="name" label="Celé jméno" :rules="nameRules" required></v-text-field>
         <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field>
@@ -82,26 +82,26 @@
           <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          <v-btn color="success" class="mr-4" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
+      <v-row justify="center">
+        <v-col cols="3">
+          <v-btn color="success" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          <upload-btn title="Galery" @file-update="uploadGaleryPhoto">
-            <template slot="icon">
-              <v-icon>add</v-icon>
-            </template>
-          </upload-btn>
-        </v-col>
-      </v-row>
+
     </v-col>
   </v-form>
-    <hr />
+    <br /><br />
     <v-row>
       <v-col>
-        <h1>Vaše Galerie</h1>
+        <h3>Vaše Galerie</h3>
+      </v-col>
+      <v-col>
+
+        <upload-btn title="Nahrát fotku" @file-update="uploadGaleryPhoto">
+          <template slot="icon">
+            <v-icon>add</v-icon>
+          </template>
+        </upload-btn>
       </v-col>
     </v-row>
     <hr />
@@ -366,7 +366,7 @@ export default {
     // this.userGlobal = localStorage.getItem("userLoged");
     console.log(this.id);
 
-    axios.get('http://localhost:8081/img/' + this.email)
+    axios.get('http://localhost:8081/img/' + this.email)//naplni imgs[] objektama fotek
       .then((response) => {
         this.imgs = response.data;
         console.log(response.data);
@@ -444,6 +444,10 @@ export default {
 }
 .goldBorder {
   border: 5px solid gold
+}
+h3 {
+   color: #90e4f1;
+   text-align: center;
 }
 h4 {
   text-align: left;
