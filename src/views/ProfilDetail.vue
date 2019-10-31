@@ -43,7 +43,8 @@
                       <span>Kategorie:</span>
                     </v-col>
                     <v-col cols="4" class="myColor pa-0 pt-4">
-                      <span class="item" v-for="item in getCategory"> {{ item }} </span><!--takhle z pole udelat string + dole css.. s toString to hlasi naky kraviny-->
+                      <span class="item" v-for="item in getCategory"> {{ item }} </span>
+                      <!--takhle z pole udelat string + dole css.. s toString to hlasi naky kraviny-->
                     </v-col>
                   </v-row>
                 </v-card>
@@ -55,11 +56,11 @@
           <ProfilAboutMe />
         </v-row>
       </v-col>
-<ProfilColumn />
+      <ProfilColumn />
 
     </v-row>
-<ProfilGalery />
-    
+    <ProfilGalery />
+
   </v-container>
 
   </div>
@@ -81,44 +82,16 @@ export default {
   data() {
     return {
 
-      imgIndex: null,
       profilIndex: null, //index aktuálního profilu
-      thisProfil: {},//naplní objekt aktuálním profilem z metody get v mounted
-      id: '',
-      email: '',
-      profileDatas: null,
-      category2: '',
+      thisProfil: {}, //naplní objekt aktuálním profilem z metody get v mounted
       category: '',
-      pricePlusCurrency: '',
-      profilePath: '',
-      ownUserImages: []
-
+      profilePath: ''
 
     }
   },
   computed: {
-    getThisProfile() {
-      return this.$store.state.thisProfile
-    },
-
     getProfilePath() {
       return 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.profilIndex].email + '/profilPhoto.jpg'
-    },
-    getOwnUserImages() { //vrací pole imgs. které se načtou v axios monted dole
-      return this.ownUserImages
-    },
-    // PROFIL
-    getEmail() { //vraci email z objektu
-      return this.thisProfil.email
-    },
-    getJob() { //vraci job z objektu
-      return this.thisProfil.job
-    },
-    getCity() { //vraci city z objektu
-      return this.thisProfil.city
-    },
-    getPricePlusCurrency() { //vraci money + currency z objektu
-      return this.thisProfil.money + this.thisProfil.currency
     },
     getCategory() { //vrací category
       return this.thisProfil.category
@@ -126,11 +99,6 @@ export default {
 
   },
   methods: {
-
-    // setAsProfilPhoto(imgIndex) {//nastavi jako profilovou
-    //   console.log(this.ownUserImages[imgIndex].productImage)
-    // },
-
 
   },
   beforeMount() {
@@ -140,9 +108,19 @@ export default {
 
     this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
 
-    this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.$store.state.currentProfilIndex].email + '/profilPhoto.jpg'
+    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email) //najde vsechny obrázky, s timto emailem
 
-
+      .then((response) => {
+        response.data.map( img => {//vrati imgs z profilu a vytvori path k profilovy fotcce
+          if ( img.profilPhoto ) {
+            this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
+          }
+        })
+        console.log(this.profilePath)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   mounted() {
@@ -183,10 +161,6 @@ img {
   margin-right: 20px;
 }
 
-.myColor {
-  /* color: #90e4f1; */
-}
-
 .v-application p {
   margin: 0px;
 }
@@ -205,16 +179,9 @@ img {
   margin-left: 10px;
 }
 
-h1,
-h2 {
-  font-weight: normal;
-}
 
-a {
-  color: #42b983;
-}
-
-.item + .item:before {/*oddeli category z pole od sebe jako string*/
+.item+.item:before {
+  /*oddeli category z pole od sebe jako string*/
   content: ", ";
 }
 </style>
