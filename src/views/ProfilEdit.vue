@@ -29,7 +29,9 @@
         </v-row>
         <v-row>
           <v-col cols="12" md="12">
-            <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules"></v-textarea>
+            <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
+            <VueTrix v-model="aboutMe"/>
+            <div class="trix-content">{{aboutMe}}</div>
           </v-col>
         </v-row>
     </v-col>
@@ -115,6 +117,10 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <!-- <form>
+    <VueTrix inputId="editor1" v-model="editorContent"/>
+  </form> -->
   </v-container>
 
 </v-app>
@@ -127,10 +133,11 @@ import axios from 'axios'
 import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
 import UploadButton from 'vuetify-upload-button';
-
+import VueTrix from 'vue-trix'
 export default {
   name: 'ProfilEdit',
   data: () => ({
+    editorContent:'',
     imgs: [],//pole objektů
     imgs2: [],//pole paths obrazků
     email: localStorage.getItem("userLoged"),
@@ -250,13 +257,17 @@ export default {
     }
   },
   methods: {//hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
+    newLineOnEnter() {
+      this.aboutMe = this.aboutMe + "\n"
+      console.log(this.aboutMe)
+    },
     setGoldBorder(img) {//vrati true, pokud bude obrazek profolovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
       if (img.profilPhoto === true) {
         return true
       }
     },
     setAsProfilPhoto(id) {//nastavi jako profilovou
-      axios.put('http://localhost:8081/imgFalse/', {
+      axios.put('http://localhost:8081/imgFalse/' + this.email, {
 
       })
         .then((response) => {
@@ -430,7 +441,8 @@ export default {
   },
   components: {
     Header,
-    'upload-btn': UploadButton
+    'upload-btn': UploadButton,
+    VueTrix
 
   }
 }

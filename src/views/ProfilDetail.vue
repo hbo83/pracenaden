@@ -9,7 +9,7 @@
           <v-col class="col-4">
 
             <div class="profilImg">
-              <img :src="profilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 100px;">
+              <img :src="getProfilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 100px;">
             </div>
 
           </v-col>
@@ -85,13 +85,13 @@ export default {
       profilIndex: null, //index aktuálního profilu
       thisProfil: {}, //naplní objekt aktuálním profilem z metody get v mounted
       category: '',
-      profilePath: ''
+      profilePath: 'http://localhost:8081/uploads/no-photo.png'
 
     }
   },
   computed: {
     getProfilePath() {
-      return 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.profilIndex].email + '/profilPhoto.jpg'
+      return this.profilePath
     },
     getCategory() { //vrací category
       return this.thisProfil.category
@@ -108,13 +108,16 @@ export default {
 
     this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
 
-    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email) //najde vsechny obrázky, s timto emailem
+    //najde vsechny obrázky, s timto emailem
+    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
 
       .then((response) => {
         response.data.map( img => {//vrati imgs z profilu a vytvori path k profilovy fotcce
           if ( img.profilPhoto ) {
             this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
           }
+
+
         })
         console.log(this.profilePath)
       })
@@ -124,23 +127,24 @@ export default {
   },
 
   mounted() {
-    console.log('nyní mounted')
+    // console.log('nyní mounted')
     //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
+    console.log(this.profilePath)
   },
   beforeCreate() {
-    console.log('nyni beforeCreate')
+    // console.log('nyni beforeCreate')
   },
   created() {
-    console.log('nyní created')
   },
+  // console.log('nyní created')
   beforeUpdate() {
-    console.log('nyní beforeupdate')
+    // console.log('nyní beforeupdate')
   },
   updated() {
-    console.log('nyní updated')
+    // console.log('nyní updated')
   },
   activated() {
-    console.log('nyní activated')
+    // console.log('nyní activated')
   },
 
   components: {

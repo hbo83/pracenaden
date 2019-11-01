@@ -101,7 +101,7 @@ export default {
   },
   mounted() {
     // console.log('Profil mounted')
-    console.log(this.profileDatas._id)
+    // console.log(this.profileDatas._id)
   },
   computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu

@@ -44,7 +44,7 @@ export default {
       this.profilIndex = this.$store.state.currentProfilIndex
   },
   mounted() {
-    console.log('http://localhost:8081/uploads/' + this.$store.state.allProfiles[0].email + '/profilPhoto.jpg')
+    // console.log('http://localhost:8081/uploads/' + this.$store.state.allProfiles[0].email + '/profilPhoto.jpg')
   }
 }
 </script>

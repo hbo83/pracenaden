@@ -240,10 +240,10 @@ app.post('/img', upload.single('productImage'), (req, res, next) => { //upload f
     });
 })
 
-app.put('/imgFalse', function(req, res) { //oznaci vsechny fotky na profil false
-  // console.log(req.params.email)
+app.put('/imgFalse/:email', function(req, res) { //oznaci vsechny fotky na profil false
+  console.log(req.params.email)
   File.updateMany({
-      // _id: req.params.id,
+      email: req.params.email
     }, {
       $set: {
         profilPhoto: false,
