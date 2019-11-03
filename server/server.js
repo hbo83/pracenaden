@@ -145,7 +145,7 @@ app.get('/profiles/:email', function(req, res) { //vrací profil na základě em
 
 
 app.put('/profiles/:id', function(req, res) {
-  console.log(req.params._id)
+  console.log(req.params.id)
   Profil.findOneAndUpdate({
       _id: req.params.id
     }, {
@@ -153,6 +153,7 @@ app.put('/profiles/:id', function(req, res) {
         email: req.body.email,
         name: req.body.name,
         phone: req.body.phone,
+        phoneVisible: req.body.phoneVisible,
         job: req.body.job,
         money: req.body.money,
         category: req.body.category,
@@ -169,7 +170,6 @@ app.put('/profiles/:id', function(req, res) {
         whatsapp: req.body.whatsapp,
         whatsappVisible: req.body.whatsappVisible,
         aboutMe: req.body.aboutMe,
-        // offerMe: req.body.offerMe,
         checkboxAgree: req.body.checkboxAgree,
         osvc: req.body.osvc,
         currency: req.body.currency,
@@ -182,7 +182,7 @@ app.put('/profiles/:id', function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        console.log(editProfil);
+        console.log( '/profiles/:id' + editProfil);
         res.send(editProfil);
       }
     });

@@ -11,6 +11,16 @@
       </v-col>
     </v-row>
 
+    <v-row class="" justify="center" v-if="getPhoneVisible">
+      <v-col cols="4" class="myColor" style="text-align: left">
+        <v-icon class="" large>phone</v-icon>
+        <span>Telefon:</span>
+      </v-col>
+      <v-col cols="4" class="myColor">
+        <span>{{ getPhone }}</span>
+      </v-col>
+    </v-row>
+
     <v-row class="" justify="center">
       <v-col cols="4" class="myColor" style="text-align: left">
         <v-icon class="" large>build</v-icon>
@@ -115,6 +125,8 @@ export default {
       //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
       web: '',
       webVisible: true,
+      phone: '',
+      phoneVisible: true,
       facebook: '',
       facebookVisible: true,
       instagram: '',
@@ -139,6 +151,9 @@ computed: {
   // PROFIL
   getEmail() { //vraci email z objektu
     return this.thisProfil.email
+  },
+  getPhone() {//vraci phone z objektu
+    return this.thisProfil.phone
   },
   getJob() { //vraci job z objektu
     return this.thisProfil.job
@@ -173,6 +188,9 @@ computed: {
   // VISIBILITA
   getWebVisible() {
     return this.thisProfil.webVisible
+  },
+  getPhoneVisible() {
+    return this.thisProfil.phoneVisible
   },
   getFacebookVisible() {
     return this.thisProfil.facebookVisible

@@ -4,7 +4,7 @@
   <v-container style="width: 30%">
     <h3>Zde prosím vyplňte informace o Vás</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
-    <v-col>
+      <v-col>
         <v-text-field v-model="name" label="Celé jméno" :rules="nameRules" required></v-text-field>
         <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field>
         <v-row>
@@ -30,68 +30,76 @@
         <v-row>
           <v-col cols="12" md="12">
             <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
-            <VueTrix v-model="aboutMe"/>
+            <VueTrix v-model="aboutMe" />
             <div class="trix-content">{{aboutMe}}</div>
           </v-col>
         </v-row>
-    </v-col>
-    <v-col>
-      <v-row>
-        <v-col cols="6" sm="6">
-      <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
-    </v-col>
-      <v-col cols="6" sm="6">
-        <v-switch v-model="webVisible" class="ma-4" :label="`Zobrazit: ${webStatus}`"></v-switch>
       </v-col>
-    </v-row>
-<v-row>
-      <v-col cols="6" sm="6">
-      <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
-    </v-col>
-      <v-col cols="6" sm="6">
-        <v-switch v-model="facebookVisible" class="ma-4" :label="`Zobrazit: ${facebookStatus}`"></v-switch>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="6" sm="6">
-      <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
-    </v-col>
-    <v-col cols="6" sm="6">
-      <v-switch v-model="instagramVisible" class="ma-4" :label="`Zobrazit: ${instagramStatus}`"></v-switch>
-    </v-col>
-  </v-row>
-  <v-row>
-        <v-col cols="6" sm="6">
-      <v-text-field v-model="skype" label="Skype" required></v-text-field>
-    </v-col>
-    <v-col>
-      <v-switch v-model="skypeVisible" class="ma-4" :label="`Zobrazit: ${skypeStatus}`"></v-switch>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col cols="6" sm="6">
-      <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
-    </v-col>
-    <v-col>
-      <v-switch v-model="whatsappVisible" class="ma-4" :label="`Zobrazit: ${whatsappStatus}`"></v-switch>
-    </v-col>
-  </v-row>
-      <v-row>
-        <v-col cols="6" sm="6">
-        <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
-        </v-col>
-        <v-col cols="6" sm="6">
-          <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox>
-        </v-col>
-      </v-row>
-      <v-row justify="center">
-        <v-col cols="3">
-          <v-btn color="success" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
-        </v-col>
-      </v-row>
+      <v-col>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
+          </v-col>
+          <v-col cols="6" sm="6">
+            <v-switch v-model="webVisible" class="ma-4" :label="`Zobrazit: ${webStatus}`"></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-text-field v-model="phone" label="Telefoní číslo" required></v-text-field>
+          </v-col>
+          <v-col cols="6" sm="6">
+            <v-switch v-model="phoneVisible" class="ma-4" :label="`Zobrazit: ${phoneStatus}`"></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
+          </v-col>
+          <v-col cols="6" sm="6">
+            <v-switch v-model="facebookVisible" class="ma-4" :label="`Zobrazit: ${facebookStatus}`"></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
+          </v-col>
+          <v-col cols="6" sm="6">
+            <v-switch v-model="instagramVisible" class="ma-4" :label="`Zobrazit: ${instagramStatus}`"></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-text-field v-model="skype" label="Skype" required></v-text-field>
+          </v-col>
+          <v-col>
+            <v-switch v-model="skypeVisible" class="ma-4" :label="`Zobrazit: ${skypeStatus}`"></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
+          </v-col>
+          <v-col>
+            <v-switch v-model="whatsappVisible" class="ma-4" :label="`Zobrazit: ${whatsappStatus}`"></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="6" sm="6">
+            <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
+          </v-col>
+          <v-col cols="6" sm="6">
+            <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox>
+          </v-col>
+        </v-row>
+        <v-row justify="center">
+          <v-col cols="3">
+            <v-btn color="success" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
+          </v-col>
+        </v-row>
 
-    </v-col>
-  </v-form>
+      </v-col>
+    </v-form>
     <br /><br />
     <v-row>
       <v-col>
@@ -137,13 +145,14 @@ import VueTrix from 'vue-trix'
 export default {
   name: 'ProfilEdit',
   data: () => ({
-    editorContent:'',
-    imgs: [],//pole objektů
-    imgs2: [],//pole paths obrazků
+    editorContent: '',
+    imgs: [], //pole objektů
+    imgs2: [], //pole paths obrazků
     email: localStorage.getItem("userLoged"),
     valid: false,
     osvc: false,
     phone: '',
+    phoneVisible: true,
     phoneRules: [
       v => !!v || 'Telefon je povinný',
       v => (v && v.length <= 9) || 'Číslo musí být kratší než 10 znaků',
@@ -227,6 +236,13 @@ export default {
         return "Ne"
       }
     },
+    phoneStatus: function() {
+      if (this.phoneVisible === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
     facebookStatus: function() {
       if (this.facebookVisible === true) {
         return "Ano"
@@ -256,30 +272,30 @@ export default {
       }
     }
   },
-  methods: {//hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
+  methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
     newLineOnEnter() {
       this.aboutMe = this.aboutMe + "\n"
       console.log(this.aboutMe)
     },
-    setGoldBorder(img) {//vrati true, pokud bude obrazek profolovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
+    setGoldBorder(img) { //vrati true, pokud bude obrazek profolovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
       if (img.profilPhoto === true) {
         return true
       }
     },
-    setAsProfilPhoto(id) {//nastavi jako profilovou
+    setAsProfilPhoto(id) { //nastavi jako profilovou
       axios.put('http://localhost:8081/imgFalse/' + this.email, {
 
-      })
+        })
         .then((response) => {
           console.log(response);
         })
         .catch((error) => {
           console.log(error);
         });
-//tadyto jeste poupravit do callbacku
+      //tadyto jeste poupravit do callbacku
       axios.put('http://localhost:8081/img/' + id._id, {
-        profilPhoto: true
-      })
+          profilPhoto: true
+        })
         .then((response) => {
           console.log(response);
         })
@@ -287,7 +303,7 @@ export default {
           console.log(error);
         });
     },
-    getImgSrc: function(i) {//vrati cestu k obrazku
+    getImgSrc: function(i) { //vrati cestu k obrazku
       return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
     },
     validate() {
@@ -337,7 +353,7 @@ export default {
 
       this.selectedFile = event.target.files[0]
     },
-    saveProfil(e) {
+    saveProfil(e) {//updatuje profil
       this.$store.commit('setThisProfileWebVisible', this.webVisible)
       console.log(this.$store.state.allProfiles[1].webVisible)
       axios.put('http://localhost:8081/profiles/' + this.id, {
@@ -348,8 +364,8 @@ export default {
         money: this.money,
         category: this.selectedJobItems,
         aboutMe: this.aboutMe,
-        // offerMe: this.offerMe,
         phone: this.phone,
+        phoneVisible: this.phoneVisible,
         city: this.city,
         web: this.web,
         webVisible: this.webVisible,
@@ -377,7 +393,7 @@ export default {
     // this.userGlobal = localStorage.getItem("userLoged");
     console.log(this.id);
 
-    axios.get('http://localhost:8081/img/' + this.email)//naplni imgs[] objektama fotek
+    axios.get('http://localhost:8081/img/' + this.email) //naplni imgs[] objektama fotek
       .then((response) => {
         this.imgs = response.data;
         console.log(response.data);
@@ -428,7 +444,7 @@ export default {
           this.selectedJobItems = response.data[0].category;
           this.osvc = response.data[0].osvc;
           this.checkboxAgree = response.data[0].checkboxAgree,
-          this.currency = response.data[0].currency;
+            this.currency = response.data[0].currency;
           this.hideProfil = response.data[0].hideProfil;
         })
         .catch((error) => {
@@ -454,13 +470,16 @@ export default {
   height: auto;
   /* border: 1px solid black; */
 }
+
 .goldBorder {
   border: 5px solid gold
 }
+
 h3 {
-   color: #90e4f1;
-   text-align: center;
+  color: #90e4f1;
+  text-align: center;
 }
+
 h4 {
   text-align: left;
 }
