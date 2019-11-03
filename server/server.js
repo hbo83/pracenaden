@@ -130,10 +130,13 @@ app.get('/profiles', function(req, res) {
   })
 })
 
-app.get('/profiles/:city', function(req, res) {//varci profili na zaklade city
-
+app.get('/profilesFiltered', function(req, res) {//varci profili na zaklade city, ale tohle je nahovno to posilat v query, lepsi je v data, ale vlastne u filtru je to jedno
+  // var cityAndJob = {}
+  console.log(req.query.city + req.query.job)
+  // console.log(Object.keys(req.params.cityAndJob))
   Profil.find({
-    city: req.params.city
+    city: req.query.city,
+    job: req.query.job
   }).exec(function(err, profil) {
     if (err) {
       res.send('error has occured');
@@ -142,6 +145,8 @@ app.get('/profiles/:city', function(req, res) {//varci profili na zaklade city
     }
   })
 })
+
+
 
 app.get('/profiles/:email', function(req, res) { //vrací profil na základě emailu
   console.log(req.params.email)

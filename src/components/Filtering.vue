@@ -43,10 +43,14 @@ export default {
     return {
       job: '',
       city: '',
+      cityAndJob: {
+        job: '',
+        city: ''
+      },
       e1: 'Florida',
-        e4: null,
-        itemsCategories: categories,
-        itemsCities: cities
+      e4: null,
+      itemsCategories: categories,
+      itemsCities: cities
     }
   },
   methods: {
@@ -58,7 +62,7 @@ export default {
     },
     changeAllProfiles ( data ) {//zmeni allProfilies a tim se znovu vykersli Summary
 
-      axios.get('http://localhost:8081/profiles/' + this.city)//vrátí aktuální profil
+      axios.get('http://localhost:8081/profilesFiltered?city=' + this.city + '&job=' + this.job)//vrátí aktuální profil
         .then((response) => {
           console.log(response.data)
           this.$store.commit('setAllProfiles', response.data)
@@ -67,6 +71,16 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+
+        // axios.get('http://localhost:8081/fruit?city=Aš&job=klempíř')//vrátí aktuální profil
+        //   .then((response) => {
+        //     console.log(response.data)
+        //     // this.$store.commit('setAllProfiles', response.data)
+        //     // this.thisProfil = response.data[0]
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
 
     }
   },
