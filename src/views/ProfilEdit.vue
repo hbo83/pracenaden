@@ -1,6 +1,7 @@
 <template>
 <v-app>
   <Header></Header>
+  <NavBar />
   <v-container style="width: 30%">
     <h3>Zde prosím vyplňte informace o Vás</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
@@ -137,6 +138,7 @@
 <script>
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
+import NavBar from '@/components/NavBar.vue'
 import axios from 'axios'
 import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
@@ -457,6 +459,7 @@ export default {
   },
   components: {
     Header,
+    NavBar,
     'upload-btn': UploadButton,
     VueTrix
 

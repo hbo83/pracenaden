@@ -18,6 +18,8 @@ export const store = new Vuex.Store({
     userLogedId: localStorage.getItem("userLoged_id"),
     loged: false,
     userImages: [],
+    jobFilter: '',//aktuálně nastavený filtr na Obor
+    cityFilter: '',//aktuálně nastavený filtr na město
     helpData: "pred zmenou"
 
   },
@@ -38,7 +40,15 @@ export const store = new Vuex.Store({
     setUserImgs(state, img) {//vrati imgs aktualniho profilu
       state.userImages = img
     },
-
+    setJobFilter( state, job ) {//commit nastavi jobFilter
+      state.jobFilter = job
+    },
+    setCityFilter( state, city ) {//commit nastavi cityFilter
+      state.cityFilter = city
+    },
+    setAllProfiles( state, filter ) {
+      state.allProfiles = filter
+    },
     setThisProfileWebVisible( state, boolean ) {//nastavi visibilitu webu v this profilu, pokud jen updatuju DB, tak se visibilita nezmeni ptze to bere ze state
       state.allProfiles[1].webVisible = boolean
     },

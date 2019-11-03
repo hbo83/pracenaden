@@ -130,6 +130,19 @@ app.get('/profiles', function(req, res) {
   })
 })
 
+app.get('/profiles/:city', function(req, res) {//varci profili na zaklade city
+
+  Profil.find({
+    city: req.params.city
+  }).exec(function(err, profil) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(profil);
+    }
+  })
+})
+
 app.get('/profiles/:email', function(req, res) { //vrací profil na základě emailu
   console.log(req.params.email)
   Profil.find({

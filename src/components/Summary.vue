@@ -36,9 +36,7 @@ export default {
     }
   },
   methods: {
-    // storeSummaryCommit: function(data) {
-    //   this.$store.commit('setSummaryData', data)
-    // }
+
   },
   computed: {
     getAllProfiles() {//vraci pole profilu

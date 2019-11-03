@@ -124,6 +124,17 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
+      .then((response) => {
+        console.log(response.data)
+        this.thisProfil = response.data[0]
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
   },
 
   mounted() {
