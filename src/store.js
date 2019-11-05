@@ -14,8 +14,10 @@ export const store = new Vuex.Store({
   state: { //to samy co data
     allProfiles: [],//vsechny profily v DB
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
-    userLoged: localStorage.getItem("userLoged"),
-    userLogedId: localStorage.getItem("userLoged_id"),
+    // userLoged: localStorage.getItem("userLoged"),
+    // userLogedId: localStorage.getItem("userLoged_id"),
+    userLoged: null,
+    userLogedId: '',
     loged: false,
     userImages: [],
     jobFilter: '',//aktuálně nastavený filtr na Obor
@@ -24,7 +26,9 @@ export const store = new Vuex.Store({
 
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
-
+    setLogout(state, logout) {
+      state.userLoged = null
+    },
     FETCH_USERS(state, users) {//commit, ktery naplni serverData, pouzito v action fetchUser()
         state.allProfiles = users
     },
@@ -33,6 +37,9 @@ export const store = new Vuex.Store({
     },
     setLoged(state, loged) {//zalogován?
       state.loged = loged
+    },
+    setLogedId(state, id) {
+      state.userLogedId = id
     },
     setUserLoged(state, userLoged) {//kdo je zalogován
       state.userLoged = userLoged

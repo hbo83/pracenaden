@@ -148,9 +148,9 @@ export default {
   name: 'ProfilEdit',
   data: () => ({
     editorContent: '',
+    // userLoged: null,
     imgs: [], //pole objektů
     imgs2: [], //pole paths obrazků
-    email: localStorage.getItem("userLoged"),
     valid: false,
     osvc: false,
     phone: '',
@@ -194,7 +194,7 @@ export default {
 
     city: null,
     items: cities,
-    id: localStorage.getItem("userLoged_id"),
+    id: '',
     web: '',
     webVisible: true,
     facebook: '',
@@ -275,10 +275,7 @@ export default {
     }
   },
   methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
-    newLineOnEnter() {
-      this.aboutMe = this.aboutMe + "\n"
-      console.log(this.aboutMe)
-    },
+
     setGoldBorder(img) { //vrati true, pokud bude obrazek profolovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
       if (img.profilPhoto === true) {
         return true
@@ -393,6 +390,8 @@ export default {
   mounted() {
     // console.log("ProfilEdit mounted");
     // this.userGlobal = localStorage.getItem("userLoged");
+    this.id = this.$store.state.userLogedId
+    this.email = this.$store.state.userLoged
     console.log(this.id);
 
     axios.get('http://localhost:8081/img/' + this.email) //naplni imgs[] objektama fotek
@@ -408,15 +407,7 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-    // var request = {
-    //   params: {
-    //     _id: [this.id]
-    //   },
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Cache-Control': 'no-cache'
-    //   }
-    // }
+
 
     if (this.id !== null) {
 

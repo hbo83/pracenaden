@@ -1,4 +1,5 @@
 const cities = [
+  'Vše',
   'Adamov',
   'Aš',
   'Bechyně',

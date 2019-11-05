@@ -25,6 +25,7 @@
 
     <v-col align="center" class="pa-0" cols="2">
       <v-btn @click="changeAllProfiles( { hideProfil: false} )" color="primary" >Filtrovat</v-btn>
+      <!-- <v-btn @click="cancelFilter( { hideProfil: false} )" color="error" >Zrušit filtr</v-btn> -->
     </v-col>
 
     </v-row>
@@ -82,7 +83,10 @@ export default {
         //     console.log(error);
         //   });
 
-    }
+    },
+    // cancelFilter() {
+    //
+    // }
   },
   mounted() {
     // console.log('Filtering mounted')

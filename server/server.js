@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express');//alt + 124 = | alt+38 = &
 const bodyParser = require('body-parser')
 const cors = require('cors');
 // const morgan = require('morgan');
@@ -134,16 +134,52 @@ app.get('/profilesFiltered', function(req, res) {//varci profili na zaklade city
   // var cityAndJob = {}
   console.log(req.query.city + req.query.job)
   // console.log(Object.keys(req.params.cityAndJob))
-  Profil.find({
-    city: req.query.city,
-    job: req.query.job
-  }).exec(function(err, profil) {
-    if (err) {
-      res.send('error has occured');
-    } else {
-      res.json(profil);
-    }
-  })
+  if ( req.query.job === '' || req.query.job === 'Vše') {
+    Profil.find({
+      city: req.query.city
+      // job: req.query.job
+    }).exec(function(err, profil) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(profil);
+      }
+    })
+  } else if (req.query.city === '' || req.query.city === 'Vše' ) {
+    Profil.find({
+      // city: req.query.city
+      job: req.query.job
+    }).exec(function(err, profil) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(profil);
+      }
+    })
+  } else if (req.query.city === 'Vše' && req.query.job === 'Vše') {
+    Profil.find({
+      // city: req.query.city
+      // job: req.query.job
+    }).exec(function(err, profil) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(profil);
+      }
+    })
+  } else {
+    Profil.find({
+      city: req.query.city,
+      job: req.query.job
+    }).exec(function(err, profil) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(profil);
+      }
+    })
+
+  }
 })
 
 

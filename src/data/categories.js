@@ -1,4 +1,5 @@
 const categories = [
+  'Vše',
   'Administrativa',
   'Medální produkce',
   'Cestovní ruch a volný čas',

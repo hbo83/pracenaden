@@ -46,7 +46,6 @@ export default {
   name: 'Login',
   data() {
     return {
-      email: '',
       password: '',
       nameRules: [
         v => !!v || 'Jméno je vyžadováno',
@@ -60,16 +59,7 @@ export default {
     }
   },
   methods: {
-    // signIn() {
-    //   let currentObj = this;
-    //   axios.post('http://localhost:8081/users', {
-    //
-    //     email: this.email,
-    //     password: this.password
-    //   }).then(this.$router.push({
-    //     name: 'home'
-    //   })).then(alert("Nyní se můžete přihlásit"))
-    // },
+
     logIn() {
       let currentObj = this;
 
@@ -80,15 +70,17 @@ export default {
       }
 
       this.$store.commit('setLoged', true)
-      console.log(this.$store.state.loged)
+      // this.$store.commit('setUserLoged', this.email)
+      console.log(this.$store.state.userLoged)
 
       axios.get('http://localhost:8081/users/', request).then((response) => {
           console.log(response.data);
           alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
-          localStorage.setItem("userLoged", response.data[0].email);
-          localStorage.setItem("userLoged_id", response.data[0]._id);
+          // localStorage.setItem("userLoged", response.data[0].email);
+          // localStorage.setItem("userLoged_id", response.data[0]._id);
 
           this.$store.commit('setUserLoged', response.data[0].email)
+          this.$store.commit('setLogedId', response.data[0]._id)
 
         }).then(this.$router.push({
           name: 'home',
