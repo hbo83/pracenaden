@@ -50,15 +50,7 @@ export default {
       });
   },
   mounted() {
-    // axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email) //vrátí aktuální profil
-    //   .then((response) => {
-    //     console.log(response.data)
-    //     this.thisProfil = response.data[0]
-    //     this.aboutMe = response.data[0].aboutMe
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+
   }
 }
 </script>

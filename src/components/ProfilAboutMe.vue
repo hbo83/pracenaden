@@ -6,7 +6,6 @@
       <v-card-title max-width="50%">Něco o mně:</v-card-title>
     </v-card>
     <v-card-text id="tr" style="text-align: left; color: green;"></v-card-text>
-    <!-- <div id="tr"></div> -->
   </v-card>
 </v-col>
 </template>

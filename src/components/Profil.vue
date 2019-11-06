@@ -3,7 +3,6 @@
   <v-row class="profilParent" @click="selectProfil">
     <v-col class="col-4 pl-8 profil" no-gutters>
       <ProfilImg v-bind:index="this.index"></ProfilImg>
-      <!-- <img :src="getProfilePath" alt="profilPhoto" style="max-height: 100%; margin: auto"> -->
     </v-col>
     <v-col class="col-8 pr-4 profil" no-gutters>
       <p>
@@ -83,16 +82,7 @@ export default {
 
       this.storeProfilIndex(this.$props.index)
 
-      // this.storeProfilCommit(this.email)
-      // this.storeProfilIdCommit(this.id)
-
     },
-    // storeProfilCommit: function(email) {
-    //   this.$store.commit('setSelectedProfil', email)
-    // },
-    // storeProfilIdCommit: function(id) {
-    //   this.$store.commit('setSelectedIdProfil', id)
-    // },
     storeProfilIndex: function(index) {
       this.$store.commit('set_currentProfilIndex', index)
     },
@@ -101,8 +91,7 @@ export default {
     }
   },
   mounted() {
-    // console.log('Profil mounted')
-    // console.log(this.profileDatas._id)
+
   },
   computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu
@@ -130,14 +119,6 @@ export default {
 <style scoped>
 .profil {
   cursor: pointer;
-}
-
-.profil:nth-child(odd) {
-  /* border-left: 5px solid RGBA(144, 228, 241, 1); */
-}
-
-.profil:nth-child(even) {
-  /* border-right: 1px solid black; */
 }
 
 .profilParent:hover {

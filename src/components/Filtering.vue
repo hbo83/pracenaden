@@ -23,8 +23,8 @@
         ></v-select>
       </v-col>
 
-    <v-col align="center" class="pa-0" cols="2">
-      <v-btn @click="changeAllProfiles( { hideProfil: false} )" color="primary" >Filtrovat</v-btn>
+    <v-col align="center" class="pt-2" cols="2" style="min-height:98px;">
+      <v-btn @click="changeAllProfiles( { hideProfil: false} )" color="primary" x-large >Filtrovat</v-btn>
       <!-- <v-btn @click="cancelFilter( { hideProfil: false} )" color="error" >Zrušit filtr</v-btn> -->
     </v-col>
 

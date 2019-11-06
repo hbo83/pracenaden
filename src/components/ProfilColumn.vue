@@ -236,35 +236,10 @@ img {
   margin-right: 20px;
 }
 
-.myColor {
-  /* color: #90e4f1; */
-}
-
-.v-application p {
-  margin: 0px;
-}
-
-.profilImg {
-  max-width: 200px;
-  max-height: 166px;
-  /* overflow: hidden; */
-  margin-left: 25%;
-  margin-top: -15px;
-}
-
 .profil span,
 .stars span,
 .category span {
   margin-left: 10px;
-}
-
-h1,
-h2 {
-  font-weight: normal;
-}
-
-a {
-  color: #42b983;
 }
 
 .item + .item:before {/*oddeli category z pole od sebe jako string*/

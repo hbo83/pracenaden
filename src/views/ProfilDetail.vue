@@ -15,23 +15,7 @@
           </v-col>
           <v-col class="col-8">
             <v-row justify="center">
-              <v-col class="col-12">
-                <v-card class="">
-                  <v-row class="stars" justify="center">
-                    <v-col cols="4" class="">
-                      <p><span>
-                          <v-icon color="yellow">star</v-icon>
-                        </span><span>10</span></p>
-
-                    </v-col>
-                    <v-col cols="4">
-                      <span>
-                        <v-icon color="pink">star</v-icon>
-                      </span><span>10</span>
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </v-col>
+              <Score />
 
             </v-row>
             <v-row>
@@ -76,6 +60,7 @@ import axios from 'axios'
 import ProfilColumn from '@/components/ProfilColumn.vue'
 import ProfilAboutMe from '@/components/ProfilAboutMe.vue'
 import ProfilGalery from '@/components/ProfilGalery.vue'
+import Score from '@/components/Score.vue'
 // import { mdiWebBox } from '@mdi/font';
 export default {
   name: 'ProfilDetail',
@@ -164,7 +149,8 @@ export default {
     ProfilImg,
     ProfilColumn,
     ProfilAboutMe,
-    ProfilGalery
+    ProfilGalery,
+    Score
   }
 }
 </script>
@@ -193,7 +179,6 @@ img {
 .category span {
   margin-left: 10px;
 }
-
 
 .item+.item:before {
   /*oddeli category z pole od sebe jako string*/

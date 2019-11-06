@@ -5,9 +5,7 @@
           <v-icon large>arrow_back</v-icon>
         </v-btn>
       </v-col>
-
     </v-row>
-
 </template>
 
 <script>
@@ -22,7 +20,7 @@ export default {
 
   },
   mounted() {
-    // console.log('Filtering mounted')
+    
   }
 }
 </script>

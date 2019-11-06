@@ -1,17 +1,6 @@
 <template>
-<div class="profilImg"><!--tu komponentu prejmenovat na profilIMG-->
-<!-- <div style="margin-bottom: 12px;"> -->
-<!-- <v-img
-          :src="getProfilePath"
-          class="my-0"
-          contain
-          height="113"
-          :aspect-ratio="1/1"
-          alt="no picture"
-          @error="onError"
-        ></v-img> -->
+<div class="profilImg">
         <img :src="getProfilePath" alt="profilPhoto" style="height: 150px;width: 150px; border-radius: 100px; margin: auto">
-<!-- </div> -->
 </div>
 </template>
 
@@ -44,7 +33,7 @@ export default {
       this.profilIndex = this.$store.state.currentProfilIndex
   },
   mounted() {
-    // console.log('http://localhost:8081/uploads/' + this.$store.state.allProfiles[0].email + '/profilPhoto.jpg')
+
   }
 }
 </script>
@@ -54,13 +43,5 @@ export default {
   max-width: 200px;
   max-height: 166px;
   overflow: hidden;
-  /* margin-left: 25%; */
-}
-h1,
-h2 {
-  font-weight: normal;
-}
-a {
-  color: #42b983;
 }
 </style>

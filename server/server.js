@@ -14,6 +14,7 @@ const app = express();
 const User = require('./User.model');
 const Profil = require('./Profil.model');
 const File = require('./File.model');
+const Star = require('./Star.model');
 
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
@@ -350,4 +351,26 @@ app.delete('/img/:id', function(req, res) { //smaze fotku
   //   console.log('File deleted!');
   // });
 })
+
+//stars
+app.put('/stars', function(req, res) { //prida zlatou hvezdu, musim ale zajistit aby se vytvorila kolekce, defacto pri zalozeni uctu se musi zalozit vsechny potrebne kolekce
+  console.log(req.query.ownerEmail + req.query.markerEmail)
+  Star.findOneAndUpdate({
+      ownerEmail: req.query.ownerEmail
+    }, {
+      $set: {
+        markerEmail: req.query.markerEmail,
+        goldStar: +1
+      }
+    },
+    function(err, goldStar) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(goldStar);
+        res.send(goldStar);
+      }
+    });
+});
+
 app.listen(process.env.PORT || 8081)
