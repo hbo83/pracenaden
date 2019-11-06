@@ -14,11 +14,8 @@ export const store = new Vuex.Store({
   state: { //to samy co data
     allProfiles: [],//vsechny profily v DB
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
-    // userLoged: localStorage.getItem("userLoged"),
-    // userLogedId: localStorage.getItem("userLoged_id"),
     userLoged: null,
     userLogedId: '',
-    loged: false,
     userImages: [],
     jobFilter: '',//aktuálně nastavený filtr na Obor
     cityFilter: '',//aktuálně nastavený filtr na město

@@ -14,7 +14,7 @@ const app = express();
 const User = require('./User.model');
 const Profil = require('./Profil.model');
 const File = require('./File.model');
-const Star = require('./Star.model');
+const GoldStar = require('./GoldStar.model');
 
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
@@ -186,7 +186,7 @@ app.get('/profilesFiltered', function(req, res) {//varci profili na zaklade city
 
 
 app.get('/profiles/:email', function(req, res) { //vrací profil na základě emailu
-  console.log(req.params.email)
+  // console.log(req.params.email)
   Profil.find({
     email: req.params.email
   }).exec(function(err, profil) {
@@ -352,25 +352,39 @@ app.delete('/img/:id', function(req, res) { //smaze fotku
   // });
 })
 
-//stars
-app.put('/stars', function(req, res) { //prida zlatou hvezdu, musim ale zajistit aby se vytvorila kolekce, defacto pri zalozeni uctu se musi zalozit vsechny potrebne kolekce
+//STARS
+app.post('/goldstars', function(req, res) { //prida zlatou hvezdu, musim ale zajistit aby se vytvorila kolekce, defacto pri zalozeni uctu se musi zalozit vsechny potrebne kolekce
   console.log(req.query.ownerEmail + req.query.markerEmail)
-  Star.findOneAndUpdate({
-      ownerEmail: req.query.ownerEmail
-    }, {
-      $set: {
-        markerEmail: req.query.markerEmail,
-        goldStar: +1
-      }
-    },
-    function(err, goldStar) {
+  const star = new GoldStar({
+    ownerEmail: req.query.ownerEmail,
+    markerEmail: req.query.markerEmail
+  });
+    star.save(function(err, star) {
       if (err) {
-        console.log(err);
+        res.send('error saving user')
       } else {
-        console.log(goldStar);
-        res.send(goldStar);
+        console.log(star);
+        res.send(star);
       }
     });
 });
+
+//takze potrebuju aggregation framework pro mongodb, ptze samotny mongo neumi vracet arry na nejvyssi urovni
+//musim pouzivat mongoose prikazy a ne mongo nativni
+app.get('/goldstars/:email', function(req, res) { //vrati pocet zlatych hvezd
+  console.log('/goldstars/:email' + req.params.email)
+  GoldStar.find({
+    ownerEmail: req.params.email
+  }).exec(function(err, goldStar) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      console.log(goldStar)
+      res.json(goldStar);
+    }
+  })
+})
+
+
 
 app.listen(process.env.PORT || 8081)

@@ -8,9 +8,11 @@
     </v-col>
     <v-col cols="4" sm="4" class="pt-3">
 
-        <v-icon class="loged" v-show="loged || updateLoged" @click="redirProfilDetail" color="white" large>edit</v-icon>
-        <p><b>{{ userLoged || updateUserLoged}}</b><span>
-            <v-icon class="loged" @click="logOut" to="/login" color="white" large>{{icon}}</v-icon>
+        <v-icon class="loged" v-show="updateUserLoged" @click="redirProfilDetail" color="white" large>edit</v-icon>
+        <p><b>{{ updateUserLoged }}</b>
+          <span>
+            <v-icon v-show="!updateUserLoged" class="loged" @click="logOut" to="/login" color="white" large>account_box</v-icon>
+            <v-icon v-show="updateUserLoged" class="loged" @click="logOut" to="/login" color="white" large>exit_to_app</v-icon>
           </span></p>
 
     </v-col>
@@ -34,10 +36,8 @@ export default {
   },
   computed: { //vuex state je dobry updatovat v computed
 
-    updateLoged() {
-      return this.$store.state.loged
-    },
-    updateUserLoged() {
+    updateUserLoged() {//return je spravny kdyz beru z vuex
+
       return this.$store.state.userLoged
     }
 
@@ -46,17 +46,11 @@ export default {
     homePage() { //pri kliknuti na logo redirect na homepage
       window.location.href = "http://localhost:8080/";
     },
-    logedYesNo() { //kdyz je nekdo zalogovany, tak se ukaze ikonka odhlasit, kdyz ne tak ikonka prihlasit
-      let userLoged = this.$store.state.userLoged
-      if (userLoged) {
-        return "exit_to_app"
-      } else if (userLoged === null) {
-        return "account_box"
-      }
-    },
+
     logOut() { //logout
       let userLoged = this.$store.state.userLoged
       this.$store.commit('setLogout', null)
+      console.log(this.$store.state.userLoged)
       if (userLoged) {
         var txt;
         if (confirm("Opravdu se chcete odhlásit?")) {
@@ -73,13 +67,12 @@ export default {
     }
   },
   beforeMount() {
-    this.loged = this.$store.state.loged
 
-    if (this.loged) {
-      this.icon = "exit_to_app"
-    }
   },
   mounted() {
+
+  },
+  updated() {
 
   }
 }
