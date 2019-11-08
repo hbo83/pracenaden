@@ -88,7 +88,7 @@ export default {
 
   },
   beforeMount() {
-    console.log('nyní beforemount')
+    // console.log('nyní beforemount')
     //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
 
@@ -105,7 +105,7 @@ export default {
 
 
         })
-        console.log(this.profilePath)
+        // console.log(this.profilePath)
       })
       .catch((error) => {
         console.log(error);
@@ -113,7 +113,7 @@ export default {
 
     axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         this.thisProfil = response.data[0]
       })
       .catch((error) => {
@@ -126,7 +126,7 @@ export default {
   mounted() {
     // console.log('nyní mounted')
     //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
-    console.log(this.profilePath)
+    // console.log(this.profilePath)
   },
   beforeCreate() {
     // console.log('nyni beforeCreate')

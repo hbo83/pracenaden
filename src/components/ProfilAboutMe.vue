@@ -29,7 +29,7 @@ export default {
     getAboutMe() {
       let doc = new DOMParser().parseFromString('<div><b>Hello!</b></div>', 'application/xml');
 
-      console.log(doc)
+      // console.log(doc)
       return this.aboutMe
     }
   },
@@ -41,7 +41,7 @@ export default {
   mounted() {
     axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email) //vrátí aktuální profil
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         this.thisProfil = response.data[0]
         this.aboutMe = response.data[0].aboutMe
         document.getElementById("tr").innerHTML = response.data[0].aboutMe;

@@ -45,7 +45,7 @@ export default {
 
         axios.post('http://localhost:8081/goldstars?ownerEmail=' + this.starProfil + '&markerEmail=' + this.userLoged)//vrátí aktuální profil
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
         })
         .catch((error) => {
           console.log(error);
@@ -73,9 +73,9 @@ export default {
 
     axios.get('http://localhost:8081/goldstars/' + this.starProfil)//vrátí pocet hvezd
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         this.goldStarsCount = response.data.length
-        console.log(this.goldStarsCount)
+        // console.log(this.goldStarsCount)
         response.data.forEach((obj) => {//kontrola zda jiz aktualni user tento profil hodnotil
           if ( obj.markerEmail === this.userLoged) {
             this.allreadyMarked = true

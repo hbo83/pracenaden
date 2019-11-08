@@ -54,7 +54,7 @@ export default {
     showCarousel(imgIndex) {
       this.dialog = true
       this.fullImgIndex = imgIndex
-      console.log(this.ownUserImages[0].productImage)
+      // console.log(this.ownUserImages[0].productImage)
     }
   },
   computed: {

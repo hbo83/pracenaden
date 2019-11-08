@@ -32,7 +32,7 @@
           <v-col cols="12" md="12">
             <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
             <VueTrix v-model="aboutMe" />
-            <div class="trix-content">{{aboutMe}}</div>
+            <!-- <div class="trix-content">{{aboutMe}}</div> -->
           </v-col>
         </v-row>
       </v-col>
@@ -127,7 +127,7 @@
       </v-col>
     </v-row>
 
-    
+
   </v-container>
 
 </v-app>
@@ -477,4 +477,11 @@ h3 {
 h4 {
   text-align: left;
 }
+</style>
+<style>
+
+.trix-button-group--history-tools, .trix-button-group--file-tools {/*schova attachement, undo a redo*/
+  display: none!important;
+}
+
 </style>

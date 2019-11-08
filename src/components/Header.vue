@@ -11,7 +11,7 @@
         <v-icon class="loged" v-show="updateUserLoged" @click="redirProfilDetail" color="white" large>edit</v-icon>
         <p><b>{{ updateUserLoged }}</b>
           <span>
-            <v-icon v-show="!updateUserLoged" class="loged" @click="logOut" to="/login" color="white" large>account_box</v-icon>
+            <v-icon v-show="!updateUserLoged" class="loged" @click="logIn" to="/login" color="white" large>account_box</v-icon>
             <v-icon v-show="updateUserLoged" class="loged" @click="logOut" to="/login" color="white" large>exit_to_app</v-icon>
           </span></p>
 
@@ -46,7 +46,9 @@ export default {
     homePage() { //pri kliknuti na logo redirect na homepage
       window.location.href = "http://localhost:8080/";
     },
-
+    logIn() {
+      window.location.href = "http://localhost:8080/login";
+    },
     logOut() { //logout
       let userLoged = this.$store.state.userLoged
       this.$store.commit('setLogout', null)
@@ -58,8 +60,6 @@ export default {
           window.location.href = "http://localhost:8080/";
           alert(txt);
         }
-      } else {
-        window.location.href = "http://localhost:8080/login";
       }
     },
     redirProfilDetail() {//redirect na editaci profilu
