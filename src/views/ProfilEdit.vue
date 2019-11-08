@@ -121,7 +121,7 @@
 
         <v-img style="cursor: pointer" :src="imgs2[index]" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
-          <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">:-)</v-btn>
+          <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn>
           <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
         </v-card>
       </v-col>
@@ -147,6 +147,7 @@ import VueTrix from 'vue-trix'
 export default {
   name: 'ProfilEdit',
   data: () => ({
+
     editorContent: '',
     // userLoged: null,
     imgs: [], //pole objektů
@@ -276,13 +277,14 @@ export default {
   },
   methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
 
-    setGoldBorder(img) { //vrati true, pokud bude obrazek profolovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
+    setGoldBorder(img) { //vrati true, pokud bude obrazek profilovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
       if (img.profilPhoto === true) {
         return true
       }
     },
     setAsProfilPhoto(id) { //nastavi jako profilovou
-      axios.put('http://localhost:8081/imgFalse/' + this.email, {
+
+      axios.put('http://localhost:8081/imgFalse/' + this.email, {//nastavi vsechny fotky na profilPhoto: false
 
         })
         .then((response) => {
@@ -292,7 +294,7 @@ export default {
           console.log(error);
         });
       //tadyto jeste poupravit do callbacku
-      axios.put('http://localhost:8081/img/' + id._id, {
+      axios.put('http://localhost:8081/img/' + id._id, {//nastavi aktualni fotku na profilPhoto: true
           profilPhoto: true
         })
         .then((response) => {

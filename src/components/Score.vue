@@ -4,7 +4,7 @@
     <v-row class="stars" justify="center">
       <v-col cols="4" class="">
         <span>
-            <v-icon class="star" @click="goldStarIncrement" color="yellow" large>star</v-icon>
+            <v-icon class="star" @click="goldStarIncrement" color="yellow" large>{{get_star}}</v-icon>
           </span><span>{{get_goldStarsCount}}</span>
 
       </v-col>
@@ -27,24 +27,42 @@ export default {
     return {
       userLoged: null,
       profilIndex: null,
-      starProfil: null,
-      goldStarsCount: 1//pocet zlatych hvezd
+      starProfil: null,//email profilu, ktery je hodnocen
+      goldStarsCount: 1,//pocet zlatych hvezd
+      allreadyMarked: false//hodnotil jiz userLoge tento starProfil?
     }
   },
   methods: {
     goldStarIncrement() {
-      axios.post('http://localhost:8081/goldstars?ownerEmail=' + this.starProfil + '&markerEmail=' + this.userLoged)//vrátí aktuální profil
+      if ( this.starProfil === this.userLoged) {
+        alert( "nelze hodnoti sám sebe" )
+      } else if (this.allreadyMarked) {
+        alert( "tento profil jste jiz hodnotil" )
+      } else {
+
+        this.allreadyMarked = true//po ohodnoceni vybarvi hvezdu
+        this.goldStarsCount++//po ohodnoceni hned inkrementuje pocet hvezd
+
+        axios.post('http://localhost:8081/goldstars?ownerEmail=' + this.starProfil + '&markerEmail=' + this.userLoged)//vrátí aktuální profil
         .then((response) => {
           console.log(response.data)
         })
         .catch((error) => {
           console.log(error);
         });
-    }
+      }
+      }
   },
   computed: {
     get_goldStarsCount() {
       return this.goldStarsCount
+    },
+    get_star() {
+      if(this.allreadyMarked) {
+        return "star"
+      } else {
+        return "star_border"
+      }
     }
   },
   mounted() {
@@ -57,6 +75,14 @@ export default {
       .then((response) => {
         console.log(response.data)
         this.goldStarsCount = response.data.length
+        console.log(this.goldStarsCount)
+        response.data.forEach((obj) => {//kontrola zda jiz aktualni user tento profil hodnotil
+          if ( obj.markerEmail === this.userLoged) {
+            this.allreadyMarked = true
+            // console.log(obj.markerEmail + this.userLoged + this.allreadyMarked)
+          }
+          // console.log(this.allreadyMarked)
+        })
       })
       .catch((error) => {
         console.log(error);

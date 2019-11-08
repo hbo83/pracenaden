@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'ProfilImg',
   data() {
     return {
-      profilIndex: null
+      profilIndex: null,
+      profilePath: null
     }
   },
     props: {
@@ -26,11 +28,27 @@ export default {
   },
   computed: {
     getProfilePath() {
-      return 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.index].email + '/profilPhoto.jpg'
+
+      //najde vsechny obrázky, s timto emailem
+      axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.index].email)
+
+        .then((response) => {
+          response.data.map( img => {//vrati imgs z profilu a vytvori path k profilovy fotcce
+            if ( img.profilPhoto ) {
+              this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
+            }
+          })
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      return this.profilePath
     }
   },
   beforeMount() {
       this.profilIndex = this.$store.state.currentProfilIndex
+      // console.log(this.index)
   },
   mounted() {
 
