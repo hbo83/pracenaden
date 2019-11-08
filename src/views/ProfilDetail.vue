@@ -44,7 +44,7 @@
 
     </v-row>
     <ProfilGalery />
-
+    <!-- <GaleryCarousel /> -->
   </v-container>
 
   </div>
@@ -61,6 +61,7 @@ import ProfilColumn from '@/components/ProfilColumn.vue'
 import ProfilAboutMe from '@/components/ProfilAboutMe.vue'
 import ProfilGalery from '@/components/ProfilGalery.vue'
 import Score from '@/components/Score.vue'
+
 // import { mdiWebBox } from '@mdi/font';
 export default {
   name: 'ProfilDetail',
@@ -151,6 +152,7 @@ export default {
     ProfilAboutMe,
     ProfilGalery,
     Score
+
   }
 }
 </script>

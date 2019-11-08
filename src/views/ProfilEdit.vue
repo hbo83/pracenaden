@@ -127,9 +127,7 @@
       </v-col>
     </v-row>
 
-    <!-- <form>
-    <VueTrix inputId="editor1" v-model="editorContent"/>
-  </form> -->
+    
   </v-container>
 
 </v-app>
