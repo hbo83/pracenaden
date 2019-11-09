@@ -140,10 +140,6 @@ export default {
       category: '',
       pricePlusCurrency: ''
 
-
-      //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
-
-      // test: "http://localhost:8081/uploads/" + this.$store.state.userImages[0].productImage
     }
   },
 computed: {

@@ -2,7 +2,7 @@
 <v-container style="padding: 0">
   <v-row style="background-color:#90e4f1" no-gutters>
     <v-col cols="4" sm="4" class="px-6">
-        <h1 @click="homePage">{{ msg }}</h1>
+        <h1 @click="homePage">Prácenaden.cz</h1>
     </v-col>
     <v-col cols="4" sm="4">
     </v-col>
@@ -28,16 +28,12 @@ export default {
   name: 'Header',
   data() {
     return {
-      msg: 'Pracenaden.cz',
       userLoged: null,
-      // loged: false,
-      icon: "account_box"
     }
   },
   computed: { //vuex state je dobry updatovat v computed
 
     updateUserLoged() {//return je spravny kdyz beru z vuex
-
       return this.$store.state.userLoged
     }
 

@@ -14,7 +14,7 @@ export default {
   name: 'MainPage',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+
     }
   },
   components: {

@@ -135,7 +135,15 @@ app.get('/profilesFiltered', function(req, res) {//varci profili na zaklade city
   // var cityAndJob = {}
   console.log(req.query.city + req.query.job)
   // console.log(Object.keys(req.params.cityAndJob))
-  if ( req.query.job === '' || req.query.job === 'Vše') {
+  if (req.query.city === 'Vše' && req.query.job === 'Vše') {
+    Profil.find({}).exec(function(err, profil) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(profil);
+      }
+    })
+  } else if ( req.query.job === 'Vše') {
     Profil.find({
       city: req.query.city
       // job: req.query.job
@@ -146,21 +154,10 @@ app.get('/profilesFiltered', function(req, res) {//varci profili na zaklade city
         res.json(profil);
       }
     })
-  } else if (req.query.city === '' || req.query.city === 'Vše' ) {
+  } else if ( req.query.city === 'Vše' ) {
     Profil.find({
       // city: req.query.city
       job: req.query.job
-    }).exec(function(err, profil) {
-      if (err) {
-        res.send('error has occured');
-      } else {
-        res.json(profil);
-      }
-    })
-  } else if (req.query.city === 'Vše' && req.query.job === 'Vše') {
-    Profil.find({
-      // city: req.query.city
-      // job: req.query.job
     }).exec(function(err, profil) {
       if (err) {
         res.send('error has occured');

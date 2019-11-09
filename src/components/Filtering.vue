@@ -4,34 +4,33 @@
       <v-col class="d-flex" cols="5">
         <v-select
           v-model="job"
-          :items="itemsCategories"
+          :items="jobItems"
           label="Obor, Profese"
           outlined
           prepend-icon="build"
           v-on:change="setJob"
+
         ></v-select>
       </v-col>
 
       <v-col class="" cols="5">
         <v-select
           v-model="city"
-          :items="itemsCities"
+          :items="cityItems"
           label="Místo"
           outlined
           prepend-icon="map"
           v-on:change="setCity"
+
         ></v-select>
       </v-col>
 
     <v-col align="center" class="pt-2" cols="2" style="min-height:98px;">
       <v-btn @click="changeAllProfiles( { hideProfil: false} )" color="primary" x-large >Filtrovat</v-btn>
-      <!-- <v-btn @click="cancelFilter( { hideProfil: false} )" color="error" >Zrušit filtr</v-btn> -->
     </v-col>
 
     </v-row>
   </v-container>
-<!-- </v-app> -->
-<!-- </div> -->
 </template>
 
 <script>
@@ -42,16 +41,10 @@ export default {
   name: 'Filtering',
   data() {
     return {
-      job: '',
-      city: '',
-      cityAndJob: {
-        job: '',
-        city: ''
-      },
-      e1: 'Florida',
-      e4: null,
-      itemsCategories: categories,
-      itemsCities: cities
+      job: 'Vše',//selected job from job filter
+      city: 'Vše',//selected city from city filter
+      jobItems: categories,//items for job selectBox
+      cityItems: cities//items city job selectBox
     }
   },
   methods: {
@@ -65,31 +58,16 @@ export default {
 
       axios.get('http://localhost:8081/profilesFiltered?city=' + this.city + '&job=' + this.job)//vrátí aktuální profil
         .then((response) => {
-          console.log(response.data)
           this.$store.commit('setAllProfiles', response.data)
-          // this.thisProfil = response.data[0]
         })
         .catch((error) => {
           console.log(error);
         });
-
-        // axios.get('http://localhost:8081/fruit?city=Aš&job=klempíř')//vrátí aktuální profil
-        //   .then((response) => {
-        //     console.log(response.data)
-        //     // this.$store.commit('setAllProfiles', response.data)
-        //     // this.thisProfil = response.data[0]
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
-
     },
-    // cancelFilter() {
-    //
-    // }
+
   },
   mounted() {
-    // console.log('Filtering mounted')
+
   }
 }
 </script>
@@ -99,12 +77,4 @@ export default {
   padding: 0 10px 0 45px;
 }
 
-h1,
-h2 {
-  /* font-weight: normal; */
-}
-
-a {
-  color: #42b983;
-}
 </style>

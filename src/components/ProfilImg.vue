@@ -22,9 +22,9 @@ export default {
     },
   methods: {
     //kdyz neexistuje zdroj obrazku, zobrazi se defaultni img
-    onError () {
-      this.msg = 'http://localhost:8081/uploads/no-photo.png'
-    }
+    // onError () {
+    //   this.msg = 'http://localhost:8081/uploads/no-photo.png'
+    // }
   },
   computed: {
     getProfilePath() {

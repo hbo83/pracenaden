@@ -17,8 +17,8 @@ export default {
   name: 'AboutMe',
   data() {
     return {
-      aboutMe: '',
-      thisProfil: {},
+      aboutMe: '',//aboutMe content
+      thisProfil: {},//thisProfile object
       profilIndex: null, //index aktuálního profilu
     }
   },
@@ -26,12 +26,7 @@ export default {
 
   },
   computed: {
-    getAboutMe() {
-      let doc = new DOMParser().parseFromString('<div><b>Hello!</b></div>', 'application/xml');
 
-      // console.log(doc)
-      return this.aboutMe
-    }
   },
   beforeMount() {
 
@@ -44,7 +39,7 @@ export default {
         // console.log(response.data)
         this.thisProfil = response.data[0]
         this.aboutMe = response.data[0].aboutMe
-        document.getElementById("tr").innerHTML = response.data[0].aboutMe;
+        document.getElementById("tr").innerHTML = this.aboutMe;
       })
       .catch((error) => {
         console.log(error);

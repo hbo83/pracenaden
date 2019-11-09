@@ -64,9 +64,7 @@ export default {
   },
   data() {
     return {
-      id: this.profileDatas._id,
-      email: this.profileDatas.email,
-      premium: true
+      premium: true//pozdeji premiovy ucet bude nejak oznaceny
     }
   },
   methods: {

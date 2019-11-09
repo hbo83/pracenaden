@@ -15,13 +15,12 @@
 <script>
 import Profil from '@/components/Profil.vue'
 import axios from 'axios';
-import SlotHelp from '@/components/SlotHelp.vue'
-import Help from '@/components/Help.vue'
+
+
 export default {
   name: 'Summary',
   data() {
     return {
-      msg: 'PraceNaDen',
       index: null//index predavam do child komponenty Profil, kde se pouzije jako index objektu v poli allProfiles
     }
   },
@@ -40,9 +39,7 @@ export default {
 
   },
   components: {
-    Profil,
-    SlotHelp,
-    Help
+    Profil
   }
 }
 </script>
