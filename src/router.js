@@ -5,6 +5,9 @@ import Login from '@/views/Login'
 import Signin from '@/views/Signin'
 import ProfilDetail from '@/views/ProfilDetail.vue'
 import ProfilEdit from '@/views/ProfilEdit.vue'
+import Info from '@/views/Info.vue'
+import Offers from '@/views/Offers.vue'
+import OfferDetail from '@/views/OfferDetail.vue'
 
 Vue.use(Router)
 
@@ -35,6 +38,21 @@ export default new Router({
       path: '/profilEdit',
       name: 'ProfilEdit',
       component: ProfilEdit
+    },
+    {
+      path: '/info',
+      name: 'Info',
+      component: Info
+    },
+    {
+      path: '/offers',
+      name: 'Offers',
+      component: Offers
+    },
+    {
+      path: '/offerDetail',
+      name: 'OfferDetail',
+      component: OfferDetail
     },
     // {
     //   path: '/about',

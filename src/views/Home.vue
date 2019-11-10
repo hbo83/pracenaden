@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div class="home">
-    <Header></Header>
+    <Header color="#90e4f1"></Header>
     <Filtering></Filtering>
     <Summary></Summary>
 
