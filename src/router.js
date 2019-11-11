@@ -8,6 +8,7 @@ import ProfilEdit from '@/views/ProfilEdit.vue'
 import Info from '@/views/Info.vue'
 import Offers from '@/views/Offers.vue'
 import OfferDetail from '@/views/OfferDetail.vue'
+import OfferEdit from '@/views/OfferEdit.vue'
 
 Vue.use(Router)
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/offerDetail',
       name: 'OfferDetail',
       component: OfferDetail
+    },
+    {
+      path: '/offeredit',
+      name: 'OfferEdit',
+      component: OfferEdit
     },
     // {
     //   path: '/about',

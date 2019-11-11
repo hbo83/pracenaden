@@ -1,42 +1,41 @@
 <template>
 <v-app>
-  <Header color="pink"/>
+  <Header color="pink" />
   <NavBar />
   <v-container>
+
     <v-row class="col-10 mx-auto" justify="center">
       <v-col class="col-8">
+
         <v-row>
-          <v-col class="col-6" style="min-height:200px">
-            <v-card>
-Nadpis</v-card>
-            <!-- <div class="profilImg">
-              <img :src="getProfilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 100px;">
-            </div> -->
-
+          <v-col class="col-6">
+            <v-card style="min-height:100px">
+              Nadpis</v-card>
           </v-col>
-          <v-col class="col-2">
+          <v-col class="col-6">
             <v-row justify="center">
-              <OfferScore />
-
-            </v-row>
-            <v-row>
-              <v-col class="col-12">
-                <v-card class="">
-                  <v-row class="" justify="center">
-                    <v-col cols="4" class="category">
-                      <v-icon class="" large color="#90e4f1">category</v-icon>
-                      <span>Kategorie:</span>
-                    </v-col>
-                    <v-col cols="4" class="myColor pa-0 pt-4">
-                      <span class="item" v-for="item in getCategory"> {{ item }} </span>
-                      <!--takhle z pole udelat string + dole css.. s toString to hlasi naky kraviny-->
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </v-col>
+              <OfferScore /><!--tohle je na hovno, ve views maji bej sablony a komponenty nemaji mit vlasni obalovej column-->
             </v-row>
           </v-col>
+
+          <v-row>
+            <v-col class="col-12">
+              <v-card class="">
+
+                <v-col cols="4" class="category">
+                  <v-icon class="" large color="#90e4f1">category</v-icon>
+                  <span>Kategorie:</span>
+                </v-col>
+                <v-col cols="4" class="myColor pa-0 pt-4">
+                  <span class="item" v-for="item in getCategory"> {{ item }} </span>
+
+                </v-col>
+
+              </v-card>
+            </v-col>
+          </v-row>
         </v-row>
+
         <v-row>
           <AboutOffer />
         </v-row>
@@ -99,8 +98,8 @@ export default {
     axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
 
       .then((response) => {
-        response.data.map( img => {//vrati imgs z profilu a vytvori path k profilovy fotcce
-          if ( img.profilPhoto ) {
+        response.data.map(img => { //vrati imgs z profilu a vytvori path k profilovy fotcce
+          if (img.profilPhoto) {
             this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
           }
 
@@ -112,7 +111,7 @@ export default {
         console.log(error);
       });
 
-    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
+    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email) //vrátí aktuální profil
       .then((response) => {
         // console.log(response.data)
         this.thisProfil = response.data[0]
@@ -132,8 +131,7 @@ export default {
   beforeCreate() {
     // console.log('nyni beforeCreate')
   },
-  created() {
-  },
+  created() {},
   // console.log('nyní created')
   beforeUpdate() {
     // console.log('nyní beforeupdate')

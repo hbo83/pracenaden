@@ -2,19 +2,25 @@
 <v-container style="padding: 0">
   <v-row :style="{ backgroundColor: color }" no-gutters>
     <!-- <v-row style="background-color:#90e4f1" no-gutters> -->
-    <v-col cols="4" sm="4" class="px-6">
+    <v-col cols="5" sm="5" class="px-6">
       <h1 @click="homePage">Prácenaden.cz</h1>
     </v-col>
-    <v-col cols="4" sm="4">
-      <v-icon class="loged" @click="toOffers" color="white" x-large dark >money</v-icon>
-      <v-icon class="loged" @click="homePage" color="white" x-large dark >face</v-icon>
+    <v-col cols="2" sm="2">
+      <v-icon class="loged" @click="toAnother" color="white" x-large dark >{{get_linkIcon}}</v-icon>
+      <!-- <v-icon class="loged" @click="homePage" color="white" x-large dark >face</v-icon> -->
     </v-col>
-    <v-col cols="4" sm="4" class="pt-3">
+    <v-col cols="5" sm="5" class="pt-3">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-icon class="loged" @click="toInfo" color="white" large dark v-on="on">info</v-icon>
         </template>
-        <span>Tooltip</span>
+        <span>Informace</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-icon class="loged" @click="toOfferEdit" color="white" large dark v-on="on">alarm</v-icon>
+        </template>
+        <span>Zadat poptávku</span>
       </v-tooltip>
       <!-- <v-icon class="loged" @click="toInfo" color="white" large>info</v-icon> -->
       <v-icon class="loged" v-show="updateUserLoged" @click="redirProfilDetail" color="white" large>edit</v-icon>
@@ -48,11 +54,20 @@ export default {
 
     updateUserLoged() { //return je spravny kdyz beru z vuex
       return this.$store.state.userLoged
-    }
+    },
+    get_linkIcon() {//menmi ikonu podle toho zda jsem na offers nebo na profils
+      if ( this.$store.state.currentLink === "offers") {
+        return "face"
+      } else {
+        return "money"
+      }
+    },
 
   },
   methods: {
+
     homePage() { //pri kliknuti na logo redirect na homepage
+      this.$store.commit('set_currentLink', 'home')
       window.location.href = "http://localhost:8080/";
     },
     logIn() {
@@ -61,8 +76,17 @@ export default {
     toInfo() {
       window.location.href = "http://localhost:8080/info";
     },
-    toOffers() {
-      window.location.href = "http://localhost:8080/offers";
+    toOfferEdit() {
+      window.location.href = "http://localhost:8080/offeredit";
+    },
+    toAnother() {//prepina profils a offers
+      if ( this.$store.state.currentLink === "offers" ){
+        this.$store.commit('set_currentLink', 'profil')
+        window.location.href = "http://localhost:8080/";
+      } else {
+        this.$store.commit('set_currentLink', 'offers')
+        window.location.href = "http://localhost:8080/offers";
+      }
     },
     logOut() { //logout
       let userLoged = this.$store.state.userLoged

@@ -19,10 +19,13 @@ export const store = new Vuex.Store({
     userImages: [],
     jobFilter: '',//aktuálně nastavený filtr na Obor
     cityFilter: '',//aktuálně nastavený filtr na město
-    helpData: "pred zmenou"
+    currentLink: ''//aktuální link
 
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
+    set_currentLink( state, view) {//nastaví aktuální router link .../link, kvuli ikoně v header
+      state.currentLink = view
+    },
     setLogout(state, logout) {
       state.userLoged = null
     },

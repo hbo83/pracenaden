@@ -1,23 +1,23 @@
 <template>
 <v-app>
-  <Header color="#90e4f1"></Header>
+  <Header color="pink"></Header>
   <NavBar />
   <v-container style="width: 30%">
-    <h3>Zde prosím vyplňte informace o Vás</h3>
+    <h3>Zde prosím vyplňte informace o poptávce</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
       <v-col>
-        <v-text-field v-model="name" label="Celé jméno" :rules="nameRules" required></v-text-field>
-        <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field>
+
+        <!-- <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field> -->
         <v-row>
           <v-col>
-            <v-text-field v-model="money" label="Požadovaná odměna" :rules="moneyRules" required></v-text-field>
+            <v-text-field v-model="money" label="Nabízená odměna" :rules="moneyRules" required></v-text-field>
           </v-col>
           <v-col>
             <v-select v-model="currency" :items="selectedCurrencyItems" :rules="currencyRules" label="Jednotka" required></v-select>
           </v-col>
         </v-row>
-        <!-- <v-text-field v-model="phone" label="Telefon" :rules="phoneRules" required></v-text-field> -->
-        <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
+        <!-- <v-text-field v-model="phone" label="Telefon" :rules="phoneRules" required></v-text-field>
+        <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select> -->
         <v-row align="center">
           <v-col cols="12" sm="12">
             <v-select v-model="selectedJobItems" :items="itemsJob" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
@@ -25,7 +25,7 @@
         </v-row>
         <v-row>
           <v-col cols="6" md="6">
-            <h4>O mě</h4>
+            <h4>Bližžší informace:</h4>
           </v-col>
         </v-row>
         <v-row>
@@ -38,7 +38,7 @@
       </v-col>
       <v-col>
         <v-row>
-          <v-col cols="6" sm="6">
+          <!-- <v-col cols="6" sm="6">
             <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
           </v-col>
           <v-col cols="6" sm="6">
@@ -88,10 +88,10 @@
         <v-row>
           <v-col cols="6" sm="6">
             <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
-          </v-col>
+          </v-col> -->
           <v-col cols="6" sm="6">
-            <!-- <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox> -->
-            <v-switch v-model="hideProfil" class="ma-4" :label="`Skrýt profil?: ${profilVisible}`"></v-switch>
+            <!-- <v-checkbox v-model="hideProfil" label="Skrýt poptávku?"></v-checkbox> -->
+            <v-switch v-model="hideProfil" class="ma-4" :label="`Vystavený inzerát: ${offerVisible}`"></v-switch>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -144,7 +144,7 @@ import cities from '@/data/cities.js'
 import UploadButton from 'vuetify-upload-button';
 import VueTrix from 'vue-trix'
 export default {
-  name: 'ProfilEdit',
+  name: 'OfferEdit',
   data: () => ({
 
     editorContent: '',
@@ -224,14 +224,7 @@ export default {
     },
   }),
   computed: {
-    osvcStatus: function() {
-      if (this.osvc === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    profilVisible: function() {
+    offerVisible: function() {
       if (this.hideProfil === true) {
         return "Ano"
       } else {
@@ -478,7 +471,7 @@ export default {
 }
 
 h3 {
-  color: #90e4f1;
+  color: pink;
   text-align: center;
 }
 
