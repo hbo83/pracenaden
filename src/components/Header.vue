@@ -3,7 +3,7 @@
   <v-row :style="{ backgroundColor: color }" no-gutters>
     <!-- <v-row style="background-color:#90e4f1" no-gutters> -->
     <v-col cols="5" sm="5" class="px-6">
-      <h1 @click="homePage">Prácenaden.cz</h1>
+      <h1 @click="homePage">Prácenaden.cz - katalog občasné výpomoci</h1>
     </v-col>
     <v-col cols="2" sm="2">
       <v-icon class="loged" @click="toAnother" color="white" x-large dark >{{get_linkIcon}}</v-icon>

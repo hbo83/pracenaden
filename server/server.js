@@ -15,6 +15,7 @@ const User = require('./User.model');
 const Profil = require('./Profil.model');
 const File = require('./File.model');
 const GoldStar = require('./GoldStar.model');
+const Offer = require('./Offer.model');
 
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
@@ -241,7 +242,7 @@ app.put('/profiles/:id', function(req, res) {
 });
 
 //PROFILEDIT
-app.get('/profilesedit/:_id', function(req, res) {
+app.get('/profilesedit/:_id', function(req, res) {//naplní profilEdit
   console.log(req.params._id)
   Profil.find({
     _id: req.params._id
@@ -382,6 +383,46 @@ app.get('/goldstars/:email', function(req, res) { //vrati pocet zlatych hvezd
   })
 })
 
+//OFFERS
+app.put('/offersedit/:id', function(req, res) {
+  console.log('/offersedit/:id' + " " + req.params.email)
+  Offer.findOneAndUpdate({
+      email: req.params.email
+    }, {
+      $set: {
+        email: req.body.email,
+        title: req.body.title,
+        money: req.body.money,
+        category: req.body.category,
+        city: req.body.city,
+        aboutOffer: req.body.aboutOffer,
+        currency: req.body.currency,
+        hideOffer: req.body.hideOffer
+      }
+    }, {
+      upsert: true
+    },
+    function(err, editOffer) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log( '/offer/:id' + editOffer);
+        res.send(editOffer);
+      }
+    });
+});
 
+app.get('/offers/:_id', function(req, res) {//naplní offerEdit
+  console.log('/offers/:_id' + " " +req.params._id)
+  Offer.find({
+    email: req.params._id
+  }).exec(function(err, offer) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(offer);
+    }
+  })
+})
 
 app.listen(process.env.PORT || 8081)

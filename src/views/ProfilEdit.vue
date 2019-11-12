@@ -387,8 +387,8 @@ export default {
         osvc: this.osvc,
         currency: this.currency,
         hideProfil: this.hideProfil,
-        checkboxAgree: this.checkboxAgree,
-        profilPhotoPath: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
+        checkboxAgree: this.checkboxAgree
+        // profilPhotoPath: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
 
       }).then(this.$router.push({
         name: 'home'

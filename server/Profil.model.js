@@ -25,8 +25,8 @@ var ProfilSchema = new Schema({
   osvc: Boolean,
   checkboxAgree: Boolean,
   currency: String,
-  hideProfil: Boolean,
-  profilPhotoPath: String
+  hideProfil: Boolean
+  // profilPhotoPath: String
 });
 
 module.exports = mongoose.model('Profil', ProfilSchema);

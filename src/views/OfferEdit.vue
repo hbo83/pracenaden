@@ -2,22 +2,22 @@
 <v-app>
   <Header color="pink"></Header>
   <NavBar />
+  <OffersList />
   <v-container style="width: 30%">
     <h3>Zde prosím vyplňte informace o poptávce</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
       <v-col>
 
-        <!-- <v-text-field v-model="job" label="Obor" :rules="jobRules" required></v-text-field> -->
+        <v-text-field v-model="title" label="Nadpis" :rules="titleRules" required></v-text-field>
         <v-row>
           <v-col>
-            <v-text-field v-model="money" label="Nabízená odměna" :rules="moneyRules" required></v-text-field>
+            <v-text-field v-model="price" label="Nabízená odměna" :rules="priceRules" required></v-text-field>
           </v-col>
           <v-col>
             <v-select v-model="currency" :items="selectedCurrencyItems" :rules="currencyRules" label="Jednotka" required></v-select>
           </v-col>
         </v-row>
-        <!-- <v-text-field v-model="phone" label="Telefon" :rules="phoneRules" required></v-text-field>
-        <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select> -->
+
         <v-row align="center">
           <v-col cols="12" sm="12">
             <v-select v-model="selectedJobItems" :items="itemsJob" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
@@ -31,64 +31,14 @@
         <v-row>
           <v-col cols="12" md="12">
             <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
-            <VueTrix v-model="aboutMe" />
+            <VueTrix v-model="aboutOffer" />
             <!-- <div class="trix-content">{{aboutMe}}</div> -->
           </v-col>
         </v-row>
       </v-col>
       <v-col>
         <v-row>
-          <!-- <v-col cols="6" sm="6">
-            <v-text-field v-model="web" label="Webové stránky" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="webVisible" class="ma-4" :label="`Zobrazit: ${webStatus}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="phone" label="Telefoní číslo" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="phoneVisible" class="ma-4" :label="`Zobrazit: ${phoneStatus}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="facebook" label="Facebook" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="facebookVisible" class="ma-4" :label="`Zobrazit: ${facebookStatus}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="instagram" label="Instagram" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="instagramVisible" class="ma-4" :label="`Zobrazit: ${instagramStatus}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="skype" label="Skype" required></v-text-field>
-          </v-col>
-          <v-col>
-            <v-switch v-model="skypeVisible" class="ma-4" :label="`Zobrazit: ${skypeStatus}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="whatsapp" label="WhatsApp" required></v-text-field>
-          </v-col>
-          <v-col>
-            <v-switch v-model="whatsappVisible" class="ma-4" :label="`Zobrazit: ${whatsappStatus}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
-          </v-col> -->
+
           <v-col cols="6" sm="6">
             <!-- <v-checkbox v-model="hideProfil" label="Skrýt poptávku?"></v-checkbox> -->
             <v-switch v-model="hideProfil" class="ma-4" :label="`Vystavený inzerát: ${offerVisible}`"></v-switch>
@@ -143,11 +93,12 @@ import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
 import UploadButton from 'vuetify-upload-button';
 import VueTrix from 'vue-trix'
+import OffersList from '@/components/offer/OffersList.vue'
 export default {
   name: 'OfferEdit',
   data: () => ({
 
-    editorContent: '',
+    aboutOffer: '',
     // userLoged: null,
     imgs: [], //pole objektů
     imgs2: [], //pole paths obrazků
@@ -169,8 +120,8 @@ export default {
       v => !!v || 'Obor je povinný',
       v => (v && v.length <= 20) || 'Obor musí být kratší než 20 znaků',
     ],
-    money: '',
-    moneyRules: [
+    price: '',
+    priceRules: [
       v => !!v || 'Požadovaná odměna je povinná',
       v => (v && v.length <= 10) || 'Odměna musí být více než 9',
     ],
@@ -191,20 +142,15 @@ export default {
       v => !!v || 'O mě je povinná',
       v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
     ],
+    title: '',
+    titleRules: [
+      v => !!v || 'O mě je povinná',
+      v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
+    ],
 
     city: null,
     items: cities,
     id: '',
-    web: '',
-    webVisible: true,
-    facebook: '',
-    facebookVisible: true,
-    instagram: '',
-    instagramVisible: true,
-    skype: '',
-    skypeVisible: true,
-    whatsapp: '',
-    whatsappVisible: true,
     hideProfil: false,
     dictionary: {
       attributes: {
@@ -231,48 +177,7 @@ export default {
         return "Ne"
       }
     },
-    webStatus: function() {
-      if (this.webVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    phoneStatus: function() {
-      if (this.phoneVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    facebookStatus: function() {
-      if (this.facebookVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    instagramStatus: function() {
-      if (this.instagramVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    skypeStatus: function() {
-      if (this.skypeVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    whatsappStatus: function() {
-      if (this.whatsappVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    }
+
   },
   methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
 
@@ -356,36 +261,18 @@ export default {
     saveProfil(e) {//updatuje profil
       this.$store.commit('setThisProfileWebVisible', this.webVisible)
       console.log(this.$store.state.allProfiles[1].webVisible)
-      axios.put('http://localhost:8081/profiles/' + this.id, {
-        id: this.id,
+      axios.put('http://localhost:8081/offersedit/' + this.email, {
+
         email: this.email,
-        name: this.name,
-        job: this.job,
+        title: this.title,
+        // job: this.job,
         money: this.money,
         category: this.selectedJobItems,
-        aboutMe: this.aboutMe,
-        phone: this.phone,
-        phoneVisible: this.phoneVisible,
-        city: this.city,
-        web: this.web,
-        webVisible: this.webVisible,
-        facebook: this.facebook,
-        facebookVisible: this.facebookVisible,
-        instagram: this.instagram,
-        instagramVisible: this.instagramVisible,
-        skype: this.skype,
-        skypeVisible: this.skypeVisible,
-        whatsapp: this.whatsapp,
-        whatsappVisible: this.whatsappVisible,
-        osvc: this.osvc,
         currency: this.currency,
-        hideProfil: this.hideProfil,
-        checkboxAgree: this.checkboxAgree,
-        profilPhotoPath: 'http://localhost:8081/uploads/' + this.email + '/profilPhoto.jpg'
+        hideOffer: this.hideOffer,
+        aboutOffer: this.aboutOffer
 
-      }).then(this.$router.push({
-        name: 'home'
-      })).then(alert("Profil uložen"))
+      }).then(alert("Poptávka uložen"))
     }
   },
   mounted() {
@@ -412,34 +299,22 @@ export default {
 
     if (this.id !== null) {
 
-      axios.get('http://localhost:8081/profilesedit/' + this.id)
+      axios.get('http://localhost:8081/offers/' + this.email)
         .then((response) => {
           //osetrit vyjimku kdyz jeste nema profil vyplnenej
           console.log(response.data[0]);
-          console.log(response.data[0].name);
+
           this.name = response.data[0].name;
-          this.job = response.data[0].job;
-          this.money = response.data[0].money;
-          this.phone = response.data[0].phone;
+          this.price = response.data[0].price;
           this.city = response.data[0].city;
-          this.aboutMe = response.data[0].aboutMe;
-          // this.offerMe = response.data[0].offerMe;
+          this.aboutOffer = response.data[0].aboutOffer;
           this.category = response.data[0].category;
-          this.web = response.data[0].web;
-          this.webVisible = response.data[0].webVisible;
-          this.facebook = response.data[0].facebook;
-          this.facebookVisible = response.data[0].facebookVisible;
-          this.instagram = response.data[0].instagram;
-          this.instagramVisible = response.data[0].instagramVisible;
-          this.skype = response.data[0].skype;
-          this.skypeVisible = response.data[0].skypeVisible;
-          this.whatsapp = response.data[0].whatsapp;
-          this.whatsappVisible = response.data[0].whatsappVisible;
           this.selectedJobItems = response.data[0].category;
-          this.osvc = response.data[0].osvc;
-          this.checkboxAgree = response.data[0].checkboxAgree,
-            this.currency = response.data[0].currency;
-          this.hideProfil = response.data[0].hideProfil;
+          this.currency = response.data[0].currency;
+          console.log(response.data[0].currency);
+          console.log(this.currency);
+          this.hideOffer = response.data[0].hideOffer;
+          this.title = response.data[0].title;
         })
         .catch((error) => {
           console.log(error);
@@ -453,7 +328,8 @@ export default {
     Header,
     NavBar,
     'upload-btn': UploadButton,
-    VueTrix
+    VueTrix,
+    OffersList
 
   }
 }
