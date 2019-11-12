@@ -5,6 +5,9 @@
           <v-icon large>arrow_back</v-icon>
         </v-btn>
       </v-col>
+      <v-col>
+        <slot></slot>
+      </v-col>  
     </v-row>
 </template>
 
