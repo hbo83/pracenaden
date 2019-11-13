@@ -9,6 +9,7 @@ import Info from '@/views/Info.vue'
 import Offers from '@/views/Offers.vue'
 import OfferDetail from '@/views/OfferDetail.vue'
 import OfferEdit from '@/views/OfferEdit.vue'
+import OfferEditForm from '@/views/OfferEditForm.vue'
 
 Vue.use(Router)
 
@@ -21,9 +22,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/profildetail',
+      path: '/profildetail/:index',//cesta v URL adrese
       name: 'ProfilDetail',
-      component: ProfilDetail
+      component: ProfilDetail//nazev komponenty
     },
     {
       path: '/login',
@@ -59,6 +60,11 @@ export default new Router({
       path: '/offeredit',
       name: 'OfferEdit',
       component: OfferEdit
+    },
+    {
+      path: '/offereditForm/:index',
+      name: 'OfferEditForm',
+      component: OfferEditForm
     },
     // {
     //   path: '/about',

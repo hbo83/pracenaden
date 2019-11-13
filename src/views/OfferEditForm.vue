@@ -1,4 +1,7 @@
 <template>
+  <div>
+  <Header color="pink" />
+  <NavBar />
 <v-container style="width: 30%">
   <h3>Zde prosím vyplňte informace o poptávce</h3>
   <v-form ref="form" :lazy-validation="false" v-model="valid">
@@ -75,8 +78,11 @@
   </v-row>
 
 </v-container>
+</div>
 </template>
 <script>
+import Header from '@/components/Header.vue'
+import NavBar from '@/components/NavBar.vue'
 
 import axios from 'axios'
 import categories from '@/data/categories.js'
@@ -315,7 +321,8 @@ export default {
 
   },
   components: {
-  
+Header,
+NavBar
 
   }
 }

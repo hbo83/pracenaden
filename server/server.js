@@ -412,10 +412,10 @@ app.put('/offersedit/:id', function(req, res) {
     });
 });
 
-app.get('/offers/:_id', function(req, res) {//naplní offerEdit
-  console.log('/offers/:_id' + " " +req.params._id)
+app.get('/offers/:email', function(req, res) {//naplní offerEdit
+  console.log('/offers/:email' + " " + req.params._id)
   Offer.find({
-    email: req.params._id
+    email: req.params.email
   }).exec(function(err, offer) {
     if (err) {
       res.send('error has occured');

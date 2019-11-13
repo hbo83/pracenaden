@@ -71,13 +71,15 @@ export default {
     //vybere profil, ulozi email a id vybraneho profilu do storu
     selectProfil() {
 
-      this.$router.push({ //presmeruje na profilDetail
-        name: 'ProfilDetail',
-        params: {
-          index: this.index
-        }
-      })
-
+      // this.$router.push({ //presmeruje na profilDetail
+      //   name: 'ProfilDetail',
+      //   params: {
+      //     index: this.index,
+      //     email: this.profileDatas.email
+      //   }
+      // })
+      this.$router.push('/profildetail/' + this.index)
+      console.log(this.profileDatas.email)
       this.storeProfilIndex(this.$props.index)
 
     },

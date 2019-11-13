@@ -1,5 +1,5 @@
 <template>
-<v-col cols="2">
+<v-col cols="2" @click="toOffer">
   <v-card>
     <v-card-title>
       titulek
@@ -18,7 +18,12 @@
 import axios from 'axios'
 export default {
   name: 'OfferListItem',
-
+props: {
+  index: { //index predany z parent komponenty summary
+    type: Number,
+    required: true
+  }
+},
   data() {
     return {
       userLoged: null,
@@ -27,7 +32,9 @@ export default {
     }
   },
   methods: {
-
+    toOffer() {
+      this.$router.push('/offereditform/' + this.index)
+    }
   },
   computed: {
 

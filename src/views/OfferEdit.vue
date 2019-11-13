@@ -6,7 +6,6 @@
   </NavBar>
   <h2>Seznam Vašich poptávek</h2>
   <OffersList />
-<OfferEditForm />
 
 </v-app>
 </template>
@@ -16,7 +15,7 @@
 import Header from '@/components/Header.vue'
 import NavBar from '@/components/NavBar.vue'
 import OffersList from '@/components/offer/OffersList.vue'
-import OfferEditForm from '@/components/offer/OfferEditForm.vue'
+
 export default {
   name: 'OfferEdit',
   data: () => ({
@@ -25,8 +24,8 @@ export default {
   components: {
     Header,
     NavBar,
-    OffersList,
-    OfferEditForm
+    OffersList
+
   }
 }
 </script>

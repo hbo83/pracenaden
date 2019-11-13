@@ -1,6 +1,6 @@
 <template>
 <v-app>
-  <Header />
+  <Header  color="#90e4f1"/>
   <NavBar />
   <v-container>
     <v-row class="col-12" justify="center">
@@ -124,7 +124,7 @@ export default {
   },
 
   mounted() {
-    // console.log('nyní mounted')
+    console.log(this.$route.params.email )
     //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
     // console.log(this.profilePath)
   },
