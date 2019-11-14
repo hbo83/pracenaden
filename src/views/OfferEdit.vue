@@ -1,13 +1,14 @@
 <template>
-<v-app>
-  <Header color="pink"></Header>
-  <NavBar>
+<!-- <v-app> -->
+<div>
+  <Header color="pink" app></Header>
+  <NavBar path="offers">
     <v-btn>Poptat pomocníka</v-btn>
   </NavBar>
   <h2>Seznam Vašich poptávek</h2>
   <OffersList />
-
-</v-app>
+</div>
+<!-- </v-app> -->
 </template>
 
 <script>
@@ -26,29 +27,14 @@ export default {
     NavBar,
     OffersList
 
+
   }
 }
 </script>
 
 <style scoped>
-.home {
-  width: 100%;
-  height: auto;
-  /* border: 1px solid black; */
-}
 
-.goldBorder {
-  border: 5px solid gold
-}
 
-h3 {
-  color: pink;
-  text-align: center;
-}
-
-h4 {
-  text-align: left;
-}
 </style>
 <style>
 

@@ -1,4 +1,5 @@
 <template>
+  <!-- <v-app> -->
 <v-container style="padding: 0">
   <v-row :style="{ backgroundColor: color }" no-gutters>
     <!-- <v-row style="background-color:#90e4f1" no-gutters> -->
@@ -33,6 +34,7 @@
     </v-col>
   </v-row>
 </v-container>
+<!-- </v-app> -->
 </template>
 
 <script>

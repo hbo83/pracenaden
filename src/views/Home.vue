@@ -1,12 +1,12 @@
 <template>
-<v-app>
+<!-- <v-app> -->
   <div class="home">
     <Header color="#90e4f1"></Header>
     <Filtering></Filtering>
     <Summary></Summary>
 
   </div>
-</v-app>
+<!-- </v-app> -->
 </template>
 <!-- componentDidMount() - tato metoda je vyvolana ihned po namountovani komponenty, pouziva se pro pripady kdy chceme inicializovat nejaky data ze serveru,pak by se mela nejak odhlasit metodou componentWillUnmount()
 - bacha na setState() v tyhle metode ptze by to mohlo vyvolat dvojity vykreslovani nebo tak neco

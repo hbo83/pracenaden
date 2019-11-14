@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <Header color="pink" />
-  <NavBar />
+  <NavBar path="offers" />
   <v-container>
 
     <v-row class="col-10 mx-auto" justify="center">

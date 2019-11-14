@@ -1,7 +1,7 @@
 <template>
 <v-app>
-  <Header  color="#90e4f1"/>
-  <NavBar />
+  <Header color="#90e4f1"/>
+  <NavBar path="" />
   <v-container>
     <v-row class="col-12" justify="center">
       <v-col class="col-8">

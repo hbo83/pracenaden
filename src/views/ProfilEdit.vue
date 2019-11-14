@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <Header color="#90e4f1"></Header>
-  <NavBar />
+  <NavBar path="" />
   <v-container style="width: 30%">
     <h3>Zde prosím vyplňte informace o Vás</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
