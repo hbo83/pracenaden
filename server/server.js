@@ -45,12 +45,30 @@ db.once('open', function() { //test spojeni s DB
 //   }
 // })
 
-let upload = multer({
+let uploadProfil = multer({//profilový multer, který predavame jako parametr u upload POST
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
       let folder = req.body.email;
+
       console.log(req.body);
-      let path = `./uploads/${folder}`;
+      let path = `./uploads/${folder}/profil`;
+      fse.mkdirsSync(path);
+      callback(null, path);
+    },
+    filename: (req, file, callback) => {
+      //originalname is the uploaded file's name with extn
+      callback(null, file.originalname);
+    }
+  })
+});
+
+let uploadOffer = multer({//offer multer, který predavame jako parametr u upload POST
+  storage: multer.diskStorage({
+    destination: (req, file, callback) => {
+      let folder = req.body.email;
+      let index = req.body.currentOfferIndex
+      console.log(req.body);
+      let path = `./uploads/${folder}/offers/${index}`;//uploaduje fotku offers do slozky s predanym indexem
       fse.mkdirsSync(path);
       callback(null, path);
     },
@@ -269,7 +287,7 @@ app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
   })
 })
 
-app.post('/img', upload.single('productImage'), (req, res, next) => { //upload fotky profil
+app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //upload fotky profil
   console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
@@ -293,8 +311,8 @@ app.post('/img', upload.single('productImage'), (req, res, next) => { //upload f
     });
 })
 
-app.post('/img', upload.single('productImage'), (req, res, next) => { //upload fotky offer
-  console.log(req.body.profilPhoto.length);
+app.post('/imgoffer', uploadOffer.single('productImage'), (req, res, next) => { //upload fotky offer
+  console.log(req.body.currentOfferIndex)
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),

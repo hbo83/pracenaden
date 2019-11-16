@@ -14,6 +14,7 @@ export const store = new Vuex.Store({
   state: { //to samy co data
     allProfiles: [],//vsechny profily v DB
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
+    currentOfferIndex: null,//zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
     userLoged: null,
     userLogedId: '',
     userImages: [],
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
     },
     set_currentProfilIndex(state, index) {//commit, který naplní currentProfilIndex
       state.currentProfilIndex = index
+    },
+    set_currentOfferIndex(state, index) {//commit, který naplní currentOfferIndex
+      state.currentOfferIndex = index
     },
     setLoged(state, loged) {//zalogován?
       state.loged = loged

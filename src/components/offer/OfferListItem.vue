@@ -34,6 +34,7 @@ props: {
   methods: {
     toOffer() {
       this.$router.push('/offereditform/' + this.index)
+      this.$store.commit('set_currentOfferIndex', this.index)//nastavi index aktualni otevreny nabidky ve store, slouzi k ulozeni fotek do slozky offers
     }
   },
   computed: {

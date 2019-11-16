@@ -1,6 +1,6 @@
 <template>
 <v-row>
-<OfferListItem class="item" v-for="( item, index ) in offers" :index="index"/>
+  <OfferListItem class="item" v-for="( item, index ) in offers" :index="index" />
 
 </v-row>
 </template>
@@ -27,7 +27,7 @@ export default {
   },
   mounted() {
     this.userLoged = this.$store.state.userLoged
-    axios.get('http://localhost:8081/offers/' + this.userLoged ) //vrátí vytvorene offers
+    axios.get('http://localhost:8081/offers/' + this.userLoged) //vrátí vytvorene offers
       .then((response) => {
         this.offers = response.data
       })
@@ -36,7 +36,7 @@ export default {
       });
   },
   components: {
-OfferListItem
+    OfferListItem
   }
 }
 </script>
