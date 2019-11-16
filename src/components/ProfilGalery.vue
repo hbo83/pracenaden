@@ -51,7 +51,7 @@ export default {
     }
   },
   beforeMount() {
-
+    
     this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
 
     axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email) //najde vsechny obrázky, s timto emailem

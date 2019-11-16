@@ -67,7 +67,7 @@ export default {
     valid: false,
     osvc: false,
     hideOffer: false,
-    price: '',
+    price: null,
     priceRules: [
       v => !!v || 'Požadovaná odměna je povinná',
       v => (v && v.length <= 10) || 'Požadovaná odměna je povinná',
@@ -179,8 +179,7 @@ export default {
 
         email: this.email,
         title: this.title,
-        // job: this.job,
-        money: this.money,
+        price: this.price,
         category: this.selectedCategoryItems,
         currency: this.currency,
         hideOffer: this.hideOffer,

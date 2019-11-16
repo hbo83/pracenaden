@@ -16,6 +16,7 @@ const Profil = require('./Profil.model');
 const File = require('./File.model');
 const GoldStar = require('./GoldStar.model');
 const Offer = require('./Offer.model');
+const OfferFile = require('./OfferFile.model');
 
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
@@ -150,7 +151,7 @@ app.get('/profiles', function(req, res) {
   })
 })
 
-app.get('/profilesFiltered', function(req, res) {//varci profili na zaklade city, ale tohle je nahovno to posilat v query, lepsi je v data, ale vlastne u filtru je to jedno
+app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city, ale tohle je nahovno to posilat v query, lepsi je v data, ale vlastne u filtru je to jedno
   // var cityAndJob = {}
   console.log(req.query.city + req.query.job)
   // console.log(Object.keys(req.params.cityAndJob))
@@ -274,10 +275,24 @@ app.get('/profilesedit/:_id', function(req, res) {//naplní profilEdit
 })
 
 //FILES
-app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
+app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu z profils
   console.log(req.params.email)
   File.find({
     email: req.params.email
+  }).exec(function(err, img) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(img);
+    }
+  })
+})
+
+app.get('/imgoffer', function(req, res) { //vrati fotky vazane k danemu emailu z offers
+  console.log(req.query.email + req.query.index)
+  OfferFile.find({
+    email: req.query.email,
+    index: req.query.index
   }).exec(function(err, img) {
     if (err) {
       res.send('error has occured');
@@ -311,16 +326,14 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
     });
 })
 
-app.post('/imgoffer', uploadOffer.single('productImage'), (req, res, next) => { //upload fotky offer
+app.post('/imgoffer', uploadOffer.single('productImage'), (req, res, next) => { //upload fotky offer, filesystem + db
   console.log(req.body.currentOfferIndex)
-  // if (req.body.profilPhoto.length === 0) {
-  const file = new File({
+  const file = new OfferFile({
     _id: new mongoose.Types.ObjectId(),
     email: req.body.email,
-    // profilPhoto: req.body.profilPhoto,
+    index: req.body.currentOfferIndex,
     modified: new Date().toISOString(),
-    productImage: req.body.email + "/offers/" + req.file.originalname
-    // req.file.path
+    path: req.body.email + "/offers/" + req.body.currentOfferIndex + "/" + req.file.originalname
   });
   file.save()
     .then(result => {
@@ -434,9 +447,8 @@ app.put('/offersedit/:id', function(req, res) {
       $set: {
         email: req.body.email,
         title: req.body.title,
-        money: req.body.money,
+        price: req.body.price,
         category: req.body.category,
-        city: req.body.city,
         aboutOffer: req.body.aboutOffer,
         currency: req.body.currency,
         hideOffer: req.body.hideOffer

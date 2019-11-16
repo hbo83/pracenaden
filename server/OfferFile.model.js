@@ -9,7 +9,7 @@ const FileSchema = mongoose.Schema({
   modified: {
     type: String
   },
-  productImage: {
+  path: {
     type: String,
     required: true
   },
