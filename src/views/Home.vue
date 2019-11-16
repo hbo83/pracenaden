@@ -1,11 +1,11 @@
 <template>
 <!-- <v-app> -->
-  <div class="home">
-    <Header color="#90e4f1"></Header>
-    <Filtering></Filtering>
-    <Summary></Summary>
+<div class="home">
+  <Header color="#90e4f1"></Header>
+  <Filtering></Filtering>
+  <Summary></Summary>
 
-  </div>
+</div>
 <!-- </v-app> -->
 </template>
 <!-- componentDidMount() - tato metoda je vyvolana ihned po namountovani komponenty, pouziva se pro pripady kdy chceme inicializovat nejaky data ze serveru,pak by se mela nejak odhlasit metodou componentWillUnmount()
@@ -31,9 +31,25 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchUser").then(() => {
-    console.log("This would be printed after dispatch!!")
-   })
-
+      console.log("This would be printed after dispatch!!")
+    })
+  },
+  mounted() {
+    // console.log('nyní mounted')
+    //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
+    // console.log(this.profilePath)
+  },
+  beforeCreate() {
+    // console.log('nyni beforeCreate')
+  },
+  beforeUpdate() {
+    // console.log('nyní beforeupdate')
+  },
+  updated() {
+    // console.log('nyní updated')
+  },
+  activated() {
+    // console.log('nyní activated')
   },
 }
 </script>

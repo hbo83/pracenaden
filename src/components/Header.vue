@@ -3,12 +3,11 @@
 <v-container style="padding: 0">
   <v-row :style="{ backgroundColor: color }" no-gutters>
     <!-- <v-row style="background-color:#90e4f1" no-gutters> -->
-    <v-col cols="5" sm="5" class="px-6">
-      <h1 @click="homePage">Prácenaden.cz - katalog občasné výpomoci</h1>
+    <v-col cols="4" class="px-6">
+      <h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- katalog výpomoci</span></h1>
     </v-col>
-    <v-col cols="2" sm="2">
-      <v-icon class="loged" @click="toAnother" color="white" x-large dark >{{get_linkIcon}}</v-icon>
-      <!-- <v-icon class="loged" @click="homePage" color="white" x-large dark >face</v-icon> -->
+    <v-col style="justify-content: center;display: flex">
+      <v-switch v-model="profil" :color="switchColor" background-color="" :style="{ height: fontSize }"class="ma-4" :label="`${updateSwitchText}`"></v-switch>
     </v-col>
     <v-col cols="5" sm="5" class="pt-3">
       <v-tooltip bottom>
@@ -44,6 +43,8 @@ export default {
   data() {
     return {
       userLoged: null,
+      profil: false,
+      fontSize: '20px'
     }
   },
   props: {
@@ -53,21 +54,34 @@ export default {
     }
   },
   computed: { //vuex state je dobry updatovat v computed
-
+    switchColor() {
+      if(this.profil) {
+        return "#FFB6C1"
+      } else {
+        return "#90e4f1"
+      }
+    },
     updateUserLoged() { //return je spravny kdyz beru z vuex
       return this.$store.state.userLoged
     },
-    get_linkIcon() {//menmi ikonu podle toho zda jsem na offers nebo na profils
-      if ( this.$store.state.currentLink === "offers") {
-        return "face"
+    updateSwitchText() {//meni text u switch
+      if(!this.profil) {
+        return "Lidé"
       } else {
-        return "money"
+        return "Poptávky"
       }
-    },
-
+    }
+  // watch: {
+  //   profilStatus: function(){
+  //     this.profil
+  //   }
   },
   methods: {
-
+    switchToOffers() {
+      if(!profil){
+        window.location.href = "http://localhost:8080/offers";
+      }
+    },
     homePage() { //pri kliknuti na logo redirect na homepage
       this.$store.commit('set_currentLink', 'home')
       window.location.href = "http://localhost:8080/";

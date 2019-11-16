@@ -65,6 +65,15 @@ import OfferScore from '@/components/offer/OfferScore.vue'
 // import { mdiWebBox } from '@mdi/font';
 export default {
   name: 'ProfilDetail',
+  components: {
+    Header,
+    NavBar,
+    ProfilImg,
+    OfferColumn,
+    AboutOffer,
+    OfferGalery,
+    OfferScore
+  },
   data() {
     return {
 
@@ -120,37 +129,6 @@ export default {
         console.log(error);
       });
 
-
-  },
-
-  mounted() {
-    // console.log('nyní mounted')
-    //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
-    // console.log(this.profilePath)
-  },
-  beforeCreate() {
-    // console.log('nyni beforeCreate')
-  },
-  created() {},
-  // console.log('nyní created')
-  beforeUpdate() {
-    // console.log('nyní beforeupdate')
-  },
-  updated() {
-    // console.log('nyní updated')
-  },
-  activated() {
-    // console.log('nyní activated')
-  },
-
-  components: {
-    Header,
-    NavBar,
-    ProfilImg,
-    OfferColumn,
-    AboutOffer,
-    OfferGalery,
-    OfferScore
 
   }
 }

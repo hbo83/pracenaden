@@ -16,7 +16,7 @@
 
       <v-row align="center">
         <v-col cols="12" sm="12">
-          <v-select v-model="selectedJobItems" :items="itemsJob" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+          <v-select v-model="selectedCategoryItems" :items="itemsCategory" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
         </v-col>
       </v-row>
       <v-row>
@@ -78,8 +78,8 @@ export default {
       v => !!v || 'Jednotka je povinná',
       // v => (v && v.length <= 10) || 'Odměna musí být více než 9',
     ],
-    selectedJobItems: null,
-    itemsJob: categories,
+    selectedCategoryItems: [],//v poli musi byt hodnota z výčt itemsCategory, jinak se nenačte
+    itemsCategory: categories,
     categoriesRules: [
       v => !!v || 'Kategorie je povinná',
       // v => (v && v.length <= 10) || 'Odměna musí být více než 9',
@@ -181,7 +181,7 @@ export default {
         title: this.title,
         // job: this.job,
         money: this.money,
-        category: this.selectedJobItems,
+        category: this.selectedCategoryItems,
         currency: this.currency,
         hideOffer: this.hideOffer,
         aboutOffer: this.aboutOffer
@@ -205,7 +205,8 @@ export default {
 
           this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
           this.category = response.data[this.$route.params.index].category;
-          this.selectedJobItems = response.data[this.$route.params.index].category;
+          this.selectedCategoryItems = response.data[this.$route.params.index].category;
+          console.log(response.data[this.$route.params.index].category)
           this.currency = response.data[this.$route.params.index].currency;
           // console.log(response.data[0].currency);
           // console.log(this.currency);

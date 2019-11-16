@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<div>
   <Header color="#90e4f1"/>
   <NavBar path="" />
   <v-container>
@@ -44,11 +44,11 @@
 
     </v-row>
     <ProfilGalery />
-    <!-- <GaleryCarousel /> -->
+
   </v-container>
 
   </div>
-</v-app>
+</div>
 </template>
 
 <script>
@@ -93,7 +93,6 @@ export default {
     //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
 
     this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
-
     //najde vsechny obrázky, s timto emailem
     axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
 
@@ -102,8 +101,6 @@ export default {
           if ( img.profilPhoto ) {
             this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
           }
-
-
         })
         // console.log(this.profilePath)
       })
@@ -128,21 +125,7 @@ export default {
     //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
     // console.log(this.profilePath)
   },
-  beforeCreate() {
-    // console.log('nyni beforeCreate')
-  },
-  created() {
-  },
-  // console.log('nyní created')
-  beforeUpdate() {
-    // console.log('nyní beforeupdate')
-  },
-  updated() {
-    // console.log('nyní updated')
-  },
-  activated() {
-    // console.log('nyní activated')
-  },
+
 
   components: {
     Header,

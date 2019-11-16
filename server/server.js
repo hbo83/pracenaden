@@ -269,7 +269,7 @@ app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
   })
 })
 
-app.post('/img', upload.single('productImage'), (req, res, next) => { //upload fotky
+app.post('/img', upload.single('productImage'), (req, res, next) => { //upload fotky profil
   console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
@@ -278,6 +278,30 @@ app.post('/img', upload.single('productImage'), (req, res, next) => { //upload f
     profilPhoto: req.body.profilPhoto,
     modified: new Date().toISOString(),
     productImage: req.body.email + "/" + req.file.originalname
+    // req.file.path
+  });
+  file.save()
+    .then(result => {
+      console.log(result);
+      res.status(201).json({
+        message: 'Create product successfully',
+        createdProduct: {
+          name: result.name,
+          modified: result.modified
+        }
+      });
+    });
+})
+
+app.post('/img', upload.single('productImage'), (req, res, next) => { //upload fotky offer
+  console.log(req.body.profilPhoto.length);
+  // if (req.body.profilPhoto.length === 0) {
+  const file = new File({
+    _id: new mongoose.Types.ObjectId(),
+    email: req.body.email,
+    // profilPhoto: req.body.profilPhoto,
+    modified: new Date().toISOString(),
+    productImage: req.body.email + "/offers/" + req.file.originalname
     // req.file.path
   });
   file.save()

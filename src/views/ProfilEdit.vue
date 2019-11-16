@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<div>
   <Header color="#90e4f1"></Header>
   <NavBar path="" />
   <v-container style="width: 30%">
@@ -131,7 +131,7 @@
 
   </v-container>
 
-</v-app>
+</div>
 </template>
 
 <script>
@@ -145,6 +145,13 @@ import UploadButton from 'vuetify-upload-button';
 import VueTrix from 'vue-trix'
 export default {
   name: 'ProfilEdit',
+  components: {
+    Header,
+    NavBar,
+    'upload-btn': UploadButton,
+    VueTrix
+
+  },
   data: () => ({
 
     editorContent: '',
@@ -456,13 +463,7 @@ export default {
     }
 
   },
-  components: {
-    Header,
-    NavBar,
-    'upload-btn': UploadButton,
-    VueTrix
 
-  }
 }
 </script>
 

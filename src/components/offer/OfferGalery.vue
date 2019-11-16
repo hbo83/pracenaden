@@ -12,6 +12,8 @@
       </v-card>
     </v-dialog>
   </div>
+
+  
   <v-row style="padding-left: 5%; padding-right: 6%" justify="start" max-width="1826px">
     <v-col @click="showFullImg(imgIndex)" v-for="(image, imgIndex) in ownUserImages" v-bind:index="imgIndex" class="galleryImg col-2">
       <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" class="grey lighten-2" max-width="300" max-height="200" style="border: 5px solid grey; border-radius: 0px; cursor: pointer">
@@ -27,6 +29,9 @@ import axios from 'axios'
 
 export default {
   name: 'OfferGalery',
+  components: {
+
+  },
   data() {
     return {
       dialog: false,//popup okno visible
@@ -43,7 +48,8 @@ export default {
     showFullImg(imgIndex) {//zobrazí img v popup okně
       this.dialog = true//popup okno visible
       this.fullImgIndex = imgIndex
-    }
+    },
+
   },
   computed: {
     get_fullImg() {
@@ -65,9 +71,7 @@ export default {
   mounted() {
 
   },
-  components: {
-    // GaleryCarousel
-  }
+
 }
 </script>
 
