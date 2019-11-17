@@ -3,10 +3,9 @@
 <div>
   <Header color="pink" app></Header>
   <NavBar path="offers">
-    <v-btn to="/offernewitem">Poptat pomocníka</v-btn>
   </NavBar>
-  <h2>Seznam Vašich poptávek</h2>
-  <OffersList />
+  <h2>Nová poptávka</h2>
+  <OfferForm />
 </div>
 <!-- </v-app> -->
 </template>
@@ -15,17 +14,17 @@
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
 import NavBar from '@/components/NavBar.vue'
-import OffersList from '@/components/offer/OffersList.vue'
+import OfferForm from '@/components/offer/OfferForm.vue'
 
 export default {
-  name: 'OfferEdit',
+  name: 'OfferNewItem',
   data: () => ({
 
   }),
   components: {
     Header,
     NavBar,
-    OffersList
+    OfferForm
 
 
   }

@@ -1,12 +1,13 @@
 <template>
 <div>
   <br /><br />
-  <v-row>
-    <v-col>
+  <v-row justify="space-between">
+    <v-col cols="2">
       <h3>Vaše Galerie</h3>
     </v-col>
-    <v-col>
-
+    <v-col cols="2">
+    </v-col>
+    <v-col cols="2">
       <upload-btn title="Nahrát fotku" @file-update="uploadGaleryPhoto">
         <template slot="icon">
           <v-icon>add</v-icon>
@@ -69,4 +70,7 @@ export default {
 
 <style scoped>
 
+h3 {
+  /* text-align: center; */
+}
 </style>

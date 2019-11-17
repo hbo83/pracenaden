@@ -8,6 +8,7 @@
       <template v-slot:activator="{ on }">
       </template>
       <v-card>
+        <!-- <v-img src="http://localhost:8081/uploads/hbo83@seznam.cz/offers/0/git.png"></v-img> -->
         <v-img :src="get_fullImg"></v-img>
       </v-card>
     </v-dialog>
@@ -39,24 +40,24 @@ export default {
       profilIndex: null, //index aktuálního profilu
       imgIndex: null,
       ownUserImages: [],//pole vracenych objektů
-      fullImgIndex: 0
+      fullImg: null
     }
   },
   methods: {
     getImgSrc: function(i) { //vrati cestu k obrazku
-      console.log(this.ownUserImages[i].path)
-      console.log(this.ownUserImages[0].path)
+      // console.log(this.ownUserImages[i].path)
+      // console.log(this.ownUserImages[0].path)
       return "http://localhost:8081/uploads/" + this.ownUserImages[i].path
     },
     showFullImg(imgIndex) {//zobrazí img v popup okně
       this.dialog = true//popup okno visible
-      this.fullImgIndex = imgIndex
+      this.fullImg = "http://localhost:8081/uploads/" + this.ownUserImages[imgIndex].path
     },
 
   },
   computed: {
     get_fullImg() {
-      return "http://localhost:8081/uploads/" + this.ownUserImages.path
+      return this.fullImg
     }
   },
   beforeMount() {

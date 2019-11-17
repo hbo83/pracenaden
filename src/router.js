@@ -10,6 +10,7 @@ import Offers from '@/views/Offers.vue'
 import OfferDetail from '@/views/OfferDetail.vue'
 import OfferEdit from '@/views/OfferEdit.vue'
 import OfferEditForm from '@/views/OfferEditForm.vue'
+import OfferNewItem from '@/views/offer/OfferNewItem.vue'
 
 Vue.use(Router)
 
@@ -66,6 +67,12 @@ export default new Router({
       name: 'OfferEditForm',
       component: OfferEditForm
     },
+    ,
+    {
+      path: '/offernewitem',
+      name: 'OfferNewItem',
+      component: OfferNewItem
+    }
     // {
     //   path: '/about',
     //   name: 'about',
