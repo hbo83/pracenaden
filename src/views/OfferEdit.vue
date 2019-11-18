@@ -33,10 +33,8 @@ export default {
 </script>
 
 <style scoped>
-
-
-</style>
-<style>
-
+h2 {
+  text-align: center;
+}
 
 </style>

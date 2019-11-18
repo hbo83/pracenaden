@@ -1,5 +1,5 @@
 <template>
-<v-row>
+<v-row justify="center">
   <OfferListItem class="item" v-for="( item, index ) in offers" :index="index" />
 
 </v-row>

@@ -54,6 +54,8 @@
 import axios from 'axios'
 import categories from '@/data/categories.js'
 import VueTrix from 'vue-trix'
+import SaveOffer from '@/MyObjects/SaveOffer.js'
+import LoadOffer from '@/MyObjects/LoadOffer.js'
 export default {
   name: 'OfferEditForm',
   components: {
@@ -136,85 +138,41 @@ export default {
       }
     },
 
-    delImg(id) {
-      if (confirm('Určitě chcete smazat soubor?')) {
 
-        axios.delete('http://localhost:8081/img/' + id._id)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        alert("Obrázek byl smazán")
-      }
-    },
 
-    uploadGaleryPhoto() {
-      this.selectedFile = event.target.files[0]
-      const fd = new FormData();
-      fd.append('profilPhoto', false);
-      fd.append('email', this.email);
-      fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-      fd.append('productImage', this.selectedFile, this.selectedFile.name)
-      axios.post('http://localhost:8081/img', fd, {
-          onUploadProgress: uploadEvent => {
-            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-          }
-        })
-        .then(res => {
-          console.log(res);
-          alert('Soubor byl nahrán')
-        })
-    },
-    onFileSelected(event) {
-      console.log(event);
-
-      this.selectedFile = event.target.files[0]
-    },
     saveProfil() { //updatuje profil
       this.$store.commit('setThisProfileWebVisible', this.webVisible)
       console.log(this.$store.state.allProfiles[1].webVisible)
-      axios.put('http://localhost:8081/offersedit/' + this.email, {
 
-        email: this.email,
-        title: this.title,
-        price: this.price,
-        category: this.selectedCategoryItems,
-        currency: this.currency,
-        hideOffer: this.hideOffer,
-        aboutOffer: this.aboutOffer
+      const saveThis = new SaveOffer('http://localhost:8081/offersedit/' + this.email)
+      saveThis.saveOffer(this.email, this.title , this.price, this.selectedCategoryItems, this.currency, this.hideOffer, this.aboutOffer)
 
-      }).then(alert("Poptávka uložen"))
     }
   },
   mounted() {
     this.id = this.$store.state.userLogedId
     this.email = this.$store.state.userLoged
 
+
     if (this.id !== null) {
+      const loadThis = new LoadOffer('http://localhost:8081/offers/' + this.email)
+      loadThis.loadOffer()
 
-      axios.get('http://localhost:8081/offers/' + this.email)
-        .then((response) => {
-          //osetrit vyjimku kdyz jeste nema profil vyplnenej
-          console.log(response.data[this.$route.params.index]);
-
-          this.name = response.data[this.$route.params.index].name;
-          this.price = response.data[this.$route.params.index].price;
-
-          this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
-          this.category = response.data[this.$route.params.index].category;
-          this.selectedCategoryItems = response.data[this.$route.params.index].category;
-          console.log(response.data[this.$route.params.index].category)
-          this.currency = response.data[this.$route.params.index].currency;
-          // console.log(response.data[0].currency);
-          // console.log(this.currency);
-          this.hideOffer = response.data[this.$route.params.index].hideOffer;
-          this.title = response.data[this.$route.params.index].title;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // axios.get('http://localhost:8081/offers/' + this.email)
+      //   .then((response) => {
+      //     //osetrit vyjimku kdyz jeste nema profil vyplnenej
+      //
+      //     this.price = response.data[this.$route.params.index].price;
+      //     this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
+      //     this.category = response.data[this.$route.params.index].category;
+      //     this.selectedCategoryItems = response.data[this.$route.params.index].category;
+      //     this.currency = response.data[this.$route.params.index].currency;
+      //     this.hideOffer = response.data[this.$route.params.index].hideOffer;
+      //     this.title = response.data[this.$route.params.index].title;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     } else {
       console.log("nobody logged")
     }

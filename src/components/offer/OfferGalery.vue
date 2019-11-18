@@ -53,7 +53,19 @@ export default {
       this.dialog = true//popup okno visible
       this.fullImg = "http://localhost:8081/uploads/" + this.ownUserImages[imgIndex].path
     },
+    delImg(id) {
+      if (confirm('Určitě chcete smazat soubor?')) {
 
+        axios.delete('http://localhost:8081/img/' + id._id)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        alert("Obrázek byl smazán")
+      }
+    },
   },
   computed: {
     get_fullImg() {

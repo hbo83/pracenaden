@@ -2,7 +2,7 @@
 <!-- <v-app> -->
 <div>
   <Header color="pink" app></Header>
-  <NavBar path="offers">
+  <NavBar path="offeredit">
   </NavBar>
   <h2>Nová poptávka</h2>
   <OfferForm />
@@ -25,17 +25,17 @@ export default {
     Header,
     NavBar,
     OfferForm
-
+  },
+  mounted() {
 
   }
 }
+
 </script>
 
 <style scoped>
-
-
-</style>
-<style>
-
+h2 {
+  text-align: center;
+}
 
 </style>
