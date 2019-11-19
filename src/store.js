@@ -14,6 +14,7 @@ export const store = new Vuex.Store({
   state: { //to samy co data
     allProfiles: [],//vsechny profily v DB
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
+    currentOffer: null,//zde se ulozi aktualni offer po kliknuti na ProfilOffer
     currentOfferIndex: null,//zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
     userLoged: null,//overuje zda je zalogovany any user
     userLogedId: '',//id zalogovaneho usera
@@ -33,8 +34,11 @@ export const store = new Vuex.Store({
     FETCH_USERS(state, users) {//commit, ktery naplni serverData, pouzito v action fetchUser()
         state.allProfiles = users
     },
-    set_currentProfilIndex(state, index) {//commit, který naplní currentProfilIndex
-      state.currentProfilIndex = index
+    set_currentProfilIndex(state, offer) {//commit, který naplní currentProfil
+      state.currentProfilIndex = offer
+    },
+    set_currentOffer(state, index) {//commit, který naplní currentOfferIndex
+      state.currentOffer = index
     },
     set_currentOfferIndex(state, index) {//commit, který naplní currentOfferIndex
       state.currentOfferIndex = index

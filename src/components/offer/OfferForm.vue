@@ -16,9 +16,14 @@
 
       <v-row align="center">
         <v-col cols="12" sm="12">
-          <v-select v-model="selectedCategoryItems" :items="itemsCategory" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+          <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
         </v-col>
       </v-row>
+        <v-row align="center">
+          <v-col cols="12" sm="12">
+            <v-select v-model="selectedCategoryItems" :items="itemsCategory" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+          </v-col>
+        </v-row>
       <v-row>
         <v-col cols="6" md="6">
           <h4>Bližžší informace:</h4>
@@ -53,6 +58,7 @@
 <script>
 import axios from 'axios'
 import categories from '@/data/categories.js'
+import cities from '@/data/cities.js'
 import VueTrix from 'vue-trix'
 import SaveOffer from '@/MyObjects/SaveOffer.js'
 import LoadOffer from '@/MyObjects/LoadOffer.js'
@@ -93,11 +99,12 @@ export default {
     ],
     title: '',
     titleRules: [
-      v => !!v || 'O mě je povinná',
+      v => !!v || 'Titulek je povinný',
       v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
     ],
 
-
+    city: null,
+    items: cities,
     id: '',
     email: '',
     dictionary: {
@@ -117,6 +124,9 @@ export default {
       },
     },
   }),
+  props: {
+    newOffer: true
+  },
   computed: {
     offerVisible: function() {
       if (this.hideOffer === true) {
@@ -145,7 +155,7 @@ export default {
       console.log(this.$store.state.allProfiles[1].webVisible)
 
       const saveThis = new SaveOffer('http://localhost:8081/offersedit/' + this.email)
-      saveThis.saveOffer(this.email, this.title , this.price, this.selectedCategoryItems, this.currency, this.hideOffer, this.aboutOffer)
+      saveThis.saveOffer(this.email, this.title , this.price, this.city, this.selectedCategoryItems, this.currency, this.hideOffer, this.aboutOffer)
 
     }
   },
@@ -154,7 +164,7 @@ export default {
     this.email = this.$store.state.userLoged
 
 
-    if (this.id !== null) {
+    if (this.id !== null || !this.newOffer) {//tohle musim poresit
       // const loadThis = new LoadOffer('http://localhost:8081/offers/' + this.email)
 
       // loadThis.loadOffer()
@@ -162,10 +172,10 @@ export default {
       axios.get('http://localhost:8081/offers/' + this.email)
         .then((response) => {
           //osetrit vyjimku kdyz jeste nema profil vyplnenej
-      
+          this.city = response.data[this.$route.params.index].city;
           this.price = response.data[this.$route.params.index].price;
           this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
-          this.category = response.data[this.$route.params.index].category;
+          // this.category = response.data[this.$route.params.index].category;
           this.selectedCategoryItems = response.data[this.$route.params.index].category;
           this.currency = response.data[this.$route.params.index].currency;
           this.hideOffer = response.data[this.$route.params.index].hideOffer;

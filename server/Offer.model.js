@@ -9,7 +9,8 @@ var OfferSchema = new Schema({
   category: Array,
   aboutOffer: String,
   currency: String,
-  hideOffer: Boolean
+  hideOffer: Boolean,
+  city: String
 
 });
 

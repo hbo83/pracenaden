@@ -5,7 +5,7 @@
     <v-card class="">
       <v-card-title max-width="50%">Detail poptávky:</v-card-title>
     </v-card>
-    <v-card-text id="tr" style="text-align: left; color: green;"></v-card-text>
+    <v-card-text id="aboutOffer" style="text-align: left; color: green;"></v-card-text>
   </v-card>
 </v-col>
 </template>
@@ -17,9 +17,8 @@ export default {
   name: 'AboutOffer',
   data() {
     return {
-      aboutMe: '',//aboutMe content
-      thisProfil: {},//thisProfile object
-      profilIndex: null, //index aktuálního profilu
+      aboutOffer: '', //aboutMe content
+      currentOffer: {}
     }
   },
   methods: {
@@ -29,21 +28,10 @@ export default {
 
   },
   beforeMount() {
-
-    this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
-
+    this.aboutOffer = this.$store.state.currentOffer.aboutOffer//naplni aboutOffer ze storu
   },
   mounted() {
-    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email) //vrátí aktuální profil
-      .then((response) => {
-        // console.log(response.data)
-        this.thisProfil = response.data[0]
-        this.aboutMe = response.data[0].aboutMe
-        document.getElementById("tr").innerHTML = this.aboutMe;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    document.getElementById("aboutOffer").innerHTML = this.aboutOffer//vyplni div i s html znaky pro formatovani textu
   }
 }
 </script>

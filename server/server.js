@@ -451,7 +451,8 @@ app.put('/offersedit/:id', function(req, res) {
         category: req.body.category,
         aboutOffer: req.body.aboutOffer,
         currency: req.body.currency,
-        hideOffer: req.body.hideOffer
+        hideOffer: req.body.hideOffer,
+        city: req.body.city
       }
     }, {
       upsert: true

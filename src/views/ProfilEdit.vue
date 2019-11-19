@@ -16,7 +16,6 @@
             <v-select v-model="currency" :items="selectedCurrencyItems" :rules="currencyRules" label="Jednotka" required></v-select>
           </v-col>
         </v-row>
-        <!-- <v-text-field v-model="phone" label="Telefon" :rules="phoneRules" required></v-text-field> -->
         <v-select v-model="city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
         <v-row align="center">
           <v-col cols="12" sm="12">

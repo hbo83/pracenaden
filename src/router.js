@@ -53,7 +53,7 @@ export default new Router({
       component: Offers
     },
     {
-      path: '/offerDetail',
+      path: '/offerDetail/:index',
       name: 'OfferDetail',
       component: OfferDetail
     },

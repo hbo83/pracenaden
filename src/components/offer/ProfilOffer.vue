@@ -1,25 +1,25 @@
 <template>
 <v-card>
   <v-row class="profilParent" @click="selectOffer">
-    <v-col class="col-4 pl-8 profil" no-gutters>
+    <v-col class="col-5 pl-8 profil" no-gutters>
       <p>
         <span>
           <v-icon>face</v-icon>
         </span>
-        <span>{{ getTitle }}</span>
+        <span>{{ getEmail }}</span>
       </p>
 
-      <p>
+      <!-- <p>
         <span>
           <v-icon>build</v-icon>
         </span>
-        <span>{{ getTitle }}</span>
-      </p>
+        <span>{{ getCity }}</span>
+      </p> -->
       <p>
         <span>
           <v-icon>location_city</v-icon>
         </span>
-        <span>{{ getTitle }}</span>
+        <span>{{ getCity }}</span>
       </p>
       <p>
         <span>
@@ -29,14 +29,14 @@
       </p>
 
     </v-col>
-    <v-col class="col-8 pr-4 profil" no-gutters>
+    <v-col class="col-7 pr-4 profil" no-gutters>
       <v-card>
-    <p><b>Vymalování pokoje</b></p>
+    <p><b>{{getTitle}}</b></p>
   </v-card>
-    <v-card class="">
-      frfrefwref
+    <!-- <v-card class="">
+      {{getAboutOffer}}
     <v-card-text id="tr" style="text-align: left; color: green;"></v-card-text>
-  </v-card>
+  </v-card> -->
   <v-col>
     <p>
       <span>
@@ -55,7 +55,7 @@
 // import ProfilImg from './ProfilImg.vue'
 
 export default {
-  name: 'Profil',
+  name: 'ProfilOffer',
   // zde rikam ze props ktere jsem obdrzel od parent komponenty se nazyvaji profilData, ocekavany typ je pole a jsou required
   props: {
     profileDatas: {
@@ -76,42 +76,39 @@ export default {
     //vybere profil, ulozi email a id vybraneho profilu do storu
     selectOffer() {
 
-      this.$router.push({ //presmeruje na profilDetail
-        name: 'OfferDetail',
-        params: {
-          index: this.index
-        }
-      })
 
-      this.storeProfilIndex(this.$props.index)
+      this.$router.push('/offerdetail/' + this.index)
+      this.$store.commit('set_currentOffer', this.profileDatas)
+      // this.storeProfilIndex(this.$props.index)
 
     },
-    storeProfilIndex: function(index) {
-      this.$store.commit('set_currentProfilIndex', index)
-    },
-    storeThisProfil: function(index) {
-      this.$store.commit('setThisProfileWebVisible', index)
-    }
+    // storeProfilIndex: function(index) {
+    //   this.$store.commit('set_currentProfilIndex', index)
+    // }
+
   },
   mounted() {
 console.log(this.profileDatas)
   },
   computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu
-      return this.profileDatas.money + this.$store.state.allProfiles[this.index].currency
+      return this.profileDatas.price + this.profileDatas.currency
     },
     getTitle() { //vraci name z objektu
       return this.profileDatas.title
     },
-    // getJob() { //vraci job z objektu
-    //   return this.profileDatas[this.index].job
-    // },
-    // getCity() { //vraci city z objektu
-    //   return this.profileDatas[this.index].city
-    // },
-    getCategory() { //vrací category
-      return this.category
+    getEmail() { //vraci job z objektu
+      return this.profileDatas.email
     },
+    getCity() { //vraci city z objektu
+      return this.profileDatas.city
+    },
+    getCategory() { //vrací category
+      return this.profileDatas.category
+    },
+    getAboutOffer() {
+      return this.profileDatas.aboutOffer
+    }
   },
   components: {
 

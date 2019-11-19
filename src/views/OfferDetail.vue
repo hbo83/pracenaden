@@ -3,48 +3,40 @@
   <Header color="pink" />
   <NavBar path="offers" />
   <v-container>
-
     <v-row class="col-10 mx-auto" justify="center">
       <v-col class="col-8">
-
         <v-row>
           <v-col class="col-6">
             <v-card style="min-height:100px">
-              Nadpis</v-card>
+              {{currentOffer.title}}</v-card>
           </v-col>
           <v-col class="col-6">
             <v-row justify="center">
-              <OfferScore /><!--tohle je na hovno, ve views maji bej sablony a komponenty nemaji mit vlasni obalovej column-->
+              <OfferScore />
+              <!--tohle je na hovno, ve views maji bej sablony a komponenty nemaji mit vlasni obalovej column-->
             </v-row>
           </v-col>
-
           <v-row>
             <v-col class="col-12">
               <v-card class="">
-
                 <v-col cols="4" class="category">
                   <v-icon class="" large color="#90e4f1">category</v-icon>
                   <span>Kategorie:</span>
                 </v-col>
                 <v-col cols="4" class="myColor pa-0 pt-4">
                   <span class="item" v-for="item in getCategory"> {{ item }} </span>
-
                 </v-col>
-
               </v-card>
             </v-col>
           </v-row>
         </v-row>
-
         <v-row>
           <AboutOffer />
         </v-row>
       </v-col>
       <OfferColumn />
-
     </v-row>
     <OfferGalery />
-    <!-- <GaleryCarousel /> -->
   </v-container>
 
   </div>
@@ -76,20 +68,19 @@ export default {
   },
   data() {
     return {
-
       profilIndex: null, //index aktuálního profilu
-      thisProfil: {}, //naplní objekt aktuálním profilem z metody get v mounted
       category: '',
-      profilePath: 'http://localhost:8081/uploads/no-photo.png'
+      profilePath: 'http://localhost:8081/uploads/no-photo.png', //cesta k obrazku, pokud se neprepise ze response, pak bude tento default
+      currentOffer: {} //naplnim ze storu aktualni currentOffer
 
     }
   },
   computed: {
-    getProfilePath() {
+    getProfilePath() { //vrací profilePath
       return this.profilePath
     },
     getCategory() { //vrací category
-      return this.thisProfil.category
+      return this.currentOffer.category
     },
 
   },
@@ -97,38 +88,26 @@ export default {
 
   },
   beforeMount() {
-    // console.log('nyní beforemount')
-    //kdyz jsem priradil promenoou jen do mount tak se nepredala v props, ptze se priradila az po tom co byl namountovanej Profil
-    //lepsi nedelat zbytecny dotazy na DB kdyz uz ty data nekde jsou
-
-    this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
-
-    //najde vsechny obrázky, s timto emailem
-    axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
-
-      .then((response) => {
-        response.data.map(img => { //vrati imgs z profilu a vytvori path k profilovy fotcce
-          if (img.profilPhoto) {
-            this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
-          }
+    this.currentOffer = this.$store.state.currentOffer //naplnim ze storu aktualni currentOffer
 
 
-        })
-        // console.log(this.profilePath)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
 
-    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email) //vrátí aktuální profil
-      .then((response) => {
-        // console.log(response.data)
-        this.thisProfil = response.data[0]
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    // //najde vsechny obrázky, s timto emailem
+    // axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
+    //
+    //   .then((response) => {
+    //     response.data.map(img => { //vrati imgs z profilu a vytvori path k profilovy fotcce
+    //       if (img.profilPhoto) {
+    //         this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
+    //       }
+    //
+    //     })
+    //     // console.log(this.profilePath)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
   }
 }
