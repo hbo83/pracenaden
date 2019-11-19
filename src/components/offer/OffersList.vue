@@ -1,7 +1,7 @@
 <template>
 <v-row justify="center">
   <OfferListItem class="item" v-for="( item, index ) in offers" :index="index" />
-
+  <h2 v-if="noOffer">Nemáte žádnou poptávku na pomocníka, pokud potřebujete s něčím pomoct, klikněte na tlačítko "Poptat pomocníka"</h2>
 </v-row>
 </template>
 
@@ -16,7 +16,8 @@ export default {
       userLoged: null,
       profilIndex: null,
       offers: [],
-      index: null
+      index: null,
+      noOffer: null//kdyz je tru, pak se zobrazi h2 výše
     }
   },
   methods: {
@@ -30,6 +31,9 @@ export default {
     axios.get('http://localhost:8081/offers/' + this.userLoged) //vrátí vytvorene offers
       .then((response) => {
         this.offers = response.data
+        if(response.data.length === 0) {//kontrola zda je v DB nejaka nabidka
+          this.noOffer = true
+        }
       })
       .catch((error) => {
         console.log(error);

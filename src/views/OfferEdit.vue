@@ -6,6 +6,7 @@
     <v-btn to="/offernewitem">Poptat pomocníka</v-btn>
   </NavBar>
   <h2>Seznam Vašich poptávek</h2>
+  <hr />
   <OffersList />
 </div>
 <!-- </v-app> -->

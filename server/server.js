@@ -479,4 +479,17 @@ app.get('/offers/:email', function(req, res) {//naplní offerEdit
   })
 })
 
+app.get('/offers', function(req, res) {//vraci vsechny offers
+
+  Offer.find({
+
+  }).exec(function(err, offer) {
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(offer);
+    }
+  })
+})
+
 app.listen(process.env.PORT || 8081)

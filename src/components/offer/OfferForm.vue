@@ -155,24 +155,25 @@ export default {
 
 
     if (this.id !== null) {
-      const loadThis = new LoadOffer('http://localhost:8081/offers/' + this.email)
-      loadThis.loadOffer()
+      // const loadThis = new LoadOffer('http://localhost:8081/offers/' + this.email)
 
-      // axios.get('http://localhost:8081/offers/' + this.email)
-      //   .then((response) => {
-      //     //osetrit vyjimku kdyz jeste nema profil vyplnenej
-      //
-      //     this.price = response.data[this.$route.params.index].price;
-      //     this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
-      //     this.category = response.data[this.$route.params.index].category;
-      //     this.selectedCategoryItems = response.data[this.$route.params.index].category;
-      //     this.currency = response.data[this.$route.params.index].currency;
-      //     this.hideOffer = response.data[this.$route.params.index].hideOffer;
-      //     this.title = response.data[this.$route.params.index].title;
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      // loadThis.loadOffer()
+      // console.log(loadThis.dat)
+      axios.get('http://localhost:8081/offers/' + this.email)
+        .then((response) => {
+          //osetrit vyjimku kdyz jeste nema profil vyplnenej
+      
+          this.price = response.data[this.$route.params.index].price;
+          this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
+          this.category = response.data[this.$route.params.index].category;
+          this.selectedCategoryItems = response.data[this.$route.params.index].category;
+          this.currency = response.data[this.$route.params.index].currency;
+          this.hideOffer = response.data[this.$route.params.index].hideOffer;
+          this.title = response.data[this.$route.params.index].title;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       console.log("nobody logged")
     }

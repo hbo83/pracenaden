@@ -6,20 +6,20 @@
         <span>
           <v-icon>face</v-icon>
         </span>
-        <span>{{ getName }}</span>
+        <span>{{ getTitle }}</span>
       </p>
 
       <p>
         <span>
           <v-icon>build</v-icon>
         </span>
-        <span>{{ getJob }}</span>
+        <span>{{ getTitle }}</span>
       </p>
       <p>
         <span>
           <v-icon>location_city</v-icon>
         </span>
-        <span>{{ getCity }}</span>
+        <span>{{ getTitle }}</span>
       </p>
       <p>
         <span>
@@ -94,23 +94,23 @@ export default {
     }
   },
   mounted() {
-
+console.log(this.profileDatas)
   },
   computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu
-      return this.$store.state.allProfiles[this.index].money + this.$store.state.allProfiles[this.index].currency
+      return this.profileDatas.money + this.$store.state.allProfiles[this.index].currency
     },
-    getName() { //vraci name z objektu
-      return this.$store.state.allProfiles[this.index].name
+    getTitle() { //vraci name z objektu
+      return this.profileDatas.title
     },
-    getJob() { //vraci job z objektu
-      return this.$store.state.allProfiles[this.index].job
-    },
-    getCity() { //vraci city z objektu
-      return this.$store.state.allProfiles[this.index].city
-    },
+    // getJob() { //vraci job z objektu
+    //   return this.profileDatas[this.index].job
+    // },
+    // getCity() { //vraci city z objektu
+    //   return this.profileDatas[this.index].city
+    // },
     getCategory() { //vrací category
-      return this.$store.state.allProfiles[this.index].category.toString('utf-8')
+      return this.category
     },
   },
   components: {
