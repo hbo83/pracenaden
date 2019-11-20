@@ -2,13 +2,13 @@
 <v-col cols="2" @click="toOffer">
   <v-card>
     <v-card-title>
-      titulek
+      titulek: {{offers[index].title}}
     </v-card-title>
     <v-card-text>
-      vystaveno dne
+      vystaveno:
     </v-card-text>
     <v-card-text>
-      konci dne
+      konci:
     </v-card-text>
   </v-card>
 </v-col>
@@ -21,6 +21,10 @@ export default {
 props: {
   index: { //index predany z parent komponenty summary
     type: Number,
+    required: true
+  },
+  offers: {
+    type: Array,
     required: true
   }
 },

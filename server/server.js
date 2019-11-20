@@ -439,10 +439,10 @@ app.get('/goldstars/:email', function(req, res) { //vrati pocet zlatych hvezd
 })
 
 //OFFERS
-app.put('/offersedit/:id', function(req, res) {
-  console.log('/offersedit/:id' + " " + req.params.email)
+app.put('/offersedit/:id', function(req, res) {//updatuje stavajici offer
+  console.log('/offersedit/:id' + " " + req.body.email)
   Offer.findOneAndUpdate({
-      email: req.params.email
+      email: req.body.email
     }, {
       $set: {
         email: req.body.email,
@@ -451,8 +451,10 @@ app.put('/offersedit/:id', function(req, res) {
         category: req.body.category,
         aboutOffer: req.body.aboutOffer,
         currency: req.body.currency,
-        hideOffer: req.body.hideOffer,
-        city: req.body.city
+        showOffer: req.body.showOffer,
+        city: req.body.city,
+        exposeDate: req.body.exposeDate,
+        hideDate: req.body.hideDate
       }
     }, {
       upsert: true
@@ -467,6 +469,28 @@ app.put('/offersedit/:id', function(req, res) {
     });
 });
 
+app.post('/newOffer/:id', function(req, res) { //prida zlatou hvezdu, musim ale zajistit aby se vytvorila kolekce, defacto pri zalozeni uctu se musi zalozit vsechny potrebne kolekce
+const offer = new Offer({
+    email: req.body.email,
+    title: req.body.title,
+    price: req.body.price,
+    category: req.body.category,
+    aboutOffer: req.body.aboutOffer,
+    currency: req.body.currency,
+    showOffer: req.body.showOffer,
+    city: req.body.city,
+    exposeDate: req.body.exposeDate,
+    hideDate: req.body.hideDate
+  });
+    offer.save(function(err, offer) {
+      if (err) {
+        res.send('error saving offer')
+      } else {
+        console.log(offer);
+        res.send(offer);
+      }
+    });
+});
 app.get('/offers/:email', function(req, res) {//naplní offerEdit
   console.log('/offers/:email' + " " + req.params._id)
   Offer.find({

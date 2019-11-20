@@ -8,13 +8,6 @@
         </span>
         <span>{{ getEmail }}</span>
       </p>
-
-      <!-- <p>
-        <span>
-          <v-icon>build</v-icon>
-        </span>
-        <span>{{ getCity }}</span>
-      </p> -->
       <p>
         <span>
           <v-icon>location_city</v-icon>
@@ -33,10 +26,6 @@
       <v-card>
     <p><b>{{getTitle}}</b></p>
   </v-card>
-    <!-- <v-card class="">
-      {{getAboutOffer}}
-    <v-card-text id="tr" style="text-align: left; color: green;"></v-card-text>
-  </v-card> -->
   <v-col>
     <p>
       <span>
@@ -75,20 +64,12 @@ export default {
   methods: {
     //vybere profil, ulozi email a id vybraneho profilu do storu
     selectOffer() {
-
-
-      this.$router.push('/offerdetail/' + this.index)
-      this.$store.commit('set_currentOffer', this.profileDatas)
-      // this.storeProfilIndex(this.$props.index)
-
+      this.$router.push('/offerdetail/' + this.index)//presmeruje na offerDetail s indexem profilu v route
+      this.$store.commit('set_currentOffer', this.profileDatas)//komitne aktualni profil, ktery se pak nacte v offerDetailu
     },
-    // storeProfilIndex: function(index) {
-    //   this.$store.commit('set_currentProfilIndex', index)
-    // }
-
   },
   mounted() {
-console.log(this.profileDatas)
+
   },
   computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu

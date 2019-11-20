@@ -1,10 +1,10 @@
 import axios from 'axios'
-export default class SaveOffer {
+export default class SaveNewOffer {
   constructor(url) {
     this.url = url
   }
   saveOffer(email, title, price, city, category, currency, showOffer, aboutOffer, exposeDate, hideDate) {
-    axios.put(this.url, {
+    axios.post(this.url, {
 
       email: email,
       title: title,

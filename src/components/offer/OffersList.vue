@@ -1,6 +1,6 @@
 <template>
 <v-row justify="center">
-  <OfferListItem class="item" v-for="( item, index ) in offers" :index="index" />
+  <OfferListItem class="item" v-for="( item, index ) in offers" :index="index" :offers="offers"/>
   <h2 v-if="noOffer">Nemáte žádnou poptávku na pomocníka, pokud potřebujete s něčím pomoct, klikněte na tlačítko "Poptat pomocníka"</h2>
 </v-row>
 </template>
@@ -15,7 +15,7 @@ export default {
     return {
       userLoged: null,
       profilIndex: null,
-      offers: [],
+      offers: [],//naplní se pole offers
       index: null,
       noOffer: null//kdyz je tru, pak se zobrazi h2 výše
     }

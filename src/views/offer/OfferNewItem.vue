@@ -5,7 +5,7 @@
   <NavBar path="offeredit">
   </NavBar>
   <h2>Nová poptávka</h2>
-  <OfferForm />
+  <OfferForm :newOffer="true"/>
 </div>
 <!-- </v-app> -->
 </template>

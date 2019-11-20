@@ -2,18 +2,16 @@
 <div class="summaryOffers">
     <v-container fluid>
       <v-row>
-        <v-col class="col-4" v-for="(offer, index) in offers">
-        <ProfilOffer v-show="!offer.hideProfil" :index="index" :profileDatas="offers[index]" />
+        <v-col v-if="offer.showOffer" class="col-4" v-for="(offer, index) in offers">
+        <Offer :index="index" :profileDatas="offers[index]" />
       </v-col>
       </v-row>
     </v-container>
-<!-- <Help /> -->
-
 </div>
 </template>
 
 <script>
-import ProfilOffer from '@/components/offer/ProfilOffer.vue'
+import Offer from '@/components/offer/Offer.vue'
 import axios from 'axios';
 
 
@@ -41,8 +39,9 @@ export default {
           // this.category = response.data[this.$route.params.index].category;
           // this.selectedCategoryItems = response.data[this.$route.params.index].category;
           // this.currency = response.data[this.$route.params.index].currency;
-          // this.hideOffer = response.data[this.$route.params.index].hideOffer;
+          // this.showOffer = response.data[this.$route.params.index].showOffer;
           // this.title = response.data[this.$route.params.index].title;
+          // console.log(this.offers)
         })
         .catch((error) => {
           console.log(error);
@@ -52,7 +51,7 @@ export default {
 
   },
   components: {
-    ProfilOffer
+    Offer
   }
 }
 </script>
