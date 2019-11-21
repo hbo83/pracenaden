@@ -4,39 +4,38 @@
   <NavBar path="offers" />
   <v-container>
     <v-row class="col-10 mx-auto" justify="center">
-      <v-col class="col-8">
-        <v-row>
-          <v-col class="col-6">
-            <v-card style="min-height:100px">
-              {{currentOffer.title}}</v-card>
+
+      <v-col class="col-5">
+        <v-col>
+          <v-card>
+            <b>
+              {{currentOffer.title}}
+            </b>
+          </v-card>
+        </v-col>
+
+        <v-col class="category">
+          <v-card>
+            <v-icon large color="#90e4f1">category</v-icon>
+            <span>Kategorie:</span>
+            <span class="item" v-for="item in getCategory"> {{ item }} </span>
+          </v-card>
+          <v-col class="px-0">
+            <AboutOffer />
           </v-col>
-          <v-col class="col-6">
-            <v-row justify="center">
-              <OfferScore />
-              <!--tohle je na hovno, ve views maji bej sablony a komponenty nemaji mit vlasni obalovej column-->
-            </v-row>
-          </v-col>
-          <v-row>
-            <v-col class="col-12">
-              <v-card class="">
-                <v-col cols="4" class="category">
-                  <v-icon class="" large color="#90e4f1">category</v-icon>
-                  <span>Kategorie:</span>
-                </v-col>
-                <v-col cols="4" class="myColor pa-0 pt-4">
-                  <span class="item" v-for="item in getCategory"> {{ item }} </span>
-                </v-col>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-row>
-        <v-row>
-          <AboutOffer />
-        </v-row>
+        </v-col>
       </v-col>
-      <OfferColumn />
+
+      <v-col cols="5">
+        <OfferColumn />
+      </v-col>
+
     </v-row>
+    <v-row>
+      <v-col>
     <OfferGalery />
+  </v-col>
+  </v-row>
   </v-container>
 
   </div>
@@ -89,25 +88,6 @@ export default {
   },
   beforeMount() {
     this.currentOffer = this.$store.state.currentOffer //naplnim ze storu aktualni currentOffer
-
-
-    // this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
-
-    // //najde vsechny obrázky, s timto emailem
-    // axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.profilIndex].email)
-    //
-    //   .then((response) => {
-    //     response.data.map(img => { //vrati imgs z profilu a vytvori path k profilovy fotcce
-    //       if (img.profilPhoto) {
-    //         this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
-    //       }
-    //
-    //     })
-    //     // console.log(this.profilePath)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
 
   }
 }

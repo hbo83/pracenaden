@@ -7,7 +7,7 @@
       <h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- katalog výpomoci</span></h1>
     </v-col>
     <v-col style="justify-content: center;display: flex">
-      <v-switch v-model="profil" :color="switchColor" background-color="" :style="{ height: fontSize }"class="ma-4" :label="`${updateSwitchText}`"></v-switch>
+      <v-switch @change="onChange" v-model="currentSwitchState" :color="switchColor" background-color="" :style="{ height: fontSize }"class="ma-4" :label="`${updateSwitchText}`"></v-switch>
     </v-col>
     <v-col cols="5" sm="5" class="pt-3">
       <v-tooltip bottom>
@@ -43,7 +43,8 @@ export default {
   data() {
     return {
       userLoged: null,
-      profil: false,
+      currentSwitchState: false,//profil nebo offer
+      switchState: false,//status prepinace
       fontSize: '20px'
     }
   },
@@ -55,33 +56,36 @@ export default {
   },
   computed: { //vuex state je dobry updatovat v computed
     switchColor() {
-      if(this.profil) {
-        return "#FFB6C1"
-      } else {
+      if(this.currentSiteProfil) {
         return "#90e4f1"
+      } else {
+        return "#FFB6C1"
       }
     },
     updateUserLoged() { //return je spravny kdyz beru z vuex
       return this.$store.state.userLoged
     },
     updateSwitchText() {//meni text u switch
-      if(!this.profil) {
+      if(!this.currentSiteProfil) {
         return "Lidé"
       } else {
         return "Poptávky"
       }
     }
-  // watch: {
-  //   profilStatus: function(){
-  //     this.profil
-  //   }
   },
   methods: {
-    switchToOffers() {
-      if(!profil){
+    onChange() {
+      if(this.currentSiteProfil){
         window.location.href = "http://localhost:8080/offers";
+        this.$store.commit('set_currentSiteProfil', false )
+        this.$store.commit('set_currentSwitchState', false)
+      } else {
+        window.location.href = "http://localhost:8080";
+        this.$store.commit('set_currentSiteProfil', true )
+        this.$store.commit('set_currentSwitchState', true)
       }
     },
+
     homePage() { //pri kliknuti na logo redirect na homepage
       this.$store.commit('set_currentLink', 'home')
       window.location.href = "http://localhost:8080/";
@@ -94,15 +98,6 @@ export default {
     },
     toOfferEdit() {
       window.location.href = "http://localhost:8080/offeredit";
-    },
-    toAnother() {//prepina profils a offers
-      if ( this.$store.state.currentLink === "offers" ){
-        this.$store.commit('set_currentLink', 'profil')
-        window.location.href = "http://localhost:8080/";
-      } else {
-        this.$store.commit('set_currentLink', 'offers')
-        window.location.href = "http://localhost:8080/offers";
-      }
     },
     logOut() { //logout
       let userLoged = this.$store.state.userLoged
@@ -125,7 +120,9 @@ export default {
 
   },
   mounted() {
-
+    this.currentSiteProfil = this.$store.state.currentSiteProfil
+    this.currentSwitchState = this.$store.state.currentSwitchState
+    
   },
   updated() {
 

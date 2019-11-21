@@ -205,7 +205,9 @@ export default {
           this.selectedCategoryItems = response.data[this.$route.params.index].category;
           this.currency = response.data[this.$route.params.index].currency;
           this.showOffer = response.data[this.$route.params.index].showOffer;
-          this.title = response.data[this.$route.params.index].title;
+          this.exposeDate = response.data[this.$route.params.index].exposeDate;
+          this.hideDate = response.data[this.$route.params.index].hideDate;
+          
         })
         .catch((error) => {
           console.log(error);
