@@ -6,6 +6,9 @@
         <v-btn height="40px" width="40px" small color="error" @click="toPath">
           <v-icon large>arrow_back</v-icon>
         </v-btn>
+        <v-btn height="40px" width="40px" small color="error" @click="test">
+          <v-icon large>home</v-icon>
+        </v-btn>
       </v-col>
       <v-col cols="2">
         <slot></slot>
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: 'NavBar',
   props: {
@@ -32,6 +35,16 @@ export default {
   methods: {
     toPath() {
       window.location.href = "http://localhost:8080/" + this.path;
+    },
+    test(){
+      console.log("testuju")
+      axios.get('http://localhost:8081/test')
+        .then((response) => {
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   },
   mounted() {

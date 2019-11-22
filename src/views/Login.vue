@@ -2,6 +2,14 @@
 <v-app>
   <div class="login">
     <Header></Header>
+    <!-- <v-alert
+      :value="alert"
+      type="success"
+      dismissible
+      transition="scale-transition"
+    >
+      This is a success alert.
+    </v-alert> -->
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -46,6 +54,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      // alert: false,
       password: '',
       nameRules: [
         v => !!v || 'Jméno je vyžadováno',
@@ -61,6 +70,7 @@ export default {
   methods: {
 
     logIn() {
+      // this.alert = true
       let currentObj = this;
 
       var request = {

@@ -8,8 +8,8 @@
     </v-col>
     <v-col style="justify-content: center;display: flex">
       <!-- <v-switch @change="onChange" v-model="currentSwitchState" :color="switchColor" background-color="" :style="{ height: fontSize }"class="ma-4" :label="`${updateSwitchText}`"></v-switch> -->
-      <v-btn icon color="#FFB6C1" fab>  <v-icon class="loged mx-auto" @click="onChange" color="#90e4f1"  large dark v-on="on">accessibility</v-icon></v-btn>
-      <v-btn icon color="#90e4f1" fab>  <v-icon class="loged mx-auto" @click="onChange" color="#FFB6C1" large dark v-on="on">accessibility_new</v-icon></v-btn>
+      <v-btn icon color="#FFB6C1" fab>  <v-icon class="loged mx-auto" @click="onChange" color="#90e4f1"  large dark>accessibility</v-icon></v-btn>
+      <v-btn icon color="#90e4f1" fab>  <v-icon class="loged mx-auto" @click="onChange" color="#FFB6C1" large dark>accessibility_new</v-icon></v-btn>
       <!-- <v-btn color="#FFB6C1" icon>  <v-icon class="loged mx-auto" @click="toInfo" color="white" large dark v-on="on">event</v-icon></v-btn> -->
       <!-- <v-btn color="#FFB6C1" icon>  <v-icon class="loged mx-auto" @click="toInfo" color="white" large dark v-on="on">event</v-icon></v-btn> -->
     </v-col>

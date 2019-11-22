@@ -18,7 +18,12 @@ const GoldStar = require('./models/GoldStar.model');
 const Offer = require('./models/Offer.model');
 const OfferFile = require('./models/OfferFile.model');
 
-var greetings = require("./routes/stars.js");
+var stars = require("./routes/stars.js")(app, GoldStar);
+var test = require("./routes/test.js")(app);
+// test(456)
+// test.on('ready', () => {
+//   console.log('module "a" is ready');
+// });
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
 mongoose.connect('mongodb://localhost:27017/naden', {
@@ -407,37 +412,37 @@ app.delete('/img/:id', function(req, res) { //smaze fotku
 })
 
 //STARS
-app.post('/goldstars', function(req, res) { //prida zlatou hvezdu, musim ale zajistit aby se vytvorila kolekce, defacto pri zalozeni uctu se musi zalozit vsechny potrebne kolekce
-  console.log(req.query.ownerEmail + req.query.markerEmail)
-  const star = new GoldStar({
-    ownerEmail: req.query.ownerEmail,
-    markerEmail: req.query.markerEmail
-  });
-    star.save(function(err, star) {
-      if (err) {
-        res.send('error saving user')
-      } else {
-        console.log(star);
-        res.send(star);
-      }
-    });
-});
-
-//takze potrebuju aggregation framework pro mongodb, ptze samotny mongo neumi vracet arry na nejvyssi urovni
-//musim pouzivat mongoose prikazy a ne mongo nativni
-app.get('/goldstars/:email', function(req, res) { //vrati pocet zlatych hvezd
-  console.log('/goldstars/:email' + req.params.email)
-  GoldStar.find({
-    ownerEmail: req.params.email
-  }).exec(function(err, goldStar) {
-    if (err) {
-      res.send('error has occured');
-    } else {
-      console.log(goldStar)
-      res.json(goldStar);
-    }
-  })
-})
+// app.post('/goldstars', function(req, res) { //prida zlatou hvezdu, musim ale zajistit aby se vytvorila kolekce, defacto pri zalozeni uctu se musi zalozit vsechny potrebne kolekce
+//   console.log(req.query.ownerEmail + req.query.markerEmail)
+//   const star = new GoldStar({
+//     ownerEmail: req.query.ownerEmail,
+//     markerEmail: req.query.markerEmail
+//   });
+//     star.save(function(err, star) {
+//       if (err) {
+//         res.send('error saving user')
+//       } else {
+//         console.log(star);
+//         res.send(star);
+//       }
+//     });
+// });
+//
+// //takze potrebuju aggregation framework pro mongodb, ptze samotny mongo neumi vracet arry na nejvyssi urovni
+// //musim pouzivat mongoose prikazy a ne mongo nativni
+// app.get('/goldstars/:email', function(req, res) { //vrati pocet zlatych hvezd
+//   console.log('/goldstars/:email' + req.params.email)
+//   GoldStar.find({
+//     ownerEmail: req.params.email
+//   }).exec(function(err, goldStar) {
+//     if (err) {
+//       res.send('error has occured');
+//     } else {
+//       console.log(goldStar)
+//       res.json(goldStar);
+//     }
+//   })
+// })
 
 //OFFERS
 app.put('/offersedit/:id', function(req, res) {//updatuje stavajici offer
