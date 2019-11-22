@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div class="offers">
-    <Header color="pink"></Header>
+    <Header color="#FFB6C1"></Header>
     <Filtering></Filtering>
     <SummaryOffers />
 

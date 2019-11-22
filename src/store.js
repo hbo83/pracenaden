@@ -72,10 +72,6 @@ export const store = new Vuex.Store({
     setAllProfiles( state, filter ) {
       state.allProfiles = filter
     },
-    setThisProfileWebVisible( state, boolean ) {//nastavi visibilitu webu v this profilu, pokud jen updatuju DB, tak se visibilita nezmeni ptze to bere ze state
-      state.allProfiles[1].webVisible = boolean
-    },
-
     setHelpData( state, data) {
       state.helpData = data
     }

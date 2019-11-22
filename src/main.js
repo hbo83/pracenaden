@@ -8,7 +8,7 @@ import {
 } from './store'
   import 'vue-trix'
 
-
+import 'vue-material-design-icons/styles.css';
 Vue.config.productionTip = false
 
 new Vue({

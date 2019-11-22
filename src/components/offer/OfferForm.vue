@@ -172,8 +172,8 @@ export default {
 
 
     saveProfil() { //updatuje profil
-      this.$store.commit('setThisProfileWebVisible', this.webVisible)
-      console.log(this.$store.state.allProfiles[1].webVisible)
+      // this.$store.commit('setThisProfileWebVisible', this.webVisible)
+      // console.log(this.$store.state.allProfiles[1].webVisible)
 
       if(this.newOffer) {
         const saveNewOffer = new SaveNewOffer('http://localhost:8081/newOffer/' + this.email)
@@ -207,7 +207,7 @@ export default {
           this.showOffer = response.data[this.$route.params.index].showOffer;
           this.exposeDate = response.data[this.$route.params.index].exposeDate;
           this.hideDate = response.data[this.$route.params.index].hideDate;
-          
+
         })
         .catch((error) => {
           console.log(error);

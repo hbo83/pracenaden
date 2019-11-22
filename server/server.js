@@ -11,13 +11,14 @@ var http = require('http');
 let fse = require('fs-extra');
 const app = express();
 
-const User = require('./User.model');
-const Profil = require('./Profil.model');
-const File = require('./File.model');
-const GoldStar = require('./GoldStar.model');
-const Offer = require('./Offer.model');
-const OfferFile = require('./OfferFile.model');
+const User = require('./models/User.model');
+const Profil = require('./models/Profil.model');
+const File = require('./models/File.model');
+const GoldStar = require('./models/GoldStar.model');
+const Offer = require('./models/Offer.model');
+const OfferFile = require('./models/OfferFile.model');
 
+var greetings = require("./routes/stars.js");
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
 mongoose.connect('mongodb://localhost:27017/naden', {

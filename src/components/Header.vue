@@ -7,7 +7,11 @@
       <h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- katalog výpomoci</span></h1>
     </v-col>
     <v-col style="justify-content: center;display: flex">
-      <v-switch @change="onChange" v-model="currentSwitchState" :color="switchColor" background-color="" :style="{ height: fontSize }"class="ma-4" :label="`${updateSwitchText}`"></v-switch>
+      <!-- <v-switch @change="onChange" v-model="currentSwitchState" :color="switchColor" background-color="" :style="{ height: fontSize }"class="ma-4" :label="`${updateSwitchText}`"></v-switch> -->
+      <v-btn icon color="#FFB6C1" fab>  <v-icon class="loged mx-auto" @click="onChange" color="#90e4f1"  large dark v-on="on">accessibility</v-icon></v-btn>
+      <v-btn icon color="#90e4f1" fab>  <v-icon class="loged mx-auto" @click="onChange" color="#FFB6C1" large dark v-on="on">accessibility_new</v-icon></v-btn>
+      <!-- <v-btn color="#FFB6C1" icon>  <v-icon class="loged mx-auto" @click="toInfo" color="white" large dark v-on="on">event</v-icon></v-btn> -->
+      <!-- <v-btn color="#FFB6C1" icon>  <v-icon class="loged mx-auto" @click="toInfo" color="white" large dark v-on="on">event</v-icon></v-btn> -->
     </v-col>
     <v-col cols="5" sm="5" class="pt-3">
       <v-tooltip bottom>
@@ -37,9 +41,16 @@
 </template>
 
 <script>
+import MenuIcon from 'vue-material-design-icons/Menu.vue';
 export default {
 
   name: 'Header',
+components: {
+  MenuIcon
+},
+icons: {
+    iconfont: 'mdiSvg',
+  },
   data() {
     return {
       userLoged: null,
@@ -122,7 +133,7 @@ export default {
   mounted() {
     this.currentSiteProfil = this.$store.state.currentSiteProfil
     this.currentSwitchState = this.$store.state.currentSwitchState
-    
+
   },
   updated() {
 
