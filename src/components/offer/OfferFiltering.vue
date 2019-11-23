@@ -1,32 +1,32 @@
 <template>
 <v-container class="filter" fluid>
   <v-row align="center">
-      <v-col class="d-flex" cols="5">
+      <v-col class="d-flex" cols="3">
         <v-select
           v-model="category"
           :items="categoryItems"
           label="Kategorie"
-          outlined
+          solo
           prepend-icon="category"
           v-on:change="setCategory"
 
         ></v-select>
       </v-col>
 
-      <v-col class="" cols="5">
+      <v-col class="" cols="3">
         <v-select
           v-model="city"
           :items="cityItems"
           label="Místo"
-          outlined
+          solo
           prepend-icon="map"
           v-on:change="setCity"
 
         ></v-select>
       </v-col>
 
-    <v-col align="center" class="pt-2" cols="2" style="min-height:98px;">
-      <v-btn @click="changeAllOffers( { hideProfil: false} )" color="primary" x-large >Filtrovat</v-btn>
+    <v-col class="mt-n8" cols="1">
+      <v-btn fab @click="changeAllOffers( { hideProfil: false} )" color="primary" small ><v-icon>autorenew</v-icon></v-btn>
     </v-col>
 
     </v-row>
@@ -38,7 +38,7 @@ import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
 import axios from 'axios'
 export default {
-  name: 'Filtering',
+  name: 'OfferFiltering',
   data() {
     return {
       category: 'Vše',//selected job from job filter

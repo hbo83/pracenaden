@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-toolbar :style="{ backgroundColor: color }">
-      <v-toolbar-title><h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- katalog výpomoci</span></h1></v-toolbar-title>
+      <v-toolbar-title><h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- online katalog služeb</span></h1></v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn v-if="!btnState" color="#FFB6C1" text to="/offers">Poptávka</v-btn>
-        <v-btn v-if="btnState" color="#90e4f1" text to="/">Profil</v-btn>
+        <v-btn v-if="offerBtnState" color="#FFB6C1" text to="/offers">Poptávka</v-btn>
+        <v-btn v-if="profilBtnState" color="#90e4f1" text to="/">Profil</v-btn>
         <v-btn disabled text>{{ updateUserLoged }}</v-btn>
       </v-toolbar-items>
 
@@ -48,6 +48,8 @@ components: {
       currentSwitchState: false,//profil nebo offer
       switchState: false,//status prepinace
       fontSize: '20px',
+      pinky: "#FFB6C1",
+      sky: "#90e4f1"
       // color: "#90e4f1"
     }
   },
@@ -58,8 +60,15 @@ components: {
     }
   },
   computed: { //vuex state je dobry updatovat v computed
-    btnState() {//na základě barvy Headeru see zobrazi btn link
-      if(this.color === "#FFB6C1") {
+    profilBtnState() {//na základě barvy Headeru see zobrazi btn link
+      if(this.color === this.pinky || "#40a30d") {
+        return true
+      } else {
+        return false
+      }
+    },
+    offerBtnState() {//na základě barvy Headeru see zobrazi btn link
+      if(this.color === this.sky|| "#40a30d") {
         return true
       } else {
         return false
@@ -70,7 +79,7 @@ components: {
     }
   },
   methods: {
-    
+
 
     homePage() { //pri kliknuti na logo redirect na homepage
       this.$store.commit('set_currentLink', 'home')

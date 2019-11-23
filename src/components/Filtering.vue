@@ -1,32 +1,32 @@
 <template>
 <v-container class="filter" fluid>
-  <v-row align="center">
-      <v-col class="d-flex" cols="5">
+  <v-row class="mt-6" align="center">
+      <v-col class="d-flex" cols="3">
         <v-select
           v-model="job"
           :items="jobItems"
           label="Obor, Profese"
-          outlined
+          solo
           prepend-icon="build"
           v-on:change="setJob"
 
         ></v-select>
       </v-col>
 
-      <v-col class="" cols="5">
+      <v-col class="" cols="3">
         <v-select
           v-model="city"
           :items="cityItems"
           label="Místo"
-          outlined
+          solo
           prepend-icon="map"
           v-on:change="setCity"
 
         ></v-select>
       </v-col>
 
-    <v-col align="center" class="pt-2" cols="2" style="min-height:98px;">
-      <v-btn @click="changeAllProfiles( { hideProfil: false} )" color="primary" x-large >Filtrovat</v-btn>
+    <v-col class="mt-n8" cols="1">
+      <v-btn fab @click="changeAllProfiles( { hideProfil: false} )" color="primary" small ><v-icon>autorenew</v-icon></v-btn>
     </v-col>
 
     </v-row>
