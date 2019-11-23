@@ -2,8 +2,8 @@
 <div class="summaryOffers">
     <v-container fluid>
       <v-row>
-        <v-col v-if="offer.showOffer" class="col-4" v-for="(offer, index) in offers">
-        <Offer :index="index" :profileDatas="offers[index]" />
+        <v-col v-if="offer.showOffer" class="col-4" v-for="(offer, index) in getAllOffers">
+        <Offer :index="index" :profileDatas="getAllOffers[index]" />
       </v-col>
       </v-row>
     </v-container>
@@ -27,7 +27,9 @@ export default {
 
   },
   computed: {
-
+    getAllOffers() {//vraci pole profilu
+      return this.$store.state.allOffers
+    }
   },
   beforeMount() {
       axios.get('http://localhost:8081/offers/')

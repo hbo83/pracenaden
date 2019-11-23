@@ -215,7 +215,6 @@ app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city
         res.json(profil);
       }
     })
-
   }
 })
 
@@ -524,7 +523,7 @@ app.get('/offers/:email', function(req, res) {//naplní offerEdit
 })
 
 app.get('/offers', function(req, res) {//vraci vsechny offers
-
+console.log("offers get")
   Offer.find({
 
   }).exec(function(err, offer) {
@@ -536,4 +535,51 @@ app.get('/offers', function(req, res) {//vraci vsechny offers
   })
 })
 
+app.get('/offersFiltered', function(req, res) {//vraci profili na zaklade city, ale tohle je nahovno to posilat v query, lepsi je v data, ale vlastne u filtru je to jedno
+  // var cityAndJob = {}
+  console.log(req.query.city + req.query.category)
+  // console.log(Object.keys(req.params.cityAndJob))
+  if (req.query.city === 'Vše' && req.query.category === 'Vše') {
+    Offer.find({}).exec(function(err, offer) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(offer);
+      }
+    })
+  } else if ( req.query.category === 'Vše') {
+    Offer.find({
+      city: req.query.city
+      // job: req.query.job
+    }).exec(function(err, offer) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(offer);
+      }
+    })
+  } else if ( req.query.city === 'Vše' ) {
+    Offer.find({
+      // city: req.query.city
+      category: req.query.category
+    }).exec(function(err, offer) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(offer);
+      }
+    })
+  } else {
+    Offer.find({
+      city: req.query.city,
+      category: req.query.category
+    }).exec(function(err, offer) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(offer);
+      }
+    })
+  }
+})
 app.listen(process.env.PORT || 8081)

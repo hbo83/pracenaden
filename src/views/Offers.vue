@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div class="offers">
-    <Header2 color="#FFB6C1"/>
+    <Header color="#FFB6C1"/>
     <Filtering></Filtering>
     <SummaryOffers />
 
@@ -11,22 +11,22 @@
 
 <script>
 // @ is an alias to /src
-import Header2 from '@/components/Header2.vue'
-import Filtering from '@/components/Filtering.vue'
+import Header from '@/components/Header.vue'
+import Filtering from '@/components/offer/Filtering.vue'
 import SummaryOffers from '@/components/offer/SummaryOffers.vue'
 
 export default {
   name: 'Offers',
   components: {
-    Header2,
+    Header,
     Filtering,
     SummaryOffers
 
   },
   created() {
-    // this.$store.dispatch("fetchUser").then(() => {
-    // console.log("This would be printed after dispatch!!")
-   // })
+    this.$store.dispatch("fetchOffers").then(() => {
+      console.log("This would be printed after dispatch!!")
+    })
 
   },
 }

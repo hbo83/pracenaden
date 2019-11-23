@@ -1,29 +1,31 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import VueResource from 'vue-resource'//pro pouziti Vue.http.get
-import createPersistedState from 'vuex-persistedstate'//data zustanou pr refreshi, jak easy nakonec
+import VueResource from 'vue-resource' //pro pouziti Vue.http.get
+import createPersistedState from 'vuex-persistedstate' //data zustanou pr refreshi, jak easy nakonec
 
 Vue.use(Vuex);
-Vue.use(VueResource);//souvisi s createPersistedState
+Vue.use(VueResource); //souvisi s createPersistedState
 
 //state nelze primo menit, ale jen skrze mutations. Asi jako v jave potrebujes settry
 export const store = new Vuex.Store({
-  plugins: [createPersistedState()],//data zustanou pr refreshi, jak easy nakonec
+  plugins: [createPersistedState()], //data zustanou pr refreshi, jak easy nakonec
   strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
-    allProfiles: [],//vsechny profily v DB
-    currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
-    currentOffer: null,//zde se ulozi aktualni offer po kliknuti na ProfilOffer
-    currentOfferIndex: null,//zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
+    allProfiles: [], //vsechny profily v DB
+    allOffers: [], //vsechny offers v DB
+    currentProfilIndex: null, //zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
+    currentOffer: null, //zde se ulozi aktualni offer po kliknuti na ProfilOffer
+    currentOfferIndex: null, //zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
     // currentSiteProfil: true,//profil nebo offers? data pro switch
     // currentSwitchState: false,
-    userLoged: null,//overuje zda je zalogovany any user
-    userLogedId: '',//id zalogovaneho usera
+    userLoged: null, //overuje zda je zalogovany any user
+    userLogedId: '', //id zalogovaneho usera
     userImages: [],
-    jobFilter: '',//aktuálně nastavený filtr na Obor
-    cityFilter: '',//aktuálně nastavený filtr na město
-    currentLink: ''//aktuální link
+    jobFilter: '', //aktuálně nastavený filtr na Obor
+    cityFilter: '', //aktuálně nastavený filtr na město
+    categoryFilter: '',//aktuálně nastavený filtr na kategorii
+    currentLink: '' //aktuální link
 
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
@@ -33,46 +35,55 @@ export const store = new Vuex.Store({
     // set_currentSiteProfil( state, profil) {//nastavi zda jsem na profilu ci offer
     //   state.currentSiteProfil = profil
     // },
-    set_currentLink( state, view) {//nastaví aktuální router link .../link, kvuli ikoně v header
+    set_currentLink(state, view) { //nastaví aktuální router link .../link, kvuli ikoně v header
       state.currentLink = view
     },
     setLogout(state, logout) {
       state.userLoged = null
     },
-    FETCH_USERS(state, users) {//commit, ktery naplni serverData, pouzito v action fetchUser()
-        state.allProfiles = users
+    FETCH_USERS(state, users) { //commit, ktery naplni serverData, pouzito v action fetchUser()
+      state.allProfiles = users
     },
-    set_currentProfilIndex(state, offer) {//commit, který naplní currentProfil
+    FETCH_OFFERS(state, offer) { //commit, ktery naplni serverData, pouzito v action fetchUser()
+      state.allOffers = offer
+    },
+    set_currentProfilIndex(state, offer) { //commit, který naplní currentProfil
       state.currentProfilIndex = offer
     },
-    set_currentOffer(state, index) {//commit, který naplní currentOfferIndex
+    set_currentOffer(state, index) { //commit, který naplní currentOfferIndex
       state.currentOffer = index
     },
-    set_currentOfferIndex(state, index) {//commit, který naplní currentOfferIndex
+    set_currentOfferIndex(state, index) { //commit, který naplní currentOfferIndex
       state.currentOfferIndex = index
     },
-    setLoged(state, loged) {//zalogován?
+    setLoged(state, loged) { //zalogován?
       state.loged = loged
     },
     setLogedId(state, id) {
       state.userLogedId = id
     },
-    setUserLoged(state, userLoged) {//kdo je zalogován
+    setUserLoged(state, userLoged) { //kdo je zalogován
       state.userLoged = userLoged
     },
-    setUserImgs(state, img) {//vrati imgs aktualniho profilu
+    setUserImgs(state, img) { //vrati imgs aktualniho profilu
       state.userImages = img
     },
-    setJobFilter( state, job ) {//commit nastavi jobFilter
+    setJobFilter(state, job) { //commit nastavi jobFilter
       state.jobFilter = job
     },
-    setCityFilter( state, city ) {//commit nastavi cityFilter
+    setCityFilter(state, city) { //commit nastavi cityFilter
       state.cityFilter = city
     },
-    setAllProfiles( state, filter ) {
+    setCategoryFilter(state, category) { //commit nastavi cityFilter
+      state.categoryFilter = category
+    },
+    setAllProfiles(state, filter) {
       state.allProfiles = filter
     },
-    setHelpData( state, data) {
+    setAllOffers(state, offer) {
+      state.allOffers = offer
+    },
+    setHelpData(state, data) {
       state.helpData = data
     }
 
@@ -84,7 +95,7 @@ export const store = new Vuex.Store({
 
     getWebVisible: state => state.allProfiles[state.currentProfilIndex].webVisible,
 
-    getThisProfil: ( state ) => {//vrátí aktuální profil, voláno v profilDetail
+    getThisProfil: (state) => { //vrátí aktuální profil, voláno v profilDetail
       return state.allProfiles[state.currentProfilIndex]
     },
 
@@ -94,24 +105,47 @@ export const store = new Vuex.Store({
 
   },
   actions: { //to samy jako metody, actions vola metodu z mutation ktera meni state, volame metodou.dispatch(), mutation jsou synchroni, ale actions ne
-  //podud chceme neco comitovat bez API tak muzem bez actions, ale jak budem ocekavat naky data tak pres actions
-  fetchUser({ commit }) {
-        return new Promise((resolve, reject) => {
-            Vue.http.get('http://localhost:8081/profiles')
-            .then((response) => {
-                commit("FETCH_USERS", response.body);//spusti mutation, ktery naplni serverData
-                resolve();
-            })
-            .catch((error) => {
-                console.log(error.statusText);
-            });
-        });
-
+    //podud chceme neco comitovat bez API tak muzem bez actions, ale jak budem ocekavat naky data tak pres actions
+    fetchUser({
+      commit
+    }) {
+      return new Promise((resolve, reject) => {
+        Vue.http.get('http://localhost:8081/profiles')
+          .then((response) => {
+            commit("FETCH_USERS", response.body); //spusti mutation, ktery naplni serverData
+            resolve();
+          })
+          .catch((error) => {
+            console.log(error.statusText);
+          });
+      });
     },
     reducePrice: context => { //v komponentte volame this.$store.dispatch.reducePrice
       setTimeout(function() {
         context.commit('setLoged') //rikame ze tuhle akci volame s kontextem tohodle mutation
       }, 2000)
-    }
+    },
+
+
+  fetchOffers({
+    commit
+  }) {
+    return new Promise((resolve, reject) => {
+      Vue.http.get('http://localhost:8081/offers')
+        .then((response) => {
+          commit("FETCH_OFFERS", response.body); //spusti mutation, ktery naplni serverData
+          resolve();
+        })
+        .catch((error) => {
+          console.log(error.statusText);
+        });
+    });
+  },
+  reducePrice: context => { //v komponentte volame this.$store.dispatch.reducePrice
+    setTimeout(function() {
+      context.commit('setLoged') //rikame ze tuhle akci volame s kontextem tohodle mutation
+    }, 2000)
   }
+
+}
 })
