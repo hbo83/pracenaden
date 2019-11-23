@@ -16,8 +16,8 @@ export const store = new Vuex.Store({
     currentProfilIndex: null,//zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
     currentOffer: null,//zde se ulozi aktualni offer po kliknuti na ProfilOffer
     currentOfferIndex: null,//zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
-    currentSiteProfil: true,//profil nebo offers? data pro switch
-    currentSwitchState: false,
+    // currentSiteProfil: true,//profil nebo offers? data pro switch
+    // currentSwitchState: false,
     userLoged: null,//overuje zda je zalogovany any user
     userLogedId: '',//id zalogovaneho usera
     userImages: [],
@@ -27,12 +27,12 @@ export const store = new Vuex.Store({
 
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
-    set_currentSwitchState( state, onOff) {//meni switch state
-      state.currentSwitchState = onOff
-    },
-    set_currentSiteProfil( state, profil) {//nastavi zda jsem na profilu ci offer
-      state.currentSiteProfil = profil
-    },
+    // set_currentSwitchState( state, onOff) {//meni switch state
+    //   state.currentSwitchState = onOff
+    // },
+    // set_currentSiteProfil( state, profil) {//nastavi zda jsem na profilu ci offer
+    //   state.currentSiteProfil = profil
+    // },
     set_currentLink( state, view) {//nastaví aktuální router link .../link, kvuli ikoně v header
       state.currentLink = view
     },

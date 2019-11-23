@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div class="signin">
-    <Header></Header>
+    <!-- <Header></Header> -->
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -67,7 +67,8 @@ export default {
   },
   methods: {
     signIn() {
-      let currentObj = this;
+      // let currentObj = this;
+      console.log(this.email)
       axios.post('http://localhost:8081/users', {
 
         email: this.email,

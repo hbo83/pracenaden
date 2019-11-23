@@ -18,8 +18,14 @@ const GoldStar = require('./models/GoldStar.model');
 const Offer = require('./models/Offer.model');
 const OfferFile = require('./models/OfferFile.model');
 
-var stars = require("./routes/stars.js")(app, GoldStar);
+var stars = require("./routes/stars.js")(app, GoldStar);//asi jedna z moznosti, u stars to funguje
+
+// var users = require("./routes/users");
+// app.use('/users', users);
+
 var test = require("./routes/test.js")(app);
+var test2 = require('./test2')
+app.use('/test2', test2)
 // test(456)
 // test.on('ready', () => {
 //   console.log('module "a" is ready');
@@ -104,46 +110,53 @@ app.get('/posts', (req, res) => {
 })
 
 //USERS
-app.get('/users', function(req, res) {
-  const email = req.query.login[0];
-  const password = req.query.login[1];
-  console.log(req.query.login[0]);
-  console.log(req.query.login[01]);
 
-  User.find({
-    $and: [{
-      email: email
-    }, {
-      password: password
-    }]
-  }).exec(function(err, user) {
-    if (err) {
-      res.send('error has occured');
-    } else {
-      res.json(user);
-    }
+app.route('/users')
+  .get(function (req, res) {
+    const email = req.query.login[0];
+    const password = req.query.login[1];
+    console.log(req.query.login[0]);
+    console.log(req.query.login[01]);
+
+    User.find({
+      $and: [{
+        email: email
+      }, {
+        password: password
+      }]
+    }).exec(function(err, user) {
+      if (err) {
+        res.send('error has occured');
+      } else {
+        res.json(user);
+      }
+    })
   })
-})
+  .post(function (req, res) {
+    var newUser = new User();
 
-app.post('/users', function(req, res) {
-  var newUser = new User();
+    newUser.email = req.body.email;
+    newUser.password = req.body.password;
 
-  newUser.email = req.body.email;
-  newUser.password = req.body.password;
-
-  if (!fs.existsSync("uploads/" + req.body.email)) {
-    fs.mkdirSync("uploads/" + req.body.email);
-  }
-
-  newUser.save(function(err, user) {
-    if (err) {
-      res.send('error saving user')
-    } else {
-      console.log(user);
-      res.send(user);
+    if (!fs.existsSync("uploads/" + req.body.email)) {
+      fs.mkdirSync("uploads/" + req.body.email);
     }
-  });
-});
+
+    newUser.save(function(err, user) {
+      if (err) {
+        res.send('error saving user')
+      } else {
+        console.log(user);
+        res.send(user);
+      }
+    });
+  })
+  .put(function (req, res) {
+    res.send('Update the book')
+  })
+
+
+
 
 //PROFILES
 app.get('/profiles', function(req, res) {
@@ -260,7 +273,7 @@ app.put('/profiles/:id', function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        console.log( '/profiles/:id' + editProfil);
+        // console.log( '/profiles/:id' + editProfil);
         res.send(editProfil);
       }
     });
@@ -268,7 +281,7 @@ app.put('/profiles/:id', function(req, res) {
 
 //PROFILEDIT
 app.get('/profilesedit/:_id', function(req, res) {//naplní profilEdit
-  console.log(req.params._id)
+  // console.log(req.params._id)
   Profil.find({
     _id: req.params._id
   }).exec(function(err, profil) {
@@ -295,7 +308,7 @@ app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
 })
 
 app.get('/imgoffer', function(req, res) { //vrati fotky vazane k danemu emailu z offers
-  console.log(req.query.email + req.query.index)
+  // console.log(req.query.email + req.query.index)
   OfferFile.find({
     email: req.query.email,
     index: req.query.index
@@ -309,7 +322,7 @@ app.get('/imgoffer', function(req, res) { //vrati fotky vazane k danemu emailu z
 })
 
 app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //upload fotky profil
-  console.log(req.body.profilPhoto.length);
+  // console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
@@ -321,7 +334,7 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
   });
   file.save()
     .then(result => {
-      console.log(result);
+      // console.log(result);
       res.status(201).json({
         message: 'Create product successfully',
         createdProduct: {
@@ -333,7 +346,7 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
 })
 
 app.post('/imgoffer', uploadOffer.single('productImage'), (req, res, next) => { //upload fotky offer, filesystem + db
-  console.log(req.body.currentOfferIndex)
+  // console.log(req.body.currentOfferIndex)
   const file = new OfferFile({
     _id: new mongoose.Types.ObjectId(),
     email: req.body.email,
@@ -355,7 +368,7 @@ app.post('/imgoffer', uploadOffer.single('productImage'), (req, res, next) => { 
 })
 
 app.put('/imgFalse/:email', function(req, res) { //oznaci vsechny fotky na profil false
-  console.log(req.params.email)
+  // console.log(req.params.email)
   File.updateMany({
       email: req.params.email
     }, {
@@ -446,7 +459,7 @@ app.delete('/img/:id', function(req, res) { //smaze fotku
 
 //OFFERS
 app.put('/offersedit/:id', function(req, res) {//updatuje stavajici offer
-  console.log('/offersedit/:id' + " " + req.body.email)
+  // console.log('/offersedit/:id' + " " + req.body.email)
   Offer.findOneAndUpdate({
       email: req.body.email
     }, {
@@ -498,7 +511,7 @@ const offer = new Offer({
     });
 });
 app.get('/offers/:email', function(req, res) {//naplní offerEdit
-  console.log('/offers/:email' + " " + req.params._id)
+  // console.log('/offers/:email' + " " + req.params._id)
   Offer.find({
     email: req.params.email
   }).exec(function(err, offer) {

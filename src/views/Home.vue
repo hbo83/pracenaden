@@ -1,7 +1,8 @@
 <template>
 <!-- <v-app> -->
 <div class="home">
-  <Header color="#90e4f1"></Header>
+  <!-- <Header color="#90e4f1"></Header> -->
+  <Header2 color="#90e4f1"/>
   <Filtering></Filtering>
   <Summary></Summary>
 
@@ -17,14 +18,14 @@ componentWillUnmount() - tato metoda je vyvolana tesne pretim nez bude komponent
 <!-- nahraju prvni data do home a zbytek na pozadi do store -->
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import Header2 from '@/components/Header2.vue'
 import Filtering from '@/components/Filtering.vue'
 import Summary from '@/components/Summary.vue'
 
 export default {
   name: 'home',
   components: {
-    Header,
+    Header2,
     Filtering,
     Summary
 

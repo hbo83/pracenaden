@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div class="login">
-    <Header></Header>
+    <!-- <Header></Header> -->
     <!-- <v-alert
       :value="alert"
       type="success"

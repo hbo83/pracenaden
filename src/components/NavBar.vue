@@ -38,7 +38,7 @@ export default {
     },
     test(){
       console.log("testuju")
-      axios.get('http://localhost:8081/test')
+      axios.get('http://localhost:8081/test2')
         .then((response) => {
 
         })

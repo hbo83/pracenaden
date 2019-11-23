@@ -1,7 +1,7 @@
 <template>
 <v-app>
   <div class="offers">
-    <Header color="#FFB6C1"></Header>
+    <Header2 color="#FFB6C1"/>
     <Filtering></Filtering>
     <SummaryOffers />
 
@@ -11,14 +11,14 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import Header2 from '@/components/Header2.vue'
 import Filtering from '@/components/Filtering.vue'
 import SummaryOffers from '@/components/offer/SummaryOffers.vue'
 
 export default {
   name: 'Offers',
   components: {
-    Header,
+    Header2,
     Filtering,
     SummaryOffers
 
