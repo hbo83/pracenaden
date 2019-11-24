@@ -6,8 +6,14 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn v-if="offerBtnState" color="#FFB6C1" text to="/offers">Poptávka</v-btn>
-        <v-btn v-if="profilBtnState" color="#90e4f1" text to="/">Profil</v-btn>
+        <v-btn v-if="offerBtnState" :color="pinky" text to="/offers">Poptávka</v-btn>
+        <v-btn v-if="profilBtnState" :color="sky" text to="/">Profil</v-btn>
+        <v-btn v-if="editProfilBtnState" icon @click="toProfilDetail">
+          <v-icon>edit</v-icon>
+        </v-btn>
+        <v-btn v-if="editOfferBtnState" icon @click="toOfferEdit">
+          <v-icon>edit</v-icon>
+        </v-btn>
         <v-btn disabled text>{{ updateUserLoged }}</v-btn>
       </v-toolbar-items>
 
@@ -18,12 +24,7 @@
         <v-btn v-show="updateUserLoged" icon @click="logOut">
           <v-icon>exit_to_app</v-icon>
         </v-btn>
-        <v-btn icon @click="toProfilDetail">
-          <v-icon>edit</v-icon>
-        </v-btn>
-        <v-btn icon @click="toOfferEdit">
-          <v-icon>alarm</v-icon>
-        </v-btn>
+
         <v-btn icon @click="toInfo">
           <v-icon>info</v-icon>
         </v-btn>
@@ -31,8 +32,7 @@
     </v-toolbar>
   </div>
 </template>
-<!-- <v-icon v-show="!updateUserLoged" class="loged" @click="logIn" color="white" large>account_box</v-icon>
-<v-icon v-show="updateUserLoged" class="loged" @click="logOut" color="white" large>exit_to_app</v-icon> -->
+
 <script>
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
 export default {
@@ -45,12 +45,10 @@ components: {
   data() {
     return {
       userLoged: null,
-      currentSwitchState: false,//profil nebo offer
-      switchState: false,//status prepinace
       fontSize: '20px',
       pinky: "#FFB6C1",
-      sky: "#90e4f1"
-      // color: "#90e4f1"
+      sky: "#90e4f1",
+      greeny: "#40a30d"
     }
   },
   props: {
@@ -61,16 +59,30 @@ components: {
   },
   computed: { //vuex state je dobry updatovat v computed
     profilBtnState() {//na základě barvy Headeru see zobrazi btn link
-      if(this.color === this.pinky || "#40a30d") {
+      if(this.color === this.pinky || this.color === this.greeny) {
         return true
       } else {
         return false
       }
     },
     offerBtnState() {//na základě barvy Headeru see zobrazi btn link
-      if(this.color === this.sky|| "#40a30d") {
+      if(this.color === this.sky|| this.color === this.greeny) {
         return true
       } else {
+        return false
+      }
+    },
+    editProfilBtnState() {
+      if(this.color === this.sky) {
+        return true
+      } else if (this.color === this.greeny){
+        return false
+      }
+    },
+    editOfferBtnState() {
+      if(this.color === this.pinky) {
+        return true
+      } else if (this.color === this.greeny){
         return false
       }
     },
@@ -112,11 +124,12 @@ components: {
     }
   },
   beforeMount() {
-
+  console.log(this.profilBtnState)
+  console.log(this.color)
   },
   mounted() {
-    this.currentSiteProfil = this.$store.state.currentSiteProfil
-    this.currentSwitchState = this.$store.state.currentSwitchState
+    // this.currentSiteProfil = this.$store.state.currentSiteProfil
+    // this.currentSwitchState = this.$store.state.currentSwitchState
 
   },
   updated() {

@@ -1,6 +1,6 @@
 <template>
 <v-card>
-  <v-row class="profilParent" @click="selectOffer">
+  <v-row class="profilParent mx-0" @click="selectOffer">
     <v-col class="col-5 pl-8 profil" no-gutters>
       <p>
         <span>
@@ -31,7 +31,8 @@
       <span>
         <v-icon>category</v-icon>
       </span>
-      <span>{{ getCategory }}</span>
+      <!-- <span>{{ getCategory }}</span> -->
+      <span style="fontSize: small" class="item" v-for="item in getCategory"> {{ item }} </span>
     </p>
   </v-col>
     </v-col>
@@ -103,10 +104,15 @@ export default {
 }
 
 .profilParent:hover {
-  background-color: pink;
+  box-shadow: 10px 10px 5px grey;
 }
 
 p > span {
   margin-right: 10px
+}
+
+.item+.item:before {
+  /*oddeli category z pole od sebe jako string*/
+  content: ",";
 }
 </style>

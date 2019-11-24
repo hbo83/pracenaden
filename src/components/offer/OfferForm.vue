@@ -120,7 +120,7 @@ export default {
       v => !!v || 'Titulek je povinný',
       v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
     ],
-
+    
     city: null,
     items: cities,
     id: '',
@@ -172,15 +172,26 @@ export default {
 
 
     saveProfil() { //updatuje profil
-      // this.$store.commit('setThisProfileWebVisible', this.webVisible)
-      // console.log(this.$store.state.allProfiles[1].webVisible)
+
+      var offer = {
+        email: this.email,
+        title: this.title,
+        price: this.price,
+        city: this.city,
+        selectedCategoryItems: this.selectedCategoryItems,
+        currency: this.currency,
+        showOffer: this.showOffer,
+        aboutOffer: this.aboutOffer,
+        exposeDate: this.exposeDate,
+        hideDate: this.hideDate
+      }
 
       if(this.newOffer) {
         const saveNewOffer = new SaveNewOffer('http://localhost:8081/newOffer/' + this.email)
-        saveNewOffer.saveOffer(this.email, this.title, this.price, this.city, this.selectedCategoryItems, this.currency, this.showOffer, this.aboutOffer, this.exposeDate, this.hideDate)
+        saveNewOffer.saveOffer(offer)
       } else {
         const saveThis = new SaveOffer('http://localhost:8081/offersedit/' + this.email)
-        saveThis.saveOffer(this.email, this.title, this.price, this.city, this.selectedCategoryItems, this.currency, this.showOffer, this.aboutOffer, this.exposeDate, this.hideDate)
+        saveThis.saveOffer(offer)
       }
 
     }
@@ -188,6 +199,13 @@ export default {
   mounted() {
     this.id = this.$store.state.userLogedId
     this.email = this.$store.state.userLoged
+
+    var date = new Date();
+    var today = date.getFullYear() + '-' + (date.getMonth()+1) +'-'+ date.getDate();
+    var afterMonth = date.getFullYear() + '-' + date.getMonth() +'-'+ date.getDate();
+    this.exposeDate = today
+    this.hideDate = afterMonth
+
     console.log(this.email)
 
     if (!this.newOffer) { //tohle musim poresit, kdyz neni zalogovanej tak nemuze zakladat offer
@@ -201,7 +219,7 @@ export default {
           this.city = response.data[this.$route.params.index].city;
           this.price = response.data[this.$route.params.index].price;
           this.aboutOffer = response.data[this.$route.params.index].aboutOffer;
-          // this.category = response.data[this.$route.params.index].category;
+          this.title = response.data[this.$route.params.index].title;
           this.selectedCategoryItems = response.data[this.$route.params.index].category;
           this.currency = response.data[this.$route.params.index].currency;
           this.showOffer = response.data[this.$route.params.index].showOffer;

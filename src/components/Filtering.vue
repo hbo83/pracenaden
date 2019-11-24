@@ -1,6 +1,6 @@
 <template>
 <v-container class="filter" fluid>
-  <v-row class="mt-6" align="center">
+  <v-row align="center">
       <v-col class="d-flex" cols="3">
         <v-select
           v-model="job"

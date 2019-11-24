@@ -83,7 +83,7 @@
       <v-expansion-panel-content>
         <h1>6.AUTORSKÁ PRÁVA</h1>
  <p>Ochrannou známku PRÁCE NA DEN, která je ve vlastnictví Provozovatele, nejsou třetí osoby oprávněny užívat v obchodním styku bez souhlasu vlastníka ochranné známky.</p>
-
+ <p>Provozovatel si vyhrazuje právo na případnou změnu a doplnění těchto podmínek</p>
       </v-expansion-panel-content>
     </v-expansion-panel>
 

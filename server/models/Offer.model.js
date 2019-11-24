@@ -6,7 +6,9 @@ var OfferSchema = new Schema({
   email: String,
   title: String,
   price: String,
-  category: Array,
+  category: [{
+        type: String
+      }],
   aboutOffer: String,
   currency: String,
   showOffer: Boolean,

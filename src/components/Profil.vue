@@ -1,6 +1,6 @@
 <template>
 <v-card>
-  <v-row class="profilParent" @click="selectProfil">
+  <v-row class="profilParent mx-0" @click="selectProfil">
     <v-col class="col-4 pl-8 profil" no-gutters>
       <ProfilImg v-bind:index="this.index"></ProfilImg>
     </v-col>
@@ -38,7 +38,7 @@
         <span>
           <v-icon>category</v-icon>
         </span>
-        <span>{{ getCategory }}</span>
+        <span style="fontSize: small">{{ getCategory }}</span>
       </p>
     </v-col>
   </v-row>
@@ -122,8 +122,9 @@ export default {
 }
 
 .profilParent:hover {
-  background-color: RGBA(144, 228, 241, 1);
+  box-shadow: 10px 10px 5px grey;
 }
+
 
 p > span {
   margin-right: 10px

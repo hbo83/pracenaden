@@ -1,6 +1,6 @@
 <template>
 <div class="profilImg">
-        <img :src="getProfilePath" alt="profilPhoto" style="height: 150px;width: 150px; border-radius: 100px; margin: auto">
+        <img :src="getProfilePath" alt="profilPhoto" style="height: 150px;width: 150px; border-radius: 5px; margin: auto">
 </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 <!-- <v-app> -->
 <div>
-  <Header color="pink" app></Header>
+  <Header color="#FFB6C1"/>
   <NavBar path="offeredit">
   </NavBar>
   <h2>Nová poptávka</h2>

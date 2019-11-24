@@ -1,6 +1,6 @@
 <template>
 <v-app>
-  <Header color="pink" />
+  <Header color="#FFB6C1"/>
   <NavBar path="offers" />
   <v-container>
     <v-row class="col-10 mx-auto" justify="center">

@@ -492,7 +492,7 @@ const offer = new Offer({
     email: req.body.email,
     title: req.body.title,
     price: req.body.price,
-    category: req.body.category,
+    category: req.body.selectedCategoryItems,
     aboutOffer: req.body.aboutOffer,
     currency: req.body.currency,
     showOffer: req.body.showOffer,
@@ -510,7 +510,7 @@ const offer = new Offer({
     });
 });
 app.get('/offers/:email', function(req, res) {//naplní offerEdit
-  // console.log('/offers/:email' + " " + req.params._id)
+  console.log('/offers/:email' + " " + req.params.email)
   Offer.find({
     email: req.params.email
   }).exec(function(err, offer) {
