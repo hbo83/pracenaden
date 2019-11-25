@@ -103,6 +103,10 @@ export default {
   cursor: pointer;
 }
 
+.profilParent {
+  background-color: #ffeaed
+}
+
 .profilParent:hover {
   box-shadow: 10px 10px 5px grey;
 }

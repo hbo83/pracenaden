@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var ProfilSchema = new Schema({
   id: mongoose.Schema.Types.ObjectId,
   email: String,
-  name: String,
+  firstName: String,
+  lastName: String,
   money: String,
   city: String,
   category: Array,

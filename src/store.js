@@ -17,8 +17,8 @@ export const store = new Vuex.Store({
     currentProfilIndex: null, //zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
     currentOffer: null, //zde se ulozi aktualni offer po kliknuti na ProfilOffer
     currentOfferIndex: null, //zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
-    // currentSiteProfil: true,//profil nebo offers? data pro switch
-    // currentSwitchState: false,
+    userFirstName: null, //jmeno zalogovaneho usera
+    userLastName:null,//prijmeni zalogovaneho usera
     userLoged: null, //overuje zda je zalogovany any user
     userLogedId: '', //id zalogovaneho usera
     userImages: [],
@@ -29,12 +29,12 @@ export const store = new Vuex.Store({
 
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
-    // set_currentSwitchState( state, onOff) {//meni switch state
-    //   state.currentSwitchState = onOff
-    // },
-    // set_currentSiteProfil( state, profil) {//nastavi zda jsem na profilu ci offer
-    //   state.currentSiteProfil = profil
-    // },
+    set_userFirstName( state, firstName) {//meni switch state
+      state.userFirstName = firstName
+    },
+    set_userLastName( state, lastName) {//nastavi zda jsem na profilu ci offer
+      state.userLastName = lastName
+    },
     set_currentLink(state, view) { //nastaví aktuální router link .../link, kvuli ikoně v header
       state.currentLink = view
     },
@@ -90,10 +90,12 @@ export const store = new Vuex.Store({
   },
   getters: { //to samy jako computed. Kdyz budu chtit vratit neco slozitejsiho nez jen this.$store.state.loged tak pouziju getter a v komponente volam jen getter v computed this.$store.getters.NejakejGetter
     // https://www.youtube.com/watch?v=OtLRQdjmFvs
-
+    // get_fullName: state => {
+    //   state.userFirstName + userLastName
+    // },
     getLoged: state => state.loged,
 
-    getWebVisible: state => state.allProfiles[state.currentProfilIndex].webVisible,
+    // getWebVisible: state => state.allProfiles[state.currentProfilIndex].webVisible,
 
     getThisProfil: (state) => { //vrátí aktuální profil, voláno v profilDetail
       return state.allProfiles[state.currentProfilIndex]

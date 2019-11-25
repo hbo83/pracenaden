@@ -235,13 +235,14 @@ app.get('/profiles/:email', function(req, res) { //vrací profil na základě em
 
 
 app.put('/profiles/:id', function(req, res) {
-  console.log(req.params.id)
+  console.log(req.params.id + req.body.firstName + req.body.lastName + req.body.email)
   Profil.findOneAndUpdate({
       _id: req.params.id
     }, {
       $set: {
         email: req.body.email,
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         phone: req.body.phone,
         phoneVisible: req.body.phoneVisible,
         job: req.body.job,
