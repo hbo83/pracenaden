@@ -127,9 +127,13 @@ export default {
 .profilParent:hover {
   box-shadow: 10px 10px 5px grey;
 }
-
+p {
+  font-size: 14px;
+  margin-bottom: 7px!important;
+}
 
 p > span {
-  margin-right: 10px
+  margin-right: 10px;
+
 }
 </style>

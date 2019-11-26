@@ -1,5 +1,5 @@
 <template>
-<v-col class="col-12 profil">
+<v-col class="col-4 profil">
   <v-card style="">
     <v-row class="" justify="center">
       <v-col cols="4" class="myColor">

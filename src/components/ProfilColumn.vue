@@ -2,103 +2,103 @@
 <v-col class="col-3 profil">
   <v-card style="min-height: 560px;">
     <v-row class="" justify="center">
-      <v-col cols="4" class="myColor">
-        <v-icon class="" large>face</v-icon>
+      <v-col cols="5" class="myColor">
+        <v-icon normal>face</v-icon>
         <span>E-mail:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span> {{ getEmail }}</span>
       </v-col>
     </v-row>
 
-    <v-row class="" justify="center" v-if="getPhoneVisible">
-      <v-col cols="4" class="myColor" style="text-align: left">
-        <v-icon class="" large>phone</v-icon>
+    <v-row justify="center" v-if="getPhoneVisible">
+      <v-col cols="5" class="myColor" style="text-align: left">
+        <v-icon normal>phone</v-icon>
         <span>Telefon:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span>{{ getPhone }}</span>
       </v-col>
     </v-row>
 
-    <v-row class="" justify="center">
-      <v-col cols="4" class="myColor" style="text-align: left">
-        <v-icon class="" large>build</v-icon>
+    <v-row justify="center">
+      <v-col cols="5" class="myColor" style="text-align: left">
+        <v-icon normal>build</v-icon>
         <span>Profese:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span><a target="_blank" rel="noopener noreferrer" :href="job">{{ getJob }}</a></span>
       </v-col>
     </v-row>
 
-    <v-row class="" justify="center">
-      <v-col cols="4" class="myColor">
-        <v-icon class="" large>location_city</v-icon>
+    <v-row justify="center">
+      <v-col cols="5" class="myColor">
+        <v-icon normal>location_city</v-icon>
         <span>Místo:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span><a target="_blank" rel="noopener noreferrer" :href="city">{{ getCity }}</a></span>
       </v-col>
     </v-row>
-    <v-row class="" justify="center">
-      <v-col cols="4" class="myColor">
-        <v-icon class="" large>money</v-icon>
+    <v-row justify="center">
+      <v-col cols="5" class="myColor">
+        <v-icon normal>money</v-icon>
         <span>Odměna:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span>{{ getPricePlusCurrency }}</span>
       </v-col>
     </v-row>
 
     <v-row justify="center" class="" v-if="getWebVisible">
-      <v-col cols="4" class="myColor">
-        <v-icon large>web</v-icon>
+      <v-col cols="5" class="myColor">
+        <v-icon normal>web</v-icon>
         <span>Web:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span><a target="_blank" rel="noopener noreferrer" :href="web">{{ getWeb}}</a>
         </span>
       </v-col>
     </v-row>
     <v-row justify="center" class="" v-if="getFacebookVisible">
-      <v-col cols="4" class="myColor">
+      <v-col cols="5" class="myColor">
         <v-icon large>thumb_up</v-icon>
         <span>Facebook:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span>
           <a target="_blank" rel="noopener noreferrer" :href="facebook">{{ getFacebook }}</a>
         </span>
       </v-col>
     </v-row>
     <v-row justify="center" class="" v-if="getInstagramVisible">
-      <v-col cols="4" class="pmyColor">
+      <v-col cols="5" class="pmyColor">
         <v-icon large>portrait</v-icon>
         <span>Instagram:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span>
           <a target="_blank" rel="noopener noreferrer" :href="instagram">{{ getInstagram }}</a>
         </span>
       </v-col>
     </v-row>
     <v-row justify="center" class="" v-if="getSkypeVisible">
-      <v-col cols="4" class="myColor">
+      <v-col cols="5" class="myColor">
         <v-icon large>call</v-icon>
         <span>Skype:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span>
           {{ getSkype }}
         </span>
       </v-col>
     </v-row>
     <v-row justify="center" class="" v-if="getWhatsappVisible">
-      <v-col cols="4" class="myColor">
+      <v-col cols="5" class="myColor">
         <v-icon large>add_alert</v-icon>
         <span>Whatsapp:</span>
       </v-col>
-      <v-col cols="4" class="myColor">
+      <v-col cols="6" class="myColor">
         <span>
           {{ getWhatsapp }}
         </span>
@@ -118,7 +118,7 @@ export default {
   data() {
     return {
 
-      imgIndex: null,
+      // imgIndex: null,
       profilIndex: null, //index aktuálního profilu
       thisProfil: {},//naplní objekt aktuálním profilem z metody get v mounted
       email: '',
@@ -237,7 +237,9 @@ img {
 .category span {
   margin-left: 10px;
 }
-
+span {
+  font-size: 14px;
+}
 .item + .item:before {/*oddeli category z pole od sebe jako string*/
   content: ", ";
 }

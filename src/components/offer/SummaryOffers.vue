@@ -2,9 +2,16 @@
 <div class="summaryOffers">
     <v-container fluid>
       <v-row>
-        <v-col v-if="offer.showOffer" class="col-4" v-for="(offer, index) in getAllOffers">
-        <Offer :index="index" :profileDatas="getAllOffers[index]" />
-      </v-col>
+        <v-col cols="5">
+          <v-row>
+            <v-col v-if="offer.showOffer" class="col-4" v-for="(offer, index) in getAllOffers">
+            <Offer :index="index" :profileDatas="getAllOffers[index]" />
+            </v-col>
+          </v-row>
+        </v-col>
+
+        <v-col cols="5">
+        </v-col>
       </v-row>
     </v-container>
 </div>

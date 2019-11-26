@@ -6,21 +6,21 @@
     <h3>Zde prosím vyplňte informace o Vás</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
       <v-col>
-        <v-text-field v-model="formContent.firstName" label="Jméno" :rules="nameRules" required></v-text-field>
-        <v-text-field v-model="formContent.lastName" label="Příjmení" :rules="nameRules" required></v-text-field>
-        <v-text-field v-model="formContent.job" label="Obor" :rules="jobRules" required></v-text-field>
+        <v-text-field v-model="formContent.firstName" label="Jméno" :rules="rules" required></v-text-field>
+        <v-text-field v-model="formContent.lastName" label="Příjmení" :rules="rules" required></v-text-field>
+        <v-text-field v-model="formContent.job" label="Obor" :rules="rules" required></v-text-field>
         <v-row>
           <v-col>
-            <v-text-field v-model="formContent.money" label="Požadovaná odměna" :rules="moneyRules" required></v-text-field>
+            <v-text-field v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
           </v-col>
           <v-col>
-            <v-select v-model="formContent.currency" :items="selectedCurrencyItems" :rules="currencyRules" label="Jednotka" required></v-select>
+            <v-select v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
           </v-col>
         </v-row>
         <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
         <v-row align="center">
           <v-col cols="12" sm="12">
-            <v-select v-model="formContent.category" :items="itemsJob" :rules="categoriesRules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+            <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
           </v-col>
         </v-row>
         <v-row>
@@ -42,7 +42,7 @@
             <v-text-field v-model="formContent.web" label="Webové stránky" required></v-text-field>
           </v-col>
           <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit: ${webStatus}`"></v-switch>
+            <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.webVisible)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row>
@@ -50,7 +50,7 @@
             <v-text-field v-model="formContent.phone" label="Telefoní číslo" required></v-text-field>
           </v-col>
           <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.phoneVisible" class="ma-4" :label="`Zobrazit: ${phoneStatus}`"></v-switch>
+            <v-switch v-model="formContent.phoneVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.phoneVisible)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row>
@@ -58,7 +58,7 @@
             <v-text-field v-model="formContent.facebook" label="Facebook" required></v-text-field>
           </v-col>
           <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit: ${facebookStatus}`"></v-switch>
+            <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.facebookVisible)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row>
@@ -66,7 +66,7 @@
             <v-text-field v-model="formContent.instagram" label="Instagram" required></v-text-field>
           </v-col>
           <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.instagramVisible" class="ma-4" :label="`Zobrazit: ${instagramStatus}`"></v-switch>
+            <v-switch v-model="formContent.instagramVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.instagramVisible)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row>
@@ -74,7 +74,7 @@
             <v-text-field v-model="formContent.skype" label="Skype" required></v-text-field>
           </v-col>
           <v-col>
-            <v-switch v-model="formContent.skypeVisible" class="ma-4" :label="`Zobrazit: ${skypeStatus}`"></v-switch>
+            <v-switch v-model="formContent.skypeVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.skypeVisible)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row>
@@ -82,16 +82,16 @@
             <v-text-field v-model="formContent.whatsapp" label="WhatsApp" required></v-text-field>
           </v-col>
           <v-col>
-            <v-switch v-model="formContent.whatsappVisible" class="ma-4" :label="`Zobrazit: ${whatsappStatus}`"></v-switch>
+            <v-switch v-model="formContent.whatsappVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.whatsappVisible)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.osvc" class="ma-4" :label="`OSVČ: ${osvcStatus}`"></v-switch>
+            <v-switch v-model="formContent.osvc" class="ma-4" :label="`OSVČ: ${stateToCzech(formContent.osvc)}`"></v-switch>
           </v-col>
           <v-col cols="6" sm="6">
             <!-- <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox> -->
-            <v-switch v-model="formContent.hideProfil" class="ma-4" :label="`Skrýt profil?: ${profilVisible}`"></v-switch>
+            <v-switch v-model="formContent.hideProfil" class="ma-4" :label="`Skrýt profil: ${stateToCzech(formContent.hideProfil)}`"></v-switch>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -185,43 +185,16 @@ export default {
     imgs2: [], //pole paths obrazků
     valid: false,
     osvc: false,
-    phoneRules: [
-      v => !!v || 'Telefon je povinný',
-      v => (v && v.length <= 9) || 'Číslo musí být kratší než 10 znaků',
-    ],
-    nameRules: [
-      v => !!v || 'Jméno je povinné',
+    rules: [
+      v => !!v || 'Položka je povinná',
       v => (v && v.length <= 20) || 'Jméno musí být kratší než 20 znaků',
     ],
-    nameRules: [
-      v => !!v || 'Příjmení je povinné',
-      v => (v && v.length <= 20) || 'Příjmení musí být kratší než 20 znaků',
-    ],
-    jobRules: [
-      v => !!v || 'Obor je povinný',
-      v => (v && v.length <= 20) || 'Obor musí být kratší než 20 znaků',
-    ],
-    moneyRules: [
-      v => !!v || 'Požadovaná odměna je povinná',
-      v => (v && v.length <= 10) || 'Odměna musí být více než 9',
-    ],
+
     selectedCurrencyItems: [".- / hod", ".- / den", ".- / práci"],
-    currencyRules: [
-      v => !!v || 'Jednotka je povinná',
-      // v => (v && v.length <= 10) || 'Odměna musí být více než 9',
-    ],
+
     selectedJobItems: null,
     itemsJob: categories,
-    categoriesRules: [
-      v => !!v || 'Kategorie je povinná',
-      // v => (v && v.length <= 10) || 'Odměna musí být více než 9',
-    ],
-    aboutMeRules: [
-      v => !!v || 'O mě je povinná',
-      v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
-    ],
 
-    // city: null,
     items: cities,
     id: '',
     dictionary: {
@@ -243,65 +216,16 @@ export default {
   }),
   computed: {
 
-    osvcStatus: function() {
-      if (this.formContent.osvc === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    profilVisible: function() {
-      if (this.formContent.hideProfil === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    webStatus: function() {
-      if (this.formContent.webVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    phoneStatus: function() {
-      if (this.formContent.phoneVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    facebookStatus: function() {
-      if (this.formContent.facebookVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    instagramStatus: function() {
-      if (this.formContent.instagramVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    skypeStatus: function() {
-      if (this.formContent.skypeVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    },
-    whatsappStatus: function() {
-      if (this.formContent.whatsappVisible === true) {
-        return "Ano"
-      } else {
-        return "Ne"
-      }
-    }
+
   },
   methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
-
+      stateToCzech: function(status) {//vraci ano nebo ne na zaklade true/false u viditelnosti
+        if (status === true) {
+          return "Ano"
+        } else {
+          return "Ne"
+        }
+      },
     setGoldBorder(img) { //vrati true, pokud bude obrazek profilovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
       if (img.profilPhoto === true) {
         return true
@@ -341,7 +265,6 @@ export default {
     delImg(id) {
       if (confirm('Určitě chcete smazat soubor?')) {
 
-        console.log("mazu")
         axios.delete('http://localhost:8081/img/' + id._id)
           .then((response) => {
             console.log(id);

@@ -9,7 +9,7 @@
           <v-col class="col-4">
 
             <div class="profilImg">
-              <img :src="getProfilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 100px;">
+              <img :src="getProfilePath" alt="profilPhoto" style="width: 150px; height: 150px; margin: auto; border-radius: 5px;">
             </div>
 
           </v-col>
@@ -58,7 +58,7 @@ import ProfilImg from '@/components/ProfilImg.vue'
 import Profil from '@/components/Profil.vue'
 import axios from 'axios'
 import ProfilColumn from '@/components/ProfilColumn.vue'
-import ProfilAboutMe from '@/components/ProfilAboutMe.vue'
+import ProfilAboutMe from '@/components/profil/ProfilAboutMe.vue'
 import ProfilGalery from '@/components/ProfilGalery.vue'
 import Score from '@/components/Score.vue'
 
