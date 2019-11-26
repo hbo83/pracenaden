@@ -120,7 +120,7 @@ export default {
       v => !!v || 'Titulek je povinný',
       v => (v && v.length >= 10) || 'O mě musí mít víc jak 10 znaků',
     ],
-    
+
     city: null,
     items: cities,
     id: '',

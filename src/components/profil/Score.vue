@@ -1,5 +1,5 @@
 <template>
-<v-col class="col-12">
+<div>
   <v-card class="">
     <v-row class="stars" justify="center">
       <v-col cols="4" class="">
@@ -15,7 +15,7 @@
       </v-col>
     </v-row>
   </v-card>
-</v-col>
+</div>
 </template>
 
 <script>
@@ -73,7 +73,7 @@ export default {
 
     axios.get('http://localhost:8081/goldstars/' + this.starProfil)//vrátí pocet hvezd
       .then((response) => {
-        
+
         this.goldStarsCount = response.data.length
 
         response.data.forEach((obj) => {//kontrola zda jiz aktualni user tento profil hodnotil

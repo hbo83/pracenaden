@@ -17,7 +17,7 @@ export default {
     props: {
       index: {
         type: Number,
-        required: true
+        required: false
       }
     },
   methods: {

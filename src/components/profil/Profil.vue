@@ -1,6 +1,6 @@
 <template>
 <v-card>
-  <v-row class="profilParent mx-0" @click="selectProfil">
+  <v-row class="profilParent mx-0" @click="selectProfil" :style="{ backgroundColor: selected }">
     <v-col class="col-4 pl-8 profil" no-gutters>
       <ProfilImg v-bind:index="this.index"></ProfilImg>
     </v-col>
@@ -47,13 +47,16 @@
 </template>
 
 <script>
-import ProfilImg from './ProfilImg.vue'
+import ProfilImg from '@/components/ProfilImg.vue'
 
 export default {
   name: 'Profil',
+  components: {
+    ProfilImg
+  },
   // zde rikam ze props ktere jsem obdrzel od parent komponenty se nazyvaji profilData, ocekavany typ je pole a jsou required
   props: {
-    profileDatas: {
+    profileDatas: {//predan current profil
       type: Object,
       required: false
     },
@@ -64,6 +67,7 @@ export default {
   },
   data() {
     return {
+      selected: "#e8f1ff",
       premium: true//pozdeji premiovy ucet bude nejak oznaceny
     }
   },
@@ -78,13 +82,17 @@ export default {
       //     email: this.profileDatas.email
       //   }
       // })
-      this.$router.push('/profildetail/' + this.index)
-      console.log(this.profileDatas.email)
+      // this.$router.push('/profildetail/' + this.index)
+      // console.log(this.profileDatas.email)
       this.storeProfilIndex(this.$props.index)
-
+      this.storeProfilEmail(this.$props.profileDatas.email)
+      console.log(this.$props.profileDatas.email)
     },
     storeProfilIndex: function(index) {
       this.$store.commit('set_currentProfilIndex', index)
+    },
+    storeProfilEmail: function(email) {
+      this.$store.commit('set_currentProfilEmail', email)
     },
     storeThisProfil: function(index) {
       this.$store.commit('setThisProfileWebVisible', index)
@@ -110,9 +118,7 @@ export default {
       return this.$store.state.allProfiles[this.index].category.toString('utf-8')
     },
   },
-  components: {
-    ProfilImg
-  }
+
 }
 </script>
 

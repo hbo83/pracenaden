@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/profil/Home.vue'
 import Login from '@/views/login/Login'
 import Signin from '@/views/signin/Signin'
-import ProfilDetail from '@/views/profil/ProfilDetail.vue'
+// import ProfilDetail from '@/views/profil/ProfilDetail.vue'
 import ProfilEdit from '@/views/profil/ProfilEdit.vue'
 import Info from '@/views/info/Info.vue'
 import Offers from '@/views/offer/Offers.vue'
@@ -22,11 +22,11 @@ export default new Router({
       name: 'home',
       component: Home
     },
-    {
-      path: '/profildetail/:index',//cesta v URL adrese
-      name: 'ProfilDetail',
-      component: ProfilDetail//nazev komponenty
-    },
+    // {
+    //   path: '/profildetail/:index',//cesta v URL adrese
+    //   name: 'ProfilDetail',
+    //   component: ProfilDetail//nazev komponenty
+    // },
     {
       path: '/login',
       name: 'Login',

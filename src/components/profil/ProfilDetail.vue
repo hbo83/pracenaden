@@ -1,17 +1,19 @@
 <template>
 <v-col class="col-12">
 <ProfilAboutMe />
+<ProfilColumn />
 </v-col>
 </template>
 
 <script>
 import axios from 'axios'
 import ProfilAboutMe from '@/components/profil/ProfilAboutMe.vue'
-
+import ProfilColumn from '@/components/profil/ProfilColumn.vue'
 export default {
   name: 'ProfilDetail',
   components: {
-    ProfilAboutMe
+    ProfilAboutMe,
+    ProfilColumn
   },
   data() {
     return {

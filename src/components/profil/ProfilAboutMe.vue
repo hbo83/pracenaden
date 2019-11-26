@@ -1,13 +1,9 @@
 <template>
-<v-col class="col-12">
-
   <v-card height="367px">
-    <v-card class="">
-      <v-card-title max-width="50%">Něco o mně:</v-card-title>
-    </v-card>
+      <v-card-title max-width="50%">{{get_currentAboutMe}}</v-card-title>
+    <hr />
     <v-card-text id="tr" style="text-align: left; color: green;"></v-card-text>
   </v-card>
-</v-col>
 </template>
 
 <script>
@@ -18,7 +14,7 @@ export default {
   data() {
     return {
       aboutMe: '',//aboutMe content
-      thisProfil: {},//thisProfile object
+      name: '',//vraci jmeno
       profilIndex: null, //index aktuálního profilu
     }
   },
@@ -26,24 +22,24 @@ export default {
 
   },
   computed: {
-
+    get_currentAboutMe() {//naplní aboutMe pri zmene vybraneho profilu
+      axios.get('http://localhost:8081/profiles/' + this.$store.state.currentProfilEmail)
+        .then((response) => {
+          this.aboutMe = response.data[0].aboutMe
+          this.name = response.data[0].name
+          document.getElementById("tr").innerHTML = this.aboutMe;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        return this.name
+    }
   },
   beforeMount() {
 
-    this.profilIndex = this.$store.state.currentProfilIndex //vezme ze store index aktuálního profilu
-
   },
   mounted() {
-    axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email) //vrátí aktuální profil
-      .then((response) => {
-        // console.log(response.data)
-        this.thisProfil = response.data[0]
-        this.aboutMe = response.data[0].aboutMe
-        document.getElementById("tr").innerHTML = this.aboutMe;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
   }
 }
 </script>

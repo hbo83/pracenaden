@@ -1,10 +1,10 @@
 <template>
-<v-col class="col-3 profil">
+<div>
   <v-card style="min-height: 560px;">
     <v-row class="" justify="center">
       <v-col cols="5" class="myColor">
         <v-icon normal>face</v-icon>
-        <span>E-mail:</span>
+        <span>E-mail:</span>{{get_currentProfilData}}
       </v-col>
       <v-col cols="6" class="myColor">
         <span> {{ getEmail }}</span>
@@ -106,7 +106,7 @@
     </v-row>
     <!-- </p> -->
   </v-card>
-</v-col>
+</div>
 </template>
 
 <script>
@@ -143,7 +143,15 @@ export default {
     }
   },
 computed: {
-
+  get_currentProfilData() {
+    axios.get('http://localhost:8081/profiles/' + this.$store.state.currentProfilEmail)
+      .then((response) => {
+        this.thisProfil = response.data[0]
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   // PROFIL
   getEmail() { //vraci email z objektu
     return this.thisProfil.email
@@ -212,14 +220,14 @@ beforeMount() {
 },
 mounted() {
   //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
-  axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
-    .then((response) => {
-      // console.log(response.data)
-      this.thisProfil = response.data[0]
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  // axios.get('http://localhost:8081/profiles/' + this.$store.state.allProfiles[this.profilIndex].email)//vrátí aktuální profil
+  //   .then((response) => {
+  //     // console.log(response.data)
+  //     this.thisProfil = response.data[0]
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 
 }
 }
