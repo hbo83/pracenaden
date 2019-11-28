@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
   strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
     allProfiles: [], //vsechny profily v DB
+    currentProfile: {},//aktualni profil
     allOffers: [], //vsechny offers v DB
     currentProfilIndex: null, //zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
     currrentProfilEmail: null,//zde se uloží email aktuálního objektu, který se má zobrazit v profilDetail
@@ -47,6 +48,9 @@ export const store = new Vuex.Store({
     },
     FETCH_OFFERS(state, offer) { //commit, ktery naplni serverData, pouzito v action fetchUser()
       state.allOffers = offer
+    },
+    set_currentProfile( state, currentProfile ) {
+      state.currentProfile = currentProfile
     },
     set_currentProfilIndex(state, offer) { //commit, který naplní currentProfil
       state.currentProfilIndex = offer

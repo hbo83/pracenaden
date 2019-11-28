@@ -86,7 +86,8 @@ export default {
       // console.log(this.profileDatas.email)
       this.storeProfilIndex(this.$props.index)
       this.storeProfilEmail(this.$props.profileDatas.email)
-      console.log(this.$props.profileDatas.email)
+      this.storeCurrentProfile(this.profileDatas)//storne aktualni profil
+      console.log(this.profileDatas)
     },
     storeProfilIndex: function(index) {
       this.$store.commit('set_currentProfilIndex', index)
@@ -96,6 +97,9 @@ export default {
     },
     storeThisProfil: function(index) {
       this.$store.commit('setThisProfileWebVisible', index)
+    },
+    storeCurrentProfile: function(currentProfile) {
+      this.$store.commit(  'set_currentProfile',  currentProfile)
     }
   },
   mounted() {
