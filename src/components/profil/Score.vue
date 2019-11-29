@@ -2,16 +2,12 @@
 <div>
   <v-card class="">
     <v-row class="stars" justify="center">
-      <v-col cols="4" class="">
+      <v-col cols="2" class="">
+        <slot></slot>
         <span>
             <v-icon class="star" @click="goldStarIncrement" color="yellow" large>{{get_star}}</v-icon>
           </span><span>{{get_goldStarsCount}}</span>
 
-      </v-col>
-      <v-col cols="4">
-        <span>
-          <v-icon class="star" color="pink" large>star</v-icon>
-        </span><span>10</span>
       </v-col>
     </v-row>
   </v-card>

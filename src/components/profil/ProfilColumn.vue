@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-card style="min-height: 560px;">
+  <!-- <v-card style="min-height: 560px;"> -->
     <v-row class="" justify="center">
       <v-col cols="5" class="myColor">
         <v-icon normal>face</v-icon>
@@ -105,7 +105,7 @@
       </v-col>
     </v-row>
     <!-- </p> -->
-  </v-card>
+  <!-- </v-card> -->
 </div>
 </template>
 

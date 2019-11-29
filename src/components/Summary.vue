@@ -11,10 +11,13 @@
       </v-col>
 
       <transition name="slide-x-transition">
-      <v-col cols="7" class="py-0" v-if="show">
-        <b>{{transitionAndName}}</b>
+      <v-col cols="7" class="py-0" v-if="show" style="font-size: x-large">
+        <Score>
+          <b>{{transitionAndName}}</b>
+        </Score>  
+
         <v-row>
-          <v-col cols="7" class="py-0">
+          <v-col cols="7" class="py-5">
               <ProfilAboutMe />
             <v-row>
               <v-col>
