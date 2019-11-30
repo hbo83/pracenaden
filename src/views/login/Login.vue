@@ -46,7 +46,7 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import Header from '@/components/global/Header.vue'
 import axios from 'axios';
 import VueAxios from 'vue-axios'
 

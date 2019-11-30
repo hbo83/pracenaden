@@ -5,22 +5,26 @@
       <ProfilImg v-bind:index="this.index"></ProfilImg>
     </v-col>
     <v-col class="col-8 pr-4 profil" no-gutters>
-      <p>
-        <span>
+      <!-- <p> -->
+        <!-- <span>
           <v-icon>face</v-icon>
         </span>
         <span>{{ getName }}</span>
         <span v-if="premium">
           <v-icon style="float: right" color="yellow">star</v-icon>
         </span>
-        <span v-if="premium" style="font-size: 22px; float: right;">10</span>
-      </p>
+        <span v-if="premium" style="font-size: 22px; float: right;">10</span> -->
+      <!-- </p> -->
 
       <p>
         <span>
           <v-icon>build</v-icon>
         </span>
         <span>{{ getJob }}</span>
+        <span v-if="premium">
+          <v-icon style="float: right" color="yellow">star</v-icon>
+        </span>
+        <span v-if="premium" style="font-size: 22px; float: right;">10</span>
       </p>
       <p>
         <span>

@@ -9,7 +9,7 @@
 
 <script>
 
-import Header from '@/components/Header.vue'
+import Header from '@/components/global/Header.vue'
 import InfoExpansion from '@/components/info/InfoExpansion.vue'
 import op from '@/data/op.json'
 
@@ -17,7 +17,7 @@ export default {
   name: 'home',
   data() {
     return {
-  
+
     }
   },
   components: {

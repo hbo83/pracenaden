@@ -18,8 +18,8 @@ componentWillUnmount() - tato metoda je vyvolana tesne pretim nez bude komponent
 <!-- nahraju prvni data do home a zbytek na pozadi do store -->
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
-import Filtering from '@/components/Filtering.vue'
+import Header from '@/components/global/Header.vue'
+import Filtering from '@/components/profil/ProfilFiltering.vue'
 import Summary from '@/components/Summary.vue'
 
 export default {

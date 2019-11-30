@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="overflow: hidden; height: auto; border: 1px solid black;">
   <div class="text-center">
     <v-dialog
       v-model="dialog"
@@ -12,11 +12,17 @@
       </v-card>
     </v-dialog>
   </div>
-  <v-row justify="start" max-width="1826px">
-    <v-col @click="showFullImg(imgIndex)" v-for="(image, imgIndex) in ownUserImages" v-bind:index="imgIndex" class="galleryImg col-2" style="max-width: 130px">
+  <v-row justify="start">
+    <!-- <v-col style="cursor: pointer;">
+      <v-icon color="yellow" large>keyboard_arrow_left</v-icon>
+    </v-col> -->
+    <v-col @click="showFullImg(imgIndex)" v-for="(image, imgIndex) in ownUserImages" v-bind:index="imgIndex" class="galleryImg col-2 px-0" style="max-width: 130px">
       <v-img :src="getImgSrc(imgIndex)" :lazy-src="getImgSrc(imgIndex)" aspect-ratio="1" class="grey lighten-2 profilImg">
       </v-img>
     </v-col>
+    <!-- <v-col style="cursor: pointer;">
+      <v-icon color="yellow" large>keyboard_arrow_right</v-icon>
+    </v-col> -->
   </v-row>
 
 </div>
@@ -74,6 +80,7 @@ export default {
 .profilImg {
    border: 5px solid grey;
    border-radius: 0px;
-   cursor: pointer
+   cursor: pointer;
+   /* margin: auto */
 }
 </style>

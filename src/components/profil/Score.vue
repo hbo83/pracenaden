@@ -1,16 +1,15 @@
 <template>
 <div>
-  <v-card class="">
-    <v-row class="stars" justify="center">
-      <v-col cols="2" class="">
+    <v-row class="stars" justify="space-between">
+      <v-col class="pl-8" cols="6">
         <slot></slot>
-        <span>
-            <v-icon class="star" @click="goldStarIncrement" color="yellow" large>{{get_star}}</v-icon>
-          </span><span>{{get_goldStarsCount}}</span>
-
+      </v-col>
+      <v-col cols="1">
+          <v-btn fab class="star" @click="goldStarIncrement" color="white" small ><v-icon color="yellow">{{get_star}}</v-icon></v-btn>
+      </v-col>
+      <v-col cols="5">
       </v-col>
     </v-row>
-  </v-card>
 </div>
 </template>
 

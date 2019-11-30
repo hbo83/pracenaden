@@ -11,7 +11,7 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import Header from '@/components/global/Header.vue'
 import OfferFiltering from '@/components/offer/OfferFiltering.vue'
 import SummaryOffers from '@/components/offer/SummaryOffers.vue'
 

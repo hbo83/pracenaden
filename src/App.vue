@@ -2,7 +2,7 @@
 <div id="app">
   <v-app><!--kdyz mam zde v-app tak nemusim kazdou komponentu tim obalovat a pisou ze nema byt na jedne strance vice v-app-->
     <v-content><!--When using vue-router it is recommended that you place your views inside v-content.-->
-      <v-container fluid>
+      <v-container fluid px-0 py-0>
         <router-view />
       </v-container>
     </v-content>

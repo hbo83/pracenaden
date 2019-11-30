@@ -72,7 +72,7 @@
       </v-col>
     </v-row>
     <v-row justify="center" class="" v-if="getInstagramVisible">
-      <v-col cols="5" class="pmyColor">
+      <v-col cols="5" class="myColor">
         <v-icon large>portrait</v-icon>
         <span>Instagram:</span>
       </v-col>
@@ -250,5 +250,8 @@ span {
 }
 .item + .item:before {/*oddeli category z pole od sebe jako string*/
   content: ", ";
+}
+.myColor {
+  padding: 0;
 }
 </style>

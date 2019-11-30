@@ -67,7 +67,6 @@ export default new Router({
       name: 'OfferEditForm',
       component: OfferEditForm
     },
-    ,
     {
       path: '/offernewitem',
       name: 'OfferNewItem',

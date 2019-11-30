@@ -12,7 +12,7 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
+import Header from '@/components/global/Header.vue'
 import NavBar from '@/components/NavBar.vue'
 import OfferForm from '@/components/offer/OfferForm.vue'
 

@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-toolbar :style="{ backgroundColor: color }">
-      <v-toolbar-title><h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- online katalog služeb</span></h1></v-toolbar-title>
+      <v-toolbar-title><h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- nabídka a poptávka služeb</span></h1></v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
         <v-btn v-if="offerBtnState" :color="pinky" text to="/offers">Poptávka</v-btn>
-        <v-btn v-if="profilBtnState" :color="sky" text to="/">Profil</v-btn>
+        <v-btn v-if="profilBtnState" :color="sky" text to="/">Nabídka</v-btn>
         <v-btn v-if="editProfilBtnState" icon @click="toProfilDetail">
           <v-icon>edit</v-icon>
         </v-btn>

@@ -1,6 +1,10 @@
 <template>
-<v-container class="filter" fluid>
-  <v-row align="center">
+<!-- <v-container class="filter" fluid> -->
+<div style="width: 63%; margin: auto">
+  <v-row align="center" style="height: 73px;" justify="center">
+    <v-col cols="4">
+      Nalezeno: {{dataCount}} položek
+    </v-col>
       <v-col class="d-flex" cols="3">
         <v-select
           v-model="job"
@@ -9,7 +13,7 @@
           solo
           prepend-icon="build"
           v-on:change="setJob"
-
+          dense
         ></v-select>
       </v-col>
 
@@ -21,16 +25,13 @@
           solo
           prepend-icon="map"
           v-on:change="setCity"
-
+          dense
         ></v-select>
       </v-col>
 
-    <v-col class="mt-n8" cols="1">
-      <v-btn fab @click="changeAllProfiles( { hideProfil: false} )" color="primary" small ><v-icon>autorenew</v-icon></v-btn>
-    </v-col>
-
     </v-row>
-  </v-container>
+  <!-- </v-container> -->
+  </div>
 </template>
 
 <script>
@@ -44,21 +45,25 @@ export default {
       job: 'Vše',//selected job from job filter
       city: 'Vše',//selected city from city filter
       jobItems: categories,//items for job selectBox
-      cityItems: cities//items city job selectBox
+      cityItems: cities,//items city job selectBox
+      dataCount: null//vrati pocet nalezenych objektu po filtraci
     }
   },
   methods: {
     setJob( job ) {//nastavi filter job ve store
       this.$store.commit('setJobFilter', job )
+      this.changeAllProfiles()
     },
     setCity( city ) {//nastavi filter city ve store
       this.$store.commit('setCityFilter', city )
+      this.changeAllProfiles()
     },
     changeAllProfiles ( data ) {//zmeni allProfilies a tim se znovu vykersli Summary
 
       axios.get('http://localhost:8081/profilesFiltered?city=' + this.city + '&job=' + this.job)//vrátí aktuální profil
         .then((response) => {
           this.$store.commit('setAllProfiles', response.data)
+          this.dataCount = response.data.length
         })
         .catch((error) => {
           console.log(error);
@@ -67,7 +72,7 @@ export default {
 
   },
   mounted() {
-
+    this.changeAllProfiles()//naplní nalezeno položek
   }
 }
 </script>

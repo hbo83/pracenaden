@@ -1,5 +1,6 @@
 <template>
 <div class="summary">
+  <hr />
   <v-container fluid>
     <v-row>
       <v-col cols="4" style="overflow: scroll; height: 800px;overflow-x: hidden;">
@@ -11,38 +12,33 @@
       </v-col>
 
       <transition name="slide-x-transition">
-      <v-col cols="7" class="py-0" v-if="show" style="font-size: x-large">
+      <v-col cols="8" class="py-0" v-if="show" style="font-size: x-large">
         <Score>
-          <b>{{transitionAndName}}</b>
-        </Score>  
+          {{transitionAndName}}
+        </Score>
 
         <v-row>
-          <v-col cols="7" class="py-5">
+          <v-col cols="5" class="py-5">
               <ProfilAboutMe />
             <v-row>
               <v-col>
-                <Score />
+
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="5" class="py-0">
+          <v-col cols="4" class="py-4">
             <ProfilColumn />
           </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
+          <v-col cols="2">
             <ProfilGalery />
           </v-col>
         </v-row>
+
+
       </v-col>
     </transition>
     </v-row>
   </v-container>
-
-
-
-
 </div>
 </template>
 
@@ -97,9 +93,10 @@ export default {
 
 <style scoped>
 .summary {
-  width: 100%;
+  width: 63%;
   height: auto;
-  padding: 0 10px 0 45px;
+  /* padding: 0 10px 0 45px; */
+  margin: auto
 }
 
 .fade-enter-active,
