@@ -120,7 +120,7 @@
     <v-row>
       <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-4">
 
-        <v-img style="cursor: pointer" :src="imgs[index]" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
+        <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
           <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn>
           <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
@@ -231,7 +231,7 @@ export default {
         return true
       }
     },
-    setAsProfilPhoto(id) { //nastavi jako profilovou
+    setAsProfilPhoto(img) { //nastavi jako profilovou
 
       axios.put('http://localhost:8081/imgFalse/' + this.formContent.email, {//nastavi vsechny fotky na profilPhoto: false
 
@@ -243,7 +243,7 @@ export default {
           console.log(error);
         });
       //tadyto jeste poupravit do callbacku
-      axios.put('http://localhost:8081/img/' + id.formContent._id, {//nastavi aktualni fotku na profilPhoto: true
+      axios.put('http://localhost:8081/img/' + img._id, {//nastavi aktualni fotku na profilPhoto: true
           profilPhoto: true
         })
         .then((response) => {
@@ -262,12 +262,12 @@ export default {
       }
     },
 
-    delImg(id) {
+    delImg(img) {
       if (confirm('Určitě chcete smazat soubor?')) {
-
-        axios.delete('http://localhost:8081/img/' + id._id)
+         console.log(img)
+        axios.delete('http://localhost:8081/img/' + img._id)
           .then((response) => {
-            console.log(id);
+            console.log(img);
           })
           .catch((error) => {
             console.log(error);
@@ -314,15 +314,11 @@ export default {
 
     axios.get('http://localhost:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
       .then((response) => {
+        this.imgs = response.data
+        // this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
+        //   return value.pathToResizedImg
+        // })
 
-        console.log(response.data);
-        this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
-          return value
-        })
-        // for (var i in response.data) {
-        //   this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
-        // }
-        console.log(this.imgs)
       })
       .catch((error) => {
         console.log(error);

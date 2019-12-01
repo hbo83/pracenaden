@@ -28,14 +28,15 @@ export default {
   },
   computed: {
     getProfilePath() {
-
+console.log(this.$store.state.allProfiles[this.index].email)
       //najde vsechny obrázky, s timto emailem
       axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.index].email)
 
         .then((response) => {
           response.data.map( img => {//vrati imgs z profilu a vytvori path k profilovy fotcce
             if ( img.profilPhoto ) {
-              this.profilePath = 'http://localhost:8081/uploads/' + img.productImage
+              this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.index].email + "/profil/resized/" + img.productImage
+              console.log(this.profilPhoto)
             }
           })
         })

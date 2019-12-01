@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import ProfilImg from '@/components/ProfilImg.vue'
+import ProfilImg from '@/components/profil/ProfilImg.vue'
 
 export default {
   name: 'Profil',

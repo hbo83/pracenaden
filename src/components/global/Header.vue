@@ -109,7 +109,7 @@ components: {
     logOut() { //logout
       let userLoged = this.$store.state.userLoged
       this.$store.commit('setLogout', null)
-      console.log(this.$store.state.userLoged)
+      // console.log(this.$store.state.userLoged)
       if (userLoged) {
         var txt;
         if (confirm("Opravdu se chcete odhlásit?")) {
@@ -124,12 +124,9 @@ components: {
     }
   },
   beforeMount() {
-  console.log(this.profilBtnState)
-  console.log(this.color)
+
   },
   mounted() {
-    // this.currentSiteProfil = this.$store.state.currentSiteProfil
-    // this.currentSwitchState = this.$store.state.currentSwitchState
 
   },
   updated() {

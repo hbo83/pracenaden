@@ -285,13 +285,13 @@ app.get('/profilesedit/:_id', function(req, res) {//naplní profilEdit
 
 //FILES
 app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu z profils
-  console.log(req.params.email)
+  // console.log(req.params.email)
   File.find({
     email: req.params.email
   }).exec(function(err, img) {
-    img = img.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
-      return value.pathToResizedImg
-    })
+    // img = img.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
+    //   return value.pathToResizedImg
+    // })
     if (err) {
       res.send('error has occured');
     } else {
@@ -335,7 +335,7 @@ let uploadProfil = multer({//profilový multer, který predavame jako parametr u
 });
 
 app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //upload fotky profil
-  console.log(req.body.profilPhoto.length);
+  // console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
@@ -362,7 +362,7 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
       return img
         .resize(256, 256) // resize
         .quality(60) // set JPEG quality
-        .greyscale() // set greyscale
+        // .greyscale() // set greyscale
         .write('uploads/' + req.body.email + "/profil/resized/" + req.file.originalname); // save
     })
     .catch(err => {
@@ -431,6 +431,7 @@ app.put('/img/:id', function(req, res) { //oznaci fotku jako profilovou
 });
 
 app.delete('/img/:id', function(req, res) { //smaze fotku
+  console.log(req.params.id)
   File.findOneAndRemove({
     _id: req.params.id
   }, function(err, file) {

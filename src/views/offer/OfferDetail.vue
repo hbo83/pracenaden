@@ -45,7 +45,7 @@
 <script>
 import Header from '@/components/global/Header.vue'
 import NavBar from '@/components/NavBar.vue'
-import ProfilImg from '@/components/ProfilImg.vue'
+// import ProfilImg from '@/components/ProfilImg.vue'
 // import Profil from '@/components/Profil.vue'
 import axios from 'axios'
 import OfferColumn from '@/components/offer/OfferColumn.vue'
@@ -59,7 +59,7 @@ export default {
   components: {
     Header,
     NavBar,
-    ProfilImg,
+    // ProfilImg,
     OfferColumn,
     AboutOffer,
     OfferGalery,
