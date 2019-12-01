@@ -253,9 +253,9 @@ export default {
           console.log(error);
         });
     },
-    getImgSrc: function(i) { //vrati cestu k obrazku
-      return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
-    },
+    // getImgSrc: function(i) { //vrati cestu k obrazku
+    //   return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
+    // },
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true
@@ -285,8 +285,8 @@ export default {
       this.selectedFile = event.target.files[0]
       const fd = new FormData();
       fd.append('profilPhoto', false);
-      fd.append('email', this.formContent.email);
-      fd.append('_id', this.formContent.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('email', this.formContent.email);//pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      // fd.append('_id', this.formContent.id);
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
       axios.post('http://localhost:8081/img', fd, {
           onUploadProgress: uploadEvent => {
@@ -317,12 +317,12 @@ export default {
 
         console.log(response.data);
         this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
-          return "http://localhost:8081/uploads/" + value
+          return value
         })
         // for (var i in response.data) {
         //   this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
         // }
-        console.log(this.imgs2)
+        console.log(this.imgs)
       })
       .catch((error) => {
         console.log(error);

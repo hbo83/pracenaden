@@ -290,7 +290,7 @@ app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
     email: req.params.email
   }).exec(function(err, img) {
     img = img.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
-      return value.productImage
+      return value.pathToResizedImg
     })
     if (err) {
       res.send('error has occured');
@@ -320,11 +320,12 @@ let uploadProfil = multer({//profilový multer, který predavame jako parametr u
       let folder = req.body.email;
 
       console.log(req.body);
-      let path = `./uploads/${folder}/profil`;
+      let path = `./uploads/${folder}/profil/original`;
       fse.mkdirsSync(path);
+      callback(null, path);
       let pathToResized = `./uploads/${folder}/profil/resized/`;
       fse.mkdirsSync(pathToResized);
-      callback(null, path);
+      callback(null, pathToResized);
     },
     filename: (req, file, callback) => {
       //originalname is the uploaded file's name with extn
@@ -334,15 +335,15 @@ let uploadProfil = multer({//profilový multer, který predavame jako parametr u
 });
 
 app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //upload fotky profil
-  // console.log(req.body.profilPhoto.length);
+  console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
     email: req.body.email,
     profilPhoto: req.body.profilPhoto,
     modified: new Date().toISOString(),
-    productImage: req.body.email + "/" + req.file.originalname
-    // req.file.path
+    productImage: req.body.email + "/original/" + req.file.originalname,
+    pathToResizedImg: "http://localhost:8081/uploads/" + req.body.email + "/profil/resized/" + req.file.originalname
   });
   file.save()
     .then(result => {
@@ -356,7 +357,7 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
       });
     });
 
-  Jimp.read('uploads/' + req.body.email + "/" + req.file.originalname)
+  Jimp.read('uploads/' + req.body.email + "/profil/original/" + req.file.originalname)
     .then(img => {
       return img
         .resize(256, 256) // resize
