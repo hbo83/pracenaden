@@ -118,9 +118,9 @@
     </v-row>
     <hr />
     <v-row>
-      <v-col v-for="(image, index) in imgs2" v-bind:index="index" class="col-4">
+      <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-4">
 
-        <v-img style="cursor: pointer" :src="imgs2[index]" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
+        <v-img style="cursor: pointer" :src="imgs[index]" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
           <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn>
           <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
@@ -182,7 +182,7 @@ export default {
     },
 
     imgs: [], //pole objektů
-    imgs2: [], //pole paths obrazků
+    // imgs2: [], //pole paths obrazků
     valid: false,
     osvc: false,
     rules: [
@@ -233,7 +233,7 @@ export default {
     },
     setAsProfilPhoto(id) { //nastavi jako profilovou
 
-      axios.put('http://localhost:8081/imgFalse/' + this.email, {//nastavi vsechny fotky na profilPhoto: false
+      axios.put('http://localhost:8081/imgFalse/' + this.formContent.email, {//nastavi vsechny fotky na profilPhoto: false
 
         })
         .then((response) => {
@@ -243,7 +243,7 @@ export default {
           console.log(error);
         });
       //tadyto jeste poupravit do callbacku
-      axios.put('http://localhost:8081/img/' + id._id, {//nastavi aktualni fotku na profilPhoto: true
+      axios.put('http://localhost:8081/img/' + id.formContent._id, {//nastavi aktualni fotku na profilPhoto: true
           profilPhoto: true
         })
         .then((response) => {
@@ -281,11 +281,12 @@ export default {
     },
 
     uploadGaleryPhoto() {
+      console.log(this.formContent.email)
       this.selectedFile = event.target.files[0]
       const fd = new FormData();
       fd.append('profilPhoto', false);
-      fd.append('email', this.email);
-      fd.append('_id', this.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('email', this.formContent.email);
+      fd.append('_id', this.formContent.id); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
       axios.post('http://localhost:8081/img', fd, {
           onUploadProgress: uploadEvent => {
@@ -308,20 +309,19 @@ export default {
     }
   },
   mounted() {
-    // console.log("ProfilEdit mounted");
-    // this.userGlobal = localStorage.getItem("userLoged");
-    // this.formContent.id = this.$store.state.userLogedId
+
     this.formContent.email = this.$store.state.userLoged
-    console.log(this.formContent.id);
 
-    axios.get('http://localhost:8081/img/' + this.email) //naplni imgs[] objektama fotek
+    axios.get('http://localhost:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
       .then((response) => {
-        this.imgs = response.data;
-        console.log(response.data);
-        for (var i in response.data) {
-          this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
 
-        }
+        console.log(response.data);
+        this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
+          return "http://localhost:8081/uploads/" + value
+        })
+        // for (var i in response.data) {
+        //   this.imgs2.push("http://localhost:8081/uploads/" + response.data[i].productImage)
+        // }
         console.log(this.imgs2)
       })
       .catch((error) => {

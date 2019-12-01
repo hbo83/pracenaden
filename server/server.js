@@ -18,6 +18,10 @@ const GoldStar = require('./models/GoldStar.model');
 const Offer = require('./models/Offer.model');
 const OfferFile = require('./models/OfferFile.model');
 
+const Jimp = require('jimp');//img resizer
+
+
+
 var stars = require("./routes/stars.js")(app, GoldStar);//asi jedna z moznosti, u stars to funguje
 
 // var users = require("./routes/users");
@@ -33,7 +37,8 @@ app.use('/test2', test2)
 mongoose.set('useFindAndModify', false);
 // ---mongoose---!!! nevim jestli byt porad pripojeden k DB nebo pri kazdym dotazu se pripojit zvlast
 mongoose.connect('mongodb://localhost:27017/naden', {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 var db = mongoose.connection;
@@ -58,22 +63,7 @@ db.once('open', function() { //test spojeni s DB
 //   }
 // })
 
-let uploadProfil = multer({//profilový multer, který predavame jako parametr u upload POST
-  storage: multer.diskStorage({
-    destination: (req, file, callback) => {
-      let folder = req.body.email;
 
-      console.log(req.body);
-      let path = `./uploads/${folder}/profil`;
-      fse.mkdirsSync(path);
-      callback(null, path);
-    },
-    filename: (req, file, callback) => {
-      //originalname is the uploaded file's name with extn
-      callback(null, file.originalname);
-    }
-  })
-});
 
 let uploadOffer = multer({//offer multer, který predavame jako parametr u upload POST
   storage: multer.diskStorage({
@@ -324,6 +314,25 @@ app.get('/imgoffer', function(req, res) { //vrati fotky vazane k danemu emailu z
   })
 })
 
+let uploadProfil = multer({//profilový multer, který predavame jako parametr u upload POST
+  storage: multer.diskStorage({
+    destination: (req, file, callback) => {
+      let folder = req.body.email;
+
+      console.log(req.body);
+      let path = `./uploads/${folder}/profil`;
+      fse.mkdirsSync(path);
+      let pathToResized = `./uploads/${folder}/profil/resized/`;
+      fse.mkdirsSync(pathToResized);
+      callback(null, path);
+    },
+    filename: (req, file, callback) => {
+      //originalname is the uploaded file's name with extn
+      callback(null, file.originalname);
+    }
+  })
+});
+
 app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //upload fotky profil
   // console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
@@ -345,6 +354,18 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
           modified: result.modified
         }
       });
+    });
+
+  Jimp.read('uploads/' + req.body.email + "/" + req.file.originalname)
+    .then(img => {
+      return img
+        .resize(256, 256) // resize
+        .quality(60) // set JPEG quality
+        .greyscale() // set greyscale
+        .write('uploads/' + req.body.email + "/profil/resized/" + req.file.originalname); // save
+    })
+    .catch(err => {
+      console.error(err);
     });
 })
 
