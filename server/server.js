@@ -299,6 +299,9 @@ app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
   File.find({
     email: req.params.email
   }).exec(function(err, img) {
+    img = img.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
+      return value.productImage
+    })
     if (err) {
       res.send('error has occured');
     } else {

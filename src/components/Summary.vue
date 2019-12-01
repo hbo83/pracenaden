@@ -18,7 +18,7 @@
         </Score>
 
         <v-row>
-          <v-col cols="5" class="py-5">
+          <v-col cols="6" class="py-5">
               <ProfilAboutMe />
             <v-row>
               <v-col>
@@ -26,14 +26,15 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="4" class="py-4">
+          <v-col cols="6" class="py-4">
             <ProfilColumn />
           </v-col>
-          <v-col cols="2">
-            <ProfilGalery />
-          </v-col>
         </v-row>
-
+<v-row>
+  <!-- <v-col cols="12"> -->
+    <Carousel />
+  <!-- </v-col> -->
+</v-row>
 
       </v-col>
     </transition>
@@ -48,7 +49,8 @@ import axios from 'axios';
 import Score from '@/components/profil/Score.vue'
 import ProfilAboutMe from '@/components/profil/ProfilAboutMe.vue'
 import ProfilColumn from '@/components/profil/ProfilColumn.vue'
-import ProfilGalery from '@/components/profil/ProfilGalery.vue'
+// import ProfilGalery from '@/components/profil/ProfilGalery.vue'
+import Carousel from '@/components/profil/Carousel.vue'
 export default {
   name: 'Summary',
   components: {
@@ -56,7 +58,8 @@ export default {
     ProfilAboutMe,
     ProfilColumn,
     Score,
-    ProfilGalery
+    // ProfilGalery,
+    Carousel
 
   },
   data() {
