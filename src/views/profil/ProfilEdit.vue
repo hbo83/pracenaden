@@ -136,6 +136,7 @@
 
 <script>
 // @ is an alias to /src
+// this.forceUpdate();
 import Header from '@/components/global/Header.vue'
 import NavBar from '@/components/NavBar.vue'
 import axios from 'axios'
@@ -219,6 +220,41 @@ export default {
 
   },
   methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
+    methodUpdate() {
+      console.log("forcuju")
+      this.$forceUpdate();
+    },
+    getImgs() {
+      this.formContent.email = this.$store.state.userLoged
+
+      axios.get('http://localhost:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
+        .then((response) => {
+          this.imgs = response.data
+          // this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
+          //   return value.pathToResizedImg
+          // })
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+      if (this.formContent.id !== null) {
+
+        axios.get('http://localhost:8081/profilesedit/' + this.$store.state.userLogedId)
+          .then((response) => {
+            //osetrit vyjimku kdyz jeste nema profil vyplnenej
+            this.formContent = response.data[0]
+
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        console.log("nobody logged")
+      }
+    },
       stateToCzech: function(status) {//vraci ano nebo ne na zaklade true/false u viditelnosti
         if (status === true) {
           return "Ano"
@@ -278,6 +314,8 @@ export default {
       // this.$router.push({
       //   name: 'ProfilEdit'
       // })
+      this.methodUpdate()
+      this.imgs = this.imgs.filter( item => item !== img)//zmensi pole o ten prvek ktery jsem samaz, tim padem se prekresli komponenta
     },
 
     uploadGaleryPhoto() {
@@ -296,6 +334,8 @@ export default {
         .then(res => {
           console.log(res);
           alert('Soubor byl nahrán')
+          this.methodUpdate()
+          // this.imgs = res
         })
     },
     onFileSelected(event) {
@@ -309,36 +349,8 @@ export default {
     }
   },
   mounted() {
+  this.getImgs()
 
-    this.formContent.email = this.$store.state.userLoged
-
-    axios.get('http://localhost:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
-      .then((response) => {
-        this.imgs = response.data
-        // this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
-        //   return value.pathToResizedImg
-        // })
-
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-
-    if (this.formContent.id !== null) {
-
-      axios.get('http://localhost:8081/profilesedit/' + this.$store.state.userLogedId)
-        .then((response) => {
-          //osetrit vyjimku kdyz jeste nema profil vyplnenej
-          this.formContent = response.data[0]
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      console.log("nobody logged")
-    }
 
   },
 

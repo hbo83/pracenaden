@@ -11,7 +11,11 @@ const FileSchema = mongoose.Schema({
   modified: {
     type: String
   },
-  productImage: {
+  originalImg: {
+    type: String,
+    required: true
+  },
+  resizedImg: {
     type: String,
     required: true
   },

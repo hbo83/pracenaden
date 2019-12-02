@@ -342,7 +342,8 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
     email: req.body.email,
     profilPhoto: req.body.profilPhoto,
     modified: new Date().toISOString(),
-    productImage: req.body.email + "/original/" + req.file.originalname,
+    originalImg: req.body.email + "/profil/original/" + req.file.originalname,//relativni cesta k original img
+    resizedImg: req.body.email + "/profil/resized/" + req.file.originalname,//relativni cesta k resized img
     pathToResizedImg: "http://localhost:8081/uploads/" + req.body.email + "/profil/resized/" + req.file.originalname
   });
   file.save()
@@ -432,6 +433,7 @@ app.put('/img/:id', function(req, res) { //oznaci fotku jako profilovou
 
 app.delete('/img/:id', function(req, res) { //smaze fotku
   console.log(req.params.id)
+
   File.findOneAndRemove({
     _id: req.params.id
   }, function(err, file) {
@@ -439,15 +441,18 @@ app.delete('/img/:id', function(req, res) { //smaze fotku
       console.log(err);
     } else {
       console.log('/img' + file);
-      res.send(file);
+      fs.unlink('uploads/' + file.originalImg, function (err) {//smaze original
+        if (err) throw err;
+        console.log('File deleted!');
+      });
+      fs.unlink('uploads/' + file.resizedImg, function (err) {//smaze resized
+        if (err) throw err;
+        console.log('File deleted!');
+      });
+      // res.send("posilam fileL" + file);
     }
   })
-  //dodelat smazani souboru pri vymazu img z DB
-  // fs.unlink('uploads/sample.txt', function (err) {
-  //   if (err) throw err;
-  //   // if no error, file has been deleted successfully
-  //   console.log('File deleted!');
-  // });
+
 })
 
 //STARS

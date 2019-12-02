@@ -1,6 +1,6 @@
 <template>
 <div class="profilImg">
-        <img :src="getProfilePath" alt="profilPhoto" style="height: 100px;width: 100px; border-radius: 5px; margin: auto">
+  <img :src="getProfilePath" alt="profilPhoto" style="height: 100px;width: 100px; border-radius: 5px; margin: auto">
 </div>
 </template>
 
@@ -10,32 +10,27 @@ export default {
   name: 'ProfilImg',
   data() {
     return {
-      profilIndex: null,
-      profilePath: null
+      profilePath: 'http://localhost:8081/uploads/no-photo.png' //cesta k profilove fotce, kdyz neexistuje zdroj obrazku, zobrazi se defaultni img
     }
   },
-    props: {
-      index: {
-        type: Number,
-        required: false
-      }
-    },
+  props: {
+    index: {
+      type: Number,
+      required: false
+    }
+  },
   methods: {
-    //kdyz neexistuje zdroj obrazku, zobrazi se defaultni img
-    // onError () {
-    //   this.msg = 'http://localhost:8081/uploads/no-photo.png'
-    // }
+
   },
   computed: {
-    getProfilePath() {
-console.log(this.$store.state.allProfiles[this.index].email)
-      //najde vsechny obrázky, s timto emailem
-      axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.index].email)
+    getProfilePath() { //najde zaznam file na zaklade mailu profilu a profilPhoto = true
+      // console.log(this.$store.state.allProfiles[this.index].email)
 
+      axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.index].email)
         .then((response) => {
-          response.data.map( img => {//vrati imgs z profilu a vytvori path k profilovy fotcce
-            if ( img.profilPhoto ) {
-              this.profilePath = 'http://localhost:8081/uploads/' + this.$store.state.allProfiles[this.index].email + "/profil/resized/" + img.productImage
+          response.data.map(img => { //vrati imgs z profilu a vytvori path k profilovy fotcce
+            if (img.profilPhoto) {
+              this.profilePath = img.pathToResizedImg
               console.log(this.profilPhoto)
             }
           })
@@ -43,13 +38,11 @@ console.log(this.$store.state.allProfiles[this.index].email)
         .catch((error) => {
           console.log(error);
         });
-
       return this.profilePath
     }
   },
   beforeMount() {
-      this.profilIndex = this.$store.state.currentProfilIndex
-      // console.log(this.index)
+
   },
   mounted() {
 
