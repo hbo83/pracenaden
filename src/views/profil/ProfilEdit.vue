@@ -2,129 +2,105 @@
 <div>
   <Header color="#90e4f1"></Header>
   <NavBar path="" />
-  <v-container style="width: 30%">
+  <v-container style="width: 80%">
     <h3>Zde prosím vyplňte informace o Vás</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
-      <v-col>
-        <v-text-field v-model="formContent.firstName" label="Jméno" :rules="rules" required></v-text-field>
-        <v-text-field v-model="formContent.lastName" label="Příjmení" :rules="rules" required></v-text-field>
-        <v-text-field v-model="formContent.job" label="Obor" :rules="rules" required></v-text-field>
-        <v-row>
-          <v-col>
-            <v-text-field v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
-          </v-col>
-          <v-col>
-            <v-select v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
-          </v-col>
-        </v-row>
-        <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
-        <v-row align="center">
-          <v-col cols="12" sm="12">
-            <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" md="6">
-            <h4>O mě</h4>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="12">
-            <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
-            <VueTrix v-model="formContent.aboutMe" />
-            <!-- <div class="trix-content">{{aboutMe}}</div> -->
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-col>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="formContent.web" label="Webové stránky" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.webVisible)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="formContent.phone" label="Telefoní číslo" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.phoneVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.phoneVisible)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="formContent.facebook" label="Facebook" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.facebookVisible)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="formContent.instagram" label="Instagram" required></v-text-field>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.instagramVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.instagramVisible)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="formContent.skype" label="Skype" required></v-text-field>
-          </v-col>
-          <v-col>
-            <v-switch v-model="formContent.skypeVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.skypeVisible)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-text-field v-model="formContent.whatsapp" label="WhatsApp" required></v-text-field>
-          </v-col>
-          <v-col>
-            <v-switch v-model="formContent.whatsappVisible" class="ma-4" :label="`Zobrazit: ${stateToCzech(formContent.whatsappVisible)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="6" sm="6">
-            <v-switch v-model="formContent.osvc" class="ma-4" :label="`OSVČ: ${stateToCzech(formContent.osvc)}`"></v-switch>
-          </v-col>
-          <v-col cols="6" sm="6">
-            <!-- <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox> -->
-            <v-switch v-model="formContent.hideProfil" class="ma-4" :label="`Skrýt profil: ${stateToCzech(formContent.hideProfil)}`"></v-switch>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="3">
-            <v-btn color="success" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
-          </v-col>
-        </v-row>
+      <v-row>
 
-      </v-col>
+        <v-col cols="6" class="py-0" style="border: 1px solid pink">
+          <v-row style="border: 1px solid pink">
+            <v-col>
+              <v-text-field v-model="formContent.firstName" label="Jméno" :rules="rules" required></v-text-field>
+              <v-text-field v-model="formContent.lastName" label="Příjmení" :rules="rules" required></v-text-field>
+              <v-text-field v-model="formContent.job" label="Obor" :rules="rules" required></v-text-field>
+            </v-col>
+          </v-row>
+
+          <v-row class="mt-11">
+            <v-col>
+              <v-text-field v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
+            </v-col>
+            <v-col>
+              <v-select v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
+            </v-col>
+          </v-row>
+          <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
+          <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+
+          <v-row>
+            <v-col cols="6" md="6">
+              <h4>O mě</h4>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" md="12">
+              <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
+              <VueTrix v-model="formContent.aboutMe" />
+              <!-- <div class="trix-content">{{aboutMe}}</div> -->
+            </v-col>
+          </v-row>
+        </v-col>
+
+        <v-col cols="6" style="border: 1px solid pink">
+          <v-row>
+            <v-col cols="6" class="my-0 py-0">
+              <v-text-field v-model="formContent.web" label="Webové stránky" required></v-text-field>
+              <v-text-field v-model="formContent.phone" label="Telefoní číslo" required></v-text-field>
+              <v-text-field v-model="formContent.facebook" label="Facebook" required></v-text-field>
+              <v-text-field v-model="formContent.instagram" label="Instagram" required></v-text-field>
+              <v-text-field v-model="formContent.skype" label="Skype" required></v-text-field>
+              <v-text-field v-model="formContent.whatsapp" label="WhatsApp" required></v-text-field>
+            </v-col>
+            <v-col cols="6" class="my-0 py-0" sm="6" style="border: 1px solid pink">
+              <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit WWW: ${stateToCzech(formContent.webVisible)}`"></v-switch>
+              <v-switch v-model="formContent.phoneVisible" class="ma-4" :label="`Zobrazit telefon: ${stateToCzech(formContent.phoneVisible)}`"></v-switch>
+              <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit Facebook: ${stateToCzech(formContent.facebookVisible)}`"></v-switch>
+              <v-switch v-model="formContent.instagramVisible" class="ma-4" :label="`Zobrazit Instagram: ${stateToCzech(formContent.instagramVisible)}`"></v-switch>
+              <v-switch v-model="formContent.skypeVisible" class="ma-4" :label="`Zobrazit Skype: ${stateToCzech(formContent.skypeVisible)}`"></v-switch>
+              <v-switch v-model="formContent.whatsappVisible" class="ma-4" :label="`Zobrazit Whatsapp: ${stateToCzech(formContent.whatsappVisible)}`"></v-switch>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="6" class="my-0 py-0" sm="6">
+              <v-switch v-model="formContent.osvc" class="ma-4" :label="`OSVČ: ${stateToCzech(formContent.osvc)}`"></v-switch>
+            </v-col>
+            <v-col cols="6" class="my-0 py-0" sm="6">
+              <!-- <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox> -->
+              <v-switch v-model="formContent.hideProfil" class="ma-4" :label="`Skrýt profil: ${stateToCzech(formContent.hideProfil)}`"></v-switch>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-col cols="3">
+              <v-btn color="success" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
+            </v-col>
+          </v-row>
+
+        </v-col>
+      </v-row>
     </v-form>
     <br /><br />
     <v-row>
-      <v-col>
-        <h3>Vaše Galerie</h3>
-      </v-col>
-      <v-col>
 
-        <upload-btn title="Nahrát fotku" @file-update="uploadGaleryPhoto">
-          <template slot="icon">
-            <v-icon>add</v-icon>
-          </template>
-        </upload-btn>
-      </v-col>
+      
     </v-row>
     <hr />
     <v-row>
-      <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-4">
+      <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-1">
 
         <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
           <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn>
           <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
         </v-card>
+      </v-col>
+      <v-col>
+
+        <upload-btn noTitleUpdate title="Nahrát fotku" @file-update="uploadGaleryPhoto">
+          <template slot="icon">
+            <v-icon>add</v-icon>
+          </template>
+        </upload-btn>
       </v-col>
     </v-row>
 
@@ -255,13 +231,13 @@ export default {
         console.log("nobody logged")
       }
     },
-      stateToCzech: function(status) {//vraci ano nebo ne na zaklade true/false u viditelnosti
-        if (status === true) {
-          return "Ano"
-        } else {
-          return "Ne"
-        }
-      },
+    stateToCzech: function(status) { //vraci ano nebo ne na zaklade true/false u viditelnosti
+      if (status === true) {
+        return "Ano"
+      } else {
+        return "Ne"
+      }
+    },
     setGoldBorder(img) { //vrati true, pokud bude obrazek profilovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
       if (img.profilPhoto === true) {
         return true
@@ -269,7 +245,7 @@ export default {
     },
     setAsProfilPhoto(img) { //nastavi jako profilovou
 
-      axios.put('http://localhost:8081/imgFalse/' + this.formContent.email, {//nastavi vsechny fotky na profilPhoto: false
+      axios.put('http://localhost:8081/imgFalse/' + this.formContent.email, { //nastavi vsechny fotky na profilPhoto: false
 
         })
         .then((response) => {
@@ -279,7 +255,7 @@ export default {
           console.log(error);
         });
       //tadyto jeste poupravit do callbacku nebo spis at to udela server
-      axios.put('http://localhost:8081/img/' + img._id, {//nastavi aktualni fotku na profilPhoto: true
+      axios.put('http://localhost:8081/img/' + img._id, { //nastavi aktualni fotku na profilPhoto: true
           profilPhoto: true
         })
         .then((response) => {
@@ -298,7 +274,7 @@ export default {
 
     delImg(img) {
       if (confirm('Určitě chcete smazat soubor?')) {
-         console.log(img)
+        console.log(img)
         axios.delete('http://localhost:8081/img/' + img._id)
           .then((response) => {
             console.log(img);
@@ -309,7 +285,7 @@ export default {
         alert("Obrázek byl smazán")
       }
 
-      this.imgs = this.imgs.filter( item => item !== img)//zmensi pole o ten prvek ktery jsem samaz, tim padem se prekresli komponenta
+      this.imgs = this.imgs.filter(item => item !== img) //zmensi pole o ten prvek ktery jsem samaz, tim padem se prekresli komponenta
     },
 
     uploadGaleryPhoto() {
@@ -317,7 +293,7 @@ export default {
       this.selectedFile = event.target.files[0]
       const fd = new FormData();
       fd.append('profilPhoto', false);
-      fd.append('email', this.formContent.email);//pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
+      fd.append('email', this.formContent.email); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
       // fd.append('_id', this.formContent.id);
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
       axios.post('http://localhost:8081/img', fd, {
@@ -329,21 +305,19 @@ export default {
           console.log(res);
           alert('Soubor byl nahrán')
           // this.methodUpdate()
-          this.imgs.push({ pathToResizedImg: "http://localhost:8081/uploads/hbo83@seznam.cz/profil/resized/" + this.selectedFile.name})//prida novy objekt do pole a tim prekresli komponentu
+          this.imgs.push({
+            pathToResizedImg: "http://localhost:8081/uploads/hbo83@seznam.cz/profil/resized/" + this.selectedFile.name
+          }) //prida novy objekt do pole a tim prekresli komponentu
         })
     },
-    onFileSelected(event) {
-      console.log(event);
 
-      this.selectedFile = event.target.files[0]
-    },
-    saveProfil(e) {//updatuje profil
+    saveProfil(e) { //updatuje profil
 
       axios.put('http://localhost:8081/profiles/' + this.$store.state.userLogedId, this.formContent).then(alert("Profil uložen"))
     }
   },
   mounted() {
-  this.getImgs()
+    this.getImgs()
   },
 
 }
@@ -370,9 +344,9 @@ h4 {
 }
 </style>
 <style>
-
-.trix-button-group--history-tools, .trix-button-group--file-tools {/*schova attachement, undo a redo*/
-  display: none!important;
+.trix-button-group--history-tools,
+.trix-button-group--file-tools {
+  /*schova attachement, undo a redo*/
+  display: none !important;
 }
-
 </style>
