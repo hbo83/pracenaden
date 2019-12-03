@@ -45,7 +45,7 @@ export default {
   methods: {
     getImgSrc: function(i) { //vrati cestu k obrazku
       console.log(this.ownUserImages[i].productImage)
-      return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage//pathToImg
+      return this.ownUserImages[i].pathToResizedImg//pathToImg
     },
     showFullImg(imgIndex) {//zobrazí img v popup okně
       this.dialog = true//popup okno visible

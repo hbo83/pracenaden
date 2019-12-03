@@ -120,7 +120,7 @@
     <v-row>
       <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-4">
 
-        <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" lazy-src="https://picsum.photos/id/11/10/6" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
+        <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
           <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn>
           <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
@@ -183,7 +183,7 @@ export default {
     },
 
     imgs: [], //pole objektů
-    // imgs2: [], //pole paths obrazků
+    profilImgIndex: 0,
     valid: false,
     osvc: false,
     rules: [
@@ -220,10 +220,10 @@ export default {
 
   },
   methods: { //hma, ale pak musim nejak nastavit, ze se ostatni profilPhoto na serveru nejak odznaci ... nejdriv poslu na vsechny ostatni false a na ten jeden true
-    methodUpdate() {
-      console.log("forcuju")
-      this.$forceUpdate();
-    },
+    // methodUpdate() {
+    //   console.log("forcuju")
+    //   this.$forceUpdate();
+    // },
     getImgs() {
       this.formContent.email = this.$store.state.userLoged
 
@@ -278,20 +278,18 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-      //tadyto jeste poupravit do callbacku
+      //tadyto jeste poupravit do callbacku nebo spis at to udela server
       axios.put('http://localhost:8081/img/' + img._id, {//nastavi aktualni fotku na profilPhoto: true
           profilPhoto: true
         })
         .then((response) => {
           console.log(response);
+          this.getImgs()
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    // getImgSrc: function(i) { //vrati cestu k obrazku
-    //   return "http://localhost:8081/uploads/" + this.ownUserImages[i].productImage
-    // },
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true
@@ -310,11 +308,7 @@ export default {
           });
         alert("Obrázek byl smazán")
       }
-      //dodelat reaktivni vymazani smazaneho obrazku
-      // this.$router.push({
-      //   name: 'ProfilEdit'
-      // })
-      this.methodUpdate()
+
       this.imgs = this.imgs.filter( item => item !== img)//zmensi pole o ten prvek ktery jsem samaz, tim padem se prekresli komponenta
     },
 
@@ -334,8 +328,8 @@ export default {
         .then(res => {
           console.log(res);
           alert('Soubor byl nahrán')
-          this.methodUpdate()
-          // this.imgs = res
+          // this.methodUpdate()
+          this.imgs.push({ pathToResizedImg: "http://localhost:8081/uploads/hbo83@seznam.cz/profil/resized/" + this.selectedFile.name})//prida novy objekt do pole a tim prekresli komponentu
         })
     },
     onFileSelected(event) {
@@ -350,8 +344,6 @@ export default {
   },
   mounted() {
   this.getImgs()
-
-
   },
 
 }
