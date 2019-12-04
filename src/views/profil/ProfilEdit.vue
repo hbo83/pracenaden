@@ -3,11 +3,11 @@
   <Header color="#90e4f1"></Header>
   <NavBar path="" />
   <v-container style="width: 80%">
-    <h3>Zde prosím vyplňte informace o Vás</h3>
+    <h3>Editace</h3>
     <v-form ref="form" :lazy-validation="false" v-model="valid">
-      <v-row>
+      <v-row justify="space-around">
 
-        <v-col cols="6" class="py-0" style="border: 1px solid pink">
+        <v-col cols="4" class="py-0" style="border-bottom: 1px solid pink">
           <v-row style="border: 1px solid pink">
             <v-col>
               <v-text-field v-model="formContent.firstName" label="Jméno" :rules="rules" required></v-text-field>
@@ -16,32 +16,40 @@
             </v-col>
           </v-row>
 
-          <v-row class="mt-11">
-            <v-col>
-              <v-text-field v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
+          <v-row class="mt-11" style="border: 1px solid pink">
+            <v-col cols="12">
+              <v-row>
+                <v-col>
+                  <v-text-field v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
+                </v-col>
+                <v-col>
+                  <v-select v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
+                </v-col>
+              </v-row>
             </v-col>
-            <v-col>
-              <v-select v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
-            </v-col>
-          </v-row>
-          <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
-          <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+              <v-col cols="12">
 
-          <v-row>
+                <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
+                <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+
+              </v-col>
+          </v-row>
+
+          <!-- <v-row>
             <v-col cols="6" md="6">
               <h4>O mě</h4>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" md="12">
-              <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
-              <VueTrix v-model="formContent.aboutMe" />
-              <!-- <div class="trix-content">{{aboutMe}}</div> -->
-            </v-col>
-          </v-row>
+          </v-row> -->
+          <!-- <v-row> -->
+          <!-- <v-col cols="12" md="12"> -->
+          <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
+          <!-- <div class="trix-content">{{aboutMe}}</div> -->
+          <!-- <VueTrix v-model="formContent.aboutMe" /> -->
+          <!-- </v-col> -->
+          <!-- </v-row> -->
         </v-col>
 
-        <v-col cols="6" style="border: 1px solid pink">
+        <v-col cols="6" style="border-left: 1px solid pink; border-top: 1px solid pink">
           <v-row>
             <v-col cols="6" class="my-0 py-0">
               <v-text-field v-model="formContent.web" label="Webové stránky" required></v-text-field>
@@ -51,7 +59,7 @@
               <v-text-field v-model="formContent.skype" label="Skype" required></v-text-field>
               <v-text-field v-model="formContent.whatsapp" label="WhatsApp" required></v-text-field>
             </v-col>
-            <v-col cols="6" class="my-0 py-0" sm="6" style="border: 1px solid pink">
+            <v-col cols="6" class="my-0 py-0" sm="6" style="border-left: 1px solid pink; border-right: 1px solid pink">
               <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit WWW: ${stateToCzech(formContent.webVisible)}`"></v-switch>
               <v-switch v-model="formContent.phoneVisible" class="ma-4" :label="`Zobrazit telefon: ${stateToCzech(formContent.phoneVisible)}`"></v-switch>
               <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit Facebook: ${stateToCzech(formContent.facebookVisible)}`"></v-switch>
@@ -61,32 +69,38 @@
             </v-col>
           </v-row>
 
-          <v-row>
+          <v-row class="mt-12">
             <v-col cols="6" class="my-0 py-0" sm="6">
-              <v-switch v-model="formContent.osvc" class="ma-4" :label="`OSVČ: ${stateToCzech(formContent.osvc)}`"></v-switch>
+              <p>Zadejte Ano pokud máte živnostenské oprávnění. Budou Vás oslovovat také firmy.</p>
+              <p>Pokud jste aktuálně vytíženi, můžete profil skrýt.</p>
             </v-col>
-            <v-col cols="6" class="my-0 py-0" sm="6">
+            <v-col cols="6" class="my-0 py-0" sm="6" style="border: 1px solid pink">
               <!-- <v-checkbox v-model="hideProfil" label="Skrýt profil?"></v-checkbox> -->
+              <v-switch v-model="formContent.osvc" class="ma-4" :label="`OSVČ: ${stateToCzech(formContent.osvc)}`"></v-switch>
               <v-switch v-model="formContent.hideProfil" class="ma-4" :label="`Skrýt profil: ${stateToCzech(formContent.hideProfil)}`"></v-switch>
             </v-col>
+
           </v-row>
-          <v-row justify="center">
-            <v-col cols="3">
-              <v-btn color="success" :disabled="!valid" @click="saveProfil">Uložit</v-btn>
-            </v-col>
-          </v-row>
+          <!-- <v-row justify="center" align="center">
+          </v-row> -->
 
         </v-col>
       </v-row>
+      <!-- <h4>O mě</h4> -->
+      <v-row justify="center">
+        <v-col cols="8">Popis
+      <VueTrix v-model="formContent.aboutMe" />
+    </v-col>
+  </v-row>
     </v-form>
     <br /><br />
     <v-row>
 
-      
+
     </v-row>
     <hr />
     <v-row>
-      <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-1">
+      <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-1" style="min-width: 153px">
 
         <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
         <v-card>
@@ -103,7 +117,11 @@
         </upload-btn>
       </v-col>
     </v-row>
-
+    <v-row>
+      <v-col cols="3">
+        <v-btn color="success" :disabled="!valid" @click="saveProfil" x-large>Uložit</v-btn>
+      </v-col>
+    </v-row>
 
   </v-container>
 
@@ -336,7 +354,7 @@ export default {
 
 h3 {
   color: #90e4f1;
-  text-align: center;
+  text-align: left;
 }
 
 h4 {
