@@ -1,7 +1,7 @@
 <template>
 <div class="summary">
   <hr />
-  <v-container fluid>
+  <!-- <v-container fluid> -->
     <v-row>
       <v-col cols="4" style="overflow: scroll; height: 800px;overflow-x: hidden;">
         <v-row>
@@ -32,14 +32,14 @@
         </v-row>
 <v-row>
   <v-col cols="12">
-    <Carousel />
+    <!-- <Carousel /> -->
   </v-col>
 </v-row>
 
       </v-col>
     </transition>
     </v-row>
-  </v-container>
+  <!-- </v-container> -->
 </div>
 </template>
 
@@ -96,7 +96,7 @@ export default {
 
 <style scoped>
 .summary {
-  width: 63%;
+  width: 100%;
   height: auto;
   /* padding: 0 10px 0 45px; */
   margin: auto

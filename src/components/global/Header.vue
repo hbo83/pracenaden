@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar :style="{ backgroundColor: color }">
-      <v-toolbar-title><h1 @click="homePage">Prácenaden.cz <span style="font-size: 14px">- nabídka a poptávka služeb</span></h1></v-toolbar-title>
+      <v-toolbar-title><h1 style="font-size:1em;" @click="homePage">Prácenaden.cz <span style="font-size: 14px">- nabídka a poptávka služeb</span></h1></v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -14,17 +14,17 @@
         <v-btn v-if="editOfferBtnState" icon @click="toOfferEdit">
           <v-icon>edit</v-icon>
         </v-btn>
-        <v-btn disabled text>{{ updateUserLoged }}</v-btn>
+        <v-btn v-if="this.$store.state.userLoged" disabled text>{{ updateUserLoged }}</v-btn>
       </v-toolbar-items>
 
-      <template v-if="$vuetify.breakpoint.smAndUp">
+      <!-- <template v-if="$vuetify.breakpoint.smAndDown"> -->
+      <template>
         <v-btn v-show="!updateUserLoged" icon @click="logIn">
           <v-icon>account_box</v-icon>
         </v-btn>
         <v-btn v-show="updateUserLoged" icon @click="logOut">
           <v-icon>exit_to_app</v-icon>
         </v-btn>
-
         <v-btn icon @click="toInfo">
           <v-icon>info</v-icon>
         </v-btn>

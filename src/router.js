@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/profil/Home.vue'
+import Profil from './views/profil/Profil.vue'
 import Login from '@/views/login/Login'
 import Signin from '@/views/signin/Signin'
 // import ProfilDetail from '@/views/profil/ProfilDetail.vue'
@@ -19,8 +19,8 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [{
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'profil',
+      component: Profil
     },
     // {
     //   path: '/profildetail/:index',//cesta v URL adrese

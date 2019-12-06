@@ -1,11 +1,11 @@
 <template>
 <!-- <v-container class="filter" fluid> -->
-<div style="width: 63%; margin: auto">
+<div style="width: 100%; margin: auto">
   <v-row align="center" style="height: 73px;" justify="center">
-    <v-col cols="4">
+    <!-- <v-col cols="4">
       Nalezeno: {{dataCount}} položek
-    </v-col>
-      <v-col class="d-flex" cols="3">
+    </v-col> -->
+      <v-col class="d-flex" cols="6">
         <v-select
           v-model="job"
           :items="jobItems"
@@ -17,7 +17,7 @@
         ></v-select>
       </v-col>
 
-      <v-col class="" cols="3">
+      <v-col class="" cols="6">
         <v-select
           v-model="city"
           :items="cityItems"
@@ -30,6 +30,11 @@
       </v-col>
 
     </v-row>
+    <v-row>
+      <v-col cols="12" align="center">
+        <span>Nalezeno: {{dataCount}} položek</span>
+      </v-col>
+    </v-row>
   <!-- </v-container> -->
   </div>
 </template>
@@ -39,7 +44,7 @@ import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
 import axios from 'axios'
 export default {
-  name: 'Filtering',
+  name: 'ProfilFiltering',
   data() {
     return {
       job: 'Vše',//selected job from job filter
@@ -60,7 +65,7 @@ export default {
     },
     changeAllProfiles ( data ) {//zmeni allProfilies a tim se znovu vykersli Summary
 
-      axios.get('http://localhost:8081/profilesFiltered?city=' + this.city + '&job=' + this.job)//vrátí aktuální profil
+      axios.get('http://10.0.0.22:8081/profilesFiltered?city=' + this.city + '&job=' + this.job)//vrátí aktuální profil
         .then((response) => {
           this.$store.commit('setAllProfiles', response.data)
           this.dataCount = response.data.length

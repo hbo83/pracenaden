@@ -1,13 +1,17 @@
 <template>
-<!-- <v-app> -->
+<v-app>
 <div class="home">
-  <!-- <Header color="#90e4f1"></Header> -->
   <Header color="#90e4f1"/>
-  <Filtering></Filtering>
-  <Summary></Summary>
-
+  <ProfilFiltering></ProfilFiltering>
+  <!-- <Summary></Summary>
+ -->
+ <v-row>
+   <v-col cols="12">
+     <ProfilSum />
+  </v-col>
+</v-row>
 </div>
-<!-- </v-app> -->
+</v-app>
 </template>
 <!-- componentDidMount() - tato metoda je vyvolana ihned po namountovani komponenty, pouziva se pro pripady kdy chceme inicializovat nejaky data ze serveru,pak by se mela nejak odhlasit metodou componentWillUnmount()
 - bacha na setState() v tyhle metode ptze by to mohlo vyvolat dvojity vykreslovani nebo tak neco
@@ -19,15 +23,16 @@ componentWillUnmount() - tato metoda je vyvolana tesne pretim nez bude komponent
 <script>
 // @ is an alias to /src
 import Header from '@/components/global/Header.vue'
-import Filtering from '@/components/profil/ProfilFiltering.vue'
-import Summary from '@/components/Summary.vue'
+import ProfilFiltering from '@/components/profil/ProfilFiltering.vue'
+// import Summary from '@/components/Summary.vue'
+import ProfilSum from '@/components/profil/ProfilSum.vue'
 
 export default {
-  name: 'home',
+  name: 'Profil',
   components: {
     Header,
-    Filtering,
-    Summary
+    ProfilFiltering,
+    ProfilSum
 
   },
   created() {

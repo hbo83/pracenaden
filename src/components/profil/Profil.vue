@@ -1,21 +1,11 @@
 <template>
+  <div styel="border: 1px solid black">
 <v-card>
   <v-row class="profilParent mx-0" @click="selectProfil" :style="{ backgroundColor: selected }">
-    <v-col class="col-4 pl-8 profil" no-gutters>
+    <v-col cols="12" class=" pl-8 profil" no-gutters>
       <ProfilImg v-bind:index="this.index"></ProfilImg>
     </v-col>
-    <v-col class="col-8 pr-4 profil" no-gutters>
-      <!-- <p> -->
-        <!-- <span>
-          <v-icon>face</v-icon>
-        </span>
-        <span>{{ getName }}</span>
-        <span v-if="premium">
-          <v-icon style="float: right" color="yellow">star</v-icon>
-        </span>
-        <span v-if="premium" style="font-size: 22px; float: right;">10</span> -->
-      <!-- </p> -->
-
+    <v-col cols="12" class="pr-4 profil" no-gutters>
       <p>
         <span>
           <v-icon>build</v-icon>
@@ -30,8 +20,8 @@
         <span>
           <v-icon>location_city</v-icon>
         </span>
-        <span>{{ getCity }}</span>
       </p>
+      <span>{{ getCity }}</span>
       <p>
         <span>
           <v-icon>money</v-icon>
@@ -48,6 +38,7 @@
   </v-row>
 
 </v-card>
+</div>
 </template>
 
 <script>
@@ -111,19 +102,18 @@ export default {
   },
   computed: {//tyhle data nebudu brat ze state
     getPricePlusCurrency() { //vraci money + currency z objektu
-      return this.$store.state.allProfiles[this.index].money + this.$store.state.allProfiles[this.index].currency
-    },
-    getName() { //vraci name z objektu
-      return this.$store.state.allProfiles[this.index].name
+      return this.profileDatas.money + this.profileDatas.currency
     },
     getJob() { //vraci job z objektu
-      return this.$store.state.allProfiles[this.index].job
+      // return this.$store.state.allProfiles[this.index].job
+      var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+      return width + this.profileDatas.job
     },
     getCity() { //vraci city z objektu
-      return this.$store.state.allProfiles[this.index].city
+      return this.profileDatas.city
     },
     getCategory() { //vrací category
-      return this.$store.state.allProfiles[this.index].category.toString('utf-8')
+      return this.profileDatas.category.toString('utf-8')
     },
   },
 
