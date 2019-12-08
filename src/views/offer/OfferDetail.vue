@@ -44,7 +44,7 @@
 
 <script>
 import Header from '@/components/global/Header.vue'
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/global/NavBar.vue'
 // import ProfilImg from '@/components/ProfilImg.vue'
 // import Profil from '@/components/Profil.vue'
 import axios from 'axios'

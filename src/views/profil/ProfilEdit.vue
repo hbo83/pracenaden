@@ -1,13 +1,13 @@
 <template>
-<div>
+<div class="profilEdit">
   <Header color="#90e4f1"></Header>
-  <NavBar path="" />
-  <v-container style="width: 80%">
-    <h3>Editace</h3>
+  <NavBar path="/" color="#90e4f1"/>
+  <v-container style="width: 100%">
+    <!-- <h3>Editace</h3> -->
     <v-form ref="form" :lazy-validation="false" v-model="valid">
       <v-row justify="space-around">
 
-        <v-col cols="4" class="py-0">
+        <v-col cols="12" class="py-0">
           <v-row style="border-right: 1px solid pink; border-left: 1px solid pink;">
             <v-col>
               <v-text-field v-model="formContent.firstName" label="Jméno" :rules="rules" required></v-text-field>
@@ -35,21 +35,10 @@
               </v-col>
           </v-row>
 
-          <!-- <v-row>
-            <v-col cols="6" md="6">
-              <h4>O mě</h4>
-            </v-col>
-          </v-row> -->
-          <!-- <v-row> -->
-          <!-- <v-col cols="12" md="12"> -->
-          <!-- <v-textarea solo name="input-7-4" label="Něco mně" v-model="aboutMe" :rules="aboutMeRules" v-on:keyup.enter="newLineOnEnter"></v-textarea> -->
-          <!-- <div class="trix-content">{{aboutMe}}</div> -->
-          <!-- <VueTrix v-model="formContent.aboutMe" /> -->
-          <!-- </v-col> -->
-          <!-- </v-row> -->
+
         </v-col>
 
-        <v-col cols="6" style="border-left: 1px solid pink;">
+        <v-col cols="12" style="border-left: 1px solid pink;">
           <v-row>
             <v-col cols="6" class="my-0 py-0" style="border-left: 1px solid pink">
               <v-text-field v-model="formContent.web" label="Webové stránky" required></v-text-field>
@@ -132,7 +121,7 @@
 // @ is an alias to /src
 // this.forceUpdate();
 import Header from '@/components/global/Header.vue'
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/global/NavBar.vue'
 import axios from 'axios'
 import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
@@ -342,7 +331,7 @@ export default {
 </script>
 
 <style scoped>
-.home {
+.profilEdit {
   width: 100%;
   height: auto;
   /* border: 1px solid black; */

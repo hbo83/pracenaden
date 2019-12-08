@@ -2,38 +2,38 @@
   <div styel="border: 1px solid black">
 <v-card>
   <v-row class="profilParent mx-0" @click="selectProfil" :style="{ backgroundColor: selected }">
-    <v-col cols="12" class=" pl-8 profil" no-gutters>
+    <v-col cols="4" class=" pl-8 profil" no-gutters>
       <ProfilImg v-bind:index="this.index"></ProfilImg>
     </v-col>
-    <v-col cols="12" class="pr-4 profil" no-gutters>
+    <v-col cols="8" class="pr-4 profil" no-gutters>
       <p>
         <span>
           <v-icon>build</v-icon>
         </span>
         <span>{{ getJob }}</span>
-        <span v-if="premium">
+        <!-- <span v-if="premium">
           <v-icon style="float: right" color="yellow">star</v-icon>
         </span>
-        <span v-if="premium" style="font-size: 22px; float: right;">10</span>
+        <span v-if="premium" style="font-size: 22px; float: right;">10</span> -->
       </p>
       <p>
         <span>
           <v-icon>location_city</v-icon>
         </span>
+        <span>{{ getCity }}</span>
       </p>
-      <span>{{ getCity }}</span>
       <p>
         <span>
           <v-icon>money</v-icon>
         </span>
         <span>{{ getPricePlusCurrency }}</span>
       </p>
-      <p>
+      <!-- <p>
         <span>
           <v-icon>category</v-icon>
         </span>
         <span style="fontSize: small">{{ getCategory }}</span>
-      </p>
+      </p> -->
     </v-col>
   </v-row>
 

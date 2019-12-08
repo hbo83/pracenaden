@@ -1,15 +1,15 @@
 <template>
-<div class="profilSum">
-    <v-row>
-      <v-col cols="12" style="overflow: scroll; height: 800px;overflow-x: hidden;">
-        <v-row>
-          <v-col sm="12" xs="12" class="col-12" v-for="(profil, index) in allProfiles">
+<div class="profilSum" style="position: relative; top: 120px">
+    <!-- <v-row> -->
+      <!-- <v-col cols="12" style="overflow: scroll; height: 800px;"> -->
+        <v-row style="overflow: auto!important">
+          <v-col sm="12" xs="12" class="col-12 py-1" v-for="(profil, index) in allProfiles">
             <Profil v-show="!profil.hideProfil" :index="index" :profileDatas="allProfiles[index]" />
           </v-col>
 
         </v-row>
-      </v-col>
-    </v-row>
+      <!-- </v-col> -->
+    <!-- </v-row> -->
 </div>
 </template>
 

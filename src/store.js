@@ -27,10 +27,14 @@ export const store = new Vuex.Store({
     jobFilter: '', //aktuálně nastavený filtr na Obor
     cityFilter: '', //aktuálně nastavený filtr na město
     categoryFilter: '',//aktuálně nastavený filtr na kategorii
-    currentLink: '' //aktuální link
-
+    currentLink: '', //aktuální link
+    loginDialogState: false,//dialog na login visible or not
+    screenSize: ''//sirka displaye var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
+    set_loginDialogState( state, bool ) {
+      state.loginDialogState = bool
+    },
     set_userFirstName( state, firstName) {//meni switch state
       state.userFirstName = firstName
     },

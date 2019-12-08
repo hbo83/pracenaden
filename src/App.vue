@@ -29,9 +29,7 @@
 </script>
 
 <style>
-/* ::-webkit-scrollbar {
-    display: none;
-} */
+/* html, body {margin: 0; height: 100%; overflow: hidden} */
 ::-webkit-scrollbar {
     width: 6px;
     background-color: #F5F5F5;

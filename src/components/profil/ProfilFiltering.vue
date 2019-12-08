@@ -1,6 +1,6 @@
 <template>
 <!-- <v-container class="filter" fluid> -->
-<div style="width: 100%; margin: auto">
+<div style="width: 100%; margin: auto; position: fixed; top: 70px; z-index: 99; background: #90e4f1;" >
   <v-row align="center" style="height: 73px;" justify="center">
     <!-- <v-col cols="4">
       Nalezeno: {{dataCount}} položek
@@ -14,6 +14,8 @@
           prepend-icon="build"
           v-on:change="setJob"
           dense
+          :hint="get_dataCount"
+          persistent-hint
         ></v-select>
       </v-col>
 
@@ -30,11 +32,11 @@
       </v-col>
 
     </v-row>
-    <v-row>
-      <v-col cols="12" align="center">
+    <!-- <v-row>
+      <v-col cols="12" align="center" class="py-0 my-0">
         <span>Nalezeno: {{dataCount}} položek</span>
       </v-col>
-    </v-row>
+    </v-row> -->
   <!-- </v-container> -->
   </div>
 </template>
@@ -75,6 +77,11 @@ export default {
         });
     },
 
+  },
+  computed: {
+     get_dataCount() {
+       return "Nalezeno:" + this.dataCount + "položek"
+     }
   },
   mounted() {
     this.changeAllProfiles()//naplní nalezeno položek

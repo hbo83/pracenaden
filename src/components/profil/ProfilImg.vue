@@ -10,7 +10,7 @@ export default {
   name: 'ProfilImg',
   data() {
     return {
-      profilePath: 'http://localhost:8081/uploads/no-photo.png' //cesta k profilove fotce, kdyz neexistuje zdroj obrazku, zobrazi se defaultni img
+      profilePath: 'http://10.0.0.22:8081/uploads/no-photo.png' //cesta k profilove fotce, kdyz neexistuje zdroj obrazku, zobrazi se defaultni img
     }
   },
   props: {
@@ -26,7 +26,7 @@ export default {
     getProfilePath() { //najde zaznam file na zaklade mailu profilu a profilPhoto = true
       // console.log(this.$store.state.allProfiles[this.index].email)
 
-      axios.get('http://localhost:8081/img/' + this.$store.state.allProfiles[this.index].email)
+      axios.get('http://10.0.0.22:8081/img/' + this.$store.state.allProfiles[this.index].email)
         .then((response) => {
           response.data.map(img => { //vrati imgs z profilu a vytvori path k profilovy fotcce
             if (img.profilPhoto) {

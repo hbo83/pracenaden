@@ -1,10 +1,10 @@
 <template>
-<v-app>
+<!-- <v-app> -->
   <div class="login">
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="4">
+          <v-col cols="12" sm="12" md="12">
             <v-card class="elevation-12">
               <v-toolbar color="#90e4f1" dark flat>
                 <v-toolbar-title>Přihlásit se</v-toolbar-title>
@@ -21,9 +21,9 @@
               </v-card-text>
               <v-card-actions>
                 <!-- <v-spacer></v-spacer> -->
-                <a href="http://localhost:8080/signin">Registrovat</a>
+                <a href="http://10.0.0.22:8080/signin">Registrovat</a>
 
-                <v-btn style="margin-left: 68%" color="primary" @click="logIn">Přihlásit</v-btn>
+                <v-btn style="margin-left: 8%" color="primary" @click="logIn">Přihlásit</v-btn>
                 <!-- <v-btn color="succes" @click="signIn">Signin</v-btn> -->
               </v-card-actions>
             </v-card>
@@ -32,7 +32,7 @@
       </v-container>
     </v-content>
   </div>
-</v-app>
+<!-- </v-app> -->
 </template>
 
 <script>
@@ -82,11 +82,13 @@ export default {
 
           this.$store.commit('setUserLoged', response.data[0].email)
           this.$store.commit('setLogedId', response.data[0]._id)
-
-        }).then(this.$router.push({
-          name: 'home',
-          params: {}
-        }))
+          this.$store.commit('set_loginDialogState', false)
+        })
+        // .then(this.$router.push({
+        //   name: 'home',
+        //   params: {}
+        // })
+      // )
         .catch((error) => {
           // console.log(error);
           alert("Heslo nebo email nesouhlasí")
@@ -109,9 +111,5 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  width: 100%;
-  height: auto;
-  /* border: 1px solid black; */
-}
+
 </style>

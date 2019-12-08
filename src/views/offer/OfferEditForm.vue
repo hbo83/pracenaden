@@ -9,7 +9,7 @@
 </template>
 <script>
 import Header from '@/components/global/Header.vue'
-import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/global/NavBar.vue'
 import OfferForm from '@/components/offer/OfferForm.vue'
 import OfferUploadPhoto from '@/components/offer/OfferUploadPhoto.vue'
 import OfferGalery from '@/components/offer/OfferGalery.vue'
