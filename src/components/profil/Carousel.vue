@@ -21,8 +21,8 @@ import axios from 'axios'
       }
     },
     beforeMount() {
-      axios.get('http://localhost:8081/img/' + this.$store.state.currentProfile.email) //najde vsechny obrázky, s timto emailem
-        .then((response) => {  
+      axios.get('http://10.0.0.22:8081/img/' + this.$store.state.currentProfile.email) //najde vsechny obrázky, s timto emailem
+        .then((response) => {
           this.items = response.data.map(function(value, index) {
             return value.pathToResizedImg
           })

@@ -1,5 +1,10 @@
 <template>
 <div class="profilSum" style="position: relative; top: 120px">
+    <v-dialog v-model="dialog" width="100%">
+      <!-- <template v-slot:activator="{ on }">
+          </template> -->
+      popo
+    </v-dialog>
     <!-- <v-row> -->
       <!-- <v-col cols="12" style="overflow: scroll; height: 800px;"> -->
         <v-row style="overflow: auto!important">

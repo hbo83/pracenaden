@@ -1,17 +1,17 @@
 <template>
 <!-- <v-container class="filter" fluid> -->
-<div style="width: 100%; margin: auto; position: fixed; top: 70px; z-index: 99; background: #90e4f1;" >
-  <v-row align="center" style="height: 73px;" justify="center">
+<div style="width: 100%; margin: auto; position: fixed; top: 44px; z-index: 99; background: #90e4f1;" >
+  <v-row align="center" style="height: 73px;" justify="center" class="px-4">
     <!-- <v-col cols="4">
       Nalezeno: {{dataCount}} položek
     </v-col> -->
-      <v-col class="d-flex" cols="6">
+      <v-col class="d-flex my-0 py-0" cols="6">
         <v-select
           v-model="job"
           :items="jobItems"
           label="Obor, Profese"
           solo
-          prepend-icon="build"
+          append-icon="build"
           v-on:change="setJob"
           dense
           :hint="get_dataCount"
@@ -25,7 +25,7 @@
           :items="cityItems"
           label="Místo"
           solo
-          prepend-icon="map"
+          append-icon="map"
           v-on:change="setCity"
           dense
         ></v-select>

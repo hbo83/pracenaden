@@ -2,6 +2,7 @@
 <v-col class="col-12">
 <ProfilAboutMe />
 <ProfilColumn />
+<Carousel />
 </v-col>
 </template>
 
@@ -9,11 +10,13 @@
 import axios from 'axios'
 import ProfilAboutMe from '@/components/profil/ProfilAboutMe.vue'
 import ProfilColumn from '@/components/profil/ProfilColumn.vue'
+import Carousel from '@/components/profil/Carousel'
 export default {
   name: 'ProfilDetail',
   components: {
     ProfilAboutMe,
-    ProfilColumn
+    ProfilColumn,
+    Carousel
   },
   data() {
     return {

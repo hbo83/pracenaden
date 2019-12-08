@@ -1,5 +1,5 @@
 <template>
-  <v-card height="367px">
+  <v-card >
       <!-- <v-card-title max-width="50%"></v-card-title> -->
     <v-card-text id="tr" style="text-align: left; color: green;">{{get_currentAboutMe}}</v-card-text>
   </v-card>
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     get_currentAboutMe() {//naplní aboutMe pri zmene vybraneho profilu
-      axios.get('http://localhost:8081/profiles/' + this.$store.state.currentProfilEmail)
+      axios.get('http://10.0.0.22:8081/profiles/' + this.$store.state.currentProfilEmail)
         .then((response) => {
           this.aboutMe = response.data[0].aboutMe
           // this.name = response.data[0].name

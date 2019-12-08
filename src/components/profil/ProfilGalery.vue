@@ -54,11 +54,11 @@ export default {
   },
   computed: {
     get_fullImg() {
-      return "http://localhost:8081/uploads/" + this.ownUserImages[this.fullImgIndex].productImage
+      return "http://10.0.0.22:8081/uploads/" + this.ownUserImages[this.fullImgIndex].productImage
     }
   },
   beforeMount() {
-    axios.get('http://localhost:8081/img/' + this.$store.state.currentProfile.email) //najde vsechny obrázky, s timto emailem
+    axios.get('http://10.0.0.22:8081/img/' + this.$store.state.currentProfile.email) //najde vsechny obrázky, s timto emailem
       .then((response) => {
         this.ownUserImages = response.data
         console.log(this.$store.state.currentProfile.email)
