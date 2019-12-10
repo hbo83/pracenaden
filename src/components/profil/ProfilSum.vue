@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       index: null,
+      dialog: false,
       allProfiles: [] //index predavam do child komponenty Profil, kde se pouzije jako index objektu v poli allProfiles
     }
   },

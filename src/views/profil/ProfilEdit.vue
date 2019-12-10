@@ -3,6 +3,11 @@
   <Header color="#90e4f1"></Header>
   <NavBar path="/" color="#90e4f1"/>
   <v-container style="width: 100%">
+    <v-row justify="center">
+      <v-col cols="2">
+        <ProfilPhoto />
+      </v-col>
+    </v-row>
     <!-- <h3>Editace</h3> -->
     <v-form ref="form" :lazy-validation="false" v-model="valid">
       <v-row justify="space-around">
@@ -77,7 +82,7 @@
       </v-row>
       <!-- <h4>O mě</h4> -->
       <v-row justify="center" style="border-top: 1px solid pink; border-bottom: 1px solid pink;">
-        <v-col cols="8">Popis
+        <v-col cols="11">Popis
       <VueTrix v-model="formContent.aboutMe" />
     </v-col>
   </v-row>
@@ -127,13 +132,15 @@ import categories from '@/data/categories.js'
 import cities from '@/data/cities.js'
 import UploadButton from 'vuetify-upload-button';
 import VueTrix from 'vue-trix'
+import ProfilPhoto from '@/components/profil/ProfilPhoto.vue'
 export default {
   name: 'ProfilEdit',
   components: {
     Header,
     NavBar,
     'upload-btn': UploadButton,
-    VueTrix
+    VueTrix,
+    ProfilPhoto
 
   },
   data: () => ({
@@ -210,9 +217,10 @@ export default {
     getImgs() {
       this.formContent.email = this.$store.state.userLoged
 
-      axios.get('http://localhost:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
+      axios.get('http://10.0.0.22:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
         .then((response) => {
           this.imgs = response.data
+          // alert(this.imgs[0].pathToResizedImg)
           // this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
           //   return value.pathToResizedImg
           // })
@@ -225,7 +233,7 @@ export default {
 
       if (this.formContent.id !== null) {
 
-        axios.get('http://localhost:8081/profilesedit/' + this.$store.state.userLogedId)
+        axios.get('http://10.0.0.22:8081/profilesedit/' + this.$store.state.userLogedId)
           .then((response) => {
             //osetrit vyjimku kdyz jeste nema profil vyplnenej
             this.formContent = response.data[0]
@@ -252,7 +260,7 @@ export default {
     },
     setAsProfilPhoto(img) { //nastavi jako profilovou
 
-      axios.put('http://localhost:8081/imgFalse/' + this.formContent.email, { //nastavi vsechny fotky na profilPhoto: false
+      axios.put('http://10.0.0.22:8081/imgFalse/' + this.formContent.email, { //nastavi vsechny fotky na profilPhoto: false
 
         })
         .then((response) => {
@@ -262,7 +270,7 @@ export default {
           console.log(error);
         });
       //tadyto jeste poupravit do callbacku nebo spis at to udela server
-      axios.put('http://localhost:8081/img/' + img._id, { //nastavi aktualni fotku na profilPhoto: true
+      axios.put('http://10.0.0.22:8081/img/' + img._id, { //nastavi aktualni fotku na profilPhoto: true
           profilPhoto: true
         })
         .then((response) => {
@@ -282,7 +290,7 @@ export default {
     delImg(img) {
       if (confirm('Určitě chcete smazat soubor?')) {
         console.log(img)
-        axios.delete('http://localhost:8081/img/' + img._id)
+        axios.delete('http://10.0.0.22:8081/img/' + img._id)
           .then((response) => {
             console.log(img);
           })
@@ -303,7 +311,7 @@ export default {
       fd.append('email', this.formContent.email); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
       // fd.append('_id', this.formContent.id);
       fd.append('productImage', this.selectedFile, this.selectedFile.name)
-      axios.post('http://localhost:8081/img', fd, {
+      axios.post('http://10.0.0.22:8081/img', fd, {
           onUploadProgress: uploadEvent => {
             console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
           }
@@ -313,14 +321,14 @@ export default {
           alert('Soubor byl nahrán')
           // this.methodUpdate()
           this.imgs.push({
-            pathToResizedImg: "http://localhost:8081/uploads/hbo83@seznam.cz/profil/resized/" + this.selectedFile.name
+            pathToResizedImg: "http://10.0.0.22:8081/uploads/" + this.formContent.email + "/profil/resized/" + this.selectedFile.name
           }) //prida novy objekt do pole a tim prekresli komponentu
         })
     },
 
     saveProfil(e) { //updatuje profil
 
-      axios.put('http://localhost:8081/profiles/' + this.$store.state.userLogedId, this.formContent).then(alert("Profil uložen"))
+      axios.put('http://10.0.0.22:8081/profiles/' + this.$store.state.userLogedId, this.formContent).then(alert("Profil uložen"))
     }
   },
   mounted() {
