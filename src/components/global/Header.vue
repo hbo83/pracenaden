@@ -84,7 +84,7 @@ export default {
       }
     },
     editProfilBtnState() {
-      if (this.color === this.sky) {
+      if (this.color === this.sky && this.$store.state.userLoged) {
         return true
       } else if (this.color === this.greeny) {
         return false

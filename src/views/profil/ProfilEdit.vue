@@ -1,7 +1,7 @@
 <template>
 <div class="profilEdit">
   <Header color="#90e4f1"></Header>
-  <NavBar path="/" color="#90e4f1"/>
+  <NavBar path="/" color="#90e4f1" />
   <v-container style="width: 100%">
     <v-row justify="center">
       <v-col cols="2">
@@ -32,12 +32,12 @@
                 </v-col>
               </v-row>
             </v-col>
-              <v-col cols="12" class="py-0">
+            <v-col cols="12" class="py-0">
 
-                <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
-                <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
+              <v-select v-model="formContent.city" :items="items" :rules="[v => !!v || 'Item is required']" label="Město" required></v-select>
+              <v-select v-model="formContent.category" :items="itemsJob" :rules="rules" :counter="3" attach chips label="Kategorie" multiple required></v-select>
 
-              </v-col>
+            </v-col>
           </v-row>
 
 
@@ -83,9 +83,9 @@
       <!-- <h4>O mě</h4> -->
       <v-row justify="center" style="border-top: 1px solid pink; border-bottom: 1px solid pink;">
         <v-col cols="11">Popis
-      <VueTrix v-model="formContent.aboutMe" />
-    </v-col>
-  </v-row>
+          <VueTrix v-model="formContent.aboutMe" />
+        </v-col>
+      </v-row>
     </v-form>
     <br /><br />
     <v-row>
@@ -96,15 +96,15 @@
     <v-row>
       <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-1" style="min-width: 153px">
 
-        <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg" :class="{ goldBorder: setGoldBorder(imgs[index]) }"></v-img>
+        <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg"></v-img>
         <v-card>
-          <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn>
+          <!-- <v-btn width="50%" color="success" @click="setAsProfilPhoto(imgs[index])">Profil</v-btn> -->
           <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
         </v-card>
       </v-col>
       <v-col cols="2">
 
-        <upload-btn class="uplBtn" noTitleUpdate block title="Nahrát fotku" @file-update="uploadGaleryPhoto">
+        <upload-btn class="uplBtn" noTitleUpdate block title="Nahrát fotku" @file-update="uploadGaleryPhoto(false)">
           <template slot="icon">
             <v-icon>add</v-icon>
           </template>
@@ -133,6 +133,7 @@ import cities from '@/data/cities.js'
 import UploadButton from 'vuetify-upload-button';
 import VueTrix from 'vue-trix'
 import ProfilPhoto from '@/components/profil/ProfilPhoto.vue'
+import SaveProfilImg from '@/MyObjects/SaveProfilImg.js'
 export default {
   name: 'ProfilEdit',
   components: {
@@ -215,36 +216,28 @@ export default {
     //   this.$forceUpdate();
     // },
     getImgs() {
-      this.formContent.email = this.$store.state.userLoged
 
-      axios.get('http://10.0.0.22:8081/img/' + this.formContent.email) //naplni imgs[] objektama fotek
+      axios.get('http://10.0.0.22:8081/img/' + this.$store.state.userLoged) //naplni imgs[] objektama fotek
         .then((response) => {
           this.imgs = response.data
           // alert(this.imgs[0].pathToResizedImg)
           // this.imgs = response.data.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
           //   return value.pathToResizedImg
           // })
-
         })
         .catch((error) => {
           console.log(error);
         });
 
+      axios.get('http://10.0.0.22:8081/profilesedit/' + this.$store.state.userLogedId)
+        .then((response) => {
+          //osetrit vyjimku kdyz jeste nema profil vyplnenej
+          this.formContent = response.data[0]
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-      if (this.formContent.id !== null) {
-
-        axios.get('http://10.0.0.22:8081/profilesedit/' + this.$store.state.userLogedId)
-          .then((response) => {
-            //osetrit vyjimku kdyz jeste nema profil vyplnenej
-            this.formContent = response.data[0]
-
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        console.log("nobody logged")
-      }
     },
     stateToCzech: function(status) { //vraci ano nebo ne na zaklade true/false u viditelnosti
       if (status === true) {
@@ -253,34 +246,7 @@ export default {
         return "Ne"
       }
     },
-    setGoldBorder(img) { //vrati true, pokud bude obrazek profilovej, funkce pouzita v cyklu, kde nastavuje jestli na divu bude trida se zlatym borderem
-      if (img.profilPhoto === true) {
-        return true
-      }
-    },
-    setAsProfilPhoto(img) { //nastavi jako profilovou
 
-      axios.put('http://10.0.0.22:8081/imgFalse/' + this.formContent.email, { //nastavi vsechny fotky na profilPhoto: false
-
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      //tadyto jeste poupravit do callbacku nebo spis at to udela server
-      axios.put('http://10.0.0.22:8081/img/' + img._id, { //nastavi aktualni fotku na profilPhoto: true
-          profilPhoto: true
-        })
-        .then((response) => {
-          console.log(response);
-          this.getImgs()
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true
@@ -299,35 +265,22 @@ export default {
           });
         alert("Obrázek byl smazán")
       }
-
       this.imgs = this.imgs.filter(item => item !== img) //zmensi pole o ten prvek ktery jsem samaz, tim padem se prekresli komponenta
     },
 
     uploadGaleryPhoto() {
-      console.log(this.formContent.email)
-      this.selectedFile = event.target.files[0]
-      const fd = new FormData();
-      fd.append('profilPhoto', false);
-      fd.append('email', this.formContent.email); //pripoji klic a hodnotu, ktera se pak sparsuje jako req.body.name na serveru
-      // fd.append('_id', this.formContent.id);
-      fd.append('productImage', this.selectedFile, this.selectedFile.name)
-      axios.post('http://10.0.0.22:8081/img', fd, {
-          onUploadProgress: uploadEvent => {
-            console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%');
-          }
-        })
+
+      const saveProfilPhoto = new SaveProfilImg(this.$store.state.userLoged);
+      saveProfilPhoto.saveImg(false) //false pro galery img
         .then(res => {
           console.log(res);
           alert('Soubor byl nahrán')
-          // this.methodUpdate()
           this.imgs.push({
             pathToResizedImg: "http://10.0.0.22:8081/uploads/" + this.formContent.email + "/profil/resized/" + this.selectedFile.name
           }) //prida novy objekt do pole a tim prekresli komponentu
         })
     },
-
     saveProfil(e) { //updatuje profil
-
       axios.put('http://10.0.0.22:8081/profiles/' + this.$store.state.userLogedId, this.formContent).then(alert("Profil uložen"))
     }
   },
@@ -344,12 +297,11 @@ export default {
   height: auto;
   /* border: 1px solid black; */
 }
+
 .uplBtn label div {
   height: 166px;
 }
-.goldBorder {
-  border: 5px solid gold
-}
+
 
 h3 {
   color: #90e4f1;
@@ -366,5 +318,4 @@ h4 {
   /*schova attachement, undo a redo*/
   display: none !important;
 }
-
 </style>
