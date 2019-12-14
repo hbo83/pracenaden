@@ -1,7 +1,7 @@
 <template>
 <v-col class="col-12">
+  <ProfilColumn />
 <ProfilAboutMe />
-<ProfilColumn />
 <Carousel />
 </v-col>
 </template>

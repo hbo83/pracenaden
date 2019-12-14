@@ -1,20 +1,12 @@
 <template>
 <div class="profilSum" style="position: relative; top: 120px">
-    <v-dialog v-model="dialog" width="100%">
-      <!-- <template v-slot:activator="{ on }">
-          </template> -->
-      popo
-    </v-dialog>
-    <!-- <v-row> -->
-      <!-- <v-col cols="12" style="overflow: scroll; height: 800px;"> -->
-        <v-row style="overflow: auto!important">
-          <v-col sm="12" xs="12" class="col-12 py-1" v-for="(profil, index) in allProfiles">
-            <Profil v-show="!profil.hideProfil" :index="index" :profileDatas="allProfiles[index]" />
-          </v-col>
+  
+  <v-row style="overflow: auto!important">
+    <v-col sm="12" xs="12" class="col-12 py-1" v-for="(profil, index) in allProfiles">
+      <Profil v-show="!profil.hideProfil" :index="index" :profileDatas="allProfiles[index]" />
+    </v-col>
 
-        </v-row>
-      <!-- </v-col> -->
-    <!-- </v-row> -->
+  </v-row>
 </div>
 </template>
 
@@ -44,14 +36,14 @@ export default {
   },
   beforeMount() {
     axios.get('http://10.0.0.22:8081/profiles')
-    .then((response) => {
-      console.log(response.data)
-      this.allProfiles = response.data
-      // alert(response.data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        console.log(response.data)
+        this.allProfiles = response.data
+        // alert(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   mounted() {
 

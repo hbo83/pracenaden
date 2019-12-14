@@ -210,10 +210,10 @@ app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city
 
 
 
-app.get('/profiles/:email', function(req, res) { //vrací profil na základě emailu
+app.get('/profiles/:id', function(req, res) { //vrací profil na základě id
   // console.log(req.params.email)
   Profil.find({
-    email: req.params.email
+    _id: req.params.id
   }).exec(function(err, profil) {
     if (err) {
       res.send('error has occured');
@@ -230,6 +230,7 @@ app.put('/profiles/:id', function(req, res) {
       _id: req.params.id
     }, {
       $set: {
+        modified: new Date().toISOString(),
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -349,10 +350,10 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
   file.save()
     .then(result => {
       // console.log(result);
-      res.status(201).json({
+      res.status(201).json({//vraci objekt
         message: 'Create product successfully',
         createdProduct: {
-          name: result.name,
+          name: result.resizedImg,
           modified: result.modified
         }
       });

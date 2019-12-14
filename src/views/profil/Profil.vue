@@ -3,10 +3,8 @@
 <div class="home">
   <Header color="#90e4f1"/>
   <ProfilFiltering></ProfilFiltering>
-  <!-- <Summary></Summary>
- -->
- <v-row>
-   <v-col cols="12">
+ <v-row justify="center">
+   <v-col md='4' lg='4' xs='12'>
      <ProfilSum />
   </v-col>
 </v-row>
@@ -21,12 +19,9 @@ componentWillUnmount() - tato metoda je vyvolana tesne pretim nez bude komponent
 
 <!-- nahraju prvni data do home a zbytek na pozadi do store -->
 <script>
-// @ is an alias to /src
 import Header from '@/components/global/Header.vue'
 import ProfilFiltering from '@/components/profil/ProfilFiltering.vue'
-// import Summary from '@/components/Summary.vue'
 import ProfilSum from '@/components/profil/ProfilSum.vue'
-
 export default {
   name: 'Profil',
   components: {
@@ -42,21 +37,19 @@ export default {
 
   },
   mounted() {
-    // console.log('nyní mounted')
-    //ne vsechno musi byt ve store, nechal bych kazdou komponentu at si posila svoje requesty
-    // console.log(this.profilePath)
+
   },
   beforeCreate() {
-    // console.log('nyni beforeCreate')
+
   },
   beforeUpdate() {
-    // console.log('nyní beforeupdate')
+
   },
   updated() {
-    // console.log('nyní updated')
+
   },
   activated() {
-    // console.log('nyní activated')
+
   },
 }
 </script>

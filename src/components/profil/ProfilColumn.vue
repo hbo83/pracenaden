@@ -122,7 +122,6 @@ export default {
       profilIndex: null, //index aktuálního profilu
       thisProfil: {},//naplní objekt aktuálním profilem z metody get v mounted
       email: '',
-      //sicee tyhle atributy nepotrebuju, ptze je taham ze storage, ale inspektor rve ze je chce
       web: '',
       webVisible: true,
       phone: '',
@@ -144,7 +143,7 @@ export default {
   },
 computed: {
   get_currentProfilData() {
-    axios.get('http://localhost:8081/profiles/' + this.$store.state.currentProfilEmail)
+    axios.get('http://10.0.0.22:8081/profiles/' + this.$store.state.currentProfilEmail)
       .then((response) => {
         this.thisProfil = response.data[0]
       })

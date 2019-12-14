@@ -2,8 +2,8 @@
 <div styel="border: 1px solid black">
   <v-dialog v-model="dialog" width="100%">
     <v-card>
-      <v-btn @click="closeDialog">exit</v-btn>
       <ProfilDetail />
+      <v-btn @click="closeDialog">exit</v-btn>
     </v-card>
   </v-dialog>
   <v-card>
@@ -88,13 +88,13 @@ export default {
       //     email: this.profileDatas.email
       //   }
       // })
-      // this.$router.push('/profildetail/' + this.index)
+      this.$router.push('/profildetail/' + this.index)
       // console.log(this.profileDatas.email)
       this.storeProfilIndex(this.$props.index)
       this.storeProfilEmail(this.$props.profileDatas.email)
       this.storeCurrentProfile(this.profileDatas) //storne aktualni profil
       console.log(this.profileDatas)
-      this.dialog = true
+      // this.dialog = true
     },
     storeProfilIndex: function(index) {
       this.$store.commit('set_currentProfilIndex', index)

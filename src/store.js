@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
     currentOfferIndex: null, //zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
     userFirstName: null, //jmeno zalogovaneho usera
     userLastName:null,//prijmeni zalogovaneho usera
-    userLoged: null, //overuje zda je zalogovany any user
+    userLoged: null, //overuje zda je zalogovany any user, uklada email zalogovaneho
     userLogedId: '', //id zalogovaneho usera
     userImages: [],
     jobFilter: '', //aktuálně nastavený filtr na Obor

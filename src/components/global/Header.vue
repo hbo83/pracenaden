@@ -8,7 +8,7 @@
 
   <v-toolbar :style="{ backgroundColor: color }">
     <v-toolbar-title>
-      <h1 style="font-size:1em;" @click="homePage">Prácenaden.cz <span v-if="this.screenSize" style="font-size: 14px">- nabídka a poptávka služeb</span></h1>
+      <h1 style="font-size:1em;" @click="homePage">Prácenaden.cz <span v-if="this.screenSize" style="font-size: 14px">- nabídka a poptávka služeb</span></h1>{{width}}
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -59,7 +59,8 @@ export default {
       pinky: "#FFB6C1",
       sky: "#90e4f1",
       greeny: "#40a30d",
-      dialog: false
+      dialog: false,
+      width: window.screen.width
     }
   },
   props: {

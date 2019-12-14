@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var ProfilSchema = new Schema({
   id: mongoose.Schema.Types.ObjectId,
+  modified: String,
   email: String,
   firstName: String,
   lastName: String,
