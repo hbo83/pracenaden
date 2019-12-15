@@ -50,7 +50,7 @@ import Score from '@/components/profil/Score.vue'
 import ProfilAboutMe from '@/components/profil/ProfilAboutMe.vue'
 import ProfilColumn from '@/components/profil/ProfilColumn.vue'
 // import ProfilGalery from '@/components/profil/ProfilGalery.vue'
-import Carousel from '@/components/profil/Carousel.vue'
+// import Carousel from '@/components/profil/Carousel.vue'
 export default {
   name: 'Summary',
   components: {
@@ -59,7 +59,7 @@ export default {
     ProfilColumn,
     Score,
     // ProfilGalery,
-    Carousel
+    // Carousel
 
   },
   data() {

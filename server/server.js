@@ -237,7 +237,7 @@ app.put('/profiles/:id', function(req, res) {
         phone: req.body.phone,
         phoneVisible: req.body.phoneVisible,
         job: req.body.job,
-        money: req.body.money,
+        price: req.body.price,
         category: req.body.category,
         description: req.body.description,
         city: req.body.city,

@@ -49,12 +49,11 @@
 
 <script>
 import ProfilImg from '@/components/profil/ProfilImg.vue'
-import ProfilDetail from '@/components/profil/ProfilDetail'
 export default {
   name: 'Profil',
   components: {
     ProfilImg,
-    ProfilDetail
+
   },
   // zde rikam ze props ktere jsem obdrzel od parent komponenty se nazyvaji profilData, ocekavany typ je pole a jsou required
   props: {

@@ -37,18 +37,18 @@
           <v-col cols="6" class="my-0 py-0" style="border-left: 1px solid pink">
             <v-text-field v-model="formContent.web" label="Webové stránky" required></v-text-field>
             <v-text-field v-model="formContent.phone" label="Telefoní číslo" required></v-text-field>
-            <v-text-field v-model="formContent.facebook" label="Facebook" required></v-text-field>
+            <!-- <v-text-field v-model="formContent.facebook" label="Facebook" required></v-text-field>
             <v-text-field v-model="formContent.instagram" label="Instagram" required></v-text-field>
             <v-text-field v-model="formContent.skype" label="Skype" required></v-text-field>
-            <v-text-field v-model="formContent.whatsapp" label="WhatsApp" required></v-text-field>
+            <v-text-field v-model="formContent.whatsapp" label="WhatsApp" required></v-text-field> -->
           </v-col>
           <v-col cols="6" class="my-0 py-0" sm="6" style="border-left: 1px solid pink; border-right: 1px solid pink;">
             <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit WWW: ${stateToCzech(formContent.webVisible)}`"></v-switch>
             <v-switch v-model="formContent.phoneVisible" class="ma-4" :label="`Zobrazit telefon: ${stateToCzech(formContent.phoneVisible)}`"></v-switch>
-            <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit Facebook: ${stateToCzech(formContent.facebookVisible)}`"></v-switch>
+            <!-- <v-switch v-model="formContent.facebookVisible" class="ma-4" :label="`Zobrazit Facebook: ${stateToCzech(formContent.facebookVisible)}`"></v-switch>
             <v-switch v-model="formContent.instagramVisible" class="ma-4" :label="`Zobrazit Instagram: ${stateToCzech(formContent.instagramVisible)}`"></v-switch>
             <v-switch v-model="formContent.skypeVisible" class="ma-4" :label="`Zobrazit Skype: ${stateToCzech(formContent.skypeVisible)}`"></v-switch>
-            <v-switch v-model="formContent.whatsappVisible" class="ma-4" :label="`Zobrazit Whatsapp: ${stateToCzech(formContent.whatsappVisible)}`"></v-switch>
+            <v-switch v-model="formContent.whatsappVisible" class="ma-4" :label="`Zobrazit Whatsapp: ${stateToCzech(formContent.whatsappVisible)}`"></v-switch> -->
           </v-col>
         </v-row>
 
@@ -97,7 +97,7 @@ export default {
         firstName: '',
         lastName: '',
         job: '',
-        money: '',
+        price: '',
         category: [],
         aboutMe: '',
         phone: '',
@@ -105,21 +105,13 @@ export default {
         city: '',
         web: '',
         webVisible: true,
-        facebook: '',
-        facebookVisible: true,
-        instagram: '',
-        instagramVisible: true,
-        skype: '',
-        skypeVisible: true,
-        whatsapp: '',
-        whatsappVisible: true,
         osvc: true,
         currency: '',
         hideProfil: false,
         checkboxAgree: true
       },
       valid: false,
-      osvc: false,
+      // osvc: false,
       rules: [
         v => !!v || 'Položka je povinná',
         v => (v && v.length <= 20) || 'Jméno musí být kratší než 20 znaků',

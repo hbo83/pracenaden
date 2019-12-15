@@ -15,6 +15,7 @@
 https://vuetifyjs.com/en/customization/icons*/
 import axios from 'axios'
   export default {
+    name: 'ProfilCarousel',
     data () {
       return {
         items: [],//pole imgs

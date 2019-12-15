@@ -30,7 +30,7 @@
 
 <style>
 /* html, body {margin: 0; height: 100%; overflow: hidden} */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 6px;
     background-color: #F5F5F5;
 }
@@ -44,5 +44,6 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #b30000;
-}
+} */
+
 </style>
