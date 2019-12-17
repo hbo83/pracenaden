@@ -15,8 +15,6 @@ export const store = new Vuex.Store({
     allProfiles: [], //vsechny profily v DB
     currentProfile: {},//aktualni profil
     allOffers: [], //vsechny offers v DB
-    currentProfilIndex: null, //zde se uloží index aktuálního objektu, který se má zobrazit v profilDetail
-    currrentProfilEmail: null,//zde se uloží email aktuálního objektu, který se má zobrazit v profilDetail
     currentOffer: null, //zde se ulozi aktualni offer po kliknuti na ProfilOffer
     currentOfferIndex: null, //zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
     userFirstName: null, //jmeno zalogovaneho usera
@@ -56,12 +54,6 @@ export const store = new Vuex.Store({
     set_currentProfile( state, currentProfile ) {
       state.currentProfile = currentProfile
     },
-    set_currentProfilIndex(state, offer) { //commit, který naplní currentProfil
-      state.currentProfilIndex = offer
-    },
-    set_currentProfilEmail(state, email) { //currentProfilEmail
-      state.currentProfilEmail = email
-    },
     set_currentOffer(state, index) { //commit, který naplní currentOfferIndex
       state.currentOffer = index
     },
@@ -89,8 +81,8 @@ export const store = new Vuex.Store({
     setCategoryFilter(state, category) { //commit nastavi cityFilter
       state.categoryFilter = category
     },
-    setAllProfiles(state, filter) {
-      state.allProfiles = filter
+    setAllProfiles(state, profiles) {
+      state.allProfiles = profiles
     },
     setAllOffers(state, offer) {
       state.allOffers = offer

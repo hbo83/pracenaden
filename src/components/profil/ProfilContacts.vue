@@ -2,15 +2,15 @@
   <div>
       <p>
         <v-icon normal>face</v-icon>
-        <span>E-mail:</span><span>hbo</span>
+        <span>E-mail:</span><span>{{email}}</span>
       </p>
       <p>
         <v-icon normal>phone</v-icon>
-        <span>Telefon:</span>
+        <span>Telefon:</span>{{phone}}
       </p>
       <p>
         <v-icon normal>web</v-icon>
-        <span>Web:</span>
+        <span>Web:</span>{{web}}
       </p>
   </div>
 </template>
@@ -24,25 +24,18 @@ export default {
   },
   data() {
     return {
-      name: '',
-      surname: '',
       email: '',
       phone: '',
       web: ''
     }
   },
   mounted() {
-    axios.get('http://10.0.0.22:8081/profiles/' + this.$store.state.userLogedId)
-    .then((response) => {
-      this.formContent = response.data[0]
-      console.log(response.data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+    this.email = this.$store.state.currentProfile.email
+    this.phone = this.$store.state.currentProfile.phone
+    this.web = this.$store.state.currentProfile.web
+    console.log(this.$store.state.currentProfile)
 }
-
+}
 </script>
 
 <style scoped>

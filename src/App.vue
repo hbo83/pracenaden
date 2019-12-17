@@ -1,7 +1,9 @@
 <template>
 <div id="app">
-  <v-app><!--kdyz mam zde v-app tak nemusim kazdou komponentu tim obalovat a pisou ze nema byt na jedne strance vice v-app-->
-    <v-content><!--When using vue-router it is recommended that you place your views inside v-content.-->
+  <v-app>
+    <!--kdyz mam zde v-app tak nemusim kazdou komponentu tim obalovat a pisou ze nema byt na jedne strance vice v-app-->
+    <v-content>
+      <!--When using vue-router it is recommended that you place your views inside v-content.-->
       <v-container fluid px-0 py-0>
         <router-view />
       </v-container>
@@ -11,21 +13,21 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// export default {
-//   name: 'w',
-//   mounted: {
-// axios.get('http://localhost:8081/profiles')
-// .then((response) => {
-//   console.log(response.data)
-//   // this.$store.commit('setSummaryData', response)
-// })
-// .catch((error) => {
-//   console.log(error);
-// });
-//
-//   }
-// }
+import axios from 'axios'
+export default {
+  name: 'App',
+  beforeCreate() {
+    axios.get('http://10.0.0.22:8081/profiles')
+    .then((response) => {
+      console.log(response.data)
+      this.$store.commit('setAllProfiles', response.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }
+}
 </script>
 
 <style>
@@ -45,5 +47,4 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #b30000;
 } */
-
 </style>

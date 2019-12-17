@@ -1,9 +1,9 @@
 <template>
 <div class="profilSum" style="position: relative; top: 120px">
-  
+
   <v-row style="overflow: auto!important">
     <v-col sm="12" xs="12" class="col-12 py-1" v-for="(profil, index) in allProfiles">
-      <Profil v-show="!profil.hideProfil" :index="index" :profileDatas="allProfiles[index]" />
+      <Profil v-show="!profil.hideProfil" :index="index" :profileDatas="allProfiles[index]"/>
     </v-col>
 
   </v-row>
@@ -22,7 +22,7 @@ export default {
     return {
       index: null,
       dialog: false,
-      allProfiles: [] //index predavam do child komponenty Profil, kde se pouzije jako index objektu v poli allProfiles
+      allProfiles: []
     }
   },
 
@@ -31,6 +31,7 @@ export default {
   },
   computed: { //computed se bude pocitat jen v tom pripade ze nekde bude v sablone pouzito!!!
     getAllProfiles() { //vraci pole profilu
+      console.log(this.$store.state.allProfiles)
       return this.$store.state.allProfiles
     }
   },
@@ -48,6 +49,7 @@ export default {
   mounted() {
 
   }
+
 }
 </script>
 

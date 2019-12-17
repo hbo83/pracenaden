@@ -162,7 +162,7 @@ app.get('/profiles', function(req, res) {
 
 app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city, ale tohle je nahovno to posilat v query, lepsi je v data, ale vlastne u filtru je to jedno
   // var cityAndJob = {}
-  console.log(req.query.city + req.query.job)
+  console.log(req.query.city + req.query.job);
   // console.log(Object.keys(req.params.cityAndJob))
   if (req.query.city === 'Vše' && req.query.job === 'Vše') {
     Profil.find({}).exec(function(err, profil) {
@@ -171,7 +171,7 @@ app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city
       } else {
         res.json(profil);
       }
-    })
+    });
   } else if ( req.query.job === 'Vše') {
     Profil.find({
       city: req.query.city
@@ -182,7 +182,7 @@ app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city
       } else {
         res.json(profil);
       }
-    })
+    });
   } else if ( req.query.city === 'Vše' ) {
     Profil.find({
       // city: req.query.city
@@ -193,7 +193,7 @@ app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city
       } else {
         res.json(profil);
       }
-    })
+    });
   } else {
     Profil.find({
       city: req.query.city,
@@ -206,7 +206,7 @@ app.get('/profilesFiltered', function(req, res) {//vraci profili na zaklade city
       }
     })
   }
-})
+});
 
 
 
@@ -220,8 +220,10 @@ app.get('/profiles/:id', function(req, res) { //vrací profil na základě id
     } else {
       res.json(profil);
     }
-  })
-})
+  });
+});
+
+
 
 
 app.put('/profiles/:id', function(req, res) {

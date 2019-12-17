@@ -2,9 +2,11 @@
 <div>
   <p></p>
   <p><v-icon normal>build</v-icon>
-  <span>Profese:</span></p>
+  <span>Profese:</span>{{job}}
+</p>
   <p><v-icon normal>sort</v-icon>
-  <span>Kategorie:</span></p>
+  <span>Kategorie:</span>{{category}}
+</p>
 </div>
 </template>
 
@@ -16,8 +18,13 @@ export default {
   },
   data() {
     return {
-
+      job: '',
+      category: ''
     }
+  },
+    mounted() {
+      this.job = this.$store.state.currentProfile.job
+      this.category = this.$store.state.currentProfile.category
   }
 }
 </script>

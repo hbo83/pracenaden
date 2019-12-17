@@ -1,11 +1,5 @@
 <template>
 <div styel="border: 1px solid black">
-  <v-dialog v-model="dialog" width="100%">
-    <v-card>
-      <ProfilDetail />
-      <v-btn @click="closeDialog">exit</v-btn>
-    </v-card>
-  </v-dialog>
   <v-card>
     <v-row class="profilParent mx-0" @click="selectProfil" :style="{ backgroundColor: selected }">
       <v-col cols="4" class=" pl-8 profil" no-gutters>
@@ -57,7 +51,7 @@ export default {
   },
   // zde rikam ze props ktere jsem obdrzel od parent komponenty se nazyvaji profilData, ocekavany typ je pole a jsou required
   props: {
-    profileDatas: { //predan current profil
+    profileDatas: { //predan current profil, zde jsou data aktualniho profilu
       type: Object,
       required: false
     },
@@ -69,14 +63,11 @@ export default {
   data() {
     return {
       selected: "#e8f1ff",
-      dialog: false,
-      premium: true //pozdeji premiovy ucet bude nejak oznaceny
+      premium: true, //pozdeji premiovy ucet bude nejak oznaceny
+      email: ''
     }
   },
   methods: {
-    closeDialog() {
-      this.dialog = false
-    },
     //vybere profil, ulozi email a id vybraneho profilu do storu
     selectProfil() {
 
@@ -87,20 +78,12 @@ export default {
       //     email: this.profileDatas.email
       //   }
       // })
-      this.$router.push('/profildetail/' + this.index)
-      // console.log(this.profileDatas.email)
-      this.storeProfilIndex(this.$props.index)
-      this.storeProfilEmail(this.$props.profileDatas.email)
-      this.storeCurrentProfile(this.profileDatas) //storne aktualni profil
+      this.$router.push('/profildetail/' + this.profileDatas.email)//zobrazi profilDetail s routou tohoto mailu
+      this.storeCurrentProfile(this.profileDatas) //ulozi aktualni profil do store
       console.log(this.profileDatas)
-      // this.dialog = true
+      
     },
-    storeProfilIndex: function(index) {
-      this.$store.commit('set_currentProfilIndex', index)
-    },
-    storeProfilEmail: function(email) {
-      this.$store.commit('set_currentProfilEmail', email)
-    },
+
     storeThisProfil: function(index) {
       this.$store.commit('setThisProfileWebVisible', index)
     },

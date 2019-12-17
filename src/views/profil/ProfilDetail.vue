@@ -1,9 +1,13 @@
 <template>
 <div>
   <Header color="#90e4f1" />
-  <ProfilFiltering></ProfilFiltering>
-
   <v-container style="max-width: 60%"><!--//ten container nad rwo byt musi-->
+  <!-- <v-row justify="center">
+    <v-col cols="6">
+      <ProfilFiltering />
+    </v-col>
+  </v-row> -->
+
   <v-row style="margin-top: 120px" justify="space-between">
     <v-col cols="12">
       <p>Martin Habal</p>
@@ -53,7 +57,6 @@ export default {
     ProfilImg,
     ProfilJob,
     ProfilCarousel
-
   },
   created() {
 

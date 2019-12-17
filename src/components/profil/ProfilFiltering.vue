@@ -1,6 +1,6 @@
 <template>
 <!-- <v-container class="filter" fluid> -->
-<div style="width: 100%; margin: auto; position: fixed; top: 44px; z-index: 99; background: #90e4f1;" >
+<div style="position: fixed; top: 40px; z-index: 99; background: #90e4f1; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;" >
   <v-row align="center" style="height: 73px;" justify="center" class="px-4">
     <!-- <v-col cols="4">
       Nalezeno: {{dataCount}} položek
