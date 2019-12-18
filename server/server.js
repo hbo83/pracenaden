@@ -384,7 +384,7 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
     modified: new Date().toISOString(),
     originalImg: req.body.email + "/profil/original/" + req.file.originalname,//relativni cesta k original img
     resizedImg: req.body.email + "/profil/resized/" + req.file.originalname,//relativni cesta k resized img
-    pathToResizedImg: "http://10.0.0.22:8081/uploads/" + req.body.email + "/profil/resized/" + "profilPhoto.jpg"
+    pathToResizedImg: "http://10.0.0.22:8081/uploads/" + req.body.email + "/profil/resized/" + req.file.originalname
   });
   file.save()
     .then(result => {

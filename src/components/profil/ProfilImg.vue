@@ -23,9 +23,7 @@ export default {
 
   },
   computed: {
-    getProfilePath() { //najde zaznam file na zaklade mailu profilu a profilPhoto = true
-      // console.log(this.$store.state.allProfiles[this.index].email)
-
+    getProfilePath() {
       return this.profilePath
     }
   },
@@ -33,13 +31,11 @@ export default {
 
   },
   mounted() {
-    console.log(123)
-    axios.get('http://10.0.0.22:8081/profilphoto/' + this.$store.state.currentProfile.email)
+    axios.get('http://10.0.0.22:8081/profilphoto/' + this.$store.state.currentProfile.email)//tady musi byt email, protoze to bere z kolekce profilephotos
       .then((response) => {
         this.profilePath = response.data[0].pathToResizedImg
         console.log(response.data)
       })
-
       .catch((error) => {
         console.log(error);
       });

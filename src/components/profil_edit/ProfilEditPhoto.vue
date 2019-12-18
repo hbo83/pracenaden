@@ -1,6 +1,7 @@
 <template>
 <div class="profilPhoto" style="position: relative; top: 120px; margin-bottom: 120px; display: flex; justify-content: center;">
-  <img :src="profilePath" alt="profilPhoto" width="150px">
+  <!-- <img :src="profilePath" alt="profilPhoto" width="150px"> -->
+  <v-img style="cursor: pointer" :src="profilePath" aspect-ratio="1" :lazy-src="profilePath" alt="profilPhoto"></v-img>
   <upload-btn class="uplBtn photoBtn" noTitleUpdate block title="" @file-update="uploadGaleryPhoto">
     <template slot="icon">
       <v-icon>add</v-icon>
@@ -12,7 +13,7 @@
 <script>
 import axios from 'axios'
 import UploadButton from 'vuetify-upload-button';
-import SaveProfilPhoto from '@/MyObjects/SaveProfilPhoto.js'
+import ProfilEditPhotoSave from '@/components/profil_edit/js/ProfilEditPhotoSave.js'
 export default {
   name: 'ProfilEditPhoto',
   components: {
@@ -29,7 +30,7 @@ export default {
   methods: {
     uploadGaleryPhoto() {
 
-      const saveProfilPhoto = new SaveProfilPhoto(this.$store.state.userLoged);
+      const saveProfilPhoto = new ProfilEditPhotoSave(this.$store.state.userLoged);
       saveProfilPhoto.saveImg()
 
     }

@@ -1,7 +1,7 @@
 <template>
 <div style="width: 100%; z-index: 99; position: fixed; top: 65px; width: 100%; display: flex">
 
-  <v-btn icon>
+  <v-btn icon @click="toPath" style="border: 1px solid black">
     <v-icon>keyboard_arrow_left</v-icon>
   </v-btn>
 
@@ -10,7 +10,7 @@
   <!--vyplnuje misto mezi dvema komponentama-->
   <!-- <template v-if="$vuetify.breakpoint.smAndDown"> -->
   <template>
-    <span style="display: block;">editace</span>
+    <span style="display: block; padding-right: 2em; color: #90e4f1">editace</span>
   </template>
 
 </div>

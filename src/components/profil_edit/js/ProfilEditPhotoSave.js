@@ -1,13 +1,13 @@
 import axios from 'axios'
-export default class SaveProfilImg {
+export default class ProfilEditPhotoSave {
   constructor(email) {
     this.email = email,
-    this.url = 'http://10.0.0.22:8081/img',
+    this.url = 'http://10.0.0.22:8081/profilphoto',
     this.selectedFile = event.target.files[0]
   }
-  saveImg(bol) {//true if ProfilPhoto or false for galery img
+  saveImg() {//true if ProfilPhoto or false for galery img
     const fd = new FormData();
-    fd.append('profilPhoto', bol);
+
     fd.append('email', this.email);
     fd.append('productImage', this.selectedFile, this.selectedFile.name)
 

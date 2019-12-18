@@ -1,7 +1,7 @@
 <template>
 <div class="profilEdit">
   <Header color="#90e4f1"></Header>
-  <NavBar path="/" color="#90e4f1" />
+  <NavBar path="" color="#90e4f1" />
   <v-container style="width: 100%">
     <v-row justify="center">
       <v-col cols="2">
@@ -15,23 +15,18 @@
       </v-col>
     </v-row>
 
-    <br /><br />
-
     <hr />
-    <v-row>
+    <!-- <v-row> -->
       <ProfilEditGalery />
-    </v-row>
+    <!-- </v-row> -->
   </v-container>
 </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// this.forceUpdate();
 import Header from '@/components/global/Header.vue'
 import NavBar from '@/components/global/NavBar.vue'
 import ProfilEditPhoto from '@/components/profil_edit/ProfilEditPhoto.vue'
-import SaveProfilImg from '@/MyObjects/SaveProfilImg.js'
 import ProfilEditGalery from '@/components/profil_edit/ProfilEditGalery.vue'
 import ProfilEditForm from '@/components/profil_edit/ProfilEditForm.vue'
 export default {
@@ -39,7 +34,6 @@ export default {
   components: {
     Header,
     NavBar,
-    // 'upload-btn': UploadButton,
     ProfilEditPhoto,
     ProfilEditGalery,
     ProfilEditForm

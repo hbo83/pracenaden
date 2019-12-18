@@ -1,6 +1,7 @@
 <template>
 <div>
   <Header color="#90e4f1" />
+  <NavBar path="" color="#90e4f1" />
   <v-container style="max-width: 60%"><!--//ten container nad rwo byt musi-->
   <!-- <v-row justify="center">
     <v-col cols="6">
@@ -41,6 +42,7 @@
 
 <script>
 import Header from '@/components/global/Header.vue'
+import NavBar from '@/components/global/NavBar.vue'
 import ProfilFiltering from '@/components/profil/ProfilFiltering.vue'
 import ProfilImg from '@/components/profil/ProfilImg.vue'
 import ProfilContacts from '@/components/profil/ProfilContacts.vue'
@@ -51,6 +53,7 @@ export default {
   name: 'ProfilDetail',
   components: {
     Header,
+    NavBar,
     ProfilFiltering,
     ProfilContacts,
     ProfilAboutMe,

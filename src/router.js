@@ -23,7 +23,7 @@ export default new Router({
       component: Profil
     },
     {
-      path: '/profildetail/:index',//cesta v URL adrese
+      path: '/profildetail/:email',//cesta v URL adrese
       name: 'ProfilDetail',
       component: ProfilDetail//nazev komponenty
     },

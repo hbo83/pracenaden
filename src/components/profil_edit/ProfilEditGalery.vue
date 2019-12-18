@@ -32,7 +32,7 @@
 <script>
 import axios from 'axios'
 import UploadButton from 'vuetify-upload-button';
-import SaveProfilImg from '@/MyObjects/SaveProfilImg.js'
+import ProfilEditGalerySave from '@/components/profil_edit/js/ProfilEditGalerySave.js'
 export default {
   name: 'ProfilEditGalery',
   components: {
@@ -93,8 +93,8 @@ export default {
     },
       uploadGaleryPhoto() {
 
-        const saveProfilPhoto = new SaveProfilImg(this.$store.state.userLoged);
-        saveProfilPhoto.saveImg(false) //false pro galery img
+        const saveProfilImg = new ProfilEditGalerySave(this.$store.state.userLoged);
+        saveProfilImg.saveImg(false) //false pro galery img
           .then(res => {
             console.log(res);
             alert('Soubor byl nahrán')
