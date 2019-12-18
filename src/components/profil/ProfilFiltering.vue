@@ -1,14 +1,15 @@
 <template>
 <!-- <v-container class="filter" fluid> -->
-<div style="position: fixed; width: 100%; top: 40px; z-index: 99; background: #90e4f1; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; margin: auto" >
-  <v-container>
-  <v-row align="center" style="height: 73px;" justify="center" class="px-12">
+<div style="position: fixed; width: 100%; top: 56px; z-index: 99; background: #90e4f1; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; margin: auto" >
+  <v-container class="py-0">
+  <v-row align="center" style="height: 65px;" justify="center" class="px-12">
     <!-- <v-col cols="4">
       Nalezeno: {{dataCount}} položek
     </v-col> -->
     <!-- cols znamena kolik v ty row zabyra mista -->
       <v-col class="my-0 py-0" cols="6" md="3" lg="3" xs="3" sm="3">
         <v-select
+          class="selectStyle"
           v-model="job"
           :items="jobItems"
           label="Obor, Profese"
@@ -21,8 +22,9 @@
         ></v-select>
       </v-col>
 
-      <v-col class="" cols="6" md="3" lg="3" xs="3" xm="3">
+      <v-col class="my-0 py-0" cols="6" md="3" lg="3" xs="3" sm="3">
         <v-select
+          class="selectStyle"
           v-model="city"
           :items="cityItems"
           label="Místo"
@@ -99,4 +101,13 @@ export default {
   padding: 0 10px 0 45px;
 }
 
+</style>
+
+<style>
+
+@media only screen and (max-width: 365px) {
+  .selectStyle .v-messages__message {
+    font-size: 7px
+  }
+}
 </style>

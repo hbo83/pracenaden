@@ -9,14 +9,11 @@
       Ne
     </v-btn>
   </v-snackbar>
-  <v-row>
+  <v-row justify="center">
     <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-1" style="min-width: 153px">
 
       <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" @click="setImgToDelete(imgs[index])" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg"></v-img>
-      <!-- <v-card>
-        <v-btn width="50%" color="success" @click="snackbar = true">Profil</v-btn>
-        <v-btn width="50%" color="error" @click="delImg(imgs[index])">del</v-btn>
-      </v-card> -->
+      
     </v-col>
     <v-col cols='2'>
       <upload-btn class="uplBtn galeryBtn" noTitleUpdate block title="" @file-update="uploadGaleryPhoto(false)">

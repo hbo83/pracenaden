@@ -14,7 +14,7 @@
         <ProfilEditForm />
       </v-col>
     </v-row>
-
+Galerie
     <hr />
     <!-- <v-row> -->
       <ProfilEditGalery />

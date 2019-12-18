@@ -15,10 +15,10 @@
           <v-col cols="12" class="py-0">
             <v-row>
               <v-col>
-                <v-text-field class="px-10" v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
+                <v-text-field class="pl-10" v-model="formContent.money" label="Požadovaná odměna" :rules="rules" required></v-text-field>
               </v-col>
               <v-col>
-                <v-select class="px-10" v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
+                <v-select class="pr-10" v-model="formContent.currency" :items="selectedCurrencyItems" :rules="rules" label="Jednotka" required></v-select>
               </v-col>
             </v-row>
           </v-col>
@@ -34,8 +34,8 @@
       <v-col cols="12">
         <v-row>
           <v-col cols="6" class="my-0 py-0">
-            <v-text-field class="px-10" v-model="formContent.web" label="Webové stránky" required></v-text-field>
-            <v-text-field class="px-10" v-model="formContent.phone" label="Telefoní číslo" required></v-text-field>
+            <v-text-field class="pl-10" v-model="formContent.web" label="Webové stránky" required></v-text-field>
+            <v-text-field class="pl-10" v-model="formContent.phone" label="Telefoní číslo" required></v-text-field>
           </v-col>
           <v-col cols="6" class="my-0 py-0" sm="6">
             <v-switch v-model="formContent.webVisible" class="ma-4" :label="`Zobrazit WWW: ${stateToCzech(formContent.webVisible)}`"></v-switch>

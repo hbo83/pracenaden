@@ -49,7 +49,7 @@ export default {
     //   console.log(error);
     // });
   },
-  mounted() {
+  mounted() {//to foto tam nezustane pokud se tam znovu neodkazu z profilu kde se ulozi aktualni profil ( mail)
       axios.get('http://10.0.0.22:8081/profilphoto/' + this.$store.state.currentProfile.email)
         .then((response) => {
           this.profilePath = response.data[0].pathToResizedImg
