@@ -17,6 +17,7 @@ const File = require('./models/File.model');
 const GoldStar = require('./models/GoldStar.model');
 const Offer = require('./models/Offer.model');
 const OfferFile = require('./models/OfferFile.model');
+const ProfilPhoto = require('./models/ProfilPhoto.model');
 
 const Jimp = require('jimp');//img resizer
 
@@ -303,6 +304,22 @@ app.get('/img/:email', function(req, res) { //vrati fotky vazane k danemu emailu
   })
 })
 
+app.get('/profilphoto/:email', function(req, res) { //vrati Profilovku vazane k danemu emailu z profils
+  // console.log(req.params.email)
+ProfilPhoto.find({
+    email: req.params.email
+  }).exec(function(err, img) {
+    // img = img.map(function(value, index) {//vrati nove pole obsahujici jen cestu k obrazku
+    //   return value.pathToResizedImg
+    // })
+    if (err) {
+      res.send('error has occured');
+    } else {
+      res.json(img);
+    }
+  })
+})
+
 app.get('/imgoffer', function(req, res) { //vrati fotky vazane k danemu emailu z offers
   // console.log(req.query.email + req.query.index)
   OfferFile.find({
@@ -323,7 +340,7 @@ let uploadProfil = multer({//profilový multer, který predavame jako parametr u
       let folder = req.body.email;
 
       console.log(req.body);
-      let path = `./uploads/${folder}/profil/original`;
+      let path = `./uploads/${folder}/profil/original/`;
       fse.mkdirsSync(path);
       callback(null, path);
       let pathToResized = `./uploads/${folder}/profil/resized/`;
@@ -337,17 +354,37 @@ let uploadProfil = multer({//profilový multer, který predavame jako parametr u
   })
 });
 
+let uploadProfilPhoto = multer({//profilový multer, který predavame jako parametr u upload POST
+  storage: multer.diskStorage({
+    destination: (req, file, callback) => {
+      let folder = req.body.email;
+
+      console.log(req.body);
+      let path = `./uploads/${folder}/profilphoto/original/`;
+      fse.mkdirsSync(path);
+      callback(null, path);
+      let pathToResized = `./uploads/${folder}/profilphoto/resized/`;
+      fse.mkdirsSync(pathToResized);
+      callback(null, pathToResized);
+    },
+    filename: (req, file, callback) => {
+      //originalname is the uploaded file's name with extn
+      callback(null, "profilPhoto.jpg");
+      // callback(null, "profilPhoto" + path.extname(file.originalname));//ulozi jako profilPhoto + jeho vlastni pripona
+    }
+  })
+});
+
 app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //upload fotky profil
   // console.log(req.body.profilPhoto.length);
   // if (req.body.profilPhoto.length === 0) {
   const file = new File({
     _id: new mongoose.Types.ObjectId(),
     email: req.body.email,
-    profilPhoto: req.body.profilPhoto,
     modified: new Date().toISOString(),
     originalImg: req.body.email + "/profil/original/" + req.file.originalname,//relativni cesta k original img
     resizedImg: req.body.email + "/profil/resized/" + req.file.originalname,//relativni cesta k resized img
-    pathToResizedImg: "http://10.0.0.22:8081/uploads/" + req.body.email + "/profil/resized/" + req.file.originalname
+    pathToResizedImg: "http://10.0.0.22:8081/uploads/" + req.body.email + "/profil/resized/" + "profilPhoto.jpg"
   });
   file.save()
     .then(result => {
@@ -368,6 +405,40 @@ app.post('/img', uploadProfil.single('productImage'), (req, res, next) => { //up
         .quality(60) // set JPEG quality
         // .greyscale() // set greyscale
         .write('uploads/' + req.body.email + "/profil/resized/" + req.file.originalname); // save
+    })
+    .catch(err => {
+      console.error(err);
+    });
+})
+
+app.post('/profilphoto', uploadProfilPhoto.single('productImage'), (req, res, next) => { //upload fotky profilove
+  const profilPhoto = new ProfilPhoto({
+    _id: new mongoose.Types.ObjectId(),
+    email: req.body.email,
+    modified: new Date().toISOString(),
+    originalImg: req.body.email + "/profilphoto/original/" + req.file.originalname,//relativni cesta k original img
+    resizedImg: req.body.email + "/profilphoto/resized/" + req.file.originalname,//relativni cesta k resized img
+    pathToResizedImg: "http://10.0.0.22:8081/uploads/" + req.body.email + "/profilphoto/resized/" +  "profilPhoto.jpg"//casem predelat
+  });
+  profilPhoto.save()
+    .then(result => {
+      // console.log(result);
+      res.status(201).json({//vraci objekt
+        message: 'Create product successfully',
+        createdProduct: {
+          name: result.resizedImg,
+          modified: result.modified
+        }
+      });
+    });
+
+  Jimp.read('uploads/' + req.body.email + "/profilphoto/original/" + req.file.originalname)
+    .then(img => {
+      return img
+        .resize(256, 256) // resize
+        .quality(60) // set JPEG quality
+        // .greyscale() // set greyscale
+        .write('uploads/' + req.body.email + "/profilphoto/resized/" + req.file.originalname); // save
     })
     .catch(err => {
       console.error(err);

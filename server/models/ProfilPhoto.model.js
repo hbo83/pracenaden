@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-const FileSchema = mongoose.Schema({
+const ProfilPhotoSchema = mongoose.Schema({
   // _id: mongoose.Schema.Types.ObjectId,
   email: String,
   // name: {
@@ -20,4 +20,4 @@ const FileSchema = mongoose.Schema({
   },
   pathToResizedImg: String
 })
-module.exports = mongoose.model('File', FileSchema);
+module.exports = mongoose.model('ProfilPhoto', ProfilPhotoSchema);
