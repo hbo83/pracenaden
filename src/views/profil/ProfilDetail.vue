@@ -1,38 +1,39 @@
 <template>
 <div>
   <Header color="#90e4f1" />
-  <NavBar path="" color="#90e4f1" />
-  <v-container style="max-width: 60%"><!--//ten container nad rwo byt musi-->
+  <NavBar path="" color="#90e4f1" nav="detail"/>
+  <v-container><!--//ten container nad rwo byt musi-->
   <!-- <v-row justify="center">
     <v-col cols="6">
       <ProfilFiltering />
     </v-col>
   </v-row> -->
 
-  <v-row style="margin-top: 120px" justify="space-between">
+  <v-row style="margin-top: 50px" justify="center">
     <v-col cols="12">
-      <p>Martin Habal</p>
+      <p style="text-align: center">{{this.$store.state.currentProfile.name}}</p>
     </v-col>
-    <v-col md="3" lg="3" style="border: 1px solid black">
+    <!-- cols="12" znamena na kolik cols se to deli -->
+    <v-col cols="12" md="1" lg="1" xs="12" class="">
       <ProfilImg />
     </v-col>
-    <v-col md="3" lg="3" style="border: 1px solid black">
+    <v-col cols="12" md="3" lg="3" xs="12">
       <ProfilContacts />
     </v-col>
-    <v-col md="3" lg="3" style="border: 1px solid black">
+    <v-col cols="12" md="3" lg="3" xs="12">
       <ProfilJob />
     </v-col>
 
   </v-row>
 
-  <v-row class="py-12">
-    <v-col md="6" lg="6" style="border: 1px solid black">
+  <v-row class="py-1" justify="center">
+    <v-col md="6" lg="6">
       <ProfilAboutMe />
     </v-col>
   </v-row>
 
-  <v-row>
-    <v-col style="border: 1px solid black">
+  <v-row justify="center">
+    <v-col cols="12" md="4" lg="4">
       <ProfilCarousel />
     </v-col>
   </v-row>
@@ -43,18 +44,18 @@
 <script>
 import Header from '@/components/global/Header.vue'
 import NavBar from '@/components/global/NavBar.vue'
-import ProfilFiltering from '@/components/profil/ProfilFiltering.vue'
+// import ProfilFiltering from '@/components/profil_detail/ProfilFiltering.vue'
 import ProfilImg from '@/components/profil/ProfilImg.vue'
-import ProfilContacts from '@/components/profil/ProfilContacts.vue'
-import ProfilAboutMe from '@/components/profil/ProfilAboutMe.vue'
-import ProfilJob from '@/components/profil/ProfilJob.vue'
-import ProfilCarousel from '@/components/profil/ProfilCarousel.vue'
+import ProfilContacts from '@/components/profil_detail/ProfilContacts.vue'
+import ProfilAboutMe from '@/components/profil_detail/ProfilAboutMe.vue'
+import ProfilJob from '@/components/profil_detail/ProfilJob.vue'
+import ProfilCarousel from '@/components/profil_detail/ProfilCarousel.vue'
 export default {
   name: 'ProfilDetail',
   components: {
     Header,
     NavBar,
-    ProfilFiltering,
+    // ProfilFiltering,
     ProfilContacts,
     ProfilAboutMe,
     ProfilImg,

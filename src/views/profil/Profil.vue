@@ -2,18 +2,14 @@
   <v-app>
     <div class="home">
       <Header color="#90e4f1" />
+      <ProfilFiltering />
       <v-container>
-        <v-row justify="center">
-          <v-col cols="6">
-            <ProfilFiltering />
-          </v-col>
-        </v-row>
-      </v-container>
       <v-row justify="center">
         <v-col md="4" lg="4" xs="12">
           <ProfilSum />
         </v-col>
       </v-row>
+    </v-container>
     </div>
   </v-app>
 </template>

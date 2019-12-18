@@ -1,11 +1,13 @@
 <template>
 <!-- <v-container class="filter" fluid> -->
-<div style="position: fixed; top: 40px; z-index: 99; background: #90e4f1; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;" >
-  <v-row align="center" style="height: 73px;" justify="center" class="px-4">
+<div style="position: fixed; width: 100%; top: 40px; z-index: 99; background: #90e4f1; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; margin: auto" >
+  <v-container>
+  <v-row align="center" style="height: 73px;" justify="center" class="px-12">
     <!-- <v-col cols="4">
       Nalezeno: {{dataCount}} položek
     </v-col> -->
-      <v-col class="d-flex my-0 py-0" cols="6">
+    <!-- cols znamena kolik v ty row zabyra mista -->
+      <v-col class="my-0 py-0" cols="6" md="3" lg="3" xs="3" sm="3">
         <v-select
           v-model="job"
           :items="jobItems"
@@ -19,7 +21,7 @@
         ></v-select>
       </v-col>
 
-      <v-col class="" cols="6">
+      <v-col class="" cols="6" md="3" lg="3" xs="3" xm="3">
         <v-select
           v-model="city"
           :items="cityItems"
@@ -28,10 +30,13 @@
           append-icon="map"
           v-on:change="setCity"
           dense
+          :hint="get_dataCount"
+          persistent-hint
         ></v-select>
       </v-col>
 
     </v-row>
+  </v-container>
     <!-- <v-row>
       <v-col cols="12" align="center" class="py-0 my-0">
         <span>Nalezeno: {{dataCount}} položek</span>

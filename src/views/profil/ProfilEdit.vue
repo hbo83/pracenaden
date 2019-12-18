@@ -1,7 +1,7 @@
 <template>
 <div class="profilEdit">
   <Header color="#90e4f1"></Header>
-  <NavBar path="" color="#90e4f1" />
+  <NavBar path="" color="#90e4f1" nav="editace"/>
   <v-container style="width: 100%">
     <v-row justify="center">
       <v-col cols="2">

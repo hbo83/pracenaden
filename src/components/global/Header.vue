@@ -8,7 +8,8 @@
 
   <v-toolbar :style="{ backgroundColor: color }">
     <v-toolbar-title>
-      <h1 style="font-size:1em;" @click="homePage">Prácenaden.cz <span v-if="this.screenSize" style="font-size: 14px">- nabídka a poptávka služeb</span></h1>{{width}}
+      <h1 style="font-size:1em;" @click="homePage">Prácenaden.cz <span v-if="this.screenSize" style="font-size: 14px">- nabídka a poptávka služeb</span></h1>
+      <!-- {{width}} -->
     </v-toolbar-title>
 
     <v-spacer></v-spacer>

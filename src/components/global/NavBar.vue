@@ -10,7 +10,7 @@
   <!--vyplnuje misto mezi dvema komponentama-->
   <!-- <template v-if="$vuetify.breakpoint.smAndDown"> -->
   <template>
-    <span style="display: block; padding-right: 2em; color: #90e4f1">editace</span>
+    <span style="display: block; padding-right: 2em; color: #90e4f1">{{nav}}</span>
   </template>
 
 </div>
@@ -26,6 +26,10 @@ export default {
       required: true
     },
     color: {
+      type: String,
+      required: false
+    },
+    nav: {
       type: String,
       required: false
     }

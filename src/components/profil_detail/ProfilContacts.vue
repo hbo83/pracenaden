@@ -1,5 +1,6 @@
 <template>
-  <div>
+<div>
+  <v-card class="px-6">
       <p>
         <v-icon normal>face</v-icon>
         <span>E-mail:</span><span>{{email}}</span>
@@ -12,7 +13,8 @@
         <v-icon normal>web</v-icon>
         <span>Web:</span>{{web}}
       </p>
-  </div>
+  </v-card>
+</div>
 </template>
 
 <script>
@@ -34,10 +36,12 @@ export default {
     this.phone = this.$store.state.currentProfile.phone
     this.web = this.$store.state.currentProfile.web
     console.log(this.$store.state.currentProfile)
-}
+  }
 }
 </script>
 
 <style scoped>
-
+/* p {
+  text-align: center;
+} */
 </style>

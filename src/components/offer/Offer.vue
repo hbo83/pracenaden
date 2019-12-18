@@ -42,7 +42,7 @@
 </template>
 
 <script>
-// import ProfilImg from './ProfilImg.vue'
+
 
 export default {
   name: 'ProfilOffer',
