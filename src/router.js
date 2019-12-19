@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Profil from './views/profil/Profil.vue'
-import Login from '@/views/login/Login'
+// import Login from '@/views/login/Login'
 import Signin from '@/views/signin/Signin'
 import ProfilDetail from '@/views/profil/ProfilDetail.vue'
 import ProfilEdit from '@/views/profil/ProfilEdit.vue'
@@ -27,11 +27,11 @@ export default new Router({
       name: 'ProfilDetail',
       component: ProfilDetail//nazev komponenty
     },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
+    // {
+    //   path: '/login',
+    //   name: 'Login',
+    //   component: Login
+    // },
     {
       path: '/signin',
       name: 'Signin',

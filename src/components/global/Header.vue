@@ -1,8 +1,6 @@
 <template>
 <div style="position: fixed; width: 100%; z-index: 99">
-  <v-dialog v-model="dialog" width="100%">
-    <!-- <template v-slot:activator="{ on }">
-        </template> -->
+  <v-dialog v-model="dialog" persistent width="30%">
     <Login />
   </v-dialog>
 
@@ -17,6 +15,17 @@
     <v-toolbar-items>
       <!-- <v-btn v-if="offerBtnState" :color="pinky" text to="/offers">Poptávka</v-btn> -->                         <!--//NEMAZAT-->
       <!-- <v-btn v-if="profilBtnState" :color="sky" text to="/">Nabídka</v-btn> -->                         <!--//NEMAZAT-->
+      <!-- <v-btn v-if="editProfilBtnState" icon @click="toProfilDetail">
+        <v-icon>edit</v-icon>
+      </v-btn>
+      <v-btn v-if="editOfferBtnState" icon @click="toOfferEdit">
+        <v-icon>edit</v-icon>
+      </v-btn>
+      <v-btn class="xs-0" v-if="this.$store.state.userLoged && this.screenSize" disabled text>{{ updateUserLoged }}</v-btn> -->
+    </v-toolbar-items>
+
+    <!-- <template v-if="$vuetify.breakpoint.smAndDown"> -->
+    <template>
       <v-btn v-if="editProfilBtnState" icon @click="toProfilDetail">
         <v-icon>edit</v-icon>
       </v-btn>
@@ -24,10 +33,6 @@
         <v-icon>edit</v-icon>
       </v-btn>
       <v-btn class="xs-0" v-if="this.$store.state.userLoged && this.screenSize" disabled text>{{ updateUserLoged }}</v-btn><!--kdyz je screen size mensi nez 500 nebo neni nikdo zalogovanej pak bude btn skryt-->
-    </v-toolbar-items>
-
-    <!-- <template v-if="$vuetify.breakpoint.smAndDown"> -->
-    <template>
       <v-btn v-show="!updateUserLoged" icon @click="logIn">
         <v-icon>account_box</v-icon>
       </v-btn>
@@ -101,7 +106,10 @@ export default {
     },
     updateUserLoged() { //return je spravny kdyz beru z vuex
       this.dialog = this.$store.state.loginDialogState
-      return this.$store.state.userLoged
+      if(this.$store.state.userLoged === null) {//kdyz je objekt userloged prazdny, tak se button login objevi
+        return false
+      } else
+        return this.$store.state.userLoged.email
     },
     screenSize() {//screen size pak brat ze store
       var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -130,7 +138,7 @@ export default {
     },
     logOut() { //logout
       let userLoged = this.$store.state.userLoged
-      this.$store.commit('setLogout', null)
+      this.$store.commit('setUserLoged', null)//userLoged = null, znamena ze neni nikdo zalogovan
       // console.log(this.$store.state.userLoged)
       if (userLoged) {
         var txt;

@@ -24,7 +24,8 @@ const Jimp = require('jimp');//img resizer
 
 
 var stars = require("./routes/stars.js")(app, GoldStar);//asi jedna z moznosti, u stars to funguje
-
+// var users = require("./routes/users.js");
+// app.use("/routes/users.js", users)
 // var users = require("./routes/users");
 // app.use('/users', users);
 
@@ -125,7 +126,7 @@ app.route('/users')
   })
   .post(function (req, res) {
     var newUser = new User();
-
+    console.log(req.body.email);
     newUser.email = req.body.email;
     newUser.password = req.body.password;
 

@@ -13,7 +13,7 @@
     <v-col v-for="(image, index) in imgs" v-bind:index="index" class="col-1" style="min-width: 153px">
 
       <v-img style="cursor: pointer" :src="imgs[index].pathToResizedImg" @click="setImgToDelete(imgs[index])" aspect-ratio="1" :lazy-src="imgs[index].pathToResizedImg"></v-img>
-      
+
     </v-col>
     <v-col cols='2'>
       <upload-btn class="uplBtn galeryBtn" noTitleUpdate block title="" @file-update="uploadGaleryPhoto(false)">
@@ -56,7 +56,7 @@ export default {
     },
     getImgs() {
 
-      axios.get('http://10.0.0.22:8081/img/' + this.$store.state.userLoged) //naplni imgs[] objektama fotek
+      axios.get('http://10.0.0.22:8081/img/' + this.$store.state.userLoged.email) //naplni imgs[] objektama fotek
         .then((response) => {
           this.imgs = response.data
         })
@@ -64,7 +64,7 @@ export default {
           console.log(error);
         });
 
-      axios.get('http://10.0.0.22:8081/profilesedit/' + this.$store.state.userLogedId)
+      axios.get('http://10.0.0.22:8081/profilesedit/' + this.$store.state.userLoged._id)
         .then((response) => {
           //osetrit vyjimku kdyz jeste nema profil vyplnenej
           this.formContent = response.data[0]
@@ -90,7 +90,7 @@ export default {
     },
       uploadGaleryPhoto() {
 
-        const saveProfilImg = new ProfilEditGalerySave(this.$store.state.userLoged);
+        const saveProfilImg = new ProfilEditGalerySave(this.$store.state.userLoged.email);
         saveProfilImg.saveImg(false) //false pro galery img
           .then(res => {
             console.log(res);

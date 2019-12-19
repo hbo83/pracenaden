@@ -131,21 +131,22 @@ export default {
       }
     },
     saveProfil() { //updatuje profil
-      axios.put('http://10.0.0.22:8081/profiles/' + this.$store.state.userLogedId, this.formContent).then(alert("Profil uložen"))
+      axios.put('http://10.0.0.22:8081/profiles/' + this.$store.state.userLoged._id, this.formContent).then(alert("Profil uložen"))
     },
     loadProfil() { //naplní form
-      axios.get('http://10.0.0.22:8081/profiles/' + this.$store.state.userLogedId)
+      axios.get('http://10.0.0.22:8081/profiles/' + this.$store.state.userLoged._id)
       .then((response) => {
         this.formContent = response.data[0]
         console.log(response.data)
       })
-      .catch((error) => {
+      .catch((error) => {//zde muze nastat chyba, kdyz neni jeste vyplnen profil noveho usera, na tom vyzkouset error
         console.log(error);
+        // alert("prosim vyplnte profil")
       });
     }
   },
   mounted() {
-    this.loadProfil()
+    this.loadProfil()//osetrit i zde mozna
   }
 }
 

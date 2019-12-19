@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      selected: "#e8f1ff",
+      selected: "white",
       premium: true, //pozdeji premiovy ucet bude nejak oznaceny
       email: ''
     }
@@ -81,7 +81,7 @@ export default {
       this.$router.push('/profildetail/' + this.profileDatas.email)//zobrazi profilDetail s routou tohoto mailu
       this.storeCurrentProfile(this.profileDatas) //ulozi aktualni profil do store
       console.log(this.profileDatas)
-      
+
     },
 
     storeThisProfil: function(index) {
@@ -120,7 +120,7 @@ export default {
 }
 
 .profilParent {
-  background-color: #e8f1ff
+  /* background-color: #e8f1ff */
 }
 
 .profilParent:hover {

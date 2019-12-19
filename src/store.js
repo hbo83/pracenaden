@@ -13,36 +13,27 @@ export const store = new Vuex.Store({
   strict: true, //nenecha menit state primo, ale musi se menit commitem
   state: { //to samy co data
     allProfiles: [], //vsechny profily v DB
-    currentProfile: {},//aktualni profil
-    allOffers: [], //vsechny offers v DB
-    currentOffer: null, //zde se ulozi aktualni offer po kliknuti na ProfilOffer
-    currentOfferIndex: null, //zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
-    userFirstName: null, //jmeno zalogovaneho usera
-    userLastName:null,//prijmeni zalogovaneho usera
-    userLoged: null, //overuje zda je zalogovany any user, uklada email zalogovaneho
-    userLogedId: '', //id zalogovaneho usera
-    userImages: [],
+    currentProfile: {},//objekt aktualniho profilu
+    userLoged: null, //objekt usera(_id,email,password)
     jobFilter: '', //aktuálně nastavený filtr na Obor
     cityFilter: '', //aktuálně nastavený filtr na město
     categoryFilter: '',//aktuálně nastavený filtr na kategorii
     currentLink: '', //aktuální link
     loginDialogState: false,//dialog na login visible or not
-    screenSize: ''//sirka displaye var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    screenSize: '',//sirka displaye var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+    allOffers: [], //vsechny offers v DB
+    currentOffer: null, //zde se ulozi aktualni offer po kliknuti na ProfilOffer
+    currentOfferIndex: null //zde se uloží index aktuální nabídky, která se zobrazí po rozkliknutí editace nabídek, slouží k indexu slozky na upload fotky
   },
   mutations: { //commit+track State changes, mutation meni state. Nelze volat primo, ale skrze "store.commit('funkce')", jsou podobne udalostem
-    set_loginDialogState( state, bool ) {
+    set_loginDialogState( state, bool ) {//ligin dialog true/false kvuli btn v jiny komponente
       state.loginDialogState = bool
-    },
-    set_userFirstName( state, firstName) {//meni switch state
-      state.userFirstName = firstName
-    },
-    set_userLastName( state, lastName) {//nastavi zda jsem na profilu ci offer
-      state.userLastName = lastName
     },
     set_currentLink(state, view) { //nastaví aktuální router link .../link, kvuli ikoně v header
       state.currentLink = view
     },
-    setLogout(state, logout) {
+    setLogout(state, logout) {//po odhlaseni nastavi objekt userLoged zpet na null, kvili ikone
       state.userLoged = null
     },
     FETCH_USERS(state, users) { //commit, ktery naplni serverData, pouzito v action fetchUser()
@@ -51,7 +42,10 @@ export const store = new Vuex.Store({
     FETCH_OFFERS(state, offer) { //commit, ktery naplni serverData, pouzito v action fetchUser()
       state.allOffers = offer
     },
-    set_currentProfile( state, currentProfile ) {
+    setUserLoged(state, userLoged) { //naplni objekt zalogovanym userem
+      state.userLoged = userLoged
+    },
+    set_currentProfile( state, currentProfile ) {//objekt aktualniho profilu po kliknuti na profil
       state.currentProfile = currentProfile
     },
     set_currentOffer(state, index) { //commit, který naplní currentOfferIndex
@@ -59,18 +53,6 @@ export const store = new Vuex.Store({
     },
     set_currentOfferIndex(state, index) { //commit, který naplní currentOfferIndex
       state.currentOfferIndex = index
-    },
-    setLoged(state, loged) { //zalogován?
-      state.loged = loged
-    },
-    setLogedId(state, id) {
-      state.userLogedId = id
-    },
-    setUserLoged(state, userLoged) { //kdo je zalogován
-      state.userLoged = userLoged
-    },
-    setUserImgs(state, img) { //vrati imgs aktualniho profilu
-      state.userImages = img
     },
     setJobFilter(state, job) { //commit nastavi jobFilter
       state.jobFilter = job
@@ -86,10 +68,8 @@ export const store = new Vuex.Store({
     },
     setAllOffers(state, offer) {
       state.allOffers = offer
-    },
-    setHelpData(state, data) {
-      state.helpData = data
     }
+
 
   },
   getters: { //to samy jako computed. Kdyz budu chtit vratit neco slozitejsiho nez jen this.$store.state.loged tak pouziju getter a v komponente volam jen getter v computed this.$store.getters.NejakejGetter

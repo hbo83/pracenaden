@@ -1,13 +1,14 @@
 <template>
 <!-- <v-app> -->
-  <div class="login">
-    <v-content>
-      <v-container class="fill-height" fluid>
+  <!-- <div class="login"> -->
+    <!-- <v-content> -->
+      <v-container class="py-0">
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="12" md="12">
-            <v-card class="elevation-12">
+          <v-col cols="12" sm="12" md="12" xs="12" lg="12">
+            <v-card>
               <v-toolbar color="#90e4f1" dark flat>
-                <v-toolbar-title>Přihlásit se</v-toolbar-title>
+                <v-toolbar-title><v-btn color="error" @click="closeDialog">zavřít</v-btn></v-toolbar-title>{{dialogState}}
+                <!-- <v-toolbar-title>Přihlásit se</v-toolbar-title> -->
                 <v-spacer></v-spacer>
 
 
@@ -30,8 +31,8 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
-  </div>
+    <!-- </v-content> -->
+  <!-- </div> -->
 <!-- </v-app> -->
 </template>
 
@@ -45,7 +46,6 @@ export default {
   name: 'Login',
   data() {
     return {
-      // alert: false,
       password: '',
       nameRules: [
         v => !!v || 'Jméno je vyžadováno',
@@ -59,36 +59,27 @@ export default {
     }
   },
   methods: {
-
+    closeDialog() {//zavře prihlasovaci dialog
+      this.$store.commit('set_loginDialogState', false)
+    },
     logIn() {
-      // this.alert = true
-      let currentObj = this;
-
+      // let currentObj = this;
       var request = {
         params: {
           login: [this.email, this.password]
         }
       }
 
-      this.$store.commit('setLoged', true)
-      // this.$store.commit('setUserLoged', this.email)
-      console.log(this.$store.state.userLoged)
+      // this.$store.commit('setLoged', true)//po loginu se ve storu nastavi ze je user zalogovan
 
       axios.get('http://10.0.0.22:8081/users/', request).then((response) => {
           console.log(response.data);
           alert("Nyní jste přihlášen jako" + " " + response.data[0].email);
-          // localStorage.setItem("userLoged", response.data[0].email);
-          // localStorage.setItem("userLoged_id", response.data[0]._id);
 
-          this.$store.commit('setUserLoged', response.data[0].email)
-          this.$store.commit('setLogedId', response.data[0]._id)
-          this.$store.commit('set_loginDialogState', false)
+          this.$store.commit('setUserLoged', response.data[0])//ulozi do storu objekt zalogovaneho usera
+          // this.$store.commit('setLogedId', response.data[0]._id)//ulozi do storu _id zalogovaneho usera, ale to preci muzu hodit do jednoho objektu
+          this.$store.commit('set_loginDialogState', false)//je dialog open ci ne? je ve storu ptze tlacitko je v jine komponente
         })
-        // .then(this.$router.push({
-        //   name: 'home',
-        //   params: {}
-        // })
-      // )
         .catch((error) => {
           // console.log(error);
           alert("Heslo nebo email nesouhlasí")
@@ -103,7 +94,11 @@ export default {
     //   this.$store.commit('setUserLoged', user)
     // }
   },
-
+  computed: {
+    dialogState() {
+      return this.$store.state.dialogState
+    }
+  },
   components: {
     Header
   }
